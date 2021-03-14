@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"> 
+	
+<h:head></h:head> 
+<body> 
+	<h:form id="arqhojafolleto" enctype="multipart/form-data">
+		<p:commandButton value="Generar" actionListener="#{ArquitecturaMB.cargarTemplateGen()}" update="hoja" />
+		<c:forEach items="#{ArquitecturaMB.tsRowGen}" var="row">
+			4
+		</c:forEach>
+		<h:panelGroup id="hoja" >
+			<c:forEach items="${ArquitecturaMB.tsRowGen}" var="rows">
+				<h:panelGrid columns="#{ArquitecturaMB.rowColumns(1).size()}" style="margin-left:50px;">
+					<c:forEach items="${ArquitecturaMB.rowColumns(1)}" var="cols">
+						<p:outputPanel styleClass="slot">
+							${cols.segName}
+						</p:outputPanel>
+					</c:forEach>
+				</h:panelGrid>
+			</c:forEach>
+		</h:panelGroup>
+	
+	</h:form>
+</body> 
+</html>

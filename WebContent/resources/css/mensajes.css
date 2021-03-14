@@ -1,0 +1,58 @@
+.warning,.error,.info,.success {
+	padding: 10px 10px 10px 10px;
+	margin-bottom: 5px;
+	margin-left: 5px;
+	border: 1px solid;
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 1.1em;
+	background-position: 10px 10px;
+	background-repeat: no-repeat;
+	overflow: visible;
+}
+
+.warning {
+	color: rgb(201, 152, 134);
+	background-color: rgb(252, 248, 227);
+	border-color: rgb(251, 238, 213);
+}
+
+.error {
+	color: rgb(185, 74, 72);
+	background-color: rgb(242, 222, 222);
+	border-color: rgb(238, 211, 215);
+}
+
+.info {
+	color: rgb(89, 135, 173);
+	background-color: rgb(217, 237, 247);
+	border-color: rgb(188, 232, 241);
+}
+
+.botton {
+	display: block;
+	float: right;
+	padding-right: 8px;
+	padding-top: 8px;
+}
+
+
+a{
+	text-decoration:underline;
+	cursor:pointer;
+}
+
+a:link {color:black;}    /* unvisited link */
+a:visited {color:black;} /* visited link */
+a:hover {color:black;}   /* mouse over link */
+a:active {color:black;}  /* selected link */
+
+
+
+
+
+.frame{
+	 border:none;
+	 overflow-y: hidden;
+	 overflow-x:hiden;  
+	
+}

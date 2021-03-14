@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated 11/12/2013 11:06:00 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.TblFolletoHojas" table="TBL_FOLLETO_HOJAS">
+        <id name="idHoja"  type="java.lang.Integer">
+            <column name="ID_HOJA" />
+            <generator class="native" />
+        </id>
+        
+        <property name="idFolleto" type="int">
+            <column name="ID_FOLLETO" />            
+        </property>
+        
+       <property name="idTemplate"  type="java.lang.Integer">
+            <column name="TEMPLATE_ID" />            
+        </property>
+        
+        <property name="idDesigner"  type="java.lang.Integer">
+            <column name="ID_DESIGNER" />            
+        </property>
+        
+        <property name="idUserInvitado" type="int">
+            <column name="ID_USER_INVITADO"/>
+        </property>
+        <property name="idScategory" type="int">
+            <column name="ID_SCATEGORY"/>
+        </property>
+        <property name="idCategory" type="int">
+            <column name="ID_CATEGORY"/>
+        </property>
+        <property name="idSistemaVenta" type="java.lang.Integer">
+            <column name="ID_SISTEMA_VENTA"/>
+        </property>
+        <property name="numHoja" type="java.lang.Short">
+            <column name="NUM_HOJA" not-null="true"/>
+        </property>
+                
+        <property name="estatus"  type="java.lang.Character">
+            <column name="ESTATUS" />            
+        </property> 
+        
+        <property name="idHojaPadre"  type="int">
+            <column name="HOJA_PARENT_ID" />            
+        </property>         
+        
+        <property name="hojaParentSegId"  type="int">
+            <column name="HOJA_PARENT_SEG_ID" />            
+        </property>   
+        
+        <property name="diseno" type="java.sql.Blob">
+            <column name="DISENO"/>
+        </property>
+		<set name="articulos"  fetch="join"  inverse="true"  cascade="all-delete-orphan"     >
+            <key>
+                <column name="ID_HOJA" not-null="true" />
+            </key>
+            <one-to-many class="com.adinfi.seven.business.domain.TblArticulosHoja"      />
+        </set>         
+        
+        <set name="childHojas"  fetch="join"      >
+            <key    >
+                <column  name="HOJA_PARENT_ID" not-null="false" />
+                
+            </key>
+            <one-to-many class="com.adinfi.seven.business.domain.TblFolletoHojas"      />
+        </set>  
+        
+       <many-to-one name="template" column="TEMPLATE_ID"  update="false" insert="false" 
+       class="com.adinfi.seven.business.domain.TblTemplate"  >
+        </many-to-one>
+       </class> 
+</hibernate-mapping>

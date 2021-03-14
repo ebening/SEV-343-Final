@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+<h:head>
+
+<h:outputStylesheet library="css" name="adMaster.css" />
+	<script type="text/javascript">
+//<![CDATA[
+           
+function buscar(_tagName,_fieldName) {
+    var elements = document.getElementsByTagName(_tagName);
+    if (elements != null && elements.length != 0) {    
+        for (i=0, x=elements.length; i < x; i++) {
+            var myid=elements[i].id+'#';
+            if(myid.match(_fieldName+'#') != null) {
+                return elements[i];
+            }
+        }
+    }
+    return 'NOID';
+}
+           
+function guardar() {
+	//alert(document.getElementById("segmento").value);
+	//alert(document.getElementById("template").value);
+	var tempId=buscar('*','temp').value;
+	var idx=buscar('input','segmento').value;
+	window.opener.document.getElementById("col_seg_"+idx).value=tempId;
+	buscar('*','temp').value=0;
+	window.close();
+}
+
+function salir(){
+	window.close();
+}
+//]]>
+</script>
+</h:head>
+<h:body>
+	<h:form id="asociarsegmento" enctype="multipart/form-data">
+		<f:metadata>
+			<f:viewParam name="selectId" value="#{ArquitecturaMB.tempSegId}" />
+			<f:viewParam name="idx" value="#{ArquitecturaMB.segmentoId}" />
+		</f:metadata>
+		<h:inputHidden id="segmento" value="#{ArquitecturaMB.segmentoId}" />
+		<h:inputHidden id="temp" value="#{ArquitecturaMB.tempSegId}" />
+		<h:panelGrid columns="1">
+			<p:graphicImage value="../resources/images/Logo_Admaster_35.png" />
+			<p:separator id="separator" />
+		</h:panelGrid>
+		<p:panel header="Asociar Segmento" styleClass="panel-form">
+		<h:panelGrid id="panelSegmento" columns="2" cellpadding="0"
+			cellspacing="15"
+			style="border:none!important;text-align: left!important;">
+			<h:outputLabel for="template" value="Template:" />
+			<p:selectOneMenu value="#{ArquitecturaMB.tempSegId}" id="template">
+				<f:selectItem itemLabel="Seleccione" itemValue="0" />
+				<f:selectItems value="#{ArquitecturaMB.cmbTempSeg}" />
+				<p:ajax event="change" update="temp" />
+			</p:selectOneMenu>
+			<f:facet name="footer">
+				<p:commandButton styleClass="common-button" value="Guardar" onclick="guardar();" />
+				<p:commandButton styleClass="common-button" value="Cancelar" onclick="salir();" />
+			</f:facet>
+		</h:panelGrid>
+		</p:panel>
+	</h:form>
+</h:body>
+</html>

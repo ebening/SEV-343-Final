@@ -1,0 +1,271 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+<h:head>
+	<h:outputStylesheet library="css" name="ReportesStyle.css" />
+</h:head>
+
+<h:form id="inventario"  rendered="#{reporteController.reporteInventario}">
+
+<p:ajaxStatus onstart="openLoading()" oncomplete="closeLoading()" />
+
+		<div>
+			<!-- Zona del titulo -->
+			<span> <h:outputLabel style="color:#98020E;font-weight:bold; font-size:12px;"
+					value="Reporte de Inventario" />
+			</span>
+			
+
+
+			<!-- Ubicacion de Los botones -->
+			<div class="botonesUbicacion">
+				<div class="botonesUbicacion">
+					<h:panelGrid columns="2">
+				
+					<h:panelGroup id="exportar" styleClass="botonesUbicacion">	
+
+						<p:commandLink  ajax="false"  rendered="#{reporteController.reporteInventarioSKU}"  styleClass="excel-button">  
+			
+				            <p:dataExporter type="xls" target="reporte" fileName="ReporteInventario"  />  
+				        </p:commandLink>  
+				  
+				        <p:commandLink  actionListener="#{reporteController.createPDFInventario}"   ajax="false"  rendered="#{reporteController.reporteInventarioSKU}" styleClass="pdf-button">  
+				        </p:commandLink>  
+				        
+				        <p:commandLink  ajax="false"  rendered="#{reporteController.reporteInventarioFiltro}" styleClass="excel-button">  
+				            <p:dataExporter type="xls" target="reporteFiltro" fileName="ReporteInventario-#{reporteController.opcionTotalizar}" />  
+				        </p:commandLink>  
+				  
+				        <p:commandLink  actionListener="#{reporteController.createPDFInventarioFiltro}"   ajax="false"  rendered="#{reporteController.reporteInventarioFiltro}"  styleClass="pdf-button">  
+				        </p:commandLink>  
+				    
+				</h:panelGroup>
+
+				</h:panelGrid>
+				</div>
+				<div>
+					<p:commandButton value="Generar Reporte"  style="font-size:10px; width:130px;"
+						id="generarReporte"  ajax="true" update="info,exportar" 
+             			actionListener="#{reporteController.generarReporteInventario}"  styleClass="common-button" />
+				</div>
+			</div>
+			<!-- Fin de la zona de Botones -->
+			<!-- Fin de la zona del Titulo -->
+		</div>
+		
+		<div>
+			<!-- Zona del pequeño formulario -->
+			<table>
+				<tr>
+					<td><p:outputLabel  style="font-weight:bold; font-size:12px;" value="Tipo Medio :"  styleClass="leyenda" /></td>
+					
+					<td>	
+							<p:selectOneMenu style="font-size:12px; width:150px;" id="tipoMedio" value="#{reporteController.tipo}"  styleClass="comboSmall" >
+							<f:selectItems value="#{reporteController.tipos}" var="tipo" itemValue="#{tipo.value}" itemLabel="#{tipo.label}" />
+							</p:selectOneMenu>
+					</td>
+						<td width="50px"></td>
+					<td><p:outputLabel value="Publicidad :"
+							style="font-weight:bold; font-size:12px;" styleClass="leyenda" /></td>
+					<td><p:selectOneMenu style="font-size:12px; width:150px;">
+										<f:selectItem itemLabel="#{msg.Todas}" itemValue="0" />  
+		                				<f:selectItems  value="#{reporteController.mecanicasMap}" />
+									</p:selectOneMenu></td>
+					<td width="50px"></td>
+					<td><p:outputLabel style="font-weight:bold; font-size:12px;" value="Folio :"  styleClass="leyenda"  /></td>
+					<td>
+						<p:inputText  style="font-size:12px; width:100px;"  id="folioInventario" value="#{reporteController.folio}" required="true" requiredMessage="#{msg.mensajeFolioRequerido}"  styleClass="inputTextSmall">
+						<f:validateLength minimum="1" /> 
+	        			</p:inputText>
+	        		</td>
+				</tr>
+			</table>
+		</div>
+		<!-- Fin de la Zona del pequeño formulario -->
+	
+	<h:panelGroup id="info" >	
+	<h:panelGroup id="info2" rendered="#{!reporteController.reporteHide}">	
+		<table id="infoReporte" >
+			
+			<tr>
+			
+				<td>
+					<p:outputLabel style="font-weight:bold; font-size:12px;" styleClass="leyenda"  value="Campaña :" />
+				</td>
+				<td>
+					<p:outputLabel style="font-size:12px;" styleClass="leyenda_info" value="#{reporteController.cabecera.nombreCampania}" />
+				</td>
+				<td width="50px"></td>
+				<td>
+					<p:outputLabel style="font-weight:bold; font-size:12px;" styleClass="leyenda"  value="Vigencia :" />
+				</td>
+				<td>
+					<p:outputLabel style="font-size:12px;" styleClass="leyenda_info" value="#{reporteController.cabecera.vigencia}" />
+				</td>
+			</tr>
+			
+			</table>
+			
+		<h:panelGrid  columns="5"  rendered="#{!reporteController.reporteHide}">	
+			<h:outputText style="font-weight:bold; font-size:12px;" styleClass="leyenda"  value="Totalizar por: " />  
+	        <p:selectOneRadio style="font-size:12px;" id="options" value="#{reporteController.opcionTotalizar}">  
+	            <f:selectItem  styleClass="leyenda_info" itemLabel="#{msg.sku}" itemValue="SKU" />  
+	            <f:selectItem styleClass="leyenda_info" itemLabel="#{msg.distrito}" itemValue="Distrito" />  
+	            <f:selectItem styleClass="leyenda_info" itemLabel="#{msg.zona}" itemValue="Zona" />
+	            <f:selectItem styleClass="leyenda_info" itemLabel="#{msg.sucursal}" itemValue="Sucursal" />
+	            
+	            <p:ajax change="change" listener="#{reporteController.radioButtonChangeInventario}" update="info,exportar" />  
+	        </p:selectOneRadio>  
+	       </h:panelGrid>
+			
+			
+			<p:dataTable id="reporte" var="detalle" paginatorPosition="bottom" style="font-size:10px;"
+			value="#{reporteController.infoReporteInventarioSku}"
+     			emptyMessage="#{msg.tblProductosVacia}"  rendered="#{reporteController.reporteInventarioSKU}" 
+     			paginator="true" rows="30"  sortMode="multiple">
+     			
+     			<p:column sortBy="#{detalle.distrito}" >
+						<f:facet name="header">
+							<h:outputText style="font-weight:bold; font-size:12px" value="#{msg.distrito}" />
+						</f:facet>
+						<h:outputText value="#{detalle.distrito}"    />
+				</p:column>
+				
+				<p:column sortBy="#{detalle.zonaNombre}">
+						<f:facet name="header">
+							<h:outputText style="font-weight:bold; font-size:12px" value="#{msg.zona}" />
+						</f:facet>
+						<h:outputText value="#{detalle.zonaNombre}"   />
+				</p:column>
+				
+				<p:column sortBy="#{detalle.sucursal}">
+						<f:facet name="header">
+							<h:outputText style="font-weight:bold; font-size:12px" value="#{msg.sucursal}" />
+						</f:facet>
+						<h:outputText value="#{detalle.sucursal}"   />
+				</p:column>
+
+
+	        	<p:column sortBy="#{detalle.sku}" style="width:10%">
+						<f:facet name="header">
+							<h:outputText style="font-weight:bold; font-size:12px" value="#{msg.sku}" />
+						</f:facet>
+						<h:outputText value="#{detalle.sku}"   />
+				</p:column>		
+
+				<p:column sortBy="#{detalle.descripcion}" style="width:35%">
+					<f:facet name="header">
+						<h:outputText style="font-weight:bold; font-size:12px"  value="#{msg.descripcionSKU}" />
+					</f:facet>
+					<h:outputText value="#{detalle.descripcion}"   />
+				</p:column>
+				
+				<p:column sortBy="#{detalle.categoria}">
+						<f:facet name="header">
+							<h:outputText style="font-weight:bold; font-size:12px"  value="#{msg.Categoria}" />
+						</f:facet>
+						<h:outputText value="#{detalle.categoria}"   />
+				</p:column>
+				
+				<p:column sortBy="#{detalle.subcategoria}">
+						<f:facet name="header">
+							<h:outputText style="font-weight:bold; font-size:12px" value="#{msg.SubCategoria}" />
+						</f:facet>
+						<h:outputText value="#{detalle.subcategoria}"   />
+				</p:column>
+				
+				<p:column sortBy="#{detalle.inventarioTiendaFormato}" style="width: 100px; text-align: right;" >
+						<f:facet name="header">
+							<h:outputText style="font-weight:bold; font-size:12px" value="#{msg.invTienda}" />
+						</f:facet>
+							<h:outputText   value="#{detalle.inventarioTiendaFormato}"   />
+				</p:column>
+				
+				<p:column sortBy="#{detalle.inventarioCedisFormato}" style="width: 100px; text-align: right;" >
+						<f:facet name="header">
+							<h:outputText style="font-weight:bold; font-size:12px" value="#{msg.invCedis}" />
+						</f:facet>
+							<h:outputText  value="#{detalle.inventarioCedisFormato}"  />
+				</p:column>
+				
+				<p:column sortBy="#{detalle.inventarioTransitoFormato}" style="width: 100px; text-align: right;" >
+						<f:facet name="header">
+							<h:outputText style="font-weight:bold; font-size:12px" value="#{msg.invTransito}" />
+						</f:facet>
+							<h:outputText  value="#{detalle.inventarioTransitoFormato}"   />
+				</p:column>
+				
+			<p:columnGroup type="footer">  
+	            <p:row>  
+	                <p:column style="font-weight:bold;" colspan="7" footerText="#{msg.total}:"   />  
+	  
+	                <p:column  footerText="#{reporteController.totalITISku}" />  
+	                
+	                <p:column  footerText="#{reporteController.totalICSku}" /> 
+	  
+	                <p:column  footerText="#{reporteController.totalITRSku}" />  
+	            </p:row>  
+	        </p:columnGroup>  
+  
+								
+				
+			</p:dataTable>
+			
+			
+			<p:dataTable id="reporteFiltro" var="detalle" value="#{reporteController.infoReporteInventarioFiltro}"
+				paginatorPosition="bottom" style="font-size:10px;"
+     			emptyMessage="#{msg.tblProductosVacia}"  rendered="#{reporteController.reporteInventarioFiltro}"  paginator="true" rows="30">
+     			
+     			<p:column sortBy="#{detalle.filtro}">
+						<f:facet name="header">
+							<h:outputText style="font-weight:bold; font-size:12px" value="#{reporteController.opcionTotalizar}" />
+						</f:facet>
+						<h:outputText value="#{detalle.filtro}" />
+				</p:column>
+				
+				<p:column  sortBy="#{detalle.inventarioTiendaFormato}" >
+						<f:facet name="header">
+							<h:outputText style="font-weight:bold; font-size:12px"  value="#{msg.invTienda}" />
+						</f:facet>
+						<h:outputText value="#{detalle.inventarioTiendaFormato}"   />
+				</p:column>
+				
+				<p:column  sortBy="#{detalle.inventarioCedisFormato}" >
+						<f:facet name="header">
+							<h:outputText style="font-weight:bold; font-size:12px"  value="#{msg.invCedis}" />
+						</f:facet>
+						<h:outputText  value="#{detalle.inventarioCedisFormato}"   />
+				</p:column>
+				
+				<p:column sortBy="#{detalle.inventarioTransitoFormato}" >
+						<f:facet name="header">
+							<h:outputText style="font-weight:bold; font-size:12px" value="#{msg.invTransito}" />
+						</f:facet>
+						<h:outputText   value="#{detalle.inventarioTransitoFormato}"  />
+				</p:column>
+				
+			<p:columnGroup  type="footer">  
+	            <p:row>  
+	               <p:column style="font-weight:bold; " colspan="1" footerText="#{msg.total}:" />  
+	  
+	               <p:column   footerText="#{reporteController.totalITISku}" />  
+	                
+	                <p:column  footerText="#{reporteController.totalICSku}" /> 
+	  
+	                <p:column   footerText="#{reporteController.totalITRSku}" />  
+	            </p:row>  
+	        </p:columnGroup>  
+  
+								
+				
+			</p:dataTable>
+				
+ 	</h:panelGroup>
+	</h:panelGroup>
+	
+</h:form>
+</ui:composition>

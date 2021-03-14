@@ -1,0 +1,270 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:dialog modal="false" widgetVar="dlgVerDisenoPrecio" id="dialogoVerDisenoPrecio"
+		styleClass="common-dialog" header="Ver Diseño">
+            <h:form id="verDisenoForm">
+			<p:panelGrid id="gridVerDisenoPrecio" style="width: 500px;"
+				styleClass="grid-content">
+				<p:row>
+					<p:column>
+						
+                        <table>
+							<tr>
+								<td><p:outputLabel value="Programa:" /></td>
+								<td>
+                                    <p:selectOneMenu value="#{mbArquitectura.verDisenoProgramaId}">
+										<f:selectItem itemLabel="Seleccione" itemValue="-1" />
+										<f:selectItems value="#{mbArquitectura.lPrograms}"
+											var="program" 
+                                            itemLabel="#{program.nombre}"
+											itemValue="#{program.idPrograma}" />
+                                    <!--	<f:ajax  rendered="verDisenoMecanidaPrecio" execute="@form" /> -->
+                                    <p:ajax event="change" listener="#{mbArquitectura.valueChangeVerDisenoPrograma()}"
+                                            update="verDisenoMecanidaPrecio" process="@this" />
+                                    </p:selectOneMenu>
+                                </td>
+								<td><p:outputLabel value="Mecánica:" /></td>
+								<td>
+                                    <p:selectOneMenu
+										value="#{mbArquitectura.verDisenoIdMecanica}"
+										id="verDisenoMecanidaPrecio">
+										<f:selectItem itemLabel="Seleccione" itemValue="-1" />
+                                        <!--
+                                        <f:selectItems value="#{mbArquitectura.obtenerMecanicas}"/>
+                                        -->
+                                        <f:selectItems value="#{mbArquitectura.obtenerMecanicas()}"
+											var="program" 
+                                            itemLabel="#{program.nombre}"
+                                            itemValue="#{program.idMecanica}" />
+                                        
+                                        <p:ajax update="verDisenoMecanidaPrecio"></p:ajax>
+									</p:selectOneMenu>
+                                    
+                                </td>
+								<td><p:outputLabel value="Señalamiento:" /></td>
+								<td>
+                                    
+                                    <p:selectCheckboxMenu value="#{mbArquitectura.verDisenoLSenalamiento}" 
+                                                                  label="Señalamientos" 
+                                                                  filter="true"
+                                                                  filterMatchMode="startsWith" 
+                                                                  styleClass="element-margin-top" 
+                                                                  style="width: 95px; text-align: left" 
+                                                                  >
+
+                                                    <f:selectItems value="#{mbArquitectura.mCatSignals}" 
+                                                                   var="signal"
+                                                                   itemLabel="#{signal.nombre}" 
+                                                                   itemValue="#{signal.idSenal}"/>
+                                                    <!--
+                                                    <p:ajax update="gridPromocion2" event="change" />
+                                                    -->
+                                    </p:selectCheckboxMenu>
+                                    
+                                </td>
+							</tr>
+							<tr>
+								<td><p:outputLabel value="Grupo Zonas:" /></td>
+								<td>
+                                    <p:selectCheckboxMenu 
+                                        value="#{mbArquitectura.verDisenoGrupoZonas}" 
+                                        label="Grupos Zonas" 
+                                        filter="true" 
+                                        filterMatchMode="startsWith" 
+                                        styleClass="element-margin-top" 
+                                        style="width: 95px; text-align: left">
+                                        
+                                        <f:selectItems 
+                                           value="#{mbArquitectura.mGruposZone}" 
+                                           var="gZone"
+                                           itemLabel="#{gZone.idGrupoZona} #{gZone.code}"
+                                           itemValue="#{gZone.idGrupoZona}" />								
+                                     <!--	<f:ajax render="crearEventoZonasPromo crearPromoTiendas" execute="@form"/> -->
+                                         <p:ajax event="change" onstart = "showCmbLoading();" oncomplete="closeCmbLoading();" update="crearEventoZonasPromo crearPromoTiendas" />
+
+                                     </p:selectCheckboxMenu>
+                                </td>
+								<td><p:outputLabel value="Zonas:" /></td>
+								<td>
+                                    
+                                    <p:selectCheckboxMenu 
+                                        value="#{mbArquitectura.verDisenoZonas}" 
+                                        label="Zonas" 
+                                        filter="true" 
+                                        filterMatchMode="startsWith" 
+                                        styleClass="element-margin-top" 
+                                        style="width: 95px; text-align: left" 
+                                        id="crearEventoZonasPromo"
+                                        >							
+                                         <f:selectItems 
+                                            value="#{mbArquitectura.mZones}" 
+                                            var="zone"
+                                            itemLabel="#{zone.idZone} #{zone.code}"
+                                            itemValue="#{zone.idZone}" />	
+                                     <!--	<f:ajax render="crearPromoTiendas" execute="@form"/> -->
+                                         <p:ajax event="change" onstart = "showCmbLoading();" oncomplete="closeCmbLoading();" update="crearPromoTiendas" />
+
+                                     </p:selectCheckboxMenu>
+                                
+                                </td>
+								<td><p:outputLabel value="Tienda:" /></td>
+								<td>
+                                    <p:selectCheckboxMenu 
+                                        value="#{mbArquitectura.verDisenoTiendas}"
+                                        label="Tiendas" 
+                                        filter="true"
+                                        filterMatchMode="startsWith"
+                                        styleClass="element-margin-top"
+                                        id="crearPromoTiendas"
+                                        style="width: 95px; 
+                                        text-align: left"
+                                    >
+                                        <f:selectItems value="#{mbArquitectura.mStores}" 
+                                                       var="store"
+                                                       itemLabel="#{store.idStore} #{store.code}" 
+                                                       itemValue="#{store.idStore}" />
+                                    </p:selectCheckboxMenu>
+                                </td>
+							</tr>
+						</table>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<div align="right">
+							<p:commandButton styleClass="common-button" 
+                                             onstart="muestraLoader();"
+                                             oncomplete="ocultaLoader();"
+                                             value="Buscar" 
+                                             process="verDisenoForm"  
+                                             update="dataGridImagesPrecios"
+								action="#{mbArquitectura.verDisenoSearch}" />
+						</div>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:dataGrid var="itemDiseno" value="#{mbArquitectura.disenosLst}"
+							columns="3" rows="6" id="dataGridImagesPrecios" paginator="true"
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							emptyMessage="Vacio" 
+							styleClass="grid-content-no-borders">
+							<p:column>
+								<h:panelGrid columns="2" cellpadding="0" cellspacing="0"
+									border="1" style="font-size:xx-small">
+									<h:column>
+                                                                            <a href="javascript:new_window('data:image/gif;base64,#{itemDiseno.imageStr}')"> <img alt="" src="data:image;base64,#{itemDiseno.imageStr}" height="100" width="100" /> </a>
+                                                                              
+								<script language="JavaScript" type="text/javascript">
+
+
+function new_window(url) {
+
+link = window.open(url,"Link","toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=yes,resizable=0,width=430,height=300,left=80,top=180");
+
+}
+
+</script>
+
+									</h:column>
+									<h:column>
+										<p:scrollPanel mode="native" style="width: 300px; height: auto">
+										<table cellspacing="0" border="0" cellpadding="0">
+											<tr>
+												<td><h:outputLabel value="Programa:"
+														style="font-weight:bold" /> <h:outputLabel
+														value="#{itemDiseno.programaStr}" /></td>
+											</tr>
+											<tr>
+												<td><h:outputLabel value="Mecánica:"
+														style="font-weight:bold" /> <h:outputLabel
+														value="#{itemDiseno.mecanicaStr}" /></td>
+											</tr>
+											<tr>
+												<td><h:outputLabel value="Señalamiento:"
+														style="font-weight:bold" /> <h:outputLabel
+														value="#{itemDiseno.senalamientoStr}" /></td>
+											</tr>
+											<tr>
+												<td><h:outputLabel value="Grupo Zona:"
+														style="font-weight:bold" /> <h:outputLabel
+														value="#{itemDiseno.grupoZonaStr}" /></td>
+											</tr>
+											<tr>
+												<td><h:outputLabel value="Zona:"
+														style="font-weight:bold" /> <h:outputLabel
+														value="#{itemDiseno.zonaStr}" /></td>
+											</tr>
+											<tr>
+												<td><h:outputLabel value="Tienda:"
+														style="font-weight:bold" /> <h:outputLabel
+														value="#{itemDiseno.storeStr}" /></td>
+											</tr>
+											<tr>
+												<td><h:outputLabel value="Estatus por Precio:"
+														style="font-weight:bold" /> <h:outputLabel
+														value="#{itemDiseno.preciosAuthBStr}" /></td>
+											</tr>
+											<tr>
+												<td><h:outputLabel value="Estatus por Category:" style="font-weight:bold" />
+													<h:outputLabel value="#{itemDiseno.categoryAuthBStr}" /></td>
+											</tr>
+											<tr>
+												<td><h:outputLabel value="Estatus:"
+														style="font-weight:bold" /> <h:outputLabel
+														value="#{itemDiseno.authStr}" /></td>
+											</tr>
+											<tr>
+												<td>
+													<p:selectBooleanButton value="#{itemDiseno.selected}" onIcon="ui-icon-check" offIcon="ui-icon-close"
+																		   onLabel="Seleccionado" offLabel="Seleccionar" />
+												</td>
+											</tr>
+										</table>
+										</p:scrollPanel>
+									</h:column>
+								</h:panelGrid>
+							</p:column>
+						</p:dataGrid>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<table>
+							<tr>
+								<td><p:selectOneRadio id="verDisenoAutorizadoPrecio"
+										value="#{mbArquitectura.verDisenoAutorizado}">
+										<f:selectItem itemLabel="Autorizar" itemValue="1" />
+										<f:selectItem itemLabel="Rechazar" itemValue="0" />
+									</p:selectOneRadio></td>
+							</tr>
+							<tr>
+								<td width="20%"><p:outputLabel value="Comentario Diseño:" />
+								</td>
+								<td><p:inputTextarea
+										value="#{mbArquitectura.verDisenoComentarios}"
+										autoResize="true" maxlength="250" cols="50" /></td>
+								<td width="20%">
+									<div style="vertical-align: bottom">
+										<p:commandButton 
+                                                  styleClass="common-button" 
+                                                  value="Guardar"
+											      partialSubmit="true" 
+                                                  onstart="muestraLoader();"
+                                                  oncomplete="dlgVerDisenoPrecio.hide(); ocultaLoader();"
+											      action="#{mbArquitectura.verDisenoGuardar}" />
+									</div>
+								</td>
+							</tr>
+						</table>
+					</p:column>
+				</p:row>
+			</p:panelGrid>
+		</h:form>
+	</p:dialog>
+</ui:composition>

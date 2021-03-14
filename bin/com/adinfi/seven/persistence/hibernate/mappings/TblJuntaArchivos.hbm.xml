@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated 17/12/2013 10:06:00 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.TblJuntaArchivos" table="TBL_JUNTA_ARCHIVOS">
+        <id name="id" type="int">
+            <column name="ID" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="tblJuntaPlaneacion" class="com.adinfi.seven.business.domain.TblJuntaPlaneacion" fetch="select">
+            <column name="ID_JUNTA" not-null="true"/>
+        </many-to-one>
+        <property name="url" type="java.lang.String">
+            <column name="URL" />
+        </property>
+        <property name="sizeFile" type="int">
+            <column name="SIZE_FILE" />
+        </property>
+        <property name="mimeType" type="java.lang.String">
+            <column name="MIME_TYPE" />
+        </property>
+    </class>
+</hibernate-mapping>

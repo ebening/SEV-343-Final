@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:form id="userForm">
+    <h1 class="title">#{MBCatUsuarios.catalogName}</h1>
+    <p:messages id="messages" autoUpdate="true" closable="true" />
+    
+    <h:panelGroup id="userPanel">
+        <p:panelGrid columns="2" >
+            <h:outputLabel for="idUser" value="# EMPLEADO" />
+            <p:inputText id="idUser" label="# de Empleado" value="#{MBCatUsuarios.usuario.nempleado}" required="#{not empty param.includeInSave1}" size="50" >
+                <f:validateLength minimum="2" maximum="100" />
+            </p:inputText>
+            
+            <h:outputLabel for="name" value="NOMBRE"/>
+            <p:inputText id="name" label="Nombre" value="#{MBCatUsuarios.usuario.nombre}" required="#{not empty param.includeInSave1}" size="50">
+                <f:validateLength minimum="2" maximum="100" />
+            </p:inputText>	 
+        	
+            <h:outputLabel for="plastname" value="APELLIDO PATERNO" />
+            <p:inputText id="plastname" label="Apellido Paterno" value="#{MBCatUsuarios.usuario.plastName}" required="#{not empty param.includeInSave1}" size="50" >
+        	<f:validateLength minimum="2" maximum="100" />
+            </p:inputText>
+        
+            <h:outputLabel for="mlastname" value="APELLIDO MATERNO" />
+            <p:inputText id="mlastname" label="Apellido Materno" value="#{MBCatUsuarios.usuario.mlastName}" required="#{not empty param.includeInSave1}" size="50">
+        	<f:validateLength minimum="2" maximum="100" />
+            </p:inputText>
+        	
+            <h:outputLabel for="jefe" value="JEFE" />
+            <p:selectOneMenu id="jefe" value="#{MBCatUsuarios.jefeSelected}" >
+        	<f:selectItem itemLabel="Sin Jefe" itemValue="1" />
+        		<f:selectItems value="#{MBCatUsuarios.usuariosAll}" />
+            </p:selectOneMenu>
+        	
+            <h:outputLabel for="correo" value="CORREO" />
+            <p:inputText id="correo" value="#{MBCatUsuarios.usuario.email}" required="#{not empty param.includeInSave1}"  label="Email" validatorMessage="#{settingsBean.aFriendEmail} is not valid" size="50">
+        	<f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+            </p:inputText>
+
+            <h:outputLabel for="role" value="ROLE" />
+            <p:selectOneMenu id="role" value="#{MBCatUsuarios.usuario.catRole}" >
+        	<f:selectItems value="#{MBCatUsuarios.roleAll}" var="r" >
+                    <f:selectItem itemLabel="#{r.desc}" itemValue="#{r}" />
+        	</f:selectItems>
+            </p:selectOneMenu>
+
+            <h:outputLabel for="categos" value="CATEGORIAS" />
+            <p:selectCheckboxMenu label="Categorias" id="categos" value="#{MBCatUsuarios.categoriasSelected}" filter="true" filterMatchMode="startsWith" >
+                <f:selectItems value="#{MBCatUsuarios.categorias}" var="categos" itemLabel="#{categos.code}" itemValue="#{categos.idCategory}" />
+            </p:selectCheckboxMenu>
+
+            <h:outputLabel for="level1" value="NIVEL 1" />
+            <p:selectBooleanCheckbox id="level1" value="#{MBCatUsuarios.level1}" />
+        	
+            <h:outputLabel for="inactive" value="DESACTIVADO" />
+            <p:selectBooleanCheckbox id="inactive" value="#{MBCatUsuarios.inactive}" />
+            <h:outputText value="&#160;" />
+            <h:outputText value="&#160;" />
+            
+            <h:outputLabel for="login" value="LOGIN" />
+            <p:inputText id="login" label="Login" value="#{MBCatUsuarios.usuario.login}" required="#{not empty param.includeInSave1}" >
+        	<f:validateLength minimum="2" maximum="100" />
+            </p:inputText>
+
+        </p:panelGrid>
+	<br />
+        
+        <!-- boton para guardar -->
+        <p:commandButton value="Guardar" actionListener="#{MBCatUsuarios.guardarUsuario()}" update=":userForm:userTable :userForm:userPanel" >
+        </p:commandButton>
+        
+        <!-- boton para cancelar -->
+        <p:commandButton value="Cancelar" actionListener="#{MBCatUsuarios.resetInfo()}" update=":userForm" />
+        
+        <br /><br />
+        
+        <p:dataTable id="userTable" value="#{MBCatUsuarios.usuariosAll}" var="item" paginator="true" rows="10" 
+             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
+             emptyMessage="Vacio" resizableColumns="true" styleClass="ui-datatable-hor-scroll">
+					 
+            <p:column style="width: 5%">
+                <!-- boton editar -->
+                <p:commandButton id="edit" 
+                    actionListener="#{MBCatUsuarios.setSelectedUser(item)}" 
+                    update=":userForm" icon="ui-icon-pencil" title="Editar" />	
+                
+                <!-- boton borrar -->
+                <p:commandButton id="delete" 
+                    actionListener="#{MBCatUsuarios.setSelectedUser(item)}" 
+                    onclick="deleteConfirmation.show()" icon="ui-icon-trash" />
+                
+            </p:column>
+				
+            <p:column headerText="NUMERO EMPLEADO" style="width: 10%">
+                <h:outputLabel value="#{item.nempleado}" />
+            </p:column>
+				
+            <p:column headerText="NOMBRE" style="width: 5%">
+                <h:outputLabel value="#{item.nombre}" />
+            </p:column>
+				
+            <p:column headerText="APELLIDO PATERNO" style="width: 10%">
+                <h:outputLabel value="#{item.plastName}" />
+            </p:column>
+				
+            <p:column headerText="APELLIDO MATERNO" style="width: 10%">
+                <h:outputLabel value="#{item.mlastName}" />
+            </p:column>
+				
+            <p:column headerText="CORREO" style="width:10%">
+                <h:outputLabel value="#{item.email}" />
+            </p:column>
+				
+            <p:column headerText="LOGIN" style="width: 5%">
+                <h:outputLabel value="#{item.login}" />
+            </p:column>
+				
+            <p:column headerText="JEFE" style="width: 10%">
+                <h:outputLabel value="#{MBCatUsuarios.getNombreJefe(item.idjefe)}" />
+            </p:column>
+					 
+        </p:dataTable>
+        
+        <!-- dialogo para confirmar borrado -->
+        <p:confirmDialog id="deleteConfirmDialog" message="Desea eliminar el registro seleccionado ?"
+            header="Confirmacion" severity="alert" styleClass="common-dialog"
+            appendToBody="true" widgetVar="deleteConfirmation">
+            
+            <!-- boton borrar -->
+            <p:commandButton id="confirm" value="Si" styleClass="ui-confirmdialog-yes"
+                action="#{MBCatUsuarios.deleteUsuario()}"                       
+                process="@this"
+                update="userForm:userTable"
+                oncomplete="deleteConfirmation.hide()"/>
+            <p:commandButton id="decline" value="No" styleClass="ui-confirmdialog-no" 
+                onclick="deleteConfirmation.hide()" type="button" />                        
+        </p:confirmDialog>
+        
+    </h:panelGroup>
+</h:form>
+</ui:composition>

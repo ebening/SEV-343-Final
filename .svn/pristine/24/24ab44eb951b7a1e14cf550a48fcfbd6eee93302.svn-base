@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:c="http://java.sun.com/jstl/core">
+<h:head>
+</h:head>
+<h:body style="font-size: 0.8em">
+	<ui:composition template="template/common/commonLayout.xhtml">
+		<ui:define name="west">
+			<p:layoutUnit position="west" size="250" 
+				resizable="true" closable="false" collapsible="false" id="west"  style="background-color:white;">
+				<h:form id="frmMenuLogin">
+						<p:tree value="#{campanaController.raiz}" style="border: none; font-size:12px; font-weight:bold;"
+							dynamic="true" selectionMode="single"
+							selection="#{campanaController.selectedNode}" var="node"
+							id="tree">
+							<p:ajax event="select"
+								listener="#{campanaController.onNodeSelect}"
+								update=":pgPrincipalLogin" />
+							<p:ajax event="expand"
+								listener="#{campanaController.onNodeExpand}" />
+							<p:ajax event="collapse"
+								listener="#{campanaController.onNodeCollapse}" />
+							<p:ajax event="unselect"
+								listener="#{campanaController.onNodeUnselect}" />
+							<p:treeNode id="treeNode">
+                                                            <b><h:outputText value="#{node}" style="font-size:12px; font-weight:bold;" id="lblNode" /></b>
+							</p:treeNode>
+						</p:tree>
+				</h:form>
+			</p:layoutUnit>
+		</ui:define>
+		<ui:define name="content">
+			<h:panelGroup id="pgPrincipalLogin">
+				<p:growl id="growl" showDetail="true" autoUpdate="true" sticky="true" />
+				<ui:include src="/pages/ConsultaCampanas.xhtml" />
+				<ui:include src="/pages/CrearCampana1.xhtml" />
+				<ui:include src="/pages/DetalleCampanaFamsa.xhtml" />
+				<ui:include src="/pages/EditarCampana.xhtml" />
+				<ui:include src="/pages/AltaFolleto.xhtml" />
+			</h:panelGroup>
+		</ui:define>
+	</ui:composition>
+</h:body>
+
+
+
+</html>

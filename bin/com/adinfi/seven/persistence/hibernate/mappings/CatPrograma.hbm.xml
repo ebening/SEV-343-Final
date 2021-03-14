@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated 15/06/2015 12:25:40 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.CatPrograma" table="CAT_PROGRAMA">
+        <id name="idPrograma" type="int">
+            <column name="ID_PROGRAMA" />
+            <generator class="identity" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="NOMBRE" length="300" />
+        </property>
+        <set name="catSenals" table="CAT_SENAL" inverse="true" lazy="true" cascade="all" fetch="select">
+            <key>
+                <column name="ID_PROGRAMA" not-null="true" />
+            </key>
+            <one-to-many class="com.adinfi.seven.business.domain.CatSenal" />
+        </set>
+    </class>
+    
+</hibernate-mapping>

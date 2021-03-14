@@ -1,0 +1,213 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<style type="text/css" media="print">
+	  @page { size: landscape; }
+	</style>
+</h:head>
+<body onload="window.print(); window.close();">
+	<h:form style="font-size: 6px">
+	<h:panelGroup>
+		<p:dataTable id="dtPrecPromo" value="#{sessionScope.lArqCompPrecProm}" var="compPrecioPromo" styleClass="grid-content">
+			<p:column style="white-space: normal;">
+				<f:facet name="header">
+					<p:outputLabel value="Mecánica"/>
+				</f:facet>
+				<p:outputLabel value="#{compPrecioPromo.descMecanica}"/>
+			</p:column>
+			<p:column style="white-space: normal;">
+				<f:facet name="header">
+					<p:outputLabel value="Grupo Zonas"/>
+				</f:facet>
+				<p:outputLabel value="#{compPrecioPromo.gpoZona}"/>
+			</p:column>
+			<p:column style="white-space: normal;">
+				<f:facet name="header">
+					<p:outputLabel value="Zona"/>
+				</f:facet>
+				<p:outputLabel value="#{compPrecioPromo.zona}"/>
+			</p:column>
+			<p:column style="white-space: normal;">
+				<f:facet name="header">
+					<p:outputLabel value="C"/>
+				</f:facet>
+				<p:outputLabel value="#{compPrecioPromo.numeroComponente}"/>
+			</p:column>
+			<p:column style="white-space: normal;">
+				<f:facet name="header">
+					<p:outputLabel value="Descripción"/>
+				</f:facet>
+				<p:outputLabel value="#{compPrecioPromo.descripcion}"/>
+			</p:column>
+			<p:column style="white-space: normal;">
+				<f:facet name="header">
+					<p:outputLabel value="SKU"/>
+				</f:facet>
+				<p:outputLabel value="#{compPrecioPromo.sku}"/>
+			</p:column>
+			<p:column style="white-space: normal;">
+				<f:facet name="header">
+					<p:outputLabel value="UPC"/>
+				</f:facet>
+				<p:outputLabel value="#{compPrecioPromo.upc}"/>
+			</p:column>
+			<p:column style="white-space: normal;">
+				<f:facet name="header">
+					<p:outputLabel value="Categoría"/>
+				</f:facet>
+				<p:outputLabel value="#{compPrecioPromo.categoria}"/>
+			</p:column>
+			<p:column style="white-space: normal;">
+				<f:facet name="header">
+					<p:outputLabel value="Precio Venta"/>
+				</f:facet>
+				<h:inputText value="#{compPrecioPromo.preciosPromocionDTO.precioVenta}" size="10" readonly="true" styleClass="element-margin-top" style="text-align: right; border: 0px;">
+					<f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+				</h:inputText>
+			</p:column>
+			<p:column style="white-space: normal;">
+				<f:facet name="header">
+					<p:outputLabel value="$ Margen Regular"/>
+				</f:facet>
+				<h:inputText value="#{compPrecioPromo.mgnRegular}" size="10" readonly="true" styleClass="element-margin-top" style="text-align: right; border: 0px;">
+					<f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+				</h:inputText>
+			</p:column>
+			<p:column style="white-space: normal;">
+				<f:facet name="header">
+					<p:outputLabel value="% Margen Regular"/>
+				</f:facet>
+				<h:inputText value="#{compPrecioPromo.mgnRegularPorc / 100}" size="10" readonly="true" styleClass="element-margin-top" style="text-align: right; border: 0px;">
+					<f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="##0.00 %" />
+				</h:inputText>
+			</p:column>
+			<p:column style="white-space: normal;">
+				<f:facet name="header">
+					<p:outputLabel value="Precio Promoción"/>
+				</f:facet>
+				<h:inputText value="#{compPrecioPromo.preciosPromocionDTO.precio}" size="10" readonly="true" styleClass="element-margin-top" style="text-align: right; border: 0px;">
+					<f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+				</h:inputText>
+				<p:inputText value="#{compPrecioPromo.precioEdit}" rendered="#{compPrecioPromo.editando}" style="width: 50px; text-align: right"/>
+			</p:column>
+			<p:column style="white-space: normal;">
+				<f:facet name="header">
+					<p:outputLabel value="% Promoción"/>
+				</f:facet>
+				<h:inputText value="#{compPrecioPromo.preciosPromocionDTO.porcentaje / 100}" rendered="#{!compPrecioPromo.editando}" size="10" readonly="true" styleClass="element-margin-top" style="text-align: right; border: 0px;">
+					<f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="##0.00 %" />
+				</h:inputText>
+				<p:inputText value="#{compPrecioPromo.porcentajeEdit}" rendered="#{compPrecioPromo.editando}" style="width: 50px; text-align: right"/>
+			</p:column>
+			<p:column style="white-space: normal;">
+				<f:facet name="header">
+					<p:outputLabel value="Ahorro Fijo"/>
+				</f:facet>
+				<h:inputText value="#{compPrecioPromo.preciosPromocionDTO.ahorroFijo}" rendered="#{!compPrecioPromo.editando}" size="10" readonly="true" styleClass="element-margin-top" style="text-align: right; border: 0px;">
+					<f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+				</h:inputText>
+				<p:inputText value="#{compPrecioPromo.ahorroFijoEdit}" rendered="#{compPrecioPromo.editando}" style="width: 50px; text-align: right"/>
+			</p:column>
+			<p:column style="white-space: normal;">
+				<f:facet name="header">
+					<p:outputLabel value="Ahorro Max"/>
+				</f:facet>
+				<h:inputText value="#{compPrecioPromo.ahorroMaximo}" size="10" readonly="true" styleClass="element-margin-top" style="text-align: right; border: 0px;">
+					<f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+				</h:inputText>
+			</p:column>
+			<p:column style="white-space: normal;">
+				<f:facet name="header">
+					<p:outputLabel value="Recuperación Proveedor $"/>
+				</f:facet>
+				<h:inputText value="#{compPrecioPromo.preciosPromocionDTO.recuperacion}" rendered="#{!compPrecioPromo.editando}" size="10" readonly="true" styleClass="element-margin-top" style="text-align: right; border: 0px;">
+					<f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+				</h:inputText>
+				<p:inputText value="#{compPrecioPromo.recuperacionEdit}" rendered="#{compPrecioPromo.editando}" style="width: 50px; text-align: right"/>
+			</p:column>
+			<p:column style="white-space: normal;">
+				<f:facet name="header">
+					<p:outputLabel value="Recuperación Proveedor %"/>
+				</f:facet>
+				<h:inputText value="#{compPrecioPromo.preciosPromocionDTO.recuperacionPorcentaje / 100}" rendered="#{!compPrecioPromo.editando}" size="10" readonly="true" styleClass="element-margin-top" style="text-align: right; border: 0px;">
+					<f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="##0.00 %" />
+				</h:inputText>
+				<p:inputText value="#{compPrecioPromo.recuperacionPorcentajeEdit}" rendered="#{compPrecioPromo.editando}" style="width: 50px; text-align: right"/>
+			</p:column>
+			<p:column style="white-space: normal;">
+				<f:facet name="header">
+					<p:outputLabel value="$ Margen Promoción"/>
+				</f:facet>
+				<h:inputText value="#{compPrecioPromo.mgnPromocion}" size="10" readonly="true" styleClass="element-margin-top" style="text-align: right; border: 0px;">
+					<f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+				</h:inputText>
+			</p:column>
+			<p:column style="white-space: normal;">
+				<f:facet name="header">
+					<p:outputLabel value="% Margen Promoción"/>
+				</f:facet>
+				<h:inputText value="#{compPrecioPromo.mgnPromocionPorc / 100}" size="10" readonly="true" styleClass="element-margin-top" style="text-align: right; border: 0px;">
+					<f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="##0.00 %" />
+				</h:inputText>
+			</p:column>
+			<p:column style="white-space: normal;">
+				<f:facet name="header">
+					<p:outputLabel value="Venta Base UPTD"/>
+				</f:facet>
+				<h:inputText value="#{compPrecioPromo.ventaUPTD}" size="10" readonly="true" styleClass="element-margin-top" style="text-align: right; border: 0px;">
+					<f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+				</h:inputText>
+			</p:column>
+			<p:column style="white-space: normal;">
+				<f:facet name="header">
+					<p:outputLabel value="Punto Equilibrio"/>
+				</f:facet>
+				<h:inputText value="#{compPrecioPromo.puntoEquilibrio}" size="10" readonly="true" styleClass="element-margin-top" style="text-align: right; border: 0px;">
+					<f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+				</h:inputText>
+			</p:column>
+			<p:column style="white-space: normal;">
+				<f:facet name="header">
+					<p:outputLabel value="Objetivo"/>
+				</f:facet>
+				<h:inputText value="#{compPrecioPromo.preciosPromocionDTO.objetivo}" rendered="#{!compPrecioPromo.editando}" size="10" readonly="true" styleClass="element-margin-top" style="text-align: right; border: 0px;">
+					<f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+				</h:inputText>
+				<p:inputText value="#{compPrecioPromo.preciosPromocionDTO.objetivo}" rendered="#{compPrecioPromo.editando}" style="width: 50px; text-align: right"/>
+			</p:column>
+			<p:column style="white-space: normal;">
+				<f:facet name="header">
+					<p:outputLabel value="Distribución Rebaja $"/>
+				</f:facet>
+				<h:inputText value="#{compPrecioPromo.distRebaja}" size="10" readonly="true" styleClass="element-margin-top" style="text-align: right; border: 0px;">
+					<f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+				</h:inputText>
+			</p:column>
+			<p:column style="white-space: normal;">
+				<f:facet name="header">
+					<p:outputLabel value="# Acuerdo 1"/>
+				</f:facet>
+				<p:outputLabel value="#{compPrecioPromo.acuerdo1}"/>
+			</p:column>
+			<p:column style="white-space: normal;">
+				<f:facet name="header">
+					<p:outputLabel value="# Acuerdo 2"/>
+				</f:facet>
+				<p:outputLabel value="#{compPrecioPromo.acuerdo2}"/>
+			</p:column>
+			<p:column style="white-space: normal;">
+				<f:facet name="header">
+					<p:outputLabel value="# Acuerdo 3"/>
+				</f:facet>
+				<p:outputLabel value="#{compPrecioPromo.acuerdo3}"/>
+			</p:column>
+		</p:dataTable>
+	</h:panelGroup>
+	</h:form>	
+</body>
+</html>

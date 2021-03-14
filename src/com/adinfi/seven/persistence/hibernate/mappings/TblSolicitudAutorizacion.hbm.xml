@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated 28/10/2013 10:01:59 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.TblSolicitudAutorizacion" table="TBL_SOLICITUD_AUTORIZACION">
+        <id name="idAutorizacion" type="long">
+            <column name="ID_AUTORIZACION" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="tblCampana" class="com.adinfi.seven.business.domain.TblCampana" fetch="select">
+            <column name="ID_CAMPANA" not-null="true" />
+        </many-to-one>
+        <many-to-one name="tblCadenaAutorizacion" class="com.adinfi.seven.business.domain.TblCadenaAutorizacion" fetch="select">
+            <column name="ID_CADENA_AUTORIZACION" />
+        </many-to-one>
+        <property name="fechaModificacion" type="timestamp">
+            <column name="FECHA_MODIFICACION" length="26" />
+        </property>
+        <property name="idResponsable" type="int">
+            <column name="ID_RESPONSABLE" not-null="true" />
+        </property>
+        <property name="fechaCaptura" type="timestamp">
+            <column name="FECHA_CAPTURA" length="26" not-null="true" />
+        </property>
+        <property name="idPeriodo" type="int">
+            <column name="ID_PERIODO" not-null="true" />
+        </property>
+        <property name="usuarioCreacion" type="int">
+            <column name="USUARIO_CREACION" not-null="true" />
+        </property>
+        <property name="fechaCreacion" type="timestamp">
+            <column name="FECHA_CREACION" length="26" not-null="true" />
+        </property>
+        <property name="usuarioModificacion" type="java.lang.Integer">
+            <column name="USUARIO_MODIFICACION" />
+        </property>
+        <set name="tblCampanaAutorizacions"  cascade="all" inverse="true">
+            <key>
+                <column name="ID_AUTORIZACION" not-null="true" />
+            </key>
+            <one-to-many class="com.adinfi.seven.business.domain.TblCampanaAutorizacion" />
+        </set>
+    </class>
+</hibernate-mapping>

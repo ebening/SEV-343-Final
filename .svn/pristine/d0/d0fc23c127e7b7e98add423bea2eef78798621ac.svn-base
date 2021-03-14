@@ -1,0 +1,240 @@
+@CHARSET "ISO-8859-1";
+
+
+/*********************************/
+/*   PANTALLA TABLERO DE CONTROL */
+/*********************************/
+
+#generarReporteLink:hover{
+	cursor: hand;
+}
+
+#Div_LateralIzquierdaGraficasTablero{
+	width: 10%;
+	height: 470px;
+	border: 1px solid silver;
+	float: left;
+	background: white;
+}
+
+#Div_content_TableroDeControl{
+	width: 89%;
+	height: 470px;
+	/*border: 1px solid silver;*/
+	float: right;
+}
+
+#Div_centralTableroDeControl{
+	width: 75%;
+	height: 470px;
+	border: 1px solid silver;
+	float: left;
+	background: white;
+}
+
+#Div_LateralDerechaTableroDeControl{
+	width: 24%;
+	height: 470px;
+	border: 1px solid silver;
+	float: right;
+	background: white;
+
+}
+
+#div_formaGrafica{
+	width: 90%;
+	height: 350px;
+}
+
+#div_resultadosCampaña{
+	height: 360px;
+	border: none !important;
+}
+
+#div_controlPresupuestal{
+	height: 360px;
+	border: none !important;
+}
+
+#div_planDeMedios{
+	height: 360px;
+	
+	border: none !important;
+}
+
+/**************************************************/
+/*			Graficas Menu Lateral	Izquierdo	  */
+/**************************************************/
+
+.btnEliminarReporte{
+	background: url("../images/actividades/eliminar_black_25.png") 0 0 no-repeat;
+	height: 25px; width: 25px; 
+	display: block;
+}
+
+.btnEliminarReporte:hover{
+	background: url("../images/actividades/eliminar25.png") 0 0 no-repeat;
+	height: 25px; width: 25px; 
+	cursor : pointer;
+	cursor:hand;
+}
+
+.btnLineaTablaControl{
+	background: url(../images/tablero_control/linea_black.png) 0 0 no-repeat;
+height:45px; width:45px; 
+	/*background-color: #bf4c4c;*/	
+	display:block;
+}
+.btnLineaTablaControl:hover{
+	background: url(../images/tablero_control/linea.png) 0 0 no-repeat;
+height:45px; width:45px; 
+	/*background-color: #bf4c4c;*/	cursor:hand;
+}
+
+.btnBarraTablaControl{
+	background: url(../images/tablero_control/barra.png) 0 0 no-repeat;
+height:45px; width:45px; 
+	display:block;
+}
+.btnBarraTablaControl:hover{
+	background: url(../images/tablero_control/barra_black.png) 0 0 no-repeat;
+height:45px; width:45px; 
+	cursor:pointer;
+	cursor:hand;
+}
+
+.btnPieTablaControl{
+	background: url(../images/tablero_control/pie_black.png) 0 0 no-repeat;
+height:45px; width:45px; 
+	display:block;
+}
+.btnPieTablaControl:hover{
+	background: url(../images/tablero_control/pie.png) 0 0 no-repeat;
+height:45px; width:45px; 
+	cursor:pointer;
+	cursor:hand;
+}
+
+.btnAreaTablaControl{
+	background: url(../images/tablero_control/area_black.png) 0 0 no-repeat;
+height:45px; width:45px; 
+	display:block;
+}
+.btnAreaTablaControl:hover{
+	background: url(../images/tablero_control/area.png) 0 0 no-repeat;
+	height:45px; width:45px; 
+	cursor:pointer;
+	cursor:hand;
+}
+
+#btnGraficaBarras{
+	background: url(../images/tablero_control/barrasHorizontales_black.png) 0 0 no-repeat;
+height:45px; width:45px; 
+	display:block;
+}
+#btnGraficaBarras:hover{
+	background: url(../images/tablero_control/barrasHorizontales.png) 0 0 no-repeat;
+height:45px; width:45px; 
+	cursor:pointer;
+	cursor:hand;
+}
+
+#tbl_enfoqueTableroDeControl{
+	background: #e6e6e6;
+	width: 100%;
+	color: gray;
+	font-size: small;
+}
+
+/* Clase para la accion de seleccionar el tipo
+ * de gráfica.
+ */
+/*
+.seleccion{
+	background-color: #bf4c4c;
+}
+*/
+
+#btnCalIn{
+	width: 20px;
+	height: 20px;
+}
+
+#btnCalFin{
+	width: 20px;
+	height: 20px;
+}
+/*
+	ui-accordion-header-icon
+	
+	ui-icon ui-icon-triangle-1-e
+*/
+
+/**************************************************/
+/*			 Menu Lateral Derecho		  		  */
+/**************************************************/
+
+.padding_none{
+	padding: 0px !important;
+	line-height: 0px;
+}
+
+#resultadosCampaña_contenido select{
+	width: 90%;
+}
+
+/**************************************************/
+/*			 Dialogo Generar Reporte	  		  */
+/**************************************************/
+
+#Dialogo_principalGenerarReporte{
+/*	border: 1px solid red;*/
+	width: 620px;
+/*	height: 570px !important;*/
+/*	background: white;*/
+	color: gray;
+}
+
+#div_headerLogoGenerarReporte{
+	border-bottom: 2px solid gray;
+}
+
+#divEnfoqueDeAnalisis_generarReporte{
+	background: #e6e6e6;
+	margin-top: 5px;
+}
+
+#elegirGrafica{
+	padding-left: 5px;
+	width: 150px;
+	height: 170px;
+	float: left;	
+}
+
+#div_informacion{
+	width: 640px;
+	height: 180px;
+	float: right;
+}
+
+#div_informacion select{
+	width: 140px;
+}
+
+#div_tablaDeReporte{
+	width: 100%;
+	height:140px;
+}
+
+#tbl_generarReporte{
+	font-size: 7.8px;
+}
+
+#tbl_generarReporte th{
+	font-size: 9px;
+}
+
+#tbl_generarReporte td{
+	font-size: 10px;
+	height: 18px;
+}

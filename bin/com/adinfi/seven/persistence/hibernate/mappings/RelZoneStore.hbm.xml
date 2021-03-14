@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated 10-ago-2015 17:57:11 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.RelZoneStore" table="REL_ZONE_STORE" optimistic-lock="version">
+        <composite-id name="id" class="com.adinfi.seven.business.domain.RelZoneStoreId">
+            <key-property name="idZone" type="java.lang.Integer">
+                <column name="ID_ZONE" />
+            </key-property>
+            <key-property name="idStore" type="java.lang.Integer">
+                <column name="ID_STORE" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="catStore" class="com.adinfi.seven.business.domain.CatStore" update="false" insert="false" fetch="select">
+            <column name="ID_STORE" />
+        </many-to-one>
+        <many-to-one name="catZone" class="com.adinfi.seven.business.domain.CatZone" update="false" insert="false" fetch="select">
+            <column name="ID_ZONE" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

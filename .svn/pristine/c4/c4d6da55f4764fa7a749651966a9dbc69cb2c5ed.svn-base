@@ -1,0 +1,123 @@
+@CHARSET "ISO-8859-1";
+
+/***************************************/
+/*   DIALOGO FOLLETO_PLANEACION        */
+/***************************************/
+
+#dialog_Folleto{
+	width:800px;
+	height: 340px;
+	background-color: white;
+	border: 1px solid silver;
+}
+
+#div_top{
+	
+}
+.img_Calendario{
+	width: 20px;
+	height: 20px;
+	text-align: center;
+}
+
+#tbl_part3_Folleto input{
+	width: 220px;
+}
+
+#tbl_part3_Folleto select{
+	width: 220px;
+}
+
+.padd_rigth{
+	padding-right: 20px;
+}
+ 
+#div_noHojas_Folleto{
+	border-top: 1px solid silver;
+	border-bottom: 1px solid silver;
+	width: 100%;
+	height: 126px;
+	overflow-y: auto; 
+	margin-top: 10px;
+	visibility: hidden;
+}
+
+#btnUbicacionGeografica_Folleto{
+	height: 22px;
+}
+
+/***************************************/
+/*   DIALOGO MATERIAL POP_PLANEACION   */
+/***************************************/
+
+#dialog_MaterialPop{
+	width: 920px;
+	height: 240px;
+	background-color: white;
+	border: 1px solid silver;
+}
+
+#borde_MaterialPop input{	
+	height: 25px;
+	border: 1px solid silver;
+}
+
+
+/******************************************************/
+/*     DIALOGO Agregar Nuevo Medio	Plan de Trabajo	  */
+/******************************************************/
+
+
+
+#dialog_NuevoMedio{
+	background: White;
+	width: 377px!important;
+	/*border: 1px solid Silver;*/
+}
+
+#divHeaderNuevoMedio{
+	background: White;
+	width: 375px;
+	border-bottom: 2px solid Gray;
+	/*padding-bottom: 5px;*/
+}
+#divCuerpoNuevoMedio{
+	background: White;
+	width: 375px;
+	padding-top: 20px;
+}
+
+.nuevaMedioimgLogo{
+	width: 80px;
+	height: 18px;
+	/*padding-bottom: 5px;*/
+	/*padding-left:10px;
+	padding-top: 2px;*/
+}
+
+#tableContenidoNuevoMedio{
+	/*border: 1px solid Black;*/
+	padding: 5px;
+	/*height: 100px;*/
+	width: 90%;
+	height: 80px;
+}
+
+#divButtonNuevoMedio{
+	background: White;
+	padding-top: 15px;
+	text-align: right;
+	padding-right: 25px;
+	padding-bottom: 8px;
+}
+
+
+#btnEspecificar{
+	color: White;
+	height: 25px;
+	font-size: 8pt;
+}
+
+/*******************************************************/
+/* Dialogo											*/
+/*******************************************************/

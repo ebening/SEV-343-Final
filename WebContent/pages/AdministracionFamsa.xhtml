@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+	<f:view contentType="text/html">
+	       <h:head>
+				<f:facet name="first">
+					<meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+					<title>Seven</title>
+				</f:facet>
+				<h:outputStylesheet library="css" name="primefaces-smoothness/theme.css?ln=primefaces-smoothness" />
+				<script type="text/javascript" src="../resources/js/pdfObject.js"></script>
+				<script type="text/javascript" src="../resources/js/Home.js"></script>
+				<script type="text/javascript" src="../resources/js/Inicio.js"></script>
+				<script type="text/javascript" src="../resources/js/utils.js"></script>
+				<script type="text/javascript" src="../resources/js/Arquitectura.js"></script>
+				<link type="text/css" rel="stylesheet" href="../resources/css/home.css" />
+				<link type="text/css" rel="stylesheet" href="../resources/css/FontAndColor.css" />
+				<link type="text/css" rel="stylesheet" href="../resources/css/adMaster.buttons.css" />
+				<link type="text/css" href="../resources/css/DialogosModuloAnalisis.css" rel="stylesheet" />
+	       </h:head> 
+		<body>
+			<p:layout fullPage="true">
+			
+			    <p:layoutUnit position="north" size="100" resizable="true" closable="false" collapsible="false">
+			        <h:form id="frmHeader">
+						<h:panelGrid columns="4" cellpadding="4" style="width: 100%;">  
+							<p:column style="width: auto;">
+								<h:graphicImage	value="resources/images/Logo_Admaster_25.png" style="height:25px;" id="LOGOAD"/>
+							</p:column>
+							<p:column style="width: 700px;">
+								
+							</p:column>
+							<p:column style="width: 50px!important;">
+								<h:outputLabel for="Configuracion" styleClass="fuenteYColor" value="#{msg.Configuracion}" style="float: right;"/> 
+							</p:column>
+							<p:column style="width: 50px!important;">
+								<h:outputLabel for="Salir" styleClass="fuenteYColor" value="#{msg.Salir}" />
+							</p:column>
+		 				</h:panelGrid> 
+                    </h:form>
+			    </p:layoutUnit>
+			
+			    <p:layoutUnit position="south" size="100" resizable="true" closable="false" collapsible="false">
+                    <h:panelGrid columns="3" width="100%" cellpadding="0" cellspacing="0">
+                        <table style="width: 100%" cellpadding="0" cellspacing="0">
+							<tr>
+								<td style="font-size: 0.8em; color: DimGray;"><h:outputLabel
+										for="" value="admaster©2012" /></td>
+								<td style="text-align: right;">
+									<table id="tbl_footer_options" cellpadding="0" cellspacing="0">
+										<tr>
+											<td title="#{msg.Calendario}">
+												<h:graphicImage value="resources/images/calendario.png"  style="height:25px;" />
+											</td>
+											<td title="#{msg.Correo}">
+												<h:graphicImage value="resources/images/correo.png"  style="height:25px;" />
+											</td>
+											<td title="#{msg.Chat}">
+												<h:graphicImage value="images/chat.png"  style="height:25px;" />
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+                    </h:panelGrid>
+			    </p:layoutUnit>
+			
+			    <p:layoutUnit position="west" size="250" header="Opciones" resizable="true" closable="false" collapsible="false">
+			        <h:form id="frmMenuCatalogosDinamicos">
+			        	<p:panelMenu><!-- style="width:200px" -->
+			        		
+			        			<p:submenu label="#{msg.Catalogos}">
+			        				<p:menuitem value="#{msg.Usuarios}" actionListener="#{menuBean.goCatalog('CAT_USER','CATALOGO DE USUARIO')}" update=":pgPrincipal"/>
+			        				<p:menuitem value="Zonas" actionListener="#{menuBean.goCatalog('CAT_ZONE','ZONA')}" update=":pgPrincipal"/>
+			        				<p:menuitem value="Sucursales" actionListener="#{menuBean.goCatalog('CAT_SUCURSAL','SUCURSAL')}" update=":pgPrincipal"/>
+			        				<p:menuitem value="Categorias" actionListener="#{menuBean.goCatalog('CAT_CATEGORY','CATEGORIA')}" update=":pgPrincipal"/>
+			        				<p:menuitem value="Subcategorias" actionListener="#{menuBean.goCatalog('CAT_SCATEGORY','SUB-CATEGORÍA')}" update=":pgPrincipal"/>
+			        				<p:menuitem value="Actividades" actionListener="#{menuBean.goCatalog('CAT_ACTIVITY','ACTIVIDADES')}" update=":pgPrincipal"/>
+			        				<p:menuitem value="Sistema de Ventas" actionListener="#{menuBean.goCatalog('CAT_SISTM_VENTA','TIPO DE COMPRA')}" update=":pgPrincipal"/>
+			        				<p:menuitem value="Tipo de Impresos" actionListener="#{menuBean.goCatalog('CAT_TIPO_EVENTO','CATALOGO DE EVENTOS')}" update=":pgPrincipal"/>
+			        			    <p:menuitem value="Tipo de compra" actionListener="#{menuBean.goCatalog('CAT_SISTM_VENTA','TIPO DE COMPRA')}" update=":pgPrincipal"/>
+			        				<p:menuitem value="Negocios" actionListener="#{menuBean.goCatalog('CAT_NEGOCIO','CATALOGO DE NEGOCIOS')}" update=":pgPrincipal"/>
+			        			</p:submenu>
+			        			<p:submenu label="Configuraciones">
+			        				<p:menuitem value="Frecuencia de Notificaciones" actionListener="#{menuBean.goCatalog('CAT_FREC_NOTIF','Catalogo Frecuencia de Notificacion')}" update=":pgPrincipal"/>
+			        				<p:menuitem value="Notificaciones de Correo" actionListener="#{menuBean.goCatalog('CAT_TEM_NOTF','NOTIF-CORREO')}" update=":pgPrincipal"/>
+			        				<p:menuitem value="Cadena de Autorizacion" />
+			        				<p:menuitem value="DIA/HORA" actionListener="#{menuBean.goCatalog('DIA/HORA','DIA/HORA')}" update=":pgPrincipal"/>
+			        			</p:submenu>
+			        			<p:submenu label="Sugerencias">
+	                            <p:menuitem value="Sugerencias" actionListener="#{menuBean.goCatalog('CAT_SUGERENCIA','CATALOGO DE SUGERENCIA')}" update=":pgPrincipal"/>
+			        			</p:submenu>
+			        			
+			        	</p:panelMenu>
+			        </h:form>
+			    </p:layoutUnit>
+
+			    <p:layoutUnit position="center">
+			        <h:panelGroup id="pgPrincipal">
+                        <ui:include src="/pages/prueba.xhtml"/>
+                    </h:panelGroup>
+			    </p:layoutUnit>
+			
+			</p:layout>
+		</body> 
+	</f:view>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+	<link type="text/css" rel="stylesheet" href="css/FontAndColor.css" />
+	<link type="text/css" rel="stylesheet" href="css/adMaster.buttons.css" />
+</h:head> 
+<h:body>
+	<div id="div_frecuenciaMensual" align="left" class="fuenteYColor">
+				
+		<div style="width: 60px; float: left;  padding-top: 7px;" align="right">
+		<br></br>
+			<h:selectOneRadio name="rd_frecuencia" id="radioOp1_MensualFrecuencia" style="width: 15px;"/>
+			<br></br>
+			<br></br>
+			<h:selectOneRadio name="rd_frecuencia" id="radioOp1_MensualFrecuencia" style="width: 15px;" />
+		</div>
+		<div style="float: right;">
+			<table style="width: 70%;">
+			<tr>
+				
+				<td>
+					<h:outputLabel value="El dia:"></h:outputLabel>
+				</td>
+				<td>
+					<p:inputText id="txt_diaMensualFrecuencia" style="text-align: center;" styleClass="fuenteYColor borderTextbox"/>
+				</td>
+				<td>
+					<h:outputLabel value="de cada"></h:outputLabel>
+				</td>
+				<td>
+					<p:inputText id="txt_mesMensualFrecuencia" style="text-align: center;" styleClass="fuenteYColor borderTextbox"/>
+				</td>
+				<td>
+					<h:outputLabel value="mes"></h:outputLabel>
+				</td>
+			</tr>
+			</table>
+			
+			<table style="width: 100%; padding-right: 20px;">
+			<tr>
+				
+				<td>
+					<h:outputLabel value="El "></h:outputLabel>
+				</td>
+				<td style=" width: 100px; padding-right: 10px;">
+					<p:selectOneMenu id="select_DiaMensual"  styleClass="fuenteYColor">
+						<f:selectItem itemValue="primer" itemLabel="primer"></f:selectItem>
+						<f:selectItem itemValue="segundo" itemLabel="segundo"></f:selectItem>
+						<f:selectItem itemValue="tercer" itemLabel="tercer"></f:selectItem>
+						<f:selectItem itemValue="cuarto" itemLabel="cuarto"></f:selectItem>
+						<f:selectItem itemValue="quinto" itemLabel="quinto"></f:selectItem>
+					</p:selectOneMenu>
+				</td>
+				<td style=" width: 100px;">
+					<p:selectOneMenu id="select_mesMensual" styleClass="fuenteYColor">
+						<f:selectItem itemValue="domingo" itemLabel="domingo"></f:selectItem>
+						<f:selectItem itemValue="lunes" itemLabel="lunes"></f:selectItem>
+						<f:selectItem itemValue="martes" itemLabel="martes"></f:selectItem>
+						<f:selectItem itemValue="mi&eacute;rcoles" itemLabel="mi&eacute;rcoles"></f:selectItem>
+						<f:selectItem itemValue="jueves" itemLabel="jueves"></f:selectItem>
+						<f:selectItem itemValue="viernes" itemLabel="viernes"></f:selectItem>
+						<f:selectItem itemValue="s&aacute;bado" itemLabel="s&aacute;bado"></f:selectItem>
+					</p:selectOneMenu>
+				</td>
+				<td>
+					<h:outputLabel value="de cada"></h:outputLabel>
+				</td>
+				<td>
+					<p:inputText id="txt_mesMensualFrecuencia" style="text-align: center;" styleClass="fuenteYColor borderTextbox"/>
+				</td>
+				<td>
+					<h:outputLabel value="mes"></h:outputLabel>
+				</td>
+				</tr>
+			</table>
+		</div>
+	</div>	
+	
+</h:body>
+</html>

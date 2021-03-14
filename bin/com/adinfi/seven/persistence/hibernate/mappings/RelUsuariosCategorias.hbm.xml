@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated 9/11/2015 05:09:11 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.RelUsuariosCategorias" table="REL_USUARIOS_CATEGORIAS" optimistic-lock="version">
+        <id name="idRel" type="int">
+            <column name="ID_REL" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="catCategory" class="com.adinfi.seven.business.domain.CatCategory" fetch="select">
+            <column name="ID_CATEGORY" />
+        </many-to-one>
+        <many-to-one name="catUsuarios" class="com.adinfi.seven.business.domain.CatUsuarios" fetch="select">
+            <column name="ID_USUARIO" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

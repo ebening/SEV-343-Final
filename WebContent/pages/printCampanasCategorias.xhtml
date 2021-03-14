@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<body onload="window.print(); window.close();">
+	<h:panelGroup rendered="#{sessionScope.seccion eq 'campanias'}">
+		<p:dataTable var="campana" emptyMessage="No se encontraron Campañas"	value="#{sessionScope.lCampanas}">
+			<p:column style="width:25%" filterBy="#{campana.tipo.codigo}" filterStyle="display:none" exportable="true">
+				<f:facet name="header">
+					<h:outputText value="Tipo Campaña" />
+				</f:facet>
+				<h:outputText value=" #{campana.tipo.codigo} " />
+			</p:column>
+			<p:column style="width:24%" filterBy="#{campana.tblCampana.nombre}" filterStyle="display:none" >
+				<f:facet name="header">
+					<h:outputText value="Campaña" />
+				</f:facet>
+ 				<h:outputText value="#{campana.tblCampana.nombre}" style="color:#{campana.etiqueta}"/>
+			</p:column>
+			<p:column style="width:24%" filterBy="#{campana.periodo}" filterStyle="display:none" >
+				<f:facet name="header">
+					<h:outputText value="Periodo" />
+				</f:facet>
+				<h:outputText value="#{campana.periodo}  " />
+			</p:column>
+			<p:column style="width:24%" filterBy="#{campana.year}" filterStyle="display:none" >
+				<f:facet name="header">
+					<h:outputText value="Año" />
+				</f:facet>
+				<h:outputText value="#{campana.year}  " />
+			</p:column>
+		</p:dataTable>
+	</h:panelGroup>
+	<h:panelGroup rendered="#{sessionScope.seccion ne 'campanias'}">
+		<!-- <style type="text/css" media="print">
+		  @page { size: landscape; }
+		</style> -->
+		<p:dataTable var="prog" emptyMessage="#{msg.emptyCategoria}" value="#{sessionScope.lProgramas}" styleClass="grid-with-overflow">
+			<p:column style="width: 200px;">
+				<f:facet name="header">
+					<h:outputText value="#{msg.campanaEnc}" />
+				</f:facet>
+				<h:outputLabel value=" #{prog.descCampana} " />
+			</p:column>
+			<p:column style="width: 200px;">
+				<f:facet name="header">
+					<h:outputText value="Programa" />
+				</f:facet>
+				<h:outputLabel value="#{prog.descripcion}" />
+			</p:column>
+			<p:column style="width: 200px;">
+				<f:facet name="header">
+					<h:outputText value="#{msg.Categoria}" />
+				</f:facet>
+				<h:outputLabel value="#{prog.strCatgerias}" />
+			</p:column>
+			<p:column style="width: 120px">
+				<f:facet name="header">
+					<h:outputText value="Grupo Zona(s)" />
+				</f:facet>
+				<h:outputLabel value=" #{prog.grupoZonaStr} " />
+			</p:column>
+			<p:column style="width: 120px">
+				<f:facet name="header">
+					<h:outputText value="Zona(s)" />
+				</f:facet>
+				<h:outputLabel value=" #{prog.zonaStr} " />
+			</p:column>
+			<p:column style="width: 120px">
+				<f:facet name="header">
+					<h:outputText value="Tienda(s)" />
+				</f:facet>
+				<h:outputLabel value=" #{prog.storeStr} " />
+			</p:column>
+		</p:dataTable>
+	</h:panelGroup>
+</body>
+</html>

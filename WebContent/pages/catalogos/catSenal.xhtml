@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:form id="mainForm">
+
+
+	<h:panelGroup id="panelSenal">
+		<h1 class="title">#{MBCatSenal.catalogNametitle}</h1>
+    	<p:messages id="messages" autoUpdate="true" closable="true" />
+        
+        <br/>
+        <p:panelGrid columns="2">
+            <p:outputLabel value="ID" style="text-align: right" /> 
+            <p:inputText id="idSenal"  value="#{MBCatSenal.idSenal}" disabled="true">				 
+                            <p:ajax event="blur" update="idSenal" />
+            </p:inputText>
+            <p:outputLabel value="PROGRAMA" /> 
+            <p:selectOneMenu id="programa" value="#{MBCatSenal.idPrograma}">
+                
+                <f:selectItems value="#{MBCatSenal.listCatPrograma}" var="programa" itemLabel="#{programa.nombre}" itemValue="#{programa.idPrograma}"  />
+            </p:selectOneMenu>
+		
+		
+		<h:outputLabel for="code" value="DESCRIPCION" /> 
+            
+        <p:inputText label="Descripcion" id="code" value="#{MBCatSenal.nombre}" maxlength="50">
+                <f:validateLength minimum="1" maximum="50" />
+                <p:ajax event="blur" update="codeMsg" />
+		    </p:inputText>
+        
+		<p:message id="codeMsg" for="code" display="tooltip"/>
+        </p:panelGrid>
+	</h:panelGroup>
+	<br />
+				<p:commandButton value="Guardar" 
+                    action="#{MBCatSenal.addCatSenal}" 
+                    update=":mainForm"
+                    onstart="muestraLoader();" 
+                    oncomplete="ocultaLoader();"/>
+                
+	            <p:commandButton value="Cancelar" style="margin-left: 5px;" action="#{MBCatSenal.reset}" update=":mainForm"/>	
+	
+	<br />
+	<br />
+        <p:dataTable id="dataTableSenal" var="item" value="#{MBCatSenal.listCatSenal}" paginator="true" rows="10"
+	                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+	                 emptyMessage="Vacio" >
+	            <p:column  style="width: 5%">
+	            		
+					<p:commandButton id="edit" action="#{MBCatSenal.setSenalInfo(item)}" 
+                                                         update=":mainForm" icon="ui-icon-pencil" title="Editar" />
+					
+					<p:commandButton id="delete"  actionListener="#{MBCatSenal.setSenalInfo(item)}" onclick="deleteConfirmation.show()"
+																		  
+									   icon="ui-icon-trash">						
+					</p:commandButton>										
+						            		            
+			</p:column>
+	            
+	       <p:column headerText="ID"  style="width: 5%">
+					<h:outputText value="#{item.idSenal}" />
+			</p:column>
+	
+
+            <p:column headerText="DESCRIPCION"  style="width: 5%" >
+					<h:outputText value="#{item.nombre}" />
+			</p:column>
+			
+			<p:column headerText="PROGRAMA"  style="width: 5%">
+					<h:outputText value="#{item.catPrograma.nombre}" />
+			</p:column>
+				
+	    </p:dataTable>
+	    
+	              <p:confirmDialog id="deleteConfirmDialog" message="Desea eliminar el registro seleccionado ?"
+                    header="Confirmacion" severity="alert" styleClass="common-dialog"
+                    appendToBody="true" widgetVar="deleteConfirmation">
+
+                   <p:commandButton id="confirm" value="Si" styleClass="ui-confirmdialog-yes"
+                   		action="#{MBCatSenal.deleteSenal()}"                       
+                        process="@this"
+                        update="mainForm:dataTableSenal"
+                        oncomplete="deleteConfirmation.hide()"/>
+                    <p:commandButton id="decline" value="No" styleClass="ui-confirmdialog-no" onclick="deleteConfirmation.hide()" type="button" />
+                        
+          </p:confirmDialog>
+		
+	</h:form>
+</ui:composition>

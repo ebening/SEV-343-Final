@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:c="http://java.sun.com/jstl/core">
+	<h:form id="pgBitacora">
+	<p:messages id="messageLayaout" autoUpdate="true" closable="true" />
+	<h:commandLink>
+		<h:graphicImage library="images/extras" name="excel.png" width="40"
+			height="40" />
+		<p:dataExporter type="xls" target="dtBitacoraGrid" fileName="bitacora" />
+	</h:commandLink>
+	<p:commandLink update="bitacoraParamdt"
+		action="#{MBBitacora.showParam}" oncomplete="showParamDetails (xhr, status, args)">
+		<script type="text/javascript">
+		    function showParamDetails(xhr, status, args){
+			    if(args.show){
+			    	showParam.show();
+				}
+		    }
+		</script>
+		<p:graphicImage library="images/menu_nueva_actividad" name="editar.png" width="40" height="40"/>
+	</p:commandLink>
+	<p:dataTable id="dtBitacoraGrid" var="item" rowIndexVar="rowIx"
+		paginator="true" rows="10"
+		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		resizableColumns="true" styleClass="ui-datatable-hor-scroll"
+		emptyMessage="No se encontraron registros para el criterio de busqueda"
+		selection="#{MBBitacora.bitacoraFilterLst}"
+		widgetVar="dtBitacoraGridWv" value="#{MBBitacora.bitacoraLst}">
+		<p:column selectionMode="multiple" style="width:2%" />
+		<p:column sortBy="#{item.bitacoraId}" filterBy="#{item.bitacoraId}"
+			filterMatchMode="exact">
+			<f:facet name="header">
+				<h:outputText value="ID" />
+			</f:facet>
+			<h:outputText value="#{item.bitacoraId}" />
+		</p:column>
+		<p:column sortBy="#{item.usuarioId}" filterBy="#{item.usuarioId}"
+			filterMatchMode="contains">
+			<f:facet name="header">
+				<h:outputText value="USUARIO ID" />
+			</f:facet>
+			<h:outputText value="#{item.usuarioId}" />
+		</p:column>
+		<p:column sortBy="#{item.ip}" filterBy="#{item.ip}"
+			filterMatchMode="contains">
+			<f:facet name="header">
+				<h:outputText value="IP" />
+			</f:facet>
+			<h:outputText value="#{item.ip}" />
+		</p:column>
+		<p:column sortBy="#{item.dao}" filterBy="#{item.dao}"
+			filterMatchMode="contains">
+			<f:facet name="header">
+				<h:outputText value="DAO" />
+			</f:facet>
+			<h:outputText value="#{item.dao}" />
+		</p:column>
+		<p:column sortBy="#{item.metodo}" filterBy="#{item.metodo}"
+			filterMatchMode="contains">
+			<f:facet name="header">
+				<h:outputText value="METODO" />
+			</f:facet>
+			<h:outputText value="#{item.metodo}" />
+		</p:column>
+		<p:column sortBy="#{item.fechaMovStr}" filterBy="#{item.fechaMovStr}"
+			filterMatchMode="contains">
+			<f:facet name="header">
+				<h:outputText value="FECHA" />
+			</f:facet>
+			<h:outputText value="#{item.fechaMovStr}" />
+		</p:column>
+	</p:dataTable>
+	<p:dialog
+		widgetVar="showParam" showEffect="clip"
+		hideEffect="clip" header="Parametros">
+			<p:dataTable value="#{MBBitacora.paramList}"
+				var="param" id="bitacoraParamdt">
+				<f:facet name="header">
+					<h:outputText value="COLUMNA" />
+				</f:facet>
+				<p:column>
+					<h:outputText value="#{param.paramValue}"/>
+				</p:column>
+			</p:dataTable>
+	</p:dialog>
+	</h:form>
+</html>

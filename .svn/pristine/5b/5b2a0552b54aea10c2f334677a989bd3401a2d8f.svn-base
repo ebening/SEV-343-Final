@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated 26/10/2013 09:27:47 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.BitacoraTipo" table="BITACORA_TIPO">
+        <id name="tipoId" type="int">
+            <column name="TIPO_ID" />
+            <generator class="native" />
+        </id>
+        <property name="codigo" type="string">
+            <column name="CODIGO" length="20" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="DESCRIPCION" length="100" />
+        </property>
+        <property name="active" type="int">
+            <column name="ACTIVE"  not-null="true" />
+        </property>
+        <set name="bitacoraMetodos" inverse="true">
+            <key>
+                <column name="TIPO_ID" not-null="true" />
+            </key>
+            <one-to-many class="com.adinfi.seven.business.domain.BitacoraMetodo" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<h:outputStylesheet library="css" name="ModuloCampanaStyle.css" />
+</h:head>
+<body>
+	<h:form rendered="#{MBDetalleCampanaSeven.detalle}">
+		<p:dataTable id="multiCategoria" var="campana"
+			emptyMessage="#{msg.emptyCategoria}"
+			value="#{MBDetalleCampanaSeven.categoriaDTODataModel}" paginator="true"
+			rows="10" selection="#{MBDetalleCampanaSeven.selectedCategoriaDTO}">
+			<f:facet name="header">
+				<div align="left">
+																		
+					<p:commandLink id="actualizar" 
+						actionListener="#{MBDetalleCampanaSeven.updateViewCategorias}"
+						update=":pgPrincipalLoginCat" ajax="true">
+						<p:graphicImage value="../../resources/images/actividades/nueva.png"/>
+					</p:commandLink>
+					
+					<p:commandLink id="eliminar"
+						actionListener="#{MBDetalleCampanaSeven.deleteCategorias}"
+						update=":pgPrincipalLoginCat" ajax="true" >
+						<p:graphicImage value="../../resources/images/actividades/eliminar_black_25.png"/>
+					</p:commandLink>
+															
+				</div>
+			</f:facet>
+			<p:column selectionMode="multiple" style="width:2%" />
+			<p:column headerText="#{msg.campanaEnc}" style="width:25%;">
+				<center>
+					<h:outputLabel value=" #{campana.campanaMedioDTO.campana.nombre} " />
+				</center>
+			</p:column>
+			<p:column headerText="#{msg.tipo}" style="width:25%">
+				<center>
+					<h:outputLabel value=" #{campana.campanaMedioDTO.tipoMedio.code} " />
+				</center>
+			</p:column>
+			<p:column headerText="#{msg.medio}" style="width:24%">
+				<center>
+					<h:outputLabel value=" #{campana.campanaMedioDTO.tipoMedio.catMedio.code} " />
+				</center>
+			</p:column>
+			<p:column headerText="#{msg.Categoria}" style="width:24%">
+				<center>
+					<h:outputLabel value=" #{campana.codigo} " />
+				</center>
+			</p:column>
+			<p:column headerText="#{msg.responsableEnc}" style="width:24%">
+				<center>
+					<h:outputLabel value=" #{campana.usuDto.toString()} " />
+				</center>
+			</p:column>
+		</p:dataTable>
+	</h:form>
+</body>
+</html>

@@ -1,0 +1,107 @@
+@CHARSET "ISO-8859-1";
+
+body{
+    font-size: 11px;
+    font-family: Verdana;
+}
+
+
+
+
+#Principal{
+	width: 990px;
+	min-height: 600px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #F5F5F5;
+	font-family: Calibri;
+}
+
+#Main_Content_Div{
+	position: relative;
+	min-height: 480px;
+	/*
+	border: 1px solid blue;
+	*/
+	
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+#Main_Footer_Div{
+	position: relative;
+	padding-left: 10px; 
+	padding-right: 10px;
+	/*
+	border: 1px solid red;
+	*/
+}
+
+#principal_menu_div{
+	background-color: #868484; 
+	padding-left: 10px; 
+	padding-right: 10px;
+}
+
+#principal_menu_div img{
+	height: 30px;
+}
+
+#tbl_header{
+	width: 100%;
+}
+
+#tbl_header th{
+	border: 0px solid;
+	height: 30px;
+	vertical-align: middle;
+}
+
+#tbl_header span{
+	color: GRAY;
+}
+
+#tbl_menu_principal td{
+	width: 50px;
+	padding: 3px;
+	text-align: center;
+	cursor: pointer;
+}
+
+#tbl_menu_principal td:hover{
+	width: 50px;
+	padding: 3px;
+	text-align: center;
+	cursor: pointer;
+	background: Silver;
+}
+
+#tbl_menu_resources td, 
+#tbl_menu_resources th{
+	padding-top: 3px;
+	padding-bottom: 3px;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+#tbl_menu_resources td{
+	cursor: pointer;
+}
+
+#tbl_footer_options{
+	float: right;
+}
+
+#tbl_footer_options td{
+	padding-top: 2px;
+	padding-bottom: 2px;
+	width: 30px;
+	text-align: center;
+	cursor: pointer;
+}
+
+#tbl_footer_options img{
+	height: 16px;
+}
+
+

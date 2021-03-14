@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+    
+<h:head>
+	<f:facet name="first">
+		<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+		<title>#{company.company}</title>
+	</f:facet>
+	<h:outputScript library="js" name="principal.js" />
+	<h:outputScript library="js" name="localePrimefaces.js" />
+	<h:outputStylesheet library="css" name="login.css" />
+	<h:outputStylesheet library="css" name="actividades.css" />
+	<h:outputStylesheet library="css" name="home.css" />
+	<h:outputStylesheet library="css" name="FontAndColor.css" />
+	<h:outputStylesheet library="css" name="DialogosModuloAnalisis.css" />
+	<h:outputStylesheet library="css" name="admbuttons.css" />
+	<h:outputStylesheet library="css" name="adm.css" />
+	<style type="text/css">
+		.ui-layout-unit .ui-layout-unit-content {
+			overflow-x: hidden !important;
+		}
+		
+		.ui-tabs {
+			overflow-x: auto !important;
+		}
+	</style>
+
+	<script type="text/javascript">
+		function muestraLoader() {
+			loader.show();
+		}
+	
+		function ocultaLoader() {
+			loader.hide();
+		}
+        function up(){
+            $("#content").find(".ui-layout-unit-content").scrollTop(0);
+        }
+
+        function filterCampaignGrid(){
+            if (document.getElementById('frmCampana:multiCamp:globalFilter') != null) {
+                document.getElementById('frmCampana:multiCamp:globalFilter').value = '';
+            } 
+            varCamp.filter();
+            
+            var selectedNode = $(campaignGridGlobalNode);
+            var value = selectedNode.find("span[id*='lblNode']").html();
+            
+            if(selectedNode.hasClass("ui-treenode-leaf")){
+                $("input[id*='globalFilter']").val(value);
+                varCamp.filter();
+            }
+        }
+        
+        function nodeSelected(node,event){
+            campaignGridGlobalNode = node;
+		}
+        
+        function cleanPriceTreeTable(){}
+        function removeDuplicatedIds(){}
+
+        
+        function validaIdsMain(){
+            if (typeof priceTreeTable !== 'undefined') {validaIds(priceTreeTable);}
+            if (typeof priceTreeTablePop !== 'undefined') {validaIds(priceTreeTablePop);} 
+            if (typeof designTreeTable !== 'undefined') {validaIds(designTreeTable);} 
+            if (typeof designTreeTablePop !== 'undefined') {validaIds(designTreeTablePop);} 
+            $(".gridTreeTable").find(".ui-treetable-toggler").hide();
+            ocultaLoader();
+        }
+        function validaIds(element){
+            if (element === undefined || element === null) {
+                console.log("price null");
+            }else{
+                var queryId = element.jqId;
+                //alert(queryId);
+                var table = $(queryId);
+                var current = {}
+                table.find('tr[id]').each(
+                    function(){
+                        var id = $(this).attr("id");
+                        if(current.hasOwnProperty(id)){
+                            $(this).remove();
+                        }else{
+                            current[id] = "ok";
+                        }
+                    }
+                );
+                $(queryId).find(".ui-treetable-toggler").hide();
+            }
+        }
+        
+        
+        
+	</script>
+
+</h:head>
+<h:body>
+
+	<p:ajaxStatus onstart="loader.show()" oncomplete="loader.hide()" />
+	<p:dialog widgetVar="loader" modal="true" draggable="false" closable="false" resizable="false" showHeader="false" style="box-shadow: none !important; border:0 !important;">
+	    <p:graphicImage value="/resources/images/loading.svg"/>
+	</p:dialog>
+	<p:layout fullPage="true" id="PanelGral">
+		<p:layoutUnit position="north" resizable="false" styleClass="bg-north"
+			closable="false" collapsible="false" id="header" style="border: 0px;">
+			<ui:insert name="header">
+				<ui:include src="commonHeader.xhtml" />
+			</ui:insert>
+			<ui:insert name="sections">
+
+			</ui:insert>
+		</p:layoutUnit>
+        
+            <ui:insert name="west" >
+                <p:layoutUnit position="west" size="250" styleClass="header-panel"
+                    resizable="true" closable="false" collapsible="false" id="west">
+                    <h:form id="frmMenuLogin">
+                        <p:panelMenu>
+
+                            <c:forEach var="currOpc" items="#{MBCatUsuarios.opcionesFinal}">
+                                <p:submenu label="#{currOpc.opcName}">
+                                    <c:forEach var="currOpcChild" items="#{currOpc.childsAsArray}">
+                                        <p:menuitem value="&nbsp;&nbsp;&nbsp;#{currOpcChild.opcName}"
+                                            action='#{MBNavigator.setCurrentPage(currOpcChild.url)}'
+                                            update=":pgPrincipalLogin">
+                                        </p:menuitem>
+                                    </c:forEach>
+                                </p:submenu>
+                            </c:forEach>
+                        </p:panelMenu>
+                    </h:form>
+                </p:layoutUnit>
+            </ui:insert>
+        
+		<p:layoutUnit resizable="true" position="center" id="content"
+			styleClass="bg-center">
+			<ui:insert name="content">
+				<ui:include src="commonContent.xhtml" />
+			</ui:insert>
+		</p:layoutUnit>
+		<p:layoutUnit position="south" size="50" resizable="false"
+			styleClass="bg-footer" closable="false" collapsible="false"
+			id="footer" style="border: 0px;">
+			<ui:insert name="footer">
+				<ui:include src="commonFooter.xhtml" />
+			</ui:insert>
+		</p:layoutUnit>
+	</p:layout>
+	
+	<ui:insert name="dialogos" />
+	
+</h:body>
+</html>

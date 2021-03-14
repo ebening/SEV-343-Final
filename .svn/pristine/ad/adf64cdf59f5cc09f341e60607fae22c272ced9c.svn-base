@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated 16/10/2013 09:36:58 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.TblCampanaActividades" table="TBL_CAMPANA_ACTIVIDADES">
+        <id name="id" type="long">
+            <column name="ID" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="tblCampana" class="com.adinfi.seven.business.domain.TblCampana" fetch="select">
+            <column name="ID_CAMPANA" not-null="true" />
+        </many-to-one>
+        <many-to-one name="catEstatus" class="com.adinfi.seven.business.domain.CatEstatus" fetch="select">
+            <column name="ESTATUS" not-null="true" />
+        </many-to-one>
+        <property name="idActividad" type="java.lang.Integer">
+            <column name="ID_ACTIVIDAD" />
+        </property>
+        <property name="idUsuarioResp" type="java.lang.Integer">
+            <column name="ID_USUARIO_RESP" />
+        </property>
+        <property name="nombreActividad" type="string">
+            <column name="NOMBRE_ACTIVIDAD" length="200" not-null="true" />
+        </property>
+        <property name="esFlujo" type="int">
+            <column name="ES_FLUJO" not-null="true" />
+        </property>
+        <property name="fechaCierre" type="timestamp">
+            <column name="FECHA_CIERRE" length="26" />
+        </property>
+        <property name="fechaInicio" type="timestamp">
+            <column name="FECHA_INICIO" length="26" not-null="true" />
+        </property>
+        <property name="fechaFin" type="timestamp">
+            <column name="FECHA_FIN" length="26" not-null="true" />
+        </property>
+        <property name="idRol" type="int">
+            <column name="ID_ROL" not-null="true" />
+        </property>
+        <property name="usuarioCreacion" type="int">
+            <column name="USUARIO_CREACION" not-null="true" />
+        </property>
+        <property name="fechaCreacion" type="timestamp">
+            <column name="FECHA_CREACION" length="26" not-null="true" />
+        </property>
+        <property name="usuarioModificacion" type="java.lang.Integer">
+            <column name="USUARIO_MODIFICACION" />
+        </property>
+        <property name="fechaModificacion" type="timestamp">
+            <column name="FECHA_MODIFICACION" length="26" />
+        </property>
+        <property name="porcentajeCompletado" type="int">
+            <column name="PORCENTAJE_COMPLETADO"/>
+        </property>
+        <property name="fechaInicioReal" type="timestamp">
+            <column name="FECHA_INICIO_REAL" length="26" />
+        </property>
+        <property name="fechaFinReal" type="timestamp">
+            <column name="FECHA_FIN_REAL" length="26" />
+        </property>
+        <property name="activo" type="int">
+            <column name="ACTIVO" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

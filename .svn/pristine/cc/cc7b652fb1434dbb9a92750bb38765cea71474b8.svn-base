@@ -1,0 +1,49 @@
+#Desarrollo Local
+#http://192.168.10.52/admaster/admaster.nsf/fraMenu02
+#http://localhost:8080/admaster/apps/GenHoja.jsp?template=D-1&idTemplate=143&departamento=21&departamentoDesc=21%20MUEBLES&evento=171&clase=3&claseDesc=Comedores&subClase=0&subClaseDesc=-Seleccionar-&tab=1&tabDesc=Dia%20de%20la%20Madres&user=Virginia%20Gallegos&version=0&hoja=2&mes=Mayo&semana=30&DI=Daniel%20Uscanga&COM=Eliud%20Carrillo&SIS=ADM&PRI=&FIP=&FFP=&AP=0&TN=&NI=0
+#db2.driver=sun.jdbc.odbc.JdbcOdbcDriver
+#db2.source.url=jdbc:db2://10.21.72.43:50000/admprod
+#db2.source.username=db2admin
+#db2.source.password=password
+
+#Desarrollo 
+db2.driver=com.ibm.db2.jcc.DB2Driver
+db2.source.url=jdbc:db2://192.168.10.101:50000/ADINFDEV
+db2.source.schema=
+db2.source.username=db2admin
+db2.source.password=password
+
+#Produccion (ADINFI)
+#db2.driver=com.ibm.db2.jcc.DB2Driver
+#db2.source.url=jdbc:db2://192.168.10.192:50000/ADINFDEV
+#db2.source.schema=FAM161DEV
+#db2.source.username=db2inst1
+#db2.source.password=Passw0rd
+
+#Produccion 
+#db2.driver=COM.ibm.db2.jdbc.app.DB2Driver
+#db2.source.url=jdbc:db2:admprod
+
+progress.driver=com.ibm.db2.jcc.DB2Driver
+progress.source.url=jdbc:db2://192.168.10.58:50000/progress
+progress.source.username=db2admin 
+progress.source.password=Passw0rd
+ 
+#pruebas progress= 10.21.72.216
+#pruebas pass= admanager AdManagerDAO.getArticulosTotalesDeEventoEnMerch
+#produccion progress= 10.21.72.71
+#produccion pass= po7mr?n8
+
+#progress.driver=com.ddtek.jdbc.openedge.OpenEdgeDriver
+#progress.source.url=jdbc:datadirect:openedge://10.21.72.71:50100;databaseName=sthm
+#progress.source.username=admanager
+#progress.source.password=po7mr?n8
+
+#Excell Discrepancias 
+#reportediscrepancias.ruta=C:\\eclipse\\
+#reportediscrepancias.ruta=//usr//ibm//WebSphere//AppServer//profiles//domino//installedApps//admanagerNode01Cell//admanagerdesa_war.ear//admanagerdesa.war//include//
+reportediscrepancias.ruta=//usr//ibm//WebSphere//AppServer//profiles//domino//installedApps//admanagerNode01Cell//admanager_war.ear//admanager.war//include//
+
+#Versionamiento Automatico S=activo N=inactivo
+bandera.versionamientoAutomatico=N
+bandera.preciosNLP=S

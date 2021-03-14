@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated 19/08/2013 10:38:15 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.CatAttrs" table="CAT_ATTRS">
+        <id name="catAttribId" type="int">
+            <column name="CAT_ATTRIB_ID" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="attribs" class="com.adinfi.seven.business.domain.Attribs" fetch="join"   >
+            <column name="ATTRIB_ID" not-null="true" />
+        </many-to-one>
+        <many-to-one name="catalogs" class="com.adinfi.seven.business.domain.Catalogs" fetch="select">
+            <column name="CAT_ID" not-null="true" />
+        </many-to-one>
+        <property name="estatus" type="java.lang.Character">
+            <column name="ESTATUS" length="1" />
+        </property>
+        <property name="required" type="java.lang.Character">
+            <column name="REQUIRED" length="1" />
+        </property>
+        <property name="isUnique" type="java.lang.Character">
+            <column name="IS_UNIQUE" length="1" />
+        </property>
+        <property name="extfkTName" type="string">
+            <column name="EXT_FK_TNAME"   />
+        </property>     
+        <property name="extfkFName" type="string">
+            <column name="EXT_FK_FNAME"   />
+        </property>         
+        <set name="catRegValueses" inverse="true">
+            <key>
+                <column name="CAT_ATTRIB_ID" not-null="true" />
+            </key>
+            <one-to-many class="com.adinfi.seven.business.domain.CatRegValues" />
+        </set>
+        <property name="catAttribIdRef" type="int">
+            <column name="cat_attrib_id_ref"  not-null="false"   />
+        </property>        
+    </class>
+</hibernate-mapping>

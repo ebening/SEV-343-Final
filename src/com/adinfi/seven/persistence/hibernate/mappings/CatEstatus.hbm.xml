@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 24, 2016 11:29:18 AM by Hibernate Tools 4.3.1.Final -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.CatEstatus" table="CAT_ESTATUS" optimistic-lock="version">
+        <id name="idestatus" type="int">
+            <column name="idestatus" />
+            <generator class="identity" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="nombre" length="45" not-null="true" />
+        </property>
+        <set name="tblCampanaActividadeses" table="TBL_CAMPANA_ACTIVIDADES" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ESTATUS" not-null="true" />
+            </key>
+            <one-to-many class="com.adinfi.seven.business.domain.TblCampanaActividades" />
+        </set>
+        <set name="tblActividads" table="TBL_ACTIVIDAD" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="IDESTATUS" />
+            </key>
+            <one-to-many class="com.adinfi.seven.business.domain.TblActividad" />
+        </set>
+    </class>
+</hibernate-mapping>

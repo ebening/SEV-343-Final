@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<h:outputStylesheet name="adMaster-template.css" library="css" />
+</h:head>
+<body>
+	<p:layout fullPage="true">
+
+		<p:layoutUnit
+			style="border:none;"
+			position="north" resizable="false">
+			<ui:include src="/pages/template/common/cabezera.xhtml" />
+		</p:layoutUnit>
+
+
+		<p:layoutUnit style="border:none;" position="west" 
+			resizable="true"  size="200" minSize="150"
+			maxSize="250">
+
+			<div class="template-menuLateral">
+				<ui:include src="/pages/template/common/menu_lateral.xhtml" />
+			</div>
+
+		</p:layoutUnit>
+
+		<p:layoutUnit style="border:none;" position="center">
+
+			<div class="template-content">
+				<ui:include src="/pages/template/common/contenido.xhtml" />
+			</div>
+
+		</p:layoutUnit>
+
+		<p:layoutUnit style="border:none;" position="south">
+			<div class="template-footer">
+				<ui:include src="/pages/template/common/footer.xhtml" />
+			</div>
+		</p:layoutUnit>
+
+	</p:layout>
+</body>
+</html>

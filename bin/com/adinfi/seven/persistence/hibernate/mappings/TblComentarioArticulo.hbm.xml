@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated 14/02/2014 05:08:14 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.TblComentarioArticulo" table="TBL_COMENTARIO_ARTICULO">
+        <id name="idComentarioArticulo" type="int">
+            <column name="ID_COMENTARIO_ARTICULO" />
+            <generator class="native" />
+        </id>
+        <property name="segmentId" type="int">
+            <column name="SEGMENT_ID" not-null="true" />
+        </property>
+        <property name="comentario" type="string">
+            <column name="COMENTARIO" length="350" not-null="true" />
+        </property>
+        <property name="fechaAlta" type="timestamp">
+            <column name="FECHA_ALTA" length="26" not-null="true" />
+        </property>
+        <property name="idHoja" type="int">
+            <column name="ID_HOJA" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+	<link type="text/css" rel="stylesheet" href="css/DialogosModuloPlaneacion.css" />
+	<link type="text/css" rel="stylesheet" href="css/home.css" />
+	<link type="text/css" rel="stylesheet" href="css/FontAndColor.css" />
+	<link type="text/css" rel="stylesheet" href="css/adMaster.buttons.css" />
+</h:head> 
+<h:body>
+	<h:form>
+		<div id="dialog_MaterialPop" title="Material Pop" >
+			<div style="padding-bottom: 5px;border-bottom: 2px solid gray;">
+				<h:graphicImage id="image_title" value="images/Logo_Admaster_18.png"/>
+		 	</div>
+	
+			<table id="tbl_par1">
+					<tr><td colspan="6" style="width:40px;"></td></tr>
+					<tr>
+						<td style="width: 130px;" class="fuenteYColor"><h:outputLabel value="Tipo de anuncio: "></h:outputLabel></td>
+						<td colspan="2">
+							<p:selectOneMenu id="select_tipoAnuncioMaterialPop" style="width: 140px;">
+								<f:selectItem itemValue="op1"
+										itemLabel="Frizo"></f:selectItem>
+							</p:selectOneMenu>
+						</td>
+						<td style="padding-left: 10px;" class="fuenteYColor"><h:outputLabel value="Campaña:"/></td>
+						<td>
+							<p:selectOneMenu id="select_campanaMaterialPop" style="width: 220px;"  styleClass="fuenteYColor">
+								<f:selectItem itemValue="op1"
+										itemLabel="Regreso a clases"></f:selectItem>
+							</p:selectOneMenu>
+						</td>
+						<td style="padding-left: 10px;" class="fuenteYColor"><h:outputLabel value="Categoría: "/></td>
+						<td>
+							<p:selectOneMenu id="select_categoriaMaterialPop" style="width: 210px;"  styleClass="fuenteYColor">
+								<f:selectItem itemValue="op1"
+										itemLabel=" "></f:selectItem>
+							</p:selectOneMenu>
+						</td>
+					</tr>
+					<tr>
+						<td class="fuenteYColor"><h:outputLabel value="Inicio:"/></td>
+						<td colspan="2">
+							<p:calendar id="DateCalendar" pattern="dd/MM/yyyy" mode="popup" showOn="button" size='10' style="height: 16px;padding-left:10px;">
+								<f:convertDateTime pattern="MM/yyyy" />
+							</p:calendar>
+						</td>
+						<td align="right" class="fuenteYColor"><h:outputLabel value="Fin:"/></td>
+						<td>
+							<p:calendar id="DateCalendar2" pattern="dd/MM/yyyy" mode="popup" showOn="button" size='10' style="height: 16px;padding-left:10px;">
+								<f:convertDateTime pattern="MM/yyyy" />
+							</p:calendar>
+						</td>
+						<td colspan="2" style="width: 210px;" align="right">
+							<p:commandButton id="btnUbicacionGeografica" value="Ubicación Geográfica" styleClass="ui-priority-primary" style="height: 30px;color: white;background: url(images/degradado_btn_2.png);"></p:commandButton>
+						</td>
+					</tr>
+				
+					<tr>
+						<td class="fuenteYColor"><h:outputLabel value="Precio venta: "/></td>
+						<td colspan="3" style=" width: 263px" class="fuenteYColor"><p:inputText id="txt_precioVenta" value="   $"  styleClass="borderTextbox fuenteYColor"/><h:outputLabel value=" MN"/></td>
+						
+						<td style="width: 453px " colspan="3">
+							<p:commandButton id="btnAsignaciónDeEspacioEnTienda" value="Asignación De Espacio En Tienda" style="width: 280px; color: white;height: 30px;background: url(images/degradado_btn_2.png);"></p:commandButton>
+						</td>
+					</tr>
+			</table>
+		
+			<table id="tbl_part2" style="width:100%;">
+		
+				<tr>
+					<td style="padding-right: 18px; width:0px;" class="fuenteYColor"><h:outputLabel value="Responsable:"/></td>
+					<td style="padding-left: 18px;"><p:inputText id="txt_ResponsableMaterialPop" style="width: 265px;" styleClass="fuenteYColor borderTextbox" /></td>
+					<td style="padding-left: 15px; padding-right: 10px; width:0px;" class="fuenteYColor"><h:outputLabel value="Diseñador:"/></td>
+					<td style="width: 340px" align="right">
+						<p:selectOneMenu id="select_diseñadorMaterialPop" style=" width: 98%;" >
+							<f:selectItem itemValue="op1"
+										itemLabel=" "></f:selectItem>
+						</p:selectOneMenu>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="4" align="right">
+						<p:commandButton id="btnFinalizarMaterialPop" value="Finalizar" styleClass="ui-priority-primary" style="height: 30px;color: white;background: url(images/degradado_btn_2.png);"></p:commandButton>
+					</td>
+				</tr>
+			
+			</table>
+		
+		</div> 
+	</h:form>
+</h:body>
+</html>

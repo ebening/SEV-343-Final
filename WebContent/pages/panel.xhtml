@@ -1,0 +1,491 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+        >
+<h:head>
+</h:head>
+<h:body style="font-size: 0.8em">
+    <ui:composition template="../template/common/commonLayout.xhtml">
+        <ui:define name="west">
+            <p:layoutUnit position="west" size="250"
+                          resizable="true" closable="false" collapsible="false" id="west">
+                <h:form id="frmMenuLogin">
+                    <p:panelMenu>
+                        <!-- style="width:200px" -->
+                        <p:submenu label="#{msg.Catalogos}">
+                            <p:submenu label="#{msg.JerarquiaOrganizacional}">
+                                
+                                <p:menuitem value="#{msg.Division}"
+                                            onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            action="#{menuBean.setPagina('prueba')}"
+                                            actionListener="#{menuBean.goCatalog('CAT_DIVISION','DIVISION')}"
+                                            update=":pgPrincipal"/>
+                                             <!--
+                                            <p:menuitem value="UsuariosCategorias"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            actionListener="#{menuBean.setPagina('relUsuariosCategorias')}"
+                                            update=":pgPrincipal"/>
+                                 -->
+                                <p:menuitem value="CAT_PROGRAMA"
+                                            onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            action="#{menuBean.setPagina('catPrograma')}"
+                                            update=":pgPrincipal"/>
+                                            
+                                            
+                                <p:menuitem value="CAT_SENAL"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            action="#{menuBean.setPagina('catSenal')}"
+                                            update=":pgPrincipal"/>
+                                            
+                                <p:menuitem value="CAT_PROMO"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            action="#{menuBean.setPagina('catPromo')}"
+                                            update=":pgPrincipal"/>
+                                
+                                <p:menuitem value="CAT_CATEGORY"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            action="#{menuBean.setPagina('category')}"
+                                            update=":pgPrincipal"/>
+                                            
+                                <p:menuitem value="CAT_SUBCATEGORY"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            action="#{menuBean.setPagina('subCategory')}"
+                                            update=":pgPrincipal"/>
+                                <!--
+                                <p:menuitem value="CAT_CATEGORY"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            action="#{menuBean.setPagina('prueba')}"
+                                            actionListener="#{menuBean.goCatalog('CAT_CATEGORY','CAT_CATEGORY')}"
+                                            update=":pgPrincipal"/>
+                                            
+                                <p:menuitem value="CAT_SUBCATEGORY"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            action="#{menuBean.setPagina('prueba')}"
+                                            actionListener="#{menuBean.goCatalog('CAT_SCATEGORY','CAT_SCATEGORY')}"
+                                            update=":pgPrincipal"/>
+                                -->
+                                <p:menuitem value="CAT_DESCRIPCION"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+											action="#{menuBean.setPagina('descripcion')}"
+                                            update=":pgPrincipal"/>
+                                            
+                                <p:menuitem value="CAT_LISTA"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            action="#{menuBean.setPagina('prueba')}"
+                                            actionListener="#{menuBean.goCatalog('CAT_LISTA','CAT_LISTA')}"
+                                            update=":pgPrincipal"/>
+                                            
+                                <p:menuitem value="CAT_ESPACIO_PROMO"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            action="#{menuBean.setPagina('prueba')}"
+                                            actionListener="#{menuBean.goCatalog('CAT_ESP_PROMO','CAT_ESP_PROMO')}"
+                                            update=":pgPrincipal"/>
+                                            
+                                <p:menuitem value="CAT_ITEM"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            action="#{menuBean.setPagina('item')}"
+                                            update=":pgPrincipal"/>
+                                            
+                                <p:menuitem value="CAT_FABRICANTE" 
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            action="#{menuBean.setPagina('prueba')}"
+                                            actionListener="#{menuBean.goCatalog('CAT_FABRICANTE','CAT_FABRICANTE')}"
+                                            update=":pgPrincipal"/>
+                                            
+                                <p:menuitem value="CAT_COSTOS" 
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            action="#{menuBean.setPagina('prueba')}"
+                                            actionListener="#{menuBean.goCatalog('CAT_COSTOS','CAT_COSTOS')}"
+                                            update=":pgPrincipal"/>
+                                            
+                                <p:menuitem value="CAT_VENTA" 
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            action="#{menuBean.setPagina('prueba')}"
+                                            actionListener="#{menuBean.goCatalog('CAT_VENTA','CAT_VENTA')}"
+                                            update=":pgPrincipal"/>
+                                
+                                <p:menuitem value="CAT_PROVEEDOR"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            action="#{menuBean.setPagina('proveedor')}"
+                                            update=":pgPrincipal"/>
+                                
+                                <!--
+                                <p:menuitem value="CAT_PROVEEDOR"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            action="{menuBean.setPagina('prueba')}"
+                                            actionListener="{menuBean.goCatalog('CAT_PROVEEDOR','CAT_PROVEEDOR')}"
+                                            update=":pgPrincipal"/>
+                                            -->
+                                            
+                                <p:menuitem value="CAT_G_ZONE"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            action="#{menuBean.setPagina('grupoZona')}"
+                                            update=":pgPrincipal"/>
+                                            
+                                <p:menuitem value="CAT_ZONE"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            action="#{menuBean.setPagina('zona')}"
+                                            update=":pgPrincipal"/>
+                                            
+                                <p:menuitem value="CAT_STORE"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            action="#{menuBean.setPagina('store')}"
+                                            update=":pgPrincipal"/>
+                                            
+                                <p:menuitem value="CAT_LISTA_DET"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            action="#{menuBean.setPagina('detList')}"
+                                            update=":pgPrincipal"/>
+                                            
+                                <p:menuitem value="CAT_TIPO_PROMO"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            action="#{menuBean.setPagina('catTipoPromo')}"
+                                            update=":pgPrincipal"/>
+                                            
+                                <p:menuitem value="CAT_UNIDADES"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            action="#{menuBean.setPagina('tipoZona')}"                                            
+                                            update=":pgPrincipal"/>
+                                            
+                                <p:menuitem value="TIPO_ZONA"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+											action="#{menuBean.setPagina('tipoZona')}"
+                                            update=":pgPrincipal"/>
+                                            
+                                <p:menuitem value="REL_Z_PRECIOS"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            action="#{menuBean.setPagina('prueba')}"
+                                            actionListener="#{menuBean.goCatalog('REL_Z_PRECIOS','REL_Z_PRECIOS')}"
+                                            update=":pgPrincipal"/>
+                                            
+                                <p:menuitem value="REL_Z_P_PRECIO"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            action="#{menuBean.setPagina('prueba')}"
+                                            actionListener="#{menuBean.goCatalog('REL_Z_P_PRECIO','REL_Z_P_PRECIO')}"
+                                            update=":pgPrincipal"/>
+                                            
+                                <p:menuitem value="LOGISTICA"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            action="#{menuBean.setPagina('prueba')}"
+                                            actionListener="#{menuBean.goCatalog('LOGISTICA','LOGISTICA')}"
+                                            update=":pgPrincipal"/>
+
+                                <p:menuitem value="#{msg.Plaza}"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            action="#{menuBean.setPagina('prueba')}"
+                                            actionListener="#{menuBean.goCatalog('CAT_PLACE','CATALOGO DE PLAZA')}"
+                                            update=":pgPrincipal"/>
+                                            
+                                <p:menuitem value="#{msg.Mercado}"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            action="#{menuBean.setPagina('prueba')}"
+                                            actionListener="#{menuBean.goCatalog('CAT_MARKET','CATALOGO DE MERCADO')}"
+                                            update=":pgPrincipal"/>
+                                            
+                                <p:menuitem value="#{msg.Campo}"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            action="#{menuBean.setPagina('prueba')}"
+                                            actionListener="#{menuBean.goCatalog('CAT_FIELD','CATALOGO DE CAMPO')}"
+                                            update=":pgPrincipal"/>
+                                            
+                                <p:menuitem value="#{msg.Tienda}"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            action="#{menuBean.setPagina('prueba')}"
+                                            actionListener="#{menuBean.goCatalog('CAT_STORE','CATALOGO DE TIENDA')}"
+                                            update=":pgPrincipal"/>
+                                            
+                                <p:menuitem value="CATALOGO DE SUCURSAL"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            action="#{menuBean.setPagina('prueba')}"
+                                            actionListener="#{menuBean.goCatalog('CAT_SUCURSAL','CATALOGO DE SUCURSAL')}"
+                                            update=":pgPrincipal"/>
+                                            
+                            </p:submenu>
+                            <p:submenu label="#{msg.JerarquiaMercancia}">
+                                <p:menuitem value="#{msg.MercanciasServicios}"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            actionListener="#{menuBean.goCatalog('CAT_MSERVICE','CATALOGO DE MERCANCIAS/SERVICIOS')}"
+                                            update=":pgPrincipal"/>
+                                
+                                <p:menuitem value="CAT_DEPTO" 
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            action="#{menuBean.setPagina('depto')}" 
+                                            update=":pgPrincipal"/>
+                                <!--<p:menuitem value="{msg.Departamento}"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            actionListener="{menuBean.goCatalog('CAT_DEPTO','CATALOGO DE DEPARTAMENTO')}"
+                                            update=":pgPrincipal"/>-->
+                                
+                                <p:menuitem value="CAT_SEGMENTO"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            actionListener="#{menuBean.goCatalog('CAT_SEGMENT','CATALOGO DE SEGMENTO')}"
+                                            update=":pgPrincipal"/>
+                                <p:menuitem value="#{msg.Articulo}"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            actionListener="#{menuBean.goCatalog('CAT_ITEM','CATALOGO DE ARTICULO')}"
+                                            update=":pgPrincipal"/>
+                            </p:submenu>
+                            <p:submenu label="#{msg.Formatodetienda}">
+                                <p:menuitem value="#{msg.Formatodetienda}"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            actionListener="#{menuBean.goCatalog('CAT_STORE','CATALOGO DE TIENDA')}"
+                                            update=":pgPrincipal"/>
+                            </p:submenu>
+                            <p:submenu label="#{msg.ABC}">
+                                <!--
+                                <p:menuitem value="#{msg.Usuarios}"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            actionListener="#{menuBean.goCatalog('CAT_USER','CATALOGO DE USUARIO')}"
+                                            update=":pgPrincipal"/>
+                                
+                                  -->
+                                <p:menuitem value="RESPONSABLES"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            actionListener="#{menuBean.goCatalog('CAT_RESP','CATALOGO DE RESPONSABLES')}"
+                                            update=":pgPrincipal"/>
+                                <p:menuitem value="VIGENCIA"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            actionListener="#{menuBean.goCatalog('CAT_VIGENCIA','CATALOGO DE VIGENCIA')}"
+                                            update=":pgPrincipal"/>
+                                <p:menuitem value="#{msg.Roles}"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            actionListener="#{menuBean.goCatalog('CAT_ROLE','CATALOGO DE ROL')}"
+                                            update=":pgPrincipal"/>
+                                <p:menuitem value="#{msg.Actividades}"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            actionListener="#{menuBean.goCatalog('CAT_ACTIVITY','CATALOGO DE ACTIVIDADES')}"
+                                            update=":pgPrincipal"/>
+                                <p:menuitem value="TEMPLATE DE NOTIFICACIONES"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            actionListener="#{menuBean.goCatalog('CAT_TEM_NOTF','TEMPLATE DE NOTIFICACIONES')}"
+                                            update=":pgPrincipal"/>
+                                <p:menuitem value="#{msg.MaterialPOP}"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            actionListener="#{menuBean.goCatalog('CAT_POP','CATALOGO DE MATERIAL POP')}"
+                                            update=":pgPrincipal"/>
+                                <p:menuitem value="#{msg.MaterialPOPportienda}"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            actionListener="#{menuBean.goCatalog('CAT_POPSTORE','CATALOGO DE MATERIAL POP POR TIENDA')}"
+                                            update=":pgPrincipal"/>
+                                <p:menuitem value="#{msg.Periodos}"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            actionListener="#{menuBean.goCatalog('CAT_PERIOD','CATALOGO DE PERIODO')}"
+                                            update=":pgPrincipal"/>
+                                <p:menuitem value="#{msg.Periodos}"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            actionListener="#{menuBean.goCatalog('CAT_SIST_VENTA','SISTEMA DE VENTAS')}"
+                                            update=":pgPrincipal"/>
+                                <p:menuitem value="Prueba Company"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            actionListener="#{menuBean.goCatalog('CAT_COMPANYP','COMPAÑIA PRUEBA')}"
+                                            update=":pgPrincipal"/>
+                                <p:menuitem value="CATALOGO ETIQUETAS"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            actionListener="#{menuBean.goCatalog('CAT_ETIQ','CATALOGO ETIQUETAS')}"
+                                            update=":pgPrincipal"/>
+                                <p:menuitem value="CATALOGO MEDIOS"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            actionListener="#{menuBean.goCatalog('CAT_MEDIO','CATALOGO MEDIOS')}"
+                                            update=":pgPrincipal"/>
+                                <p:menuitem value="CATALOGO TIPO DE MEDIOS"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            actionListener="#{menuBean.goCatalog('CAT_TIPO_MEDIO','CATALOGO TIPOS MEDIOS')}"
+                                            update=":pgPrincipal"/>
+                                <p:menuitem value="Categoria por usuario"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            actionListener="#{menuBean.goCatalog('CAT_US_CATEGORY','CATEGORIAS POR USUARIO')}"
+                                            update=":pgPrincipal"/>
+                                <p:menuitem value="Categoria por Departamento"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            actionListener="#{menuBean.goCatalog('CAT_DEPTO_CATE','CATEGORIAS POR DEPARTAMENTO')}"
+                                            update=":pgPrincipal"/>
+                                <p:menuitem value="MESES"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            actionListener="#{menuBean.goCatalog('CAT_MES','Mes')}"
+                                            update=":pgPrincipal"/>
+                                <p:menuitem value="Dias Festivos"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            actionListener="#{menuBean.goCatalog('CAT_HOLYDAY','DIAS FESTIVOS')}"
+                                            update=":pgPrincipal"/>
+                                <p:menuitem value="CATALOGO ESTATUS AUTORIZACION"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            actionListener="#{menuBean.goCatalog('CAT_ESTATUS_AUT','CATALOGO ESTATUS AUTORIZACION')}"
+                                            update=":pgPrincipal"/>
+                                <p:menuitem value="Dias de Promocion"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            actionListener="#{menuBean.goCatalog('CAT_DIAS_PROMO','CATALOGO CONF DIAS PROMO')}"
+                                            update=":pgPrincipal"/>
+                                <p:menuitem value="Señalamientos"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            actionListener="#{menuBean.goCatalog('CAT_SEÑAL','Señalamiento')}"
+                                            update=":pgPrincipal"/>
+                                <p:menuitem value="Mecanicas"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            actionListener="#{menuBean.goCatalog('CAT_MECANICA','Mecanica')}"
+                                            update=":pgPrincipal"/>
+                                <p:menuitem value="Programas"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            actionListener="#{menuBean.goCatalog('CAT_PROGRAMA','Programa')}"
+                                            update=":pgPrincipal"/>
+                                <p:menuitem value="DIA/HORA"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            actionListener="#{menuBean.goCatalog('DIA/HORA','DIA/HORA')}"
+                                            update=":pgPrincipal"/>
+                                <p:menuitem value="FRECUENCIA"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            actionListener="#{menuBean.goCatalog('CAT_FRECUENCY','FRECUENCIA')}"
+                                            update=":pgPrincipal"/>
+                                <p:menuitem value="ES GENERAL SEV"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            actionListener="#{menuBean.goCatalog('General_Seven','General Material POP')}"
+                                            update=":pgPrincipal"/>
+                                <p:menuitem value="ES General famsa"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            actionListener="#{menuBean.goCatalog('General_Famsa','General   Por Hoja')}"
+                                            update=":pgPrincipal"/>
+                                <p:menuitem value="SUGERENCIA"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            actionListener="#{menuBean.goCatalog('CAT_SUGERENCIA','CATALOGO DE SUGERENCIA')}"
+                                            update=":pgPrincipal"/>
+                                <p:menuitem value="tipo Campañas"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            actionListener="#{menuBean.goCatalog('CAT_TIPO_CAM','CATALOGO DE TIPOS DE CAMPANAS')}"
+                                            update=":pgPrincipal"/>
+                                <p:menuitem value="HOJA/ESPACIO"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            actionListener="#{menuBean.goCatalog('HOJA_ESPACIO','Catalogo de hojas - espacios')}"
+                                            update=":pgPrincipal"/>
+                                <p:menuitem value="CATALOGO DE ESTATUS"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            actionListener="#{menuBean.goCatalog('CAT_STATUS','CATALOGO ESTATUS')}"
+                                            update=":pgPrincipal"/>
+                                <p:menuitem value="CATALOGO DE ESTATUS JUNTA"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            actionListener="#{menuBean.goCatalog('CAT_STATUS_JUN','CATALOGO ESTATUS JUNTA')}"
+                                            update=":pgPrincipal"/>
+                                <p:menuitem value="CATALOGO DE Articulos"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            actionListener="#{menuBean.goCatalog('CAT_ARTICULO','CATALOGO DE ARTICULOS')}"
+                                            update=":pgPrincipal"/>
+
+                         <!--       <p:menuitem value="Tipo de eventos"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            actionListener="#{menuBean.goCatalog('CAT_TIPO_EVENTO','CATALOGO DE EVENTOS')}"
+                                            update=":pgPrincipal"/>  -->
+
+                                <p:menuitem value="Notificaciones/Correos"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            actionListener="#{menuBean.goCatalog('CAT_TEM_NOTF','Notificación de Correos')}"
+                                            update=":pgPrincipal"/>
+                                <p:menuitem value="SISTEMA DE VENTA"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            actionListener="#{menuBean.goCatalog('CAT_SISTM_VENTA','SISTEMA DE VENTA')}"
+                                            update=":pgPrincipal"/>
+                                <p:menuitem value="CATALOGO DE EVENTOS"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            actionListener="#{menuBean.goCatalog('CAT_TIPO_EVENTO','CATALOGO DE EVENTOS')}"
+                                            update=":pgPrincipal"/>
+                            </p:submenu>
+                        </p:submenu>
+                        <p:submenu label="#{msg.Notificaciones}">
+                            <p:menuitem value="#{msg.Notificacionesdeactividades}"
+                           				onstart="muestraLoader();"
+							            onsuccess="ocultaLoader();"
+                                        actionListener="#{menuBean.goCatalog('CAT_FREC_NOTIF','NOTIFICACIONES DE ACTIVIDADES')}"
+                                        update=":pgPrincipal"/>
+                        </p:submenu>
+                    </p:panelMenu>
+                </h:form>
+            </p:layoutUnit>
+        </ui:define>
+        <ui:define name="content">
+            <h:panelGroup id="pgPrincipal">
+                <!--   
+                <ui:include src="#{menuBean.pagina}.xhtml" />
+                -->
+            </h:panelGroup>
+        </ui:define>
+    </ui:composition>
+</h:body>
+
+
+</html>

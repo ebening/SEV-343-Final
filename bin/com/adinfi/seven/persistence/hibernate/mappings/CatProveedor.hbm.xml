@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated 10-ago-2015 17:57:11 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.CatProveedor" table="CAT_PROVEEDOR" optimistic-lock="version">
+        <id name="idProveedor" type="int">
+            <column name="ID_PROVEEDOR" />
+            <generator class="identity" />
+        </id>
+        <property name="code" type="string">
+            <column name="CODE" length="100" />
+        </property>
+    </class>
+</hibernate-mapping>

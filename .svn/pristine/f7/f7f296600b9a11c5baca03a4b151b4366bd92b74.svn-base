@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+	<script type="text/javascript" src="js/Ejecucion.js"></script>
+	<link type="text/css" rel="stylesheet"  href="css/Ejecucion.css"/>
+</h:head> 
+<h:body> 
+		<div id="div_Ejecucion" style=" width: 100%; height: 470px;">
+			<div id="div_menuLateralEjecucion" style="width: 16%;float: left;">
+				<ui:include src="MenuLateralEjecucion.xhtml" /> 
+			</div>
+			
+			<div id="div_content_Ejecucion" style="width: 83%;float: right;"> 
+				<ui:include src="EjecucionEjecucion.xhtml" /> 
+			</div>
+		</div>
+	
+</h:body> 
+</html>

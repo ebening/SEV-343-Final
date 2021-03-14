@@ -1,0 +1,76 @@
+/* tables */
+table.tablesorter {
+	/*font-family: "Trebuchet MS", "Helvetica", "Arial",  "Verdana", "sans-serif";*/
+	/*background-color: #CDCDCD;*/
+	/*background-color: #9A9B9D;*/ 
+	/*margin:10px 0pt 15px;*/
+	font-size: 9pt;
+	/*width: 100%;*/
+	text-align: left;
+}
+table.tablesorter thead tr th, table.tablesorter tfoot tr th {
+/*	background-color: #9A9B9D;*/
+	/*background-color: #9A9B9D;*/
+	background: white;
+	color: black;
+	text-align: center;
+	/*border: 1px solid #FFF;*/
+	font-size: 9pt; /*font 12*/
+	padding: 5px 5px 5px 5px; /*padding 14*/ 
+	/*text-align: center;*/
+	border-bottom: 1px solid Silver;
+	border-top: 1px solid Silver;
+}
+table.tablesorter thead tr .header {
+	/*color: #FFFFFF;*/
+	color: black;
+	background-image: url(bg.gif);
+	background-repeat: no-repeat;
+	background-position: center right;
+	cursor: pointer;
+}
+table.tablesorter tbody td {
+	color: #3D3D3D;
+	padding-left: 2px;
+	padding: 2px;
+	/*padding: 4px;*/
+	background-color: #FFF;
+	/*vertical-align: top;*/
+	/*text-align: center;*/
+	border-bottom: 1px solid Silver;
+	/*border-top: 1px solid Silver;*/
+}
+
+table.tablesorter tbody tr.odd td {
+	background-color: #F0F0F6;
+	cursor: pointer;
+}
+
+
+table.tablesorter tbody tr:HOVER td {
+	background-color: silver;
+	color: black;
+	cursor: pointer;
+}
+
+table.tablesorter thead tr .headerSortUp {
+	background-image: url(asc.gif);
+}
+table.tablesorter thead tr .headerSortDown {
+	background-image: url(desc.gif);
+}
+
+table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
+/*background-color: #9C0032;*/
+/*background-color: #880038;*/
+/*background-color: #C85252;*/
+background-color: #82691E; 
+color: white;
+
+}
+
+table.tablesorter thead tr th.tituloBRG{
+/*background-color: #9C0032;*/
+/*background-color: #880038;*/
+background-color: #C85252;
+}

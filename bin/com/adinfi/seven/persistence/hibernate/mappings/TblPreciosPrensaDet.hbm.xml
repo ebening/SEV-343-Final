@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated 31/01/2014 04:48:00 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.TblPreciosPrensaDet" table="TBL_PRECIOS_PRENSA_DET">
+        <id name="idPrecPrensaDet" type="int">
+            <column name="ID_PREC_PRENSA_DET" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="tblPreciosPrensa" class="com.adinfi.seven.business.domain.TblPreciosPrensa" fetch="select">
+            <column name="ID_PREC_PRENSA" not-null="true" />
+        </many-to-one>
+        <property name="idSistemaVenta" type="int">
+            <column name="ID_SISTEMA_VENTA" not-null="true" />
+        </property>
+        <property name="idSku" type="string">
+            <column name="ID_SKU" length="35" not-null="true" />
+        </property>
+        <property name="cdoPublicar" type="big_decimal">
+            <column name="CDO_PUBLICAR" precision="13" />
+        </property>
+        <property name="absem6mes" type="big_decimal">
+            <column name="ABSEM_6MES" precision="13" />
+        </property>
+        <property name="absem9mes" type="big_decimal">
+            <column name="ABSEM_9MES" precision="13" />
+        </property>
+        <property name="absem12mes" type="big_decimal">
+            <column name="ABSEM_12MES" precision="13" />
+        </property>
+        <property name="absem15mes" type="big_decimal">
+            <column name="ABSEM_15MES" precision="13" />
+        </property>
+        <property name="absem18mes" type="big_decimal">
+            <column name="ABSEM_18MES" precision="13" />
+        </property>
+        <property name="absem24mes" type="big_decimal">
+            <column name="ABSEM_24MES" precision="13" />
+        </property>
+    </class>
+</hibernate-mapping>

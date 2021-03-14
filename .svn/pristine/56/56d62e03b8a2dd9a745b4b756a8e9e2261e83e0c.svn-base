@@ -1,0 +1,340 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:c="http://java.sun.com/jstl/core">
+<h:head>
+	<style type="text/css">
+.companyHeaderGrid tr,.companyHeaderGrid td {
+	border: none;
+}
+
+.unresizable {
+	resize: none;
+}
+
+.ui-custompanelgrid,.ui-custompanelgrid tr,.ui-custompanelgrid td {
+	/* background-color: blue !important; */
+	background: linear-gradient(top, black, white);
+	border: none;
+}
+
+.companyHeaderGrid tr,.companyHeaderGrid td {
+	border: none;
+}
+
+.unresizable {
+	resize: none;
+}
+
+.ui-custompanelgrid,.ui-custompanelgrid tr,.ui-custompanelgrid td {
+	/* background-color: blue !important; */
+	background: linear-gradient(top, black, white);
+	border: none;
+}
+</style>
+</h:head>
+<h:body>
+	<ui:composition template="template/common/commonLayout.xhtml">
+		<ui:define name="west">
+			<p:layoutUnit position="west" size="250" header="Opciones"
+				resizable="true" closable="false" collapsible="false" id="west">
+				<h:form id="frmMenuLogin">
+					<p:growl id="growl" showDetail="true" />
+					<p:tree style="border:none;" value="#{MBCampana.raiz}"
+						dynamic="true" cache="false" selectionMode="single"
+						selection="#{MBCampana.selectedNode}" var="node" id="tree">
+						<p:ajax event="expand"
+							update=":frmMenuLogin:growl :pgPrincipalLogin"
+							listener="#{MBCampana.onNodeExpand}" />
+						<p:ajax event="collapse"
+							update=":frmMenuLogin:growl :pgPrincipalLogin"
+							listener="#{MBCampana.onNodeCollapse}" />
+						<p:ajax event="select"
+							update=":frmMenuLogin:growl :pgPrincipalLogin"
+							listener="#{MBCampana.onNodeSelect}" />
+						<p:ajax event="unselect"
+							update=":frmMenuLogin:growl :pgPrincipalLogin"
+							listener="#{MBCampana.onNodeUnselect}" />
+						<p:treeNode id="treeNode">
+                                                    <b><h:outputText value="#{node}" id="lblNode" /></b>
+						</p:treeNode>
+					</p:tree>
+				</h:form>
+			</p:layoutUnit>
+		</ui:define>
+		<ui:define name="content">
+			<h:panelGroup id="pgPrincipalLogin">
+				<h:form>
+					<h:panelGrid columns="3">
+						<p:commandButton value="Alta"
+							action="#{mBCampanaFormRendered.viewAlta()}"
+							update=":pgPrincipalLogin">
+
+						</p:commandButton>
+						<p:commandLink value="Editar"
+							action="#{mBCampanaFormRendered.viewEdicion()}"
+							update=":pgPrincipalLogin">
+						</p:commandLink>
+						<p:commandLink value="Baja"
+							action="#{mBCampanaFormRendered.viewTabla()}"
+							update=":pgPrincipalLogin">
+						</p:commandLink>
+					</h:panelGrid>
+				</h:form>
+				<h:form id="alta" rendered="#{mBCampanaFormRendered.alta}">
+					<p:panelGrid id="grid1" columns="2" style="border:none;">
+						<f:facet name="header">  
+					        Alta
+					    </f:facet>
+						<p:outputLabel value="Tipo Campaña: " />
+						<p:selectOneMenu onchange="submit();" value="#{MBCampana.idTipoCampana}" 
+						valueChangeListener="#{MBCampana.tipoCampanaChangeField}">
+							<f:selectItem itemLabel="Seleccione" itemValue="0" />
+							<f:selectItems value="#{MBCampana.tipoCampanas}" />
+							<p:ajax update="alta"/>
+						</p:selectOneMenu>
+						<p:outputLabel value="Titulo: " />
+						<p:row>
+							<p:panelGrid columns="3">
+								<p:inputText value="#{MBCampana.nombre}" />
+								<p:outputLabel value="Etiqueta: " />
+								<p:selectOneMenu value="#{MBCampana.idEtiqueta}">
+									<f:selectItem itemLabel="Seleccionar" itemValue="0" />
+									<f:selectItems value="#{MBCampana.etiquetas}" />
+								</p:selectOneMenu>
+							</p:panelGrid>
+						</p:row>
+						<p:row id="CamposCambiantes" >
+
+							<p:outputLabel rendered="#{mBCampanaFormRendered.vigencia}"
+								value="Vigencia: " />
+
+							<p:outputLabel rendered="#{mBCampanaFormRendered.periodo}"
+								value="Periodo: " />
+						</p:row>
+						<p:row id = "CamposCambiantes2">
+							<p:outputLabel rendered="#{mBCampanaFormRendered.vigencia}" value="Fecha Incial: " />
+							<p:calendar rendered="#{mBCampanaFormRendered.vigencia}" value="#{calendarBean.date3}" id="fechaInicial"
+								showOn="button" />
+							<p:spacer rendered="#{mBCampanaFormRendered.vigencia} " height="30" />
+							<p:outputLabel rendered="#{mBCampanaFormRendered.vigencia}" value="Fecha Incial: " />
+							<p:calendar rendered="#{mBCampanaFormRendered.vigencia}" value="#{calendarBean.date3}" id="fechaFinal"
+								showOn="button" />
+							<p:dialog header="Selected Dates" widgetVar="dialog"
+								showEffect="fade" hideEffect="fade">
+								<h:panelGrid id="display" columns="2" cellpadding="5">
+									<h:outputText value="Inline Date:" />
+									<h:outputText value="#{calendarBean.date1}" id="inlineDate">
+										<f:convertDateTime pattern="d/M/yyyy" />
+									</h:outputText>
+									<h:outputText value="Popup Date:" />
+									<h:outputText value="#{calendarBean.date2}" id="popupDate">
+										<f:convertDateTime pattern="d/M/yyyy" />
+									</h:outputText>
+									<h:outputText value="Popup Button Date: " />
+									<h:outputText value="#{calendarBean.date3}"
+										id="popupButtonDate">
+										<f:convertDateTime pattern="d/M/yyyy" />
+									</h:outputText>
+								</h:panelGrid>
+							</p:dialog>
+							
+							<p:selectOneMenu rendered="#{mBCampanaFormRendered.periodo}" value="#{MBCampana.idPeriodo}">
+										<f:selectItem itemLabel="Seleccionar" itemValue="0" />
+										<f:selectItems value="#{MBCampana.periodos}" />
+									</p:selectOneMenu>
+							
+							
+						</p:row>
+						<p:outputLabel value="Responsable: " />
+						<p:selectOneMenu value="#{MBCampana.idResponsable}">
+										<f:selectItem itemLabel="Seleccionar" itemValue="0" />
+										<f:selectItems var="usuario" itemLabel="#{usuario.namepLmL}"
+											itemValue="#{usuario.userId}"
+											value="#{MBCampana.listUsuariosDTO}" />
+									</p:selectOneMenu>
+						<p:outputLabel value="Comentarios: " />
+						<p:inputTextarea value="#{MBCampana.comentarios}" />
+						<p:commandButton id="crear" value="#{msg.crearCadena}"
+										action="#{MBCampana.getInfo()}" />
+						<p:commandButton onclick="cd.show();"
+											value="#{msg.misAutorizaciones}" update="grid" />
+										<p:dialog header="Selección de Categorias" modal="true"
+											widgetVar="cd" width="300" height="480">
+
+											<p:selectManyCheckbox id="grid"
+												value="#{MBCampana.selectedCategories}"
+												layout="pageDirection">
+												<f:selectItems value="#{MBCampana.categorias}" />
+											</p:selectManyCheckbox>
+
+											<p:commandButton value="#{msg.finalizar}" onclick="cd.hide()"
+												action="#{MBCampana.getSelectedCategorias}" />
+
+										</p:dialog>
+					</p:panelGrid>
+
+				</h:form>
+				<h:form id="edicion" rendered="#{mBCampanaFormRendered.edicion}">
+					<p:panelGrid id="grid" columns="2" style="border:none;">
+						<f:facet name="header">  
+					        Edicion  
+					    </f:facet>
+						<p:outputLabel value="Tipo Campaña: " />
+						<p:selectOneMenu>
+							<f:selectItems value="" />
+						</p:selectOneMenu>
+						<p:outputLabel value="Titulo: " />
+						<p:row>
+							<p:panelGrid columns="3">
+								<p:inputText value="" />
+								<p:outputLabel value="Etiqueta: " />
+								<p:selectOneMenu>
+									<f:selectItems value="" />
+								</p:selectOneMenu>
+							</p:panelGrid>
+						</p:row>
+						<p:row>
+							<p:outputLabel value="Vigencia: " />
+						</p:row>
+						<p:row>
+							<p:outputLabel value="Fecha Incial: " />
+							<p:calendar value="#{calendarBean.date3}" id="fechaInicial"
+								showOn="button" />
+							<p:spacer height="30" />
+							<p:outputLabel value="Fecha Incial: " />
+							<p:calendar value="#{calendarBean.date3}" id="fechaFinal"
+								showOn="button" />
+							<p:dialog header="Selected Dates" widgetVar="dialog"
+								showEffect="fade" hideEffect="fade">
+								<h:panelGrid id="display" columns="2" cellpadding="5">
+									<h:outputText value="Inline Date:" />
+									<h:outputText value="#{calendarBean.date1}" id="inlineDate">
+										<f:convertDateTime pattern="d/M/yyyy" />
+									</h:outputText>
+									<h:outputText value="Popup Date:" />
+									<h:outputText value="#{calendarBean.date2}" id="popupDate">
+										<f:convertDateTime pattern="d/M/yyyy" />
+									</h:outputText>
+									<h:outputText value="Popup Button Date: " />
+									<h:outputText value="#{calendarBean.date3}"
+										id="popupButtonDate">
+										<f:convertDateTime pattern="d/M/yyyy" />
+									</h:outputText>
+								</h:panelGrid>
+							</p:dialog>
+						</p:row>
+						<p:outputLabel value="Responsable: " />
+						<p:selectOneMenu>
+							<f:selectItems value="" />
+						</p:selectOneMenu>
+						<p:outputLabel value="Comentarios: " />
+						<p:inputTextarea value="" />
+						<p:commandButton value="Crear" />
+						<p:commandButton value="Generar Actividades" />
+					</p:panelGrid>
+				</h:form>
+				<h:form id="tabla" rendered="#{mBCampanaFormRendered.table}">
+					<p:panel>
+
+						<table>
+							<tr>
+								<td><p:commandButton value="Nueva"
+										action="#{MBCampana.altaCampana()}" /> <p:commandButton
+										value="#Modificar" action="#{MBCampana.modificarCampana()}" />
+									<p:commandButton value="Eliminar"
+										action="#{MBCampana.getSelectedCategorias()}" /></td>
+							</tr>
+						</table>
+						<br />
+
+						<p:dataTable id="multiSolicitudes" var="item"
+							value="#{MBCampana.campanaDTODataModel}" paginator="true"
+							rows="10" selection="#{MBCampana.selectedCampanaList}"
+							emptyMessage="#{msg.tblAutorizacionesVacia}">
+
+							<!--   <f:facet name="header">
+           Mis Autorizaciones Pendientes
+        </f:facet> -->
+
+							<p:column selectionMode="multiple" style="width:2%" />
+							<!-- <p:column selectionMode="single" style="width:2%" /> -->
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="#{msg.etiquetaEnc}" />
+								</f:facet>
+								<h:outputText value="#{item.etiquetaDTO.codigo}" />
+							</p:column>
+							<!-- <p:column sortBy="#{item.tblCampana.idCampana}">
+					<f:facet name="header">
+						<h:outputText value="#{msg.idAutorizacion}" />
+					</f:facet>
+					<h:outputText value="#{item.tblCampana.idCampana}" />
+				</p:column>		 -->
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="#{msg.tipoCampanaEnc}" />
+								</f:facet>
+								<h:outputText value="#{item.tipoDTO.codigo}" />
+							</p:column>
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="#{msg.campanaEnc}" />
+								</f:facet>
+								<h:outputText value="#{item.tblCampana.nombre}" />
+							</p:column>
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="#{msg.periodoEnc}" />
+								</f:facet>
+								<h:outputText value="#{item.periodoDTO.fechaInicio}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText>
+								<h:outputText value=" al " />
+								<h:outputText value="#{item.periodoDTO.fechaFin}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText>
+							</p:column>
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="#{msg.responsableEnc}" />
+								</f:facet>
+								<h:outputText value="#{item.usuarioDTO.namepLmL}" />
+							</p:column>
+
+							<p:column sortBy="#{item.periodoDTO.fechaFin}">
+								<f:facet name="header">
+									<h:outputText value="#{msg.Anio}" />
+								</f:facet>
+								<h:outputText value="#{item.periodoDTO.fechaFin}">
+									<f:convertDateTime pattern="yyyy" />
+								</h:outputText>
+							</p:column>
+
+							<!-- <p:column style="width: 20%">
+			<f:facet name="header">
+						<h:outputText value="#{msg.verDetalle}" />
+			</f:facet>
+			<p:commandButton value="#{msg.misAutorizaciones}"
+					action="#{MBSolicitudAutorizacion.getCampanaDescripcion(item)}" />
+			</p:column> -->
+
+							<!-- <f:facet name="footer">
+            <p:commandButton id="multiViewButton" value="View" icon="ui-icon-search"
+                             update=":form:displayMulti" oncomplete="multiSolicitudDialog.show()"/>
+        	</f:facet> -->
+						</p:dataTable>
+					</p:panel>
+				</h:form>
+
+			</h:panelGroup>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

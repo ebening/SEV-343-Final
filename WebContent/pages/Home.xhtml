@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<script type="text/javascript" src="../resources/js/pdfObject.js"></script>
+
+	<!-- AdMaster -->
+	<script type="text/javascript" src="../resources/js/Home.js"></script>
+	<script type="text/javascript" src="../resources/js/Inicio.js"></script>
+	<script type="text/javascript" src="../resources/js/utils.js"></script>
+	<script type="text/javascript" src="../resources/js/Arquitectura.js"></script>
+	<link type="text/css" rel="stylesheet" href="../resources/css/home.css" />
+	<link type="text/css" rel="stylesheet" href="../resources/css/FontAndColor.css" />
+	<link type="text/css" rel="stylesheet" href="../resources/css/adMaster.buttons.css" />
+	<link type="text/css" href="../resources/css/DialogosModuloAnalisis.css" rel="stylesheet" />
+	
+</h:head>
+<h:body>
+   <h:form id="FormPrincipal">
+   		<div id="Principal">
+			<div id="Main_Header_Div">
+				<div id="title_div">
+					<h:panelGrid columns="4" cellpadding="4" style="width: 100%;">  
+						<p:column style="width: auto;">
+							<h:graphicImage	value="../resources/images/Logo_Header_Blanco_30px.png" style="height:30px;" id="LOGOAD"/>
+						</p:column>
+						<p:column style="width: 700px;">
+							<p:selectOneMenu id="campanias" value="" effect="fold" style="font-family: Calibri; font-size: 14px;float: right;">
+								<f:selectItem itemLabel="Select One" itemValue="" />
+								<f:selectItem itemValue="AL" itemLabel="Campana regreso a clases"/>
+							</p:selectOneMenu>
+						</p:column>
+						<p:column style="width: 50px!important;">
+							<h:outputLabel for="Configuracion" styleClass="fuenteYColor" value="Configuracion" style="float: right;"/> 
+						</p:column>
+						<p:column style="width: 50px!important;">
+							<h:outputLabel for="Salir" styleClass="fuenteYColor" value="Salir" />
+						</p:column>
+	 				</h:panelGrid>  
+				</div>	
+				<div id="principal_menu_div">
+					<table style="width: 100%;" cellpadding="0" cellspacing="0">
+						<tr>
+							<th>
+								<table id="tbl_menu_principal" cellpadding="0" cellspacing="0">
+									<tr>
+										<td id="td_menu_home" title="Inicio">
+											<h:graphicImage value="../resources/images/home.png" />
+										</td>
+										<td id="td_menu_planeacion" title="Planeación">
+											<h:graphicImage value="../resources/images/planeacion.png" />
+										</td>
+										<td id="td_menu_analisis" title="Análisis">
+											<h:graphicImage value="../resources/images/analisis.png" />
+										</td>
+										<td id="td_menu_arquitectura" title="Arquitectura">
+											<h:graphicImage value="../resources/images/arquitectura.png" />
+										</td>
+										<td id="td_menu_ejecucion" title="Ejecución">
+											<h:graphicImage value="../resources/images/ejecucion.png" />
+										</td>
+										<td id="td_menu_tableroControl" title="Tablero de Control">
+											<h:graphicImage value="../resources/images/tablero_de_control.png" />
+										</td>
+										<td id="td_menu_actividades" title="Actividades">
+											<h:graphicImage value="../resources/images/actividades.png" />
+										</td>
+									</tr>
+								</table>
+							</th>
+						</tr>
+					</table>
+				</div>
+				<div id="menu_title_option_div"
+					style="padding-left: 20px; padding-bottom: 2px; vertical-align: middle; color: DimGray; font-size: 1em;">
+					<h:outputLabel for="title_modulo_seleccionado" value="Inicio" />
+				</div>
+			</div>
+
+			<div id="Main_Content_Div">
+				<ui:include src="../pages/Campana.xhtml" />
+			</div>
+
+			<div id="Main_Footer_Div">
+				<table style="width: 100%" cellpadding="0" cellspacing="0">
+					<tr>
+						<td style="font-size: 0.8em; color: DimGray;"><h:outputLabel
+								for="" value="admaster©2012" /></td>
+						<td style="text-align: right;">
+							<table id="tbl_footer_options" cellpadding="0" cellspacing="0">
+								<tr>
+									<td title="Calendario"><h:graphicImage
+											value="../resources/images/calendario.png" /></td>
+									<td title="Correo"><h:graphicImage
+											value="../resources/images/correo.png" /></td>
+									<td title="Chat"><h:graphicImage value="images/chat.png" /></td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		
+   </h:form>
+</h:body>
+</html>

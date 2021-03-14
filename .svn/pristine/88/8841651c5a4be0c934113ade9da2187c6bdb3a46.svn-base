@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated 10/01/2014 10:30:04 AM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.TblReporteVentas" table="TBL_REPORTE_VENTAS">
+        <id name="id" type="int">
+            <column name="ID" />
+            <generator class="native" />
+        </id>
+        <property name="codeArt" type="string">
+            <column name="CODE_ART" length="30" not-null="true" />
+        </property>
+        <property name="distrito" type="string">
+            <column name="DISTRITO" length="50" />
+        </property>
+        <property name="zona" type="string">
+            <column name="ZONA" length="50" />
+        </property>
+        <property name="idSucursal" type="java.lang.Integer">
+            <column name="ID_SUCURSAL" />
+        </property>
+        <property name="sucursal" type="string">
+            <column name="SUCURSAL" length="50" />
+        </property>
+        <property name="categoria" type="string">
+            <column name="CATEGORIA" length="50" />
+        </property>
+        <property name="subcategoria" type="string">
+            <column name="SUBCATEGORIA" length="50" />
+        </property>
+        <property name="ventasUnidades" type="java.lang.Integer">
+            <column name="VENTAS_UNIDADES" />
+        </property>
+        <property name="ventasPesos" type="big_decimal">
+            <column name="VENTAS_PESOS" precision="15" />
+        </property>
+        <property name="fechaVenta" type="timestamp">
+            <column name="FECHA_VENTA" length="26" />
+        </property>
+    </class>
+</hibernate-mapping>

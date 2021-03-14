@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 21, 2016 12:30:54 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.CatUsuarios" table="CAT_USUARIOS" optimistic-lock="version">
+        <id name="idusuarios" type="int">
+            <column name="IDUSUARIOS" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="catRole" class="com.adinfi.seven.business.domain.CatRole" fetch="select">
+            <column name="IDROLE" not-null="true" />
+        </many-to-one>
+        <property name="nempleado" type="string">
+            <column name="NEMPLEADO" length="20" not-null="true" />
+        </property>
+        <property name="nombre" type="string">
+            <column name="NOMBRE" length="30" not-null="true" />
+        </property>
+        <property name="plastName" type="string">
+            <column name="PLAST_NAME" length="30" not-null="true" />
+        </property>
+        <property name="mlastName" type="string">
+            <column name="MLAST_NAME" length="30" not-null="true" />
+        </property>
+        <property name="email" type="string">
+            <column name="EMAIL" length="100" />
+        </property>
+        <property name="login" type="string">
+            <column name="LOGIN" length="30" />
+        </property>
+        <property name="password" type="string">
+            <column name="PASSWORD" length="100" />
+        </property>
+        <property name="inactive" type="int">
+            <column name="INACTIVE" not-null="true" />
+        </property>
+        <property name="islevel1" type="int">
+            <column name="ISLEVEL1" not-null="true" />
+        </property>
+        <property name="nchange" type="int">
+            <column name="NCHANGE" not-null="true" />
+        </property>
+        <property name="idjefe" type="int">
+            <column name="IDJEFE" not-null="true" />
+        </property>
+        <set name="relUsuariosCategoriases" table="REL_USUARIOS_CATEGORIAS" inverse="true" cascade="save-update" lazy="true" fetch="select">
+            <key>
+                <column name="ID_USUARIO" />
+            </key>
+            <one-to-many class="com.adinfi.seven.business.domain.RelUsuariosCategorias" />
+        </set>
+    </class>
+</hibernate-mapping>

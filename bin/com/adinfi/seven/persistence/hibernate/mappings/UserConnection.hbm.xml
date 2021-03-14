@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated 19/08/2013 10:38:15 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.UserConnection" table="USER_CONNECTION">
+        
+        <id name="userConnectionId" type="int">
+            <column name="USER_CONNECTION_ID" />
+            <generator class="sequence">
+                <param name="sequence">SEV343DEV.USER_CONNECTION_SEQ</param>
+            </generator>
+        </id>
+        
+        <property name="userId" type="int">
+            <column name="USER_ID" not-null="true" />
+        </property>
+        
+        <property name="lastConnection" type="long">
+            <column name="LAST_CONNECTION" not-null="true" />
+        </property>
+        
+        <property name="active" type="int">
+            <column name="ACTIVE" not-null="true" default="1" />
+        </property>
+       
+    </class>
+</hibernate-mapping>
+

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 18, 2016 6:51:26 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.RelFlujoAct" table="REL_FLUJO_ACT" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="ID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="catActPred" class="com.adinfi.seven.business.domain.CatActPred" fetch="select">
+            <column name="ID_ACT" not-null="true" />
+        </many-to-one>
+        <many-to-one name="catFlujoAct" class="com.adinfi.seven.business.domain.CatFlujoAct" fetch="select">
+            <column name="ID_FLUJO" not-null="true" />
+        </many-to-one>
+        <property name="dias" type="int">
+            <column name="DIAS" not-null="true" />
+        </property>
+        <property name="alerta" type="java.lang.Integer">
+            <column name="ALERTA" />
+        </property>
+    </class>
+</hibernate-mapping>

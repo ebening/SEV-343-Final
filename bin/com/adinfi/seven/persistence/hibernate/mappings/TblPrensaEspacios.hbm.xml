@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated 11/12/2013 11:06:00 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.TblPrensaEspacios" table="TBL_PRENSA_ESPACIOS">
+        <composite-id name="id" class="com.adinfi.seven.business.domain.TblPrensaEspaciosId">
+            <key-property name="idEspacio" type="int">
+                <column name="ID_ESPACIO" />
+            </key-property>
+            <key-property name="idPrensa" type="int">
+                <column name="ID_PRENSA" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="tblPrensa" class="com.adinfi.seven.business.domain.TblPrensa" update="false" insert="false" fetch="select">
+            <column name="ID_PRENSA" not-null="true" />
+        </many-to-one>
+        <property name="idCategory" type="int">
+            <column name="ID_CATEGORY" not-null="true" />
+        </property>
+        <property name="idScategory" type="int">
+            <column name="ID_SCATEGORY" not-null="true" />
+        </property>
+        <property name="idUserInvitado" type="int">
+            <column name="ID_USER_INVITADO" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

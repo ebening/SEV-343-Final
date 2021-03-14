@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head> 
+<body> 
+
+<h:form id="form" rendered="#{MBSolicitudAutorizacion.consulta}">
+
+    <br />
+
+    <p:dataTable id="multiSolicitudes" var="item" value="#{MBSolicitudAutorizacion.solicitudAutorizacionDTODataModel}"
+     paginator="false" rows="10" selection="#{MBSolicitudAutorizacion.selectedSolicitudes}"
+      emptyMessage="#{msg.tblAutorizacionesVacia}">
+    
+    <!--   <f:facet name="header">
+           Mis Autorizaciones Pendientes
+        </f:facet> -->
+        
+        <f:facet name="header">
+				<div align="left">
+					<p:commandButton id="alta" icon="ui-icon-plusthick"
+						actionListener="#{campanaControllerSeven.createViewCampanas}"
+						update=":pgPrincipalLogin" ajax="true">
+					</p:commandButton>
+				</div>
+		</f:facet>
+        
+        <p:column selectionMode="multiple" style="width:2%" />
+        
+    		<p:column sortBy="#{item.tblSolicitudAutorizacion.idAutorizacion}">
+					<f:facet name="header">
+						<h:outputText value="#{msg.idAutorizacion}" />
+					</f:facet>
+					<h:outputText value="#{item.tblSolicitudAutorizacion.idAutorizacion}" />
+				</p:column>			
+
+			<!-- <p:column sortBy="#{item.tblCampana.idCampana}">
+					<f:facet name="header">
+						<h:outputText value="idCampana" />
+					</f:facet>
+					<h:outputText value="#{item.tblCampana.idCampana}" />
+				</p:column> -->
+				<p:column sortBy="#{item.tblSolicitudAutorizacion.tblCampana.nombre}">
+					<f:facet name="header">
+						<h:outputText value="#{msg.promocionAdicional}" />
+					</f:facet>
+					<h:outputText value="#{item.tblSolicitudAutorizacion.tblCampana.nombre}" />
+				</p:column>
+				<p:column sortBy="#{item.usuarioDTO.firstName}">
+					<f:facet name="header">
+						<h:outputText value="#{msg.responsable}" />
+					</f:facet>
+					<h:outputText value="#{item.nombreCompleto}" />
+				</p:column>
+				<p:column sortBy="#{item.tblSolicitudAutorizacion.idPeriodo}">
+					<f:facet name="header">
+						<h:outputText value="#{msg.periodo}" />
+					</f:facet>										
+							<h:outputText value="#{item.campanaDTO.periodo.fechaInicial}">
+							<f:convertDateTime pattern="dd/MMM/yyyy" /></h:outputText>
+							-							
+							<h:outputText value="#{item.campanaDTO.periodo.fechaFinal}">
+							<f:convertDateTime pattern="dd/MMM/yyyy" /></h:outputText>
+				</p:column>
+				<p:column sortBy="#{item.tblSolicitudAutorizacion.fechaCaptura}">
+					<f:facet name="header">
+						<h:outputText value="#{msg.fechaCaptura}" />						
+					</f:facet>
+					<h:outputText value="#{item.tblSolicitudAutorizacion.fechaCaptura}">
+					 <f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+				</p:column>
+				
+			<p:column style="width: 20%">
+			<f:facet name="header">
+						<h:outputText value="#{msg.verDetalle}" />
+			</f:facet>
+			<p:commandButton value="#{msg.misAutorizaciones}"
+					action="#{MBSolicitudAutorizacion.getCampanaDescripcion(item)}" update=":pgPrincipalLogin" />
+			</p:column>
+				
+				<!-- <f:facet name="footer">
+            <p:commandButton id="multiViewButton" value="View" icon="ui-icon-search"
+                             update=":form:displayMulti" oncomplete="multiSolicitudDialog.show()"/>
+        </f:facet> -->
+				
+				
+			</p:dataTable>
+			
+			<p:commandButton id="btnguardarAnual" value="#{msg.autorizar}" update="multiSolicitudes"
+				style="float:left;"
+				action="#{MBSolicitudAutorizacion.getSolicitud()}" />
+    
+     <p:dialog id="multiDialog" header="Autorizaciones" widgetVar="multiSolicitudDialog"  
+              height="300" showEffect="fade" appendToBody="true" hideEffect="explode">  
+        
+        <p:dataList id="displayMulti" value="#{MBSolicitudAutorizacion.selectedSolicitudes}" var="selectedSolicitud">
+             <h:outputText value="idAut" />
+                    <h:outputText value="#{selectedSolicitud.tblSolicitudAutorizacion.idAutorizacion}"
+                         style="font-weight:bold" />
+        </p:dataList>
+    </p:dialog>  
+</h:form>                    
+</body> 
+</html>

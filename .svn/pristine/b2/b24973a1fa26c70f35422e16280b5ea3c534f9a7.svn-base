@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+         
+    <p:dialog widgetVar="creatActivityPanel" showEffect="clip" hideEffect="clip"
+        	modal="true" styleClass="common-dialog" appendToBody="true" dynamic="true" style="font-size: 0.8em"
+        	header="Actividad">
+        <h:form id="createActDialog">
+            <p:panelGrid id="createActivityPanelDetails" cellpadding="5" style="border:none">
+                    <p:row>
+                            <p:column>
+                                    <p:commandLink  process="@form" actionListener="#{MBActivity.createActivityMethod()}" >
+                                        <h:graphicImage library="images/menu_nueva_actividad" name="guardar.png" width="30" height="30"/>
+                                    </p:commandLink> 
+                            </p:column>
+                    </p:row>
+                    <p:row>
+                            <p:column>
+                                    <h:outputLabel value="Campaña" for="tblCampana" id="tblCampanaLabel"/>
+                            </p:column>
+                            <p:column>
+                                    <p:selectOneMenu value="#{MBActivity.createActivity.tblCampana.idCampana}" id="tblCampana">
+                                            <f:selectItems value="#{MBActivity.listCampanaCombo}"
+                                                    var="item"
+                                                    itemLabel="#{item.nombre}"
+                                                    itemValue="#{item.idCampana}"/>
+                                    </p:selectOneMenu>
+                            </p:column>
+                            <p:column>
+                                    <h:outputLabel value="Inicio Vigencia" for="fechaInicio" id="fechaInicioLabel"/>
+                            </p:column>
+                            <p:column>
+                                    <p:calendar value="#{MBActivity.createActivity.fechaInicio}" id="fechaInicio" required="true"
+                                    showOn="button" pattern="dd/MM/yyyy" readonlyInput="true" locale="es"
+                                    requiredMessage="Tiene que elegir una fecha de inicio"/>
+                            </p:column>
+                    </p:row>
+                    <p:row>
+                            <p:column>
+                                    <h:outputLabel value="Actividad" for="nombreActividad" id="nombreActividadLabel"/>
+                            </p:column>
+                            <p:column>
+                                <p:inputText value="#{MBActivity.createActivity.nombreActividad}" id="nombreActividad" required="true"
+                                             requiredMessage="Tiene que escibir el nombre de la actividad" />
+                            </p:column>
+                            <p:column>
+                                    <h:outputLabel value="Fin Vigencia" for="fechaFin" id="fechaFinLabel" />
+                            </p:column>
+                            <p:column>
+                                    <p:calendar value="#{MBActivity.createActivity.fechaFin}" id="fechaFin" required="true"
+                                    showOn="button" pattern="dd/MM/yyyy" readonlyInput="true" locale="es" 
+                                    requiredMessage="Tiene que elegir una fecha de finalizacion"/>
+                            </p:column>
+                    </p:row>
+                    <p:row>
+                            <p:column>
+                                    <h:outputLabel value="Estatus" for="estatusActividad" />
+                            </p:column>
+                            <p:column>
+                                    <p:selectOneMenu value="#{MBActivity.createActivity.estatus}" id="estatusActividad">
+                                            <f:selectItems value="#{MBActivity.listEstatusCombo}"
+                                            var="itemEstatus"
+                                            itemLabel="#{itemEstatus.value}"
+                                            itemValue="#{itemEstatus.id}"/>
+                                    </p:selectOneMenu>
+                            </p:column>
+                            <p:column>
+                                    <h:outputLabel value="% Completado" />
+                            </p:column>
+                            <p:column>
+                                <h:inputText id="numberGrid2" value="#{MBActivity.createActivity.porcentajeCompletado}"/>
+                                    <p:slider for="numberGrid2" minValue="0" maxValue="100"/>
+                            </p:column>
+                    </p:row>
+            </p:panelGrid>
+        </h:form>
+    </p:dialog>  
+</html>

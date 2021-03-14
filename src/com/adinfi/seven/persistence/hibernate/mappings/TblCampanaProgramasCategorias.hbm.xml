@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated 23/02/2014 01:33:18 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.TblCampanaProgramasCategorias" table="TBL_CAMPANA_PROG_CATEG">
+        <id name="id" column="ID_CAM_PRO_CATEG">
+            <generator class="native" />
+        </id>
+        <many-to-one name="tblCampanaProgramas" class="com.adinfi.seven.business.domain.TblCampanaProgramas" fetch="select" not-found="ignore">
+        	<column name="ID_CAMPANA" not-null="true"/>
+            <column name="ID_PROGRAMA" not-null="true"/>
+        </many-to-one>
+        <property name="idCategoria" type="int">
+            <column name="ID_CATEGORIA" />
+        </property>
+    </class>
+</hibernate-mapping>

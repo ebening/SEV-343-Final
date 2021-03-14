@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+
+<link type="text/css" rel="stylesheet"  href="css/Planeacion.css" />
+<link type="text/css" rel="stylesheet"  href="css/DialogosModuloActividades.css" />
+
+</h:head>
+<h:body>
+	<h:form>
+		<div id="divPrincipal_ModuloPlaneacion">
+			<table id="tblHeader_ModuloPlaneacion" cellpadding="0" cellspacing="0">
+			
+				<tr class="tamaño">
+					<th style="width: 10%;" class="th_Seccion_Planeacion" id="CAMPANAS"><h:outputLabel value="CAMPANAS" /></th>
+					<th style="width: 12%;" class="th_Seccion_Planeacion" id="OBJETIVOS"><h:outputLabel value="OBJETIVOS" /></th>
+					<th style="width: 20%;" class="th_Seccion_Planeacion" id="PLAN_DE_TRABAJO"><h:outputLabel value="PLAN DE TRABAJO" /></th>
+					<th style="width: 14%;" class="th_Seccion_Planeacion" id="BRIEF"><h:outputLabel value="BRIEF" /></th>
+					<th style="width: 17%;" class="th_Seccion_Planeacion" id="PRESUPUESTO"><h:outputLabel value="PRESUPUESTO" /></th>
+					<th style="width: 28%" ></th>
+				</tr>
+			 	<tr>
+						<td id="franjaWizard_planeacion" colspan="6"></td>
+					</tr>
+			 		
+					<tr>
+						<td style="width: 12%;" id="td_CAMPANAS" class="td_Seccion_Planeacion"></td>
+						<td style="width: 18%;" id="td_OBJETIVOS" class="td_Seccion_Planeacion"></td>
+						<td style="width: 16%;" id="td_PLAN_DE_TRABAJO" class="td_Seccion_Planeacion"></td>
+						<td style="width: 12%;" id="td_BRIEF" class="td_Seccion_Planeacion"></td>
+						<td style="width: 10%;" id="td_PRESUPUESTO" class="td_Seccion_Planeacion"></td>
+						<td style="width: 32%;"></td>
+					</tr>
+					
+				</table>
+	
+			<div id="divContent_ModuloPlaneacion">			
+				<div style="width: 100%; 
+						height: 445px;
+						padding-left: 0px;
+						background-color: #f5f5f5;" class="jsp_inicioPlaneacion">
+					
+						<!-- <ui:include src="PlaneacionCampanas.xhtml" />-->
+						<!-- <ui:include src="NuevaCampana.xhtml"/>-->
+						<ui:include src="PlanDeTrabajo.xhtml"/>
+				</div>
+			</div>
+		</div>
+	</h:form>
+</h:body>
+</html>

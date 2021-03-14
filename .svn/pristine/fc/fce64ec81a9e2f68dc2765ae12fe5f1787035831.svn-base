@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+<h:outputStylesheet name="adMaster-template.css" library="css"/>
+
+</h:head>
+<body>
+
+	<table class="prueba" width="100%">
+		<tr>
+			<td ><ui:include src="header.xhtml" /></td>
+		</tr>
+		
+		<tr>
+			<td ><ui:include src="menu_lateral.xhtml" /></td>
+			<td ><ui:include src="content.xhtml" /></td>
+		</tr>
+		
+		<tr>
+			<td ><ui:include src="footer.xhtml" /></td>
+		</tr>
+		
+	</table>
+</body>
+</html>

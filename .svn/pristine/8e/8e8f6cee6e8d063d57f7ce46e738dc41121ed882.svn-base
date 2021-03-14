@@ -1,0 +1,169 @@
+@CHARSET "ISO-8859-1";
+
+#PlaneacionNuevaCampanaDivPrincipal{
+	/*visibility: hidden;*/ 
+	background: white;
+	border: 1px solid silver; 
+	height: 445px;
+	width: 100%; 
+	/*margin-left: 5px;*/
+}
+
+#PlaneacionNuevaCampanaDivHeader{
+	padding-left: 20px;
+}
+
+#PlaneacionNuevaCampanaTableHeader{
+	width: 100%;
+	min-height: 5px;
+	padding-top: 3px;
+}
+/*
+.PlaneacionNuevaCampanaTableSorter{
+	height: 799px; 
+	width: 931px;
+}
+*/
+#idTableSorter thead{
+	background-color: DimGray;
+	color: White;
+}
+
+#idTableSorter th{
+	border: 1px solid DimGray;
+	padding-left: 4px;
+	text-align: left;
+}
+
+#idTableSorter td{
+	border: 1px solid Silver;
+	border-top-width: 0px;
+	padding-left: 4px;
+	height: 25px;
+}
+
+.camp_red{
+	color: Red;
+}
+
+.camp_blue{
+	color: Blue;
+}
+
+.camp_green{
+	color: Green;
+}
+
+.camp_orange{
+	color: Orange;
+}
+
+.search{
+	background-image: url(../images/extras/buscar24.png);
+	background-repeat: no-repeat;
+	width: 100px;
+	height: 24px;
+	padding-left: 30px;
+	padding-top:4px;
+	border: 0.5px solid silver;
+}
+ 
+.search img{
+	background-image:url(../images/extras/buscar.png);
+	background-repeat: no-repeat;
+	width:10px;
+}
+
+/***************/
+/*Primera tabla*/
+
+.agregarActividad{
+background: url(../images/actividades/nueva_black25.png) 0 0 no-repeat;
+height:32px; width:32px; display: block;
+
+}
+
+.agregarActividad:hover{
+background: url(../images/actividades/nueva.png) 0 0 no-repeat;
+height:32px; width:32px;
+cursor : pointer;
+cursor:hand;
+}
+
+.editarActividad{
+background: url(../images/pantalla_inicio/editar_black25.png) 0 0 no-repeat;
+height:32px; width:32px;
+display: block;
+}
+
+.editarActividad:hover{
+background: url(../images/pantalla_inicio/editar25.png) 0 0 no-repeat;
+height:32px; width:32px;
+cursor:pointer;
+cursor:hand;
+}
+
+.eliminarActividad{
+background: url(../images/actividades/eliminar_black_25.png) 0 0 no-repeat;
+height: 32px; width:32px;
+display: block;
+}
+
+.eliminarActividad:hover{
+background: url(../images/actividades/eliminar25.png) 0 0 no-repeat;
+height:32px; width:32px;
+cursor: pointer;
+cursor:hand;
+}
+
+.imprimirActividad{
+background: url(../images/extras/imprimir25_black.png) 0 0 no-repeat;
+height:32px; width:32px;
+display:block;
+}
+
+.imprimirActividad:hover{
+background: url(../images/extras/imprimir25.png) 0 0 no-repeat;
+height:32px; width:32px;
+cursor:pointer;
+cursor:hand;
+}
+
+.pdfActividad{
+background: url(../images/extras/pdf25_black.png) 0 0 no-repeat;
+height:32px; width:32px;
+display:block;
+}
+
+.pdfActividad:hover{
+background: url(../images/extras/pdf25.png) 0 0 no-repeat;
+height:32px; width:32px;
+cursor:pointer;
+cursor:hand;
+}
+
+.excelActividad{
+background: url(../images/extras/excel25_black.png) 0 0 no-repeat;
+height:32px; width:32px;
+display:block;
+}
+
+.excelActividad:hover{
+background: url(../images/extras/excel25.png) 0 0 no-repeat;
+height:32px; width:32px;
+cursor:pointer;
+cursor:hand;	
+
+}
+
+/***************************************/
+/*           BOTONES                   */
+/*************************************/
+
+.botonHeaderLeft{
+	float: left;
+}
+
+.botonHeaderRight{
+	float: right;
+}

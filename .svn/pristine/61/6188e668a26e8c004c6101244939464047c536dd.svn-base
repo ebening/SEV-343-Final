@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated 28/12/2013 03:04:11 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.TblCampanaMedio" table="TBL_CAMPANA_MEDIO">
+    	<id name="idCampanaMedio" type="int">
+            <column name="ID_CAMPANA_MEDIO" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="tblCampana" class="com.adinfi.seven.business.domain.TblCampana" fetch="select">
+            <column name="ID_CAMPANA" not-null="true" />
+        </many-to-one>
+        <property name="idMedio" type="java.lang.Integer">
+            <column name="ID_MEDIO" />
+        </property>
+        <property name="idTipoMedio" type="java.lang.Integer">
+            <column name="ID_TIPO_MEDIO" />
+        </property>
+        <property name="responsableId" type="java.lang.Integer">
+            <column name="RESPONSABLE_ID" />
+        </property>
+        <property name="idFolleto" type="java.lang.Integer">
+            <column name="ID_FOLLETO" />
+        </property>
+        <property name="idPrensa" type="java.lang.Integer">
+            <column name="ID_PRENSA" />
+        </property>
+        <property name="titulo" type="string">
+            <column name="TITULO" />
+        </property>
+    </class>
+</hibernate-mapping>

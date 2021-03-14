@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<h:head></h:head>
+	<body>
+		<h:form rendered="#{campanaController.detalle}" style="font-size: 0.8em" id="detalleCampanaForm">
+			<p:messages id="messageLayaout2" autoUpdate="true" closable="true" />
+			<p:dataTable id="medios" var="campana" styleClass="grid-content" widgetVar="wMedios"
+				value="#{campanaController.campanaMedioDataModel}" paginator="true" 
+				emptyMessage="No hay medios asociados a esta campaña" rowKey="#{campana.folletoId}"
+				rows="10" selection="#{campanaController.selectedCampanaMedioDTO}"
+				paginatorPosition="bottom" dblClickSelect="true"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+				<f:facet name="header">
+					<table width="100%" border="0" cellpadding="0" cellspacing="0" style="border: none">
+						<tr>
+							<td align="left" width="50%" style="border: none">
+								<p:commandLink id="alta" styleClass="create-button"
+									onclick="w_medio.show(); return false;" ajax="true"/>
+								<p:commandLink id="actualizar" styleClass="edit-button"
+									actionListener="#{campanaController.editMedio()}"
+									update=":pgPrincipalLogin" ajax="true"/>
+								<p:commandLink id="eliminar" ajax="true" styleClass="delete-button"
+									actionListener="#{campanaController.deleteMedio()}"
+									update=":detalleCampanaForm"/>
+							</td>
+							<td align="right" width="50%" style="border: none">
+								<h:commandLink styleClass="print-button">
+									<p:printer target="medios" />
+								</h:commandLink>
+	
+						        <h:commandLink styleClass="pdf-button">  
+						            <p:dataExporter type="pdf" target="medios" fileName="campañas" encoding="iso-8859-1"/>  
+						        </h:commandLink>  
+	
+						        <h:commandLink styleClass="excel-button">  
+						            <p:dataExporter type="xls" target="medios" fileName="campañas" encoding="iso-8859-1"/>  
+						        </h:commandLink>
+						        
+						        <p:commandLink styleClass="activities-button" title="Generar Actividades"
+						        	actionListener="#{campanaController.generateActivities()}"/>
+							</td>
+						</tr>
+					</table>
+				</f:facet>
+				<p:ajax event="rowDblselect" listener="#{campanaController.editMedio()}"
+					update=":pgPrincipalLogin" global="false" />
+				<p:column selectionMode="multiple" style="width:2%" />
+				<p:column headerText="Id Medio" style="width:25%;">
+					<p:outputLabel value="#{campana.idCampanaMedio}"/>
+				</p:column>
+				<p:column headerText="Titulo" style="width:25%;">
+					<p:outputLabel value="#{campana.titulo}"/>
+				</p:column>
+				<p:column headerText="Campaña" style="width:25%;">
+					<p:outputLabel value="#{campana.campana}" style="color:#{campana.etiqueta}"/>
+				</p:column>
+				<p:column headerText="Medio" style="width:25%">
+					<p:outputLabel value="#{campana.medio.code}" />
+				</p:column>
+				<p:column headerText="Tipo de Medio" style="width:24%">
+					<p:outputLabel value="#{campana.tipoMedio.code}" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+		<p:dialog id="medio" header="Agregar Nuevo Medio" modal="true" styleClass="common-dialog"
+			appendToBody="true" widgetVar="w_medio" dynamic="true" style="font-size: 0.8em">
+			<h:form>
+				<p:panelGrid style="border:none">
+					<p:row>
+						<p:column style="width: 15px"><p:outputLabel value="Campaña: "/></p:column>
+						<p:column style="width: 35px">
+							<p:outputLabel disabled="true" 
+							value="#{campanaController.current.tblCampana.nombre}"/>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column style="width: 15px"><p:outputLabel value="Titulo:* " /></p:column>
+						<p:column style="width: 35px">
+							<p:inputText id="idTitulo" value="#{campanaController.titulo}" maxlength="200"/>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column style="width: 15px"><p:outputLabel value="Medio:* " /></p:column>
+						<p:column style="width: 35px">
+							<p:selectOneMenu value="#{campanaController.medio}" converter="medioConverter">
+								<f:selectItems value="#{campanaController.medios}" />
+								<p:ajax event="change"
+									listener="#{campanaController.changeTipoMedios}" update="idTipo" />
+							</p:selectOneMenu>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column style="width: 15px"><p:outputLabel value="Tipo:* " /></p:column>
+						<p:column style="width: 35px">
+							<p:selectOneMenu id="idTipo" value="#{campanaController.tipo.id}">
+								<f:selectItems value="#{campanaController.tipos}" var="item"
+								itemLabel="#{item.value}" itemValue="#{item.id}"/>
+							</p:selectOneMenu>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column style="width: 15px"><p:outputLabel value="Responsable:* " /></p:column>
+						<p:column style="width: 35px">
+							<p:selectOneMenu id="responsableId" value="#{campanaController.responsable}">
+								<f:selectItems value="#{campanaController.responsables}" />
+							</p:selectOneMenu>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column style="width: 15px">
+							<p:commandButton value="Aceptar" styleClass="common-button"
+								actionListener="#{campanaController.createMedio}"
+								oncomplete="w_medio.hide();" update=":pgPrincipalLogin"/>
+						</p:column>
+						<p:column style="width: 35px">
+							<p:commandButton value="Cancelar" styleClass="common-button" oncomplete="w_medio.hide();"/>
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+			</h:form>
+		</p:dialog>
+	</body>
+</html>

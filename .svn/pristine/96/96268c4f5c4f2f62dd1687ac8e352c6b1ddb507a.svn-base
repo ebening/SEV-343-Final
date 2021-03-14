@@ -1,0 +1,959 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+
+	<!-- Bean de configuracion de dataSource -->
+
+	<bean id="bonecpDataSource" class="com.jolbox.bonecp.BoneCPDataSource"
+		destroy-method="close">
+
+		<property name="driverClass">
+			<value>${jdbc.driverClassName}</value>
+		</property>
+		<property name="jdbcUrl">
+			<value>${jdbc.url}</value>
+		</property>
+		<property name="username">
+			<value>${jdbc.username}</value>
+		</property>
+		<property name="password">
+			<value>${jdbc.password}</value>
+		</property>
+
+		<property name="idleConnectionTestPeriod">
+			<value>${bonecp.pool.testConnection}</value>
+		</property>
+		<property name="idleMaxAge">
+			<value>${bonecp.pool.idleMaxTime}</value>
+		</property>
+		<property name="maxConnectionsPerPartition">
+			<value>${bonecp.pool.maxConnectionsPerPartition}</value>
+		</property>
+		<property name="minConnectionsPerPartition">
+			<value>${bonecp.pool.minConnectionsPerPartition}</value>
+		</property>
+		<property name="partitionCount">
+			<value>${bonecp.pool.partitionCount}</value>
+		</property>
+		<property name="acquireIncrement">
+			<value>${bonecp.pool.acquireIncrement}</value>
+		</property>
+		<property name="statementsCacheSize">
+			<value>${bonecp.pool.statementsCacheSize}</value>
+		</property>
+		<property name="releaseHelperThreads">
+			<value>${bonecp.pool.releaseHelperThreads}</value>
+		</property>
+
+	</bean>
+
+	<!-- Configuracion lazy de acceso a base de datos -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy">
+		<property name="targetDataSource">
+			<ref local="bonecpDataSource" />
+		</property>
+	</bean>
+
+	<!-- ******************************************************************* -->
+	<!-- Declaración de archivos de mapeo y configuración de Hibernate -->
+	<!-- ******************************************************************* -->
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+
+		<property name="dataSource" ref="dataSource" />
+
+		<property name="mappingResources">
+			<list>
+                <value>/com/adinfi/seven/persistence/hibernate/mappings/UserConnection.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/Attribs.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/Catalogs.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/CatAttrs.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/CatRegs.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/CatRegValues.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/CatView.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/CatViewControls.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/Opcion.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/RolOpcion.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblCadenaAutorizacion.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblCadenaAutorizacionDet.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblCampana.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblCampanaActividades.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblCampanaAutorizacion.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblCampanaDetalle.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblDelegacionActividades.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblDisenador.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblSolicitudAutorizacion.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/Bitacora.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/BitacoraParam.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblCampanaCategorias.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblCampanaMedio.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/BitacoraTipo.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/BitacoraMetodo.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/CampaniaTreeRegs.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/VerTodas.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblListaSeleccion.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblListaSeleccionSku.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblVentasItem.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblExistenciaItemTienda.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblPrensa.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblFolleto.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblArticulosEspacios.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblPrensaTienda.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblPrensaEspacios.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblPreciosFolleto.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblArticulosHoja.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblImageArticulo.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblFolletoTienda.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblJuntaPlaneacion.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblJuntaArchivos.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblJuntaParticipantes.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblPreciosFolletoDet.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblMarcaLogo.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblMarcaLogoDet.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblTemplate.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblTemplateSegments.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblTemplateUser.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblPreciosPrensa.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblPreciosPrensaDet.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/ViewTemplateUser.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblReporteVentas.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblFolletoSistemaVenta.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblPrensaSistemaVenta.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblImagenes.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblReporteInventario.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblCampanaCategoriasPlaza.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblCampanaProgramas.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblCampanaProgramasPlazas.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblCampanaProgramasCategorias.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblFolletoHojas.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblComentarioArticulo.hbm.xml
+				</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblArchivoArticulo.hbm.xml</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblDisenoPromoCm.hbm.xml</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblFolletoZona.hbm.xml</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/CatGZone.hbm.xml</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/CatZone.hbm.xml</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/CatStore.hbm.xml</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/CatPrograma.hbm.xml</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/CatSenal.hbm.xml</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/CatPromo.hbm.xml</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/CatTipoPromo.hbm.xml</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblPrograma.hbm.xml</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblMecanica.hbm.xml</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblSenalamientos.hbm.xml</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/RelCompUpc.hbm.xml</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblCategoria.hbm.xml</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblComponente.hbm.xml</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblComponenteZonaPrecio.hbm.xml</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/RelStore.hbm.xml</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/RelGrupoZona.hbm.xml</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/RelCompSku.hbm.xml</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/RelZona.hbm.xml</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblConfMecanica.hbm.xml</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblPreciosPromocion.hbm.xml</value>
+                <value>/com/adinfi/seven/persistence/hibernate/mappings/RelPrecioItemZona.hbm.xml</value>
+                <value>/com/adinfi/seven/persistence/hibernate/mappings/RelPrecioItemGzona.hbm.xml</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/RelGrupoZonaDiseno.hbm.xml</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/RelZonaDiseno.hbm.xml</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/RelStoreDiseno.hbm.xml</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblDisenos.hbm.xml</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/RelStoreCampana.hbm.xml</value>
+                <value>/com/adinfi/seven/persistence/hibernate/mappings/RelItemStore.hbm.xml</value>
+                <value>/com/adinfi/seven/persistence/hibernate/mappings/RelItemStoreProveedor.hbm.xml</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/RelGrupoZonaCampana.hbm.xml</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/RelZonaCampana.hbm.xml</value>
+                <value>/com/adinfi/seven/persistence/hibernate/mappings/RelZoneStore.hbm.xml</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/Catalogos.hbm.xml</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/CatalogosRolOpc.hbm.xml</value>  
+                <value>/com/adinfi/seven/persistence/hibernate/mappings/CatDepto.hbm.xml</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/CatCategory.hbm.xml</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/CatProveedor.hbm.xml</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/CatSubCategory.hbm.xml</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/CatTipoZona.hbm.xml</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/CatItem.hbm.xml</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/CatListDet.hbm.xml</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/CatLista.hbm.xml</value>
+				
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/CatRole.hbm.xml</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/CatUsuarios.hbm.xml</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/TblActividad.hbm.xml</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/CatEstatus.hbm.xml</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/CatEtiquetas.hbm.xml</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/RelDisenoSenal.hbm.xml</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/RelUsuariosCategorias.hbm.xml</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/RelDisenoMecanica.hbm.xml</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/RelItemLista.hbm.xml</value>
+
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/CatActPred.hbm.xml</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/CatFlujoAct.hbm.xml</value>
+				<value>/com/adinfi/seven/persistence/hibernate/mappings/RelFlujoAct.hbm.xml</value>
+			</list>
+		</property>
+
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">false</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.DB2Dialect</prop>
+				<prop key="hibernate.current_session_context_class">thread</prop>
+				<prop key="hibernate.query.substitutions">true='T',false='F'</prop>
+				<prop key="hibernate.default_schema">${jdbc.schema}</prop>
+                <prop key="hibernate.enable_lazy_load_no_trans">true</prop>
+                <prop key="hibernate.jdbc.batch_size">50</prop>
+                <prop key="hibernate.generate_statistics">false</prop>
+                <prop key="hibernate.use_sql_comments">true</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- ******************************************************************* -->
+	<!-- Declaración del administrador de transacciones -->
+	<!-- ******************************************************************* -->
+
+	<!-- Transaction manager for a single Hibernate SessionFactory (alternative 
+		to JTA) -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+
+	<!-- Configuracion para el manejo de transacciones con inyeccion automatica 
+		en los daos -->
+	<!-- asi como valores opcionales (tipo de propagacion, isolation, throws, 
+		...) -->
+
+	<aop:config>
+		<aop:pointcut id="daosMethods"
+			expression="execution(* com.adinfi.seven.persistence.daos.*.*(..))" />
+		<aop:advisor order="1" advice-ref="txAdviceDao"
+			pointcut-ref="daosMethods" />
+	</aop:config>
+
+	<tx:advice id="txAdviceDao" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method rollback-for="Throwable" name="get*"
+				propagation="REQUIRED" isolation="DEFAULT" read-only="true" />
+			<tx:method rollback-for="Throwable" name="cargar*"
+				propagation="REQUIRED" isolation="DEFAULT" read-only="true" />
+			<tx:method rollback-for="Throwable" name="save*"
+				propagation="REQUIRED" isolation="DEFAULT" read-only="false" />
+			<tx:method rollback-for="Throwable" name="guardar*"
+				propagation="REQUIRED" isolation="DEFAULT" read-only="false" />
+			<tx:method rollback-for="Throwable" name="update*"
+				propagation="REQUIRED" isolation="DEFAULT" read-only="false" />
+			<tx:method rollback-for="Throwable" name="actualizar*"
+				propagation="REQUIRED" isolation="DEFAULT" read-only="false" />
+			<tx:method rollback-for="Throwable" name="delete*"
+				propagation="REQUIRED" isolation="DEFAULT" read-only="false" />
+			<tx:method rollback-for="Throwable" name="eliminar*"
+				propagation="REQUIRED" isolation="DEFAULT" read-only="false" />
+			<tx:method rollback-for="Throwable" name="load*"
+				propagation="REQUIRED" isolation="DEFAULT" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+
+	<!-- ******************************************************************* -->
+	<!-- Declaración de clases Dao -->
+	<!-- ******************************************************************* -->
+
+	<bean id="daoFlujoAct" class="com.adinfi.seven.persistence.daos.DAOFlujoActImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="daoRelItemLista" class="com.adinfi.seven.persistence.daos.DAORelItemListaImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="daoRelDisenoSenal" class="com.adinfi.seven.persistence.daos.DAORelDisenoSenalImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="daoCatEtiquetas" class="com.adinfi.seven.persistence.daos.DAOCatEtiquetasImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="daoCatEstatus" class="com.adinfi.seven.persistence.daos.DAOCatEstatusImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="daoCatActPred" class="com.adinfi.seven.persistence.daos.DAOCatActPredImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="daoTblActividad" class="com.adinfi.seven.persistence.daos.DAOTblActividadImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	
+	<bean id="daoUsuarios" class="com.adinfi.seven.persistence.daos.DAOUsuariosImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+    
+    <bean id="daoUserConnection" class="com.adinfi.seven.persistence.daos.DAOUserConnectionImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	
+	<bean id="daoCatRole" class="com.adinfi.seven.persistence.daos.DAORoleImpl" >
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	
+	<bean id="daoVerTodas" class="com.adinfi.seven.persistence.daos.DAOVerTodasImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoCampaniaTreeRegs"
+		class="com.adinfi.seven.persistence.daos.DAOCampaniaTreeRegsImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoCatalogs" class="com.adinfi.seven.persistence.daos.DAOCatalogsImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoCatViewControls"
+		class="com.adinfi.seven.persistence.daos.DAOCatViewControlsImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoAttribs" class="com.adinfi.seven.persistence.daos.DAOAttribsImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoCatAttrs" class="com.adinfi.seven.persistence.daos.DAOCatAttrsImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoCatRegs" class="com.adinfi.seven.persistence.daos.DAOCatRegsImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoCatRegValues" class="com.adinfi.seven.persistence.daos.DAOCatRegValuesImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoOpcion" class="com.adinfi.seven.persistence.daos.admin.DAOOpcionImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoCampanaActividades"
+		class="com.adinfi.seven.persistence.daos.DAOCampanaActividadesImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoCampanas" class="com.adinfi.seven.persistence.daos.DAOCampanaImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoSolicitudAutorizacion"
+		class="com.adinfi.seven.persistence.daos.DAOSolicitudAutorizacionImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoCadenaAutorizacion"
+		class="com.adinfi.seven.persistence.daos.DAOCadenaAutorizacionImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoCadenaAutorizacionDet"
+		class="com.adinfi.seven.persistence.daos.DAOCadenaAutorizacionDetImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoCampanaAutorizacion"
+		class="com.adinfi.seven.persistence.daos.DAOCampanaAutorizacionImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoDelegacionActividades"
+		class="com.adinfi.seven.persistence.daos.DAODelegacionActividadesImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoRolOpcion"
+		class="com.adinfi.seven.persistence.daos.admin.DAORolOpcionImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	
+	<bean id="daoBitacora" class="com.adinfi.seven.persistence.daos.DAOBitacoraImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	
+	<bean id="daoBitacoraParam" class="com.adinfi.seven.persistence.daos.DAOBitacoraParamImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoBitacoraTipo" class="com.adinfi.seven.persistence.daos.DAOBitacoraTipoImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoBitacoraMetodo" class="com.adinfi.seven.persistence.daos.DAOBitacoraMetodoImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoListaSeleccion" class="com.adinfi.seven.persistence.daos.DAOListaSeleccionImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoListaSeleccionSKU"
+		class="com.adinfi.seven.persistence.daos.DAOListaSeleccionSKUImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoVentasItem" class="com.adinfi.seven.persistence.daos.DAOVentasItemImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoExistenciaItemTienda"
+		class="com.adinfi.seven.persistence.daos.DAOExistenciaItemTiendaImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoJuntaPlaneacion"
+		class="com.adinfi.seven.persistence.daos.DAOJuntaPlaneacionImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoJuntaArchivos"
+		class="com.adinfi.seven.persistence.daos.DAOJuntaArchivosImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoJuntaParticipantes"
+		class="com.adinfi.seven.persistence.daos.DAOJuntaParticipantesImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoPrensa" class="com.adinfi.seven.persistence.daos.DAOPrensaImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoArticulosEspacio"
+		class="com.adinfi.seven.persistence.daos.DAOArticulosEspacioImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoPrensaTienda" class="com.adinfi.seven.persistence.daos.DAOPrensaTiendaImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoPrensaEspacios" class="com.adinfi.seven.persistence.daos.DAOPrensaEspaciosImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoPrecioFolleto" class="com.adinfi.seven.persistence.daos.DAOPrecioFolletoImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoImageArticulo" class="com.adinfi.seven.persistence.daos.DAOImageArticuloImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoImagen" class="com.adinfi.seven.persistence.daos.DAOImagenImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoFolletoTienda" class="com.adinfi.seven.persistence.daos.DAOFolletoTiendaImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoArticulosHoja" class="com.adinfi.seven.persistence.daos.DAOArticulosHojaImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoArqMarcaLogo" class="com.adinfi.seven.persistence.daos.DAOArqMarcaLogoImp">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoArqTemplate" class="com.adinfi.seven.persistence.daos.DAOArqTemplateImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoArqTemplateUser" class="com.adinfi.seven.persistence.daos.DAOArqTemplateUserImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoVTemplateUser" class="com.adinfi.seven.persistence.daos.DAOViewTemplateUserImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoPrecioFolletoDet"
+		class="com.adinfi.seven.persistence.daos.DAOPrecioFolletoDetImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoPrecioPrensa" class="com.adinfi.seven.persistence.daos.DAOPrecioPrensaImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoPrecioPrensaDet"
+		class="com.adinfi.seven.persistence.daos.DAOPrecioPrensaDetImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoFolleto" class="com.adinfi.seven.persistence.daos.DAOFolletoImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoCampanaMedio" class="com.adinfi.seven.persistence.daos.DAOCampanaMedioImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoReporteVentas" class="com.adinfi.seven.persistence.daos.DAOReporteVentasImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoCampanaCategorias" class="com.adinfi.seven.persistence.daos.DAOCampanaCategoriasImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoFolletoSistemaVenta" class="com.adinfi.seven.persistence.daos.DAOFolletoSistemaVentaImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoPrensaSistemaVenta" class="com.adinfi.seven.persistence.daos.DAOPrensaSistemaVentaImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoReporteInventario" class="com.adinfi.seven.persistence.daos.DAOReporteInventarioImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="daoCampanaCategoriasPlaza" class="com.adinfi.seven.persistence.daos.DAOCampanaCategoriasPlazaImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoCampanaProgramas" class="com.adinfi.seven.persistence.daos.DAOCampanaProgramasImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoCampanaProgramasPlazas" class="com.adinfi.seven.persistence.daos.DAOCampanaProgramasPlazasImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoCampanaProgramasCategorias" class="com.adinfi.seven.persistence.daos.DAOCampanaProgramasCategoriasImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	
+	<bean id="daoTemplate" class="com.adinfi.seven.persistence.daos.DAOTemplateImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>	
+	
+	<bean id="daoFolletoHojas" class="com.adinfi.seven.persistence.daos.DAOFolletoHojasImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>		
+	
+	<bean id="daoTemplateSegment" class="com.adinfi.seven.persistence.daos.DAOTemplateSegmentImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	
+	<bean id="daoComentarioArticulo" class="com.adinfi.seven.persistence.daos.DAOComentarioArticuloImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	
+	<bean id="daoArchivoArticulo" class="com.adinfi.seven.persistence.daos.DAOArchivoArticuloImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	
+	<bean id="daoDisenoPromoCm"
+		class="com.adinfi.seven.persistence.daos.DAODisenoPromoCmImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	
+	
+	<bean id="daoFolletoZona" class="com.adinfi.seven.persistence.daos.DAOFolletoZonaImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	
+	<bean id="daoRelCompUpc" class="com.adinfi.seven.persistence.daos.DAORelCompUpcImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="daoRelCompSku" class="com.adinfi.seven.persistence.daos.DAORelCompSkuImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="daoTblSenalamientos" class="com.adinfi.seven.persistence.daos.DAOTblSenalamientosImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="daoRelStore" class="com.adinfi.seven.persistence.daos.DAORelStoreImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="daoRelZona" class="com.adinfi.seven.persistence.daos.DAORelZonaImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+        
+        <bean id="daoRelItemPrecioZona" class="com.adinfi.seven.persistence.daos.DAORelItemPrecioZonaImpl">
+            <property name="sessionFactory">
+                <ref bean="sessionFactory" />
+            </property>
+        </bean>
+        
+        <bean id="daoRelItemPrecioGZona" class="com.adinfi.seven.persistence.daos.DAORelItemPrecioGZonaImpl">
+            <property name="sessionFactory">
+                <ref bean="sessionFactory" />
+            </property>
+        </bean>
+
+	<bean id="daoRelGrupoZona" class="com.adinfi.seven.persistence.daos.DAORelGrupoZonaImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="daoTblCategoria" class="com.adinfi.seven.persistence.daos.DAOTblCategoriaImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="daoTblPrograma" class="com.adinfi.seven.persistence.daos.DAOTblProgramaImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="daoTblMecanica" class="com.adinfi.seven.persistence.daos.DAOTblMecanicaImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="daoTblComponente" class="com.adinfi.seven.persistence.daos.DAOTblComponenteImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoTblConfMecanica" class="com.adinfi.seven.persistence.daos.DAOTblConfMecanicaImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoTblPreciosPromocion" class="com.adinfi.seven.persistence.daos.DAOTblPreciosPromocionImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="daoTblDisenos" class="com.adinfi.seven.persistence.daos.DAOTblDisenosImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="daoRelStoreCampana" class="com.adinfi.seven.persistence.daos.DAORelStoreCampanaImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="daoRelZonaCampana" class="com.adinfi.seven.persistence.daos.DAORelZonaCampanaImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="daoRelGrupoZonaCampana" class="com.adinfi.seven.persistence.daos.DAORelGrupoZonaCampanaImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="daoCatalogos" class="com.adinfi.seven.persistence.daos.DAOCatalogosImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+        	
+	<bean id="daoCatGZone" class="com.adinfi.seven.persistence.daos.DAOCatGZoneImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+        
+        
+        <bean id="daoCatDepto" class="com.adinfi.seven.persistence.daos.DAOCatDeptoImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>	
+        
+        <bean id="daoCatCategory" class="com.adinfi.seven.persistence.daos.DAOCatCategoryImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>	
+        
+        <bean id="daoCatProveedor" class="com.adinfi.seven.persistence.daos.DAOCatProveedorImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>	
+        
+        <bean id="daoCatSubCategory" class="com.adinfi.seven.persistence.daos.DAOCatSubCategoryImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>	
+	
+	
+	<bean id="daoCatZone" class="com.adinfi.seven.persistence.daos.DAOCatZoneImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	
+	<bean id="daoCatTipoZona" class="com.adinfi.seven.persistence.daos.DAOCatTipoZonaImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	
+	<bean id="daoCatStore" class="com.adinfi.seven.persistence.daos.DAOCatStoreImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	
+	
+     <bean id="daoCatPrograma" class="com.adinfi.seven.persistence.daos.DAOCatProgramaImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	
+	 <bean id="daoCatSenal" class="com.adinfi.seven.persistence.daos.DAOCatSenalImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	
+	<bean id="daoCatTipoPromo" class="com.adinfi.seven.persistence.daos.DAOCatTipoPromoImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	
+	<bean id="daoCatPromo" class="com.adinfi.seven.persistence.daos.DAOCatPromoImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	
+        <bean id="daoRelItemStore" class="com.adinfi.seven.persistence.daos.DAORelItemStoreImpl">
+            <property name="sessionFactory">
+                <ref bean="sessionFactory" />
+            </property>
+        </bean>
+        
+        <bean id="daoTblComponenteZonaPrecio" class="com.adinfi.seven.persistence.daos.DAOTblComponenteZonaPrecioImpl">
+            <property name="sessionFactory">
+                <ref bean="sessionFactory" />
+            </property>
+        </bean>
+        
+        <bean id="daoRelItemStoreProveedor" class="com.adinfi.seven.persistence.daos.DAORelItemStoreProveedorImpl">
+            <property name="sessionFactory">
+                <ref bean="sessionFactory" />
+            </property>
+        </bean>
+	
+	
+	<bean id="daoCatItem" class="com.adinfi.seven.persistence.daos.DAOCatItemImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	
+		<bean id="daoCatListDet" class="com.adinfi.seven.persistence.daos.DAOCatListDetImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	
+	<bean id="daoCatLista" class="com.adinfi.seven.persistence.daos.DAOCatListaImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	
+	
+	<bean id="daoRelUsuariosCategorias" class="com.adinfi.seven.persistence.daos.DAORelUsuariosCategoriasImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	
+	
+</beans>

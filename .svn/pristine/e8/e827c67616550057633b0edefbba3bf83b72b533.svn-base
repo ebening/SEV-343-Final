@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	
+</h:head>
+<body>
+<h:form id="mainForm">
+        <h1 class="title">#{MBCatCategory.catalogNametitle}</h1>
+        <p:messages id="messages" autoUpdate="true" closable="true" />
+        <h:panelGrid id="panelCategory" columns="3">
+            
+            <h:outputLabel for="idCategory" value="&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;ID&#160;" /> 
+            <p:inputText id="idCategory"  value="#{MBCatCategory.catCategory.idCategory}" required="true" requiredMessage="Debe ingresar un id"> 
+                <p:ajax event="blur" update="idCategoryMsg" />
+            </p:inputText>
+            <p:message id="idCategoryMsg" for="idCategory" display="tooltip"/>
+            
+            <h:outputLabel for="code" value="CODIGO&#160;" /> 
+            <p:inputText id="code"  value="#{MBCatCategory.catCategory.code}" required="true" requiredMessage="Debe ingresar un codigo">
+                <p:ajax event="blur" update="codeMsg" />
+            </p:inputText>
+            <p:message id="codeMsg" for="code" display="tooltip"/>
+            
+            <h:outputLabel for="catDepto" value="Departamento" /> 
+            <p:selectOneMenu id="catDepto"  value="#{MBCatCategory.catCategory.catDepto.deptoId}" required="true" requiredMessage="Debe seleccionar una categoria">
+                <f:selectItem itemLabel="Seleccione un departamento" itemValue="#{null}" />  
+                <f:selectItems value="#{MBCatCategory.catDeptoList}" var="item" itemLabel="#{item.code}" itemValue="#{item.deptoId}"/>
+                <p:ajax event="blur" update="catDeptoMsg" />
+            </p:selectOneMenu>
+            <p:message id="catDeptoMsg" for="catDepto" display="tooltip"/>
+            
+            <h:outputLabel for="esMercancia" value="Es Mercancia" />
+            <p:selectBooleanCheckbox id="esMercancia"  value="#{MBCatCategory.catCategory.esMercancia}" />
+            <p:message id="esMercanciaMsg" for="esMercancia" display="tooltip"/>
+            
+            <f:facet name="footer">
+                <h:panelGroup style="display:block; text-align:center">
+                    <p:commandButton value="Guardar" action="#{MBCatCategory.addCatCategory}" update=":mainForm"/>
+                    <p:commandButton value="Cancelar" style="margin-left: 5px;" action="#{MBCatCategory.reset}" update=":mainForm"/>
+                </h:panelGroup>
+            </f:facet>
+        </h:panelGrid>
+        
+	<br />
+	<br />
+        <p:dataTable id="itemId" var="item" value="#{MBCatCategory.catCategoryList}" paginator="true" rows="10" 
+	                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+	                 emptyMessage="Vacio" resizableColumns="true" styleClass="ui-datatable-hor-scroll">
+            
+            <p:column  style="width: 20%">
+                
+                <p:commandButton id="edit" action="#{MBCatCategory.setCatCategoryInfo(item)}" process="@this"
+                                update=":mainForm" icon="ui-icon-search" />
+                <p:tooltip for="edit" value="Actualizar" />
+                
+                <p:tooltip for="delete" value="Eliminar" />	
+                <p:commandButton id="delete" onclick="cd.show()" icon="ui-icon-trash" process="@this"
+	            	action="#{MBCatCategory.setCatCategoryInfo(item)}"/>
+                
+                <p:confirmDialog message="¿Desea eliminar el registro seleccionado?" 
+                header="Confirmación" severity="alert"
+                showEffect="fade" hideEffect="explode" widgetVar="cd" icon="ui-icon-trash" appendToBody="true">
+                    
+                    <p:commandButton value="Si" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update=":mainForm" 
+                    action="#{MBCatCategory.removeCatCategory}" process="@this" onclick="cd.hide()" />
+
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" process="@this"
+                                    icon="ui-icon-close" onclick="cd.hide()"/>
+                </p:confirmDialog>
+                
+            </p:column>
+            <p:column headerText="ID" resizable="true" >
+                <h:outputText value="#{item.idCategory}" />
+            </p:column>
+            <p:column headerText="DEPARTAMENTO" resizable="true" >
+                <h:outputText value="#{item.catDepto.code}" />
+            </p:column>	
+            <p:column headerText="CODE" resizable="true" >
+                    <h:outputText value="#{item.code}" />
+            </p:column>
+            <p:column headerText="ES MERCANCIA" resizable="true" >
+                    <h:outputText value="#{item.esMercancia}" />
+            </p:column>	
+        </p:dataTable>
+        
+</h:form>
+</body>
+</html>

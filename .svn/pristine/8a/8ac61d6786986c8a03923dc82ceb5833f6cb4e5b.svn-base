@@ -1,0 +1,73 @@
+@CHARSET "ISO-8859-1";
+
+#divPrincipal_UbicacionGeografica{
+	height: 200px;
+	width: 400px;
+	background: White;
+}
+
+#btnFinalizar_UbicacionGeografica{
+	/*background-color:#EE3B3B;*/
+	color: white;
+	height: 22px;
+	font-size: 11px;
+	cursor: pointer;
+	cursor: hand;
+}
+
+
+#divButtonNuevaCampanaUbicacionGeografica{
+	text-align: right;
+	background-color: white;
+	padding-bottom: 4px;
+	padding-right: 8px;
+}
+
+#TablePlaneacion_UbicacionGeografica{
+	background: White;
+	margin-top: 2px;
+	width: 100%;
+	font-size: 9pt;
+}
+#divHeaderNuevaCampanaUbicacionGeografica{
+	
+	background-color:  white;
+	border-bottom: 2px solid gray;
+	padding-bottom: 5px;
+	text-align: left;
+	/*background: white;
+	padding-bottom: 5px;
+	/*padding-left: 8px;*/
+	width: 392px;
+	border-bottom: 2px solid Gray;
+	width: 100%;
+}
+.imgLogo_UbicacionGeografica{
+	height: 18px;
+}
+
+#tableZonas_UbicacionGeografica{
+	background: white;
+	width: 180px;
+	border-right: 2px solid gray;
+	border-right-style: double;
+}
+
+#tableZonas_UbicacionGeografica td{
+	padding-top:9px;
+}
+
+#tableTiendas_UbicacionGeografica{
+	background: white;
+	width: 100%;
+}
+
+#tableTiendas_UbicacionGeografica td{
+	padding-top:9px;
+}
+
+#divBase_UbicacionGeografica{
+	background: White;
+	height: 180px;
+	width: 400px;
+}

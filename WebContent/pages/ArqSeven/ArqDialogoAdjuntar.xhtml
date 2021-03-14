@@ -1,0 +1,247 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:dialog modal="false" widgetVar="dlgAdjDiseno" id="dialogoAdjuntarDiseno"
+		styleClass="common-dialog" header="Adjuntar Diseño">
+		<h:form id="formAdjDiseno">
+			<p:messages id="messages" autoUpdate="true" closable="true" />
+			<p:panelGrid id="gridAdjDiseno"
+				style="width: 500px; background: #c1c1c1; border: 1px solid #AFAFAF;"
+				styleClass="grid-content">
+				
+                <p:row>
+					<p:column>
+						<table>
+							<tr>
+                                <!-- programa -->
+								<td><p:outputLabel value="Programa:" /></td>
+                                <td>
+                                    <p:selectOneMenu
+										value="#{mbArquitectura.disenoDTO.programaId}"
+										valueChangeListener="#{mbArquitectura.valueChangeAdjDisenoPrograma}">
+									<!--	<f:selectItem itemLabel="Seleccione" itemValue="-1" /> -->
+										<f:selectItems value="#{mbArquitectura.lCatProgramasPrec}"
+											var="program" itemLabel="#{program.nombre}"
+											itemValue="#{program.idPrograma}" />
+										<p:ajax update="adjDisenoMecanica dataGridImagesAdj" />
+									</p:selectOneMenu>
+                                </td>
+								<td>
+                                    
+                                <!-- mecanica -->
+                                <p:outputLabel value="Mecánica:" /></td>
+                                <td><p:selectOneMenu
+										value="#{mbArquitectura.disenoDTO.pkMec}"
+										id="adjDisenoMecanica"
+										valueChangeListener="#{mbArquitectura.valueChangeAdjDisenoMecanica}">
+									<!--	<f:selectItem itemLabel="Seleccione" itemValue="-1" /> -->
+										<f:selectItems value="#{mbArquitectura.lMecanica}" />
+										<p:ajax update="dataGridImagesAdj" />
+									</p:selectOneMenu></td>
+								
+                                <!-- senalamiento -->
+                                <td><p:outputLabel value="Señalamiento:" /></td>
+								<td>
+                                    
+                                    <p:selectCheckboxMenu id="cmbSenalDiseno" value="#{mbArquitectura.senalListSelectedStr}"
+                                                                  label="Señalamientos"
+                                                                  filter="true"
+                                                                  filterMatchMode="startsWith" 
+                                                                  styleClass="element-margin-top" 
+                                                                  style="width: 95px; text-align: left">
+                                                    
+                                                    <f:selectItems value="#{mbArquitectura.mCatSignals}" 
+                                                                   var="signal"
+                                                                   itemLabel="#{signal.nombre}" 
+                                                                   itemValue="#{signal.idSenal}"/>
+                                                    <p:ajax update="dataGridImagesAdj" />
+                                                    <!--
+                                                    <p:ajax update="gridPromocion2" event="change" />
+                                                    -->
+                                    </p:selectCheckboxMenu>
+                                    
+                                    
+                                </td>
+							</tr>
+							<tr>
+                                <!-- grupo zonas -->
+								<td><p:outputLabel value="Grupo Zonas:" /></td>
+								<td>
+                                    <p:selectCheckboxMenu
+										value="#{mbArquitectura.disenoDTO.grupoZonas}"
+										label="Grupos Zonas" filter="true" filterText="Filter"
+										filterMatchMode="startsWith" styleClass="element-margin-top"
+										style="width: 120px; text-align: left"
+										valueChangeListener="#{mbArquitectura.valueChangeAdjDisenoGrupoZona}">
+										
+                                        <f:selectItems value="#{mbArquitectura.mGruposZone}"
+											var="gZone" itemLabel="#{gZone.idGrupoZona} #{gZone.code}"
+											itemValue="#{gZone.idGrupoZona}" />
+										<p:ajax update="verDisenoZonasAdj dataGridImagesAdj verDisenoTiendas" />
+									</p:selectCheckboxMenu>
+                                </td>
+                                
+                                <!-- zonas -->
+								<td><p:outputLabel value="Zonas:" /></td>
+								<td><p:selectCheckboxMenu
+										value="#{mbArquitectura.disenoDTO.zonas}" label="Zonas"
+										filter="true" filterText="Filter" filterMatchMode="startsWith"
+										styleClass="element-margin-top"
+										style="width: 95px; text-align: left"
+										valueChangeListener="#{mbArquitectura.valueChangeAdjDisenoZona}"
+										id="verDisenoZonasAdj">
+										<f:selectItems value="#{mbArquitectura.mCatZonasVerDiseno}"
+											var="cat" itemLabel="#{cat.idZone} #{cat.code}" itemValue="#{cat.idZone}" />
+										<p:ajax update="verDisenoTiendas dataGridImagesAdj" />
+									</p:selectCheckboxMenu></td>
+                                
+                                <!-- tiendas -->
+								<td><p:outputLabel value="Tienda:" /></td>
+								<td><p:selectCheckboxMenu
+										value="#{mbArquitectura.disenoDTO.tiendas}" label="Tiendas"
+										filter="true" filterText="Filter" filterMatchMode="startsWith"
+										styleClass="element-margin-top"
+										style="width: 95px; text-align: left" id="verDisenoTiendas"
+										valueChangeListener="#{mbArquitectura.valueChangeAdjDisenoTiendas}">
+										<f:selectItems value="#{mbArquitectura.mCatTiendasVerDiseno}"
+											var="tienda" itemLabel="#{tienda.idStore} #{tienda.code}"
+											itemValue="#{tienda.idStore}" />
+										<p:ajax update="dataGridImagesAdj" />
+									</p:selectCheckboxMenu></td>
+							</tr>
+							<tr>
+                                
+                                <!-- boton para cargar la imagen -->
+								<td><p:outputLabel value="Archivo:" /></td>
+								<td colspan="3">
+                                    <p:fileUpload fileLimit="1"
+										multiple="false" mode="advanced" cancelLabel="Cancelar"
+										uploadLabel="Adjuntar archivo" label="Cargar archivo"
+										dragDropSupport="false" auto="false" sizeLimit="1048576"
+										fileUploadListener="#{mbArquitectura.fileUpload}"
+										invalidFileMessage="Tipo de archivo inválido"
+										allowTypes="/(\.|\/)(jpg|JPG|GIF|gif|JPEG|jpeg|PNG|png)$/"
+										invalidSizeMessage="El documento excende el tamaño máximo permitido" />
+								</td>
+								
+                                <!-- boton de buscar -->
+                                <td>
+                                    <p:commandButton styleClass="common-button"
+										value="Buscar" process="formAdjDiseno"
+										action="${mbArquitectura.adjDisenoSearch}"
+										update="dataGridImagesAdj" />
+                                </td>
+                                
+                                <!-- boton de grabar -->
+								<td>
+                                    <p:commandButton styleClass="common-button"
+										value="Grabar" partialSubmit="true"
+										action="#{mbArquitectura.adjDiseno}" />
+                                </td>
+							</tr>
+						</table>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column id="listColumn">
+                        
+                        <!-- TABLA DE DISENIOS -->
+						<p:dataGrid var="itemDiseno" value="#{mbArquitectura.disenosLst}"
+							columns="3" rows="6" id="dataGridImagesAdj" paginator="true"
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							emptyMessage="Vacio" resizableColumns="true"
+							styleClass="grid-content-no-borders">
+							
+                            
+                            <p:column>
+								
+                               
+                                <h:panelGrid columns="2" cellpadding="0" cellspacing="0"
+									border="1" style="font-size:xx-small">
+                                    
+                                     <!-- APARTADO DE LA IMAGEN -->
+									<h:column>
+										<!--p:graphicImage value="#{itemDiseno.imageStream}" width="50" height="50" /-->
+										 <a href="javascript:new_window('data:image/gif;base64,#{itemDiseno.imageStr}')"><img src="data:image/gif;base64,#{itemDiseno.imageStr}" alt="Diseño" height="50" width="50" /></a>
+                                                                            
+										<script language="JavaScript" type="text/javascript">
+											function new_window(url) {
+
+												link = window.open(url,"Link","toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=yes,resizable=0,width=430,height=300,left=80,top=180");
+
+											}
+
+										</script>
+									</h:column>
+                                     
+                                    <!-- APARTADO DE LOS DATOS -->
+									<h:column>
+										<p:scrollPanel mode="native" style="width: 300px; height: auto">
+										<table>
+											<tr>
+												<td><h:outputLabel value="Programa:"
+														style="font-weight:bold" /> <h:outputLabel
+														value="#{itemDiseno.programaStr}" /></td>
+											</tr>
+											<tr>
+												<td><h:outputLabel value="Mecánica:"
+														style="font-weight:bold" /> <h:outputLabel
+														value="#{itemDiseno.mecanicaStr}" /></td>
+											</tr>
+											<tr>
+												<td><h:outputLabel value="Señalamiento:"
+														style="font-weight:bold" /> <h:outputLabel
+														value="#{itemDiseno.senalamientoStr}" /></td>
+											</tr>
+											<tr>
+												<td><h:outputLabel value="Grupo Zona:"
+														style="font-weight:bold" /> <h:outputLabel
+														value="#{itemDiseno.grupoZonaStr}" /></td>
+											</tr>
+											<tr>
+												<td><h:outputLabel value="Zona:"
+														style="font-weight:bold" /> <h:outputLabel
+														value="#{itemDiseno.zonaStr}" /></td>
+											</tr>
+											<tr>
+												<td><h:outputLabel value="Tienda:"
+														style="font-weight:bold" /> <h:outputLabel
+														value="#{itemDiseno.storeStr}" /></td>
+											</tr>
+											<tr>
+												<td><h:outputLabel value="Estatus por Precio:"
+														style="font-weight:bold" /> <h:outputLabel
+														value="#{itemDiseno.preciosAuthBStr}" /></td>
+											</tr>
+											<tr>
+												<td><h:outputLabel value="Estatus por Category:"
+														style="font-weight:bold" /> <h:outputLabel
+														value="#{itemDiseno.categoryAuthBStr}" /></td>
+											</tr>
+											<tr>
+												<td><h:outputLabel value="Estatus:"
+														style="font-weight:bold" /> <h:outputLabel
+														value="#{itemDiseno.authStr}" /></td>
+											</tr>
+											<tr>
+												<td>
+													<p:commandButton value="Eliminar" update=":formAdjDiseno:dataGridImagesAdj" actionListener="#{mbArquitectura.eliminarDiseno(itemDiseno)}" />
+
+												</td>
+											</tr>
+										</table>
+										</p:scrollPanel>
+									</h:column>
+								</h:panelGrid>
+							</p:column>
+						</p:dataGrid>
+					</p:column>
+				</p:row>
+			</p:panelGrid>
+		</h:form>
+	</p:dialog>
+</ui:composition>

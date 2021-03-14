@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+
+<link type="text/css" rel="stylesheet" href="css/DialogosModuloActividades.css" />
+<!-- <link type="text/css" rel="stylesheet" href="css/home.css" />-->
+<link type="text/css" rel="stylesheet" href="css/FontAndColor.css" />
+<link type="text/css" rel="stylesheet" href="css/adMaster.buttons.css" />
+	
+</h:head> 
+<h:body>
+	<div id="dialog_Nueva_Actividad" title="Nueva Actividad" >
+		<div id="divLogo_NuevaActividad">
+			<h:graphicImage value="images/Logo_Admaster_18.png"  />
+		</div>
+		
+		<div id="div_Input_Imagenes" style="height: 28px; border: 1px; background-color: #EBEBEB">
+			 <h:graphicImage value="images/menu_nueva_actividad/guardar.png" style="width: 25px; height:25px;"/>
+	 	     &nbsp;
+			 <h:graphicImage value="images/menu_nueva_actividad/enviar_reporte.png" style="height: 25px; width: 25px; "/>
+			 &nbsp;
+			 <h:graphicImage value="images/menu_nueva_actividad/perioricidad.png" onclick="abrirPerioricidad()" style="height: 25px; width: 25px; " />
+		</div>
+		
+		
+		<table cellpadding="0" cellspacing="0" id="tbl_Camp_Medio" class="back_Color">
+			<tr>
+				<td style="width: 15%; padding-left: 5px;font-size: 9pt;"><h:outputLabel value="Campaña" /></td>
+				<td>
+					 <p:selectOneMenu id="select_NuevaCampaña" styleClass="fuenteYColor borderTextbox" style="width: 150px;">
+						<f:selectItem itemValue="Nueva Campaña" itemLabel="Nueva Campaña"></f:selectItem>
+					</p:selectOneMenu>
+				</td>
+				<td style="width: 4%;" />
+
+				<td style="width: 12%; padding-bottom: 12px; text-align: right;font-size: 9pt;"><h:outputLabel value="Medio:" /></td>
+				<td colspan="2">
+
+					<p:selectOneMenu id="select_MedioNuevaActividad" styleClass="fuenteYColor borderTextbox" style="width: 150px;">
+						<f:selectItem itemValue="Nuevo Medio" itemLabel="Nuevo Medio" />
+					</p:selectOneMenu>
+				</td>
+			</tr>
+		</table>
+		<table cellpadding="0" cellspacing="0" id="tblSup_Nueva_Actividad" class="back_Color" style="font-size: 9px;width: 100%;">
+			<tr>
+
+				<td style="width: 11%; padding-bottom: 12px; padding-left: 5px;font-size: 9pt; " class="fuenteYColor" ><h:outputLabel value="Inicio:" /></td>
+				<td style="width: 12%; padding-bottom: 12px; padding-left: 35px;" ><p:inputText style="width: 100px;font-size: 9pt;" id="inicioNuevaActividad" styleClass="dateComp fuenteYColor borderTextbox"/></td>
+				<td style="width: 20%; padding-bottom: 16px; text-align: right;font-size: 9pt; padding-left: 15px;"  class="fuenteYColor" ><h:outputLabel value="Vencimiento:" /></td>
+				<td style="width: 12%; padding-bottom: 12px; padding-left: 15px;"><p:inputText style="width: 90px;font-size: 9pt;" id="finNuevaActividad" styleClass="dateComp fuenteYColor borderTextbox"/></td>
+				<td></td>
+				<td style="width: 10%; padding-bottom: 8px; text-align: right;font-size: 9pt;" class="fuenteYColor"><h:outputLabel value="Asunto:" /></td>
+				<td colspan="2" style="width:20%; padding-bottom: 8px;padding-right: 10px; text-align: right;"><p:inputText id="txt_asuntoNuevaActividad" style="width: 95%;font-size: 9pt;" styleClass="fuenteYColor borderTextbox"/></td>
+				
+			</tr>
+			</table>
+		<table  id="tbl_Nueva_Actividad" class="back_Color" style="width: 100%;" cellpadding="0" cellspacing="0">	
+			<tr>
+				<td class="fuenteYColor" style="font-size: 9pt;" ><h:outputLabel value="Estado:" /></td>
+				<td style="width: 55%;">
+					<p:selectOneMenu id="select_EstadoNuevaActividad" style="padding:0; width: 55%" styleClass="fuenteYColor borderTextbox" >
+						<f:selectItem itemValue="No comenzada" itemLabel="No comenzada" />
+					</p:selectOneMenu>
+				</td>
+				<td style="width: 18%; padding-left: 15px; font-size: 9pt; vertical-align: middle;" ><h:outputLabel value="% Completado" /></td>
+				<td style="width: 15%" colspan="2">
+					<p:selectOneMenu id="select_CompletadoNuevaActividad" style="width: 100%;" styleClass="fuenteYColor">
+						<f:selectItem itemValue="0%" itemLabel="0%" />
+					</p:selectOneMenu>
+				</td>
+			</tr>
+			
+			<tr>
+				<td style="width: 94px;font-size: 9pt;"><h:outputLabel value="Responsable:" /></td>
+				<td colspan="4"><p:inputText id="txt_ResponsableNuevaActividad" style="width: 99%;font-size: 9pt;" styleClass="fuenteYColor borderTextbox"/></td>
+			</tr>
+			
+			<tr>
+				<td colspan="7" style="font-size: 9pt;"><h:outputLabel value="Descripción:" /></td>
+			</tr>
+		
+			<tr>
+				<td colspan="7">
+				  <p:inputTextarea id="txtArea_DescripcionNuevaActividad" rows="5" cols="77" styleClass="fuenteYColor borderTextbox" style="font-size: 9pt;"></p:inputTextarea>
+				</td>
+			</tr>
+		
+			<tr>
+				<td colspan="7" style="font-size: 9pt;"><h:outputLabel value="Comentarios:" /></td>
+			</tr>
+		
+			<tr>
+				<td colspan="7">
+					 <p:inputTextarea id="txtArea_comentariosNuevaActividad" rows="5" cols="77" styleClass="fuenteYColor borderTextbox" style="font-size: 9pt;"></p:inputTextarea>
+				</td>
+			</tr>
+		</table>
+	
+	</div>
+</h:body>
+</html>

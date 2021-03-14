@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+<h:body>
+	<ui:composition>
+		<h:form>
+                    <table id="tablaLogos" width="100%">
+                        <tr>
+                            <td><h:graphicImage
+                                    library="images"
+                                    name="Logo_Header_Blanco_30px.png"
+                                    style="height:30px;" id="LOGOAD" />
+                            </td>
+                            <td align="right">
+                                <!--<h:graphicImage  library="images" name="7-11-logo.png"  style="height: 60px;"/>-->
+                                <b><h:outputText value="Usuario: #{MBCatUsuarios.nameUserLogged}" id="usrLogged" style="color: #0000FF" /></b>
+                            </td>
+                        </tr>
+                    </table>
+			<div id="principal_menu_div">
+
+				<table style="width: 100%;" cellpadding="0" cellspacing="0">
+					<tr>
+						<th>
+							<table id="tbl_menu_principal" cellpadding="0" cellspacing="0">
+								<tr>
+
+									<c:forEach var="currOpc1" items="#{MBCatUsuarios.opciones}">
+										<td id="td_menu_home" title="#{currOpc1.opcName}"><c:if
+												test="#{currOpc1.url !=null and currOpc1.url.length()>0}">
+												<a href="#{MBNavigator.url(currOpc1.url)}" title="#{currOpc1.opcName}"
+                                                   style="text-decoration:none;"
+													onclick="#{MBNavigator.initDashboard(currOpc1)}">
+													<h:graphicImage library="images"
+														name="#{currOpc1.fileImage}" />
+												</a>
+											</c:if> <c:if
+												test="#{currOpc1.url ==null or currOpc1.url.length()==0}">
+												<p:commandLink style="text-decoration:none;"
+													action="#{MBNavigator.initDashboard(currOpc1)}"
+													update=":frmMenuLogin,:frmMenHor">
+													<h:graphicImage library="images"
+																	name="#{currOpc1.fileImage}" />
+												</p:commandLink>&nbsp;
+											</c:if></td>
+									</c:forEach>
+                                                                    <td>
+                                                                        <p:commandLink action="#{MBCatUsuarios.logout()}" title="Cerrar Sesion" >
+                                                                            <h:graphicImage library="images" name="salir_25x25.png" />
+                                                                        </p:commandLink>
+                                                                    </td>
+								</tr>
+							</table>
+						</th>
+					</tr>
+					
+				
+				</table>
+			</div>
+		</h:form>
+		
+		
+		
+	<!--  menu horinzontal -->
+					 <h:form id="frmMenHor"  > 
+					 
+					<table width='100%' class="bg-subtitle">
+					<tr>
+					<td>&nbsp;</td>
+					<td>
+					    
+					     <table>
+					          <tr>
+					          <c:if test="#{MBCatUsuarios.opcionesMenVer!=null }" >
+					          <c:forEach  items="#{MBCatUsuarios.opcionesMenVer}"  var="item"   >
+					             <td  style='font-size:10px;font-face:Tahoma;color:#ffffff;font-weight:normal;'   >
+                                                <p:commandLink  
+													action="#{MBCatUsuarios.test( )}"
+													update=":frmMenuLogin">	
+													 <h:outputText value="#{item.opcName}" />	
+													  <f:param name="id" value="#{item.opcId}" />
+													  <f:param name="url" value="#{item.url}" />											 
+												</p:commandLink>	
+								</td>		
+								<td width='5' ></td>						         
+					           	
+					          </c:forEach>
+					          </c:if>
+					        
+					           
+					          
+					         
+					          </tr>
+					     					     					    
+					     </table>
+					    
+					    </td>
+					</tr>	
+					</table>				
+					 
+					 </h:form>		
+	</ui:composition>
+</h:body>
+</html>
+
+

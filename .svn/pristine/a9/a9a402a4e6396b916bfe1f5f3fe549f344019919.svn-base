@@ -1,0 +1,1465 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <script>
+		function showCmbLoading() {
+			loader.show();
+		}
+		
+		function closeCmbLoading() {
+			loader.hide();
+		}
+
+		function setIdRowArq(event){
+			var btnId="";
+			btnId= $(this).attr('id')+'';
+			$('#idRow').val(btnId+'2');
+		}
+        
+        function TriggeredKey(e){
+            alert("ejectuando");
+            var keycode;
+            if (window.event) keycode = window.event.keyCode;
+            if (window.event.keyCode = 13 ) return false;
+        }
+	</script>
+	<input type="hidden" id="idRow" value=""/>	
+    <p:defaultCommand target="dummy"/>
+    <p:commandButton id="dummy" process="@none" global="false" style="display:none;"/> 
+		<h:panelGroup styleClass="panel-form" style="overflow-x:hidden;" >
+			<p:messages autoUpdate="true" closable="true"/>
+            
+            <!-- INFORMACION DEL PERIODO PROMOCIONAL -->
+			<p:panelGrid id="gridPromocion1" style="width: 1075px;  border: 1px solid #AFAFAF;" styleClass="form-content">
+				<p:row>
+					<p:column>
+						<p:outputLabel value="Periodo Promocional: " />
+					</p:column>
+					<p:column colspan="3">
+						<p:outputLabel size="30" value="#{mbArquitectura.arqPeriodo.descripcion}"/>
+					</p:column>
+					<p:column colspan="7"/>
+					<p:column>
+						<div align="right">
+							<p:commandLink styleClass="excel-button" ajax="true" title="Exportar a Excel" onclick="setTimeout(&quot;document.getElementById('frmPromocion:expXlsZona').click();&quot;, 1000); document.getElementById('frmPromocion:expXlsDet').click();"/>
+						
+							<p:commandLink id="expXlsDet" styleClass="excel-button" ajax="false" title="Exportar a Excel" style="display:none">
+                                <p:dataExporter type="xls" target=":frmPromocion:tvComponentes:DetComp" fileName="DetComponente" postProcessor="#{mbArquitectura.postProcessCategoryXLS}"/>
+							</p:commandLink>
+							
+							<p:commandLink id="expXlsZona" styleClass="excel-button" ajax="false" title="Exportar a Excel" style="display:none">
+                                <p:dataExporter type="xls" target=":frmPromocion:tvComponentes:DetZona" fileName="ZonaComponentes" postProcessor="#{mbArquitectura.postProcessCategoryXLS}"/>
+							</p:commandLink>
+                            
+						</div>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:outputLabel value="Fecha Inicio: " />
+					</p:column>
+					<p:column>
+                        <p:inputText  size="10" value="#{mbArquitectura.arqPeriodo.fechaIniFormat}" readonly="true" disabled="#{mbArquitectura.esCategory}"/>
+					</p:column>
+					<p:column>
+						<p:outputLabel value="Hora Inicio: "/>
+					</p:column>
+					<p:column>
+						<p:inputText  size="10" value="#{mbArquitectura.arqPeriodo.horaIniFormat}" readonly="true" disabled="#{mbArquitectura.esCategory}"/>
+					</p:column>
+					
+                    <!-- categoria de programa -->
+                    <p:column>
+						<p:outputLabel value="*" style="color: RED"/>
+						<p:outputLabel value="Programa: " />
+					</p:column>
+					<p:column>
+						<p:selectOneMenu 
+                            value="#{mbArquitectura.arqPeriodo.idPrograma}" 
+                            disabled="#{mbArquitectura.esCategory}">
+							<f:selectItem itemLabel="Seleccione" itemValue="0"/>
+								<f:selectItems value="#{mbArquitectura.lPrograms}" var="program"
+                                    itemLabel="#{program.nombre}" itemValue="#{program.idPrograma}" />	
+						</p:selectOneMenu>
+					</p:column>
+					
+                    <p:column>
+						<p:outputLabel value="Etapa" for="txtEtapa1" />
+					</p:column>
+					<p:column>
+						<p:inputText id="txtEtapa1" value="#{mbArquitectura.etapaPrograma}" readonly="true" disabled="#{mbArquitectura.esCategory}" />
+					</p:column>
+
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:outputLabel value="Fecha Fin: " />
+					</p:column>
+					<p:column>
+						<p:inputText  size="10" value="#{mbArquitectura.arqPeriodo.fechaFinFormat}" readonly="true" disabled="#{mbArquitectura.esCategory}"/>
+					</p:column>
+					<p:column>
+						<p:outputLabel value="Hora Fin: " />
+					</p:column>
+					<p:column>
+						<p:inputText  size="10" value="#{mbArquitectura.arqPeriodo.horaFinFormat}" readonly="true" disabled="#{mbArquitectura.esCategory}"/>
+					</p:column>
+					<p:column>
+						<p:outputLabel value="*" style="color: RED"/>
+						<p:outputLabel value="Categor&iacute;a: " />
+					</p:column>
+					<p:column>
+						<p:selectCheckboxMenu value="#{mbArquitectura.arqPeriodo.lCategorias}" label="Categorias" filter="true" disabled="#{mbArquitectura.esCategory}"
+											  filterMatchMode="startsWith" styleClass="element-margin-top" style="text-align: left">
+							<f:selectItems value="#{mbArquitectura.mCategories}" var="category"
+										   itemLabel="#{category.idCategory} #{category.code}" itemValue="#{category.idCategory}" />
+							<p:ajax listener="#{mbArquitectura.setCategoriasSelected}" update="cmbCat" />
+						</p:selectCheckboxMenu>
+					</p:column>
+                    <p:column>
+
+                    </p:column>
+                    <!--
+                    <p:column>
+                        <p:commandButton value="Terminar Actividades" onstart="muestraLoader();" oncomplete="ocultaLoader();" 
+										 styleClass="common-button" disabled="#{!mbArquitectura.programaActivo}"
+                                         actionListener="#{mbArquitectura.closeActividadArqitectura}" update=":frmPromocion" />
+                    </p:column>
+                    -->
+				</p:row>
+				<p:row>
+
+                    <p:column>
+						<p:outputLabel value="Ingreso R11 POP Ppto: " />
+					</p:column>
+					<p:column>
+						<p:inputText size="10" value="#{mbArquitectura.arqPeriodo.strIngreso}" style="text-align: right" readonly="true" disabled="#{mbArquitectura.esCategory}"/>
+					</p:column>
+					
+                    
+                    <!-- ingreso pop real -->
+                    <p:column>
+						<p:outputLabel value="*" style="color: RED"/>
+						<p:outputLabel value="Ingreso R11 POP Real: " />
+					</p:column>
+					<p:column>
+                        <p:inputText id="inputPopReal" size="10" value="#{mbArquitectura.arqPeriodo.strIngresoReal}" style="text-align: right;#{mbArquitectura.arqPeriodo.popRealErrorClass}" />
+					</p:column>
+                    
+					<p:column colspan="8"/>
+				</p:row>
+			</p:panelGrid>
+			
+            <!-- INFORMACION DEL DETALLE DE LA MECANICA -->
+            <p:panelGrid id="gridPromocion2" style="width: 1075px;   border: 1px solid #AFAFAF;" styleClass="form-content">
+				<p:row>
+					<p:column>
+						<p:outputLabel value="*" style="color: RED"/>
+						<p:outputLabel value="Mec&aacute;nica: " />
+					</p:column>
+                    
+                    <!-- seleccion de la mecanica -->
+					<p:column colspan="3">
+						<p:selectOneMenu style="width: 300px" 
+                            value="#{mbArquitectura.arqMecanica.idMecanica}" 
+                            valueChangeListener="#{mbArquitectura.valueChangeMecanica}">
+							<f:selectItem itemLabel="Seleccione" itemValue="-1"/>
+							<f:selectItems value="#{mbArquitectura.lMecanica}"/>
+						<!--	<f:ajax render="gridPromocion2 gridPromocion3 frmPromocion:gridDiasPromocion tvComponentes gridPromocion1"/> -->
+							<p:ajax onstart="muestraLoader();" oncomplete="ocultaLoader();"
+                                    update="gridPromocion2 gridPromocion3 frmPromocion:gridDiasPromocion tvComponentes tvComponentes2 gridPromocion1" 
+                                    event="change" />
+						</p:selectOneMenu>
+					</p:column>
+                    
+					<p:column colspan="3">
+						<p:commandButton value="Nueva" disabled="#{!mbArquitectura.programaActivo}" styleClass="common-button" onclick="dlgMecaPromo.show()"/>
+					
+						<p:commandButton ajax="true" styleClass="common-button"
+                                         disabled="#{mbArquitectura.arqMecanica.idMecanica lt 1 or !mbArquitectura.programaActivo}"
+                                         value="Borrar" onclick="confEliMeca.show()"/>
+					
+						<p:commandButton value="Importar Mec&aacute;nica" styleClass="common-button" disabled="#{!mbArquitectura.programaActivo}"
+										 update="cmbEventoPromImp cmbProgImp cmbMecImport bttnImportMec" onclick="dlgImpMecaPromo.show()"
+										 actionListener="#{mbArquitectura.initCombosImp}" partialSubmit="true" ajax="true"/>
+						<p:commandButton id="btnElimMec" icon="ui-icon-trash" ajax="true" action="#{mbArquitectura.borrarMecanica}" disabled="#{!mbArquitectura.programaActivo}"
+				            				 style="visibility:hidden" update=":frmMenuLogin :frmPromocion" global="true"/>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:outputLabel value="*" style="color: RED"/>
+						<p:outputLabel value="Promoci&oacute;n: " />
+					</p:column>
+					<p:column>
+						<p:selectOneMenu style="width: 95px" id="comboPromocion"
+                                         value="#{mbArquitectura.arqMecanica.idPromocion}"
+                                         disabled="#{mbArquitectura.arqMecanica.idMecanica lt 1}">
+							<f:selectItem itemLabel="Seleccione" itemValue="0"/>
+								<f:selectItems value="#{mbArquitectura.lCatPromociones}" var="promo"
+    												itemLabel="#{promo.nombre}" itemValue="#{promo.idPromo}" />	
+						</p:selectOneMenu>
+					</p:column>
+					<p:column>
+						<p:outputLabel value="*" style="color: RED"/>
+						<p:outputLabel value="Tipo de Promoci&oacute;n: " />
+					</p:column>
+					<p:column>
+						<p:selectOneMenu id="comboTPromocion" style="width: 95px" value="#{mbArquitectura.arqMecanica.idTipoPromocion}" disabled="#{mbArquitectura.arqMecanica.idMecanica lt 1}">
+							<f:selectItem itemLabel="Seleccione" itemValue="0"/>
+							<f:selectItems value="#{mbArquitectura.lCatTipoPromociones}" var="tPromo"
+    												itemLabel="#{tPromo.nombre}" itemValue="#{tPromo.idTipoPromo}" />	
+						</p:selectOneMenu>
+					</p:column>
+					<p:column>
+						<p:outputLabel value="*" style="color: RED"/>
+						<p:outputLabel value="Se&ntilde;alamiento: " />
+					</p:column>
+					
+                                        <!-- select multiple checkbox -->
+                                        <p:column>
+                                            <p:selectCheckboxMenu value="#{mbArquitectura.arqMecanica.lSenalamiento}" 
+                                                                  label="Se&ntilde;alamientos" 
+                                                                  filter="true" 
+                                                                  disabled="#{mbArquitectura.arqMecanica.idMecanica lt 1}"
+                                                                  filterMatchMode="startsWith" 
+                                                                  styleClass="element-margin-top" 
+                                                                  style="width: 95px; text-align: left" 
+                                                                  valueChangeListener="#{mbArquitectura.valueChangeSenalamientos}">
+                                                    
+                                                    <f:selectItem itemValue="0" itemLabel="Otros"/>
+                                                    <f:selectItems value="#{mbArquitectura.mCatSignals}" 
+                                                                   var="signal"
+                                                                   itemLabel="#{signal.nombre}" 
+                                                                   itemValue="#{signal.idSenal}"/>
+                                                    
+                                                   <p:ajax event="toggleSelect" update=":frmPromocion" />
+                                                    <!--  <p:ajax event="change" update=":frmPromocion" /> -->
+                                                    
+                                            </p:selectCheckboxMenu>
+                                            
+                                            <p:inputText id="txtOtroSenal" size="10" value="#{mbArquitectura.arqMecanica.otroSenalamiento}" rendered="#{mbArquitectura.mostrarOtroSen}"/>
+					</p:column>
+                    
+					<p:column>
+						<p:outputLabel value="*" style="color: RED"/>
+						<p:outputLabel value="Compartido: " />
+					</p:column>
+					<p:column>
+						<p:selectOneMenu style="width: 95px" value="#{mbArquitectura.arqMecanica.compartido}" disabled="#{mbArquitectura.arqMecanica.idMecanica lt 1}">
+							<f:selectItem itemLabel="Seleccione" itemValue="-1"/>
+							<f:selectItem itemLabel="NO" itemValue="0"/>
+							<f:selectItem itemLabel="SI" itemValue="1"/>
+						</p:selectOneMenu>
+                    </p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:outputLabel value="*" style="color: RED"/>
+						<p:outputLabel value="Grupo Zonas: "/>
+					</p:column>
+					
+                    <p:column>
+						<p:selectCheckboxMenu 
+						    value="#{mbArquitectura.arqMecanica.lGrupoZonas}" 
+                                                    label="#{mbArquitectura.mGruposZonasLabel}" 
+						    filter="true"
+						    filterMatchMode="contains" 
+						    disabled="#{mbArquitectura.arqMecanica.idMecanica lt 1}"
+					        styleClass="element-margin-top" 
+					        style="width: 95px; text-align: left" 
+					        valueChangeListener="#{mbArquitectura.valueChangeGrupoZona}">
+						    <f:selectItems 
+                                value="#{mbArquitectura.mGruposZone}" 
+                                var="gZone"
+                                itemLabel="#{gZone.idGrupoZona} #{gZone.code}"
+                                itemValue="#{gZone.idGrupoZona}" />								
+							
+                            <p:ajax event="toggleSelect"  
+                                    process="@this" 
+                                    partialSubmit="true"
+                                    onstart = "showCmbLoading();" 
+                                    oncomplete="closeCmbLoading();" 
+                                    update="@this crearEventoZonasPromo crearPromoTiendas"
+                                    />
+
+                            <p:ajax event="change" 
+                                onstart = "showCmbLoading();" 
+                                oncomplete="closeCmbLoading();" 
+                                update="@this crearEventoZonasPromo crearPromoTiendas" />
+							
+						</p:selectCheckboxMenu>
+					</p:column>
+                    
+					<p:column>
+						<p:outputLabel value="*" style="color: RED"/>
+						<p:outputLabel value="Zona: " />
+					</p:column>
+					
+                    <p:column>
+						<p:selectCheckboxMenu 
+						   value="#{mbArquitectura.arqMecanica.lZonas}" 
+                                                   label="#{mbArquitectura.mZonesLabel}" filter="true" 
+						   disabled="#{mbArquitectura.arqMecanica.idMecanica lt 1}"
+					       filterMatchMode="contains" styleClass="element-margin-top" 
+					       style="width: 95px; text-align: left" id="crearEventoZonasPromo"
+					       valueChangeListener="#{mbArquitectura.valueChangeZona}">							
+							
+                            <f:selectItems value="#{mbArquitectura.mZones}" 
+							   var="zone" itemLabel="#{zone.idZone} #{zone.code}" itemValue="#{zone.idZone}" />	
+							
+                            <p:ajax event="toggleSelect" process="@this" partialSubmit="true"
+                                onstart = "showCmbLoading();" oncomplete="closeCmbLoading();" update="@this crearPromoTiendas"
+                            />
+                        
+                            <p:ajax event="change" onstart = "showCmbLoading();" oncomplete="closeCmbLoading();" update="@this crearPromoTiendas" />
+							
+			</p:selectCheckboxMenu>
+					</p:column>
+                    
+					<p:column>
+						<p:outputLabel value="*" style="color: RED"/>
+						<p:outputLabel value="Tiendas: " />
+					</p:column>
+					<p:column>
+						<p:selectCheckboxMenu 
+							value="#{mbArquitectura.arqMecanica.lTiendas}"
+							label="Tiendas" filter="true"
+							disabled="#{mbArquitectura.arqMecanica.idMecanica lt 1}"
+							filterMatchMode="contains"
+							styleClass="element-margin-top"
+							id="crearPromoTiendas"
+							style="width: 95px; text-align: left">
+							<f:selectItems value="#{mbArquitectura.mStores}" var="store"
+										   itemLabel="#{store.idStore} #{store.code}" itemValue="#{store.idStore}" />
+						</p:selectCheckboxMenu>
+					</p:column>
+					<p:column>
+						<p:outputLabel value="# Acuerdo: " />
+					</p:column>
+					<p:column>
+						<p:inputText size="10" maxlength="8" value="#{mbArquitectura.arqMecanica.acuerdos[0]}" disabled="#{mbArquitectura.arqMecanica.idMecanica lt 1}"/>
+						<p:inputText size="10" maxlength="8" value="#{mbArquitectura.arqMecanica.acuerdos[1]}" disabled="#{mbArquitectura.arqMecanica.idMecanica lt 1}"/>
+						<p:inputText size="10" maxlength="8" value="#{mbArquitectura.arqMecanica.acuerdos[2]}" disabled="#{mbArquitectura.arqMecanica.idMecanica lt 1}"/>
+					</p:column>
+				</p:row>
+                
+                <p:row>
+                    <p:column>
+						<div align="right">
+							<p:commandButton value="D&iacute;as Promoci&oacute;n"
+                                              styleClass="common-button" onclick="dlgDiasPromo.show()"
+                                             disabled="#{mbArquitectura.arqMecanica.idMecanica lt 1 || !mbArquitectura.programaActivo}"/>
+						</div>
+					</p:column>
+                    <p:column rendered="#{mbArquitectura.mostrarOtroSen}">
+						<div align="right">
+							<p:commandButton id="bttnGuardar1" onclick="muestraLoader();" oncomplete="ocultaLoader();" value="Guardar" styleClass="common-button" disabled="#{mbArquitectura.arqMecanica.idMecanica lt 1}"
+							actionListener="#{mbArquitectura.guardarMecanica}" partialSubmit="true" update=":frmMenuLogin :frmPromocion :frmPromocion:inputPopReal"/>
+						</div>
+					</p:column>
+                    <p:column rendered="#{!mbArquitectura.mostrarOtroSen}">
+						<div align="right">
+							<p:commandButton id="bttnGuardar2" onclick="muestraLoader();"
+                                             oncomplete="ocultaLoader();" value="Guardar" styleClass="common-button"
+                                             disabled="#{mbArquitectura.arqMecanica.idMecanica lt 1 || !mbArquitectura.programaActivo}"
+							actionListener="#{mbArquitectura.guardarMecanica}" partialSubmit="true" update=":frmMenuLogin :frmPromocion"/>
+						</div>
+					</p:column>
+                    <p:column>
+						<p:outputLabel value="Comentario Dise&ntilde;o: " />
+					</p:column>
+					<p:column>
+						<p:inputTextarea value="#{mbArquitectura.arqMecanica.comentario}" rows="2" disabled="#{mbArquitectura.arqMecanica.idMecanica lt 1}"/>
+					</p:column>
+                </p:row>
+                
+			</p:panelGrid>
+            
+            <!-- GRID PARA AGREGAR COMPONENTES -->
+            <p:messages autoUpdate="true" closable="true"/>
+			<p:panelGrid id="gridPromocion3" style="width: 1075px;   border: 1px solid #AFAFAF;" styleClass="form-content">
+				
+                <!-- row de articulo y acciones -->
+                <p:row>
+					<p:column>
+						<h:panelGrid columns="2" border="0" cellpadding="3">
+							<p:column>
+								<p:outputLabel value="*" style="color: RED"/>
+								<p:outputLabel value="Componente: " />
+							</p:column>
+							<p:selectOneMenu id="cmbArticulo" style="width: 115px" value="#{mbArquitectura.arqComponente.numeroComponente}" disabled="#{!mbArquitectura.habilitarComp}">
+								<f:selectItem itemLabel="Seleccione" itemValue="-1"/>
+								<f:selectItems value="#{mbArquitectura.lComponentes}"/>
+							</p:selectOneMenu>
+						</h:panelGrid>
+					</p:column>
+					<p:column>
+						<h:panelGrid columns="2" border="0" cellpadding="3">
+							<p:commandLink styleClass="add-in-grid-button" 
+                                           update="gridPromocion3"
+                                           onstart="muestraLoader();" 
+                                           oncomplete="ocultaLoader();"
+										   actionListener="#{mbArquitectura.nuevoComponentes}" 
+                                           disabled="#{!mbArquitectura.puedeAgregarComp || !mbArquitectura.programaActivo}"/>
+                            </h:panelGrid>
+					</p:column>
+					<p:column colspan="3">
+						<h:panelGrid columns="2" border="0" cellpadding="3">
+							
+                            
+                            
+                            <p:commandButton onstart="muestraLoader();" oncomplete="ocultaLoader();" styleClass="common-button"
+											 value="A&ntilde;adir" disabled="#{!mbArquitectura.habilitarComp}"
+											 process="@this cmbArticulo cmbSKU txtCantProd espProm numeroEspacioPromocionalId abastoInicialId"
+											 action="#{mbArquitectura.guardarComponente}" update=":frmPromocion"/>
+						</h:panelGrid>
+					</p:column>
+				</p:row>
+
+                <!-- filas de filtros -->
+				<p:row>
+					<p:column>
+                        
+                        <!-- panel de filtros de categoria-->
+						<h:panelGrid id="filtroCatego" columns="2" border="0" cellpadding="5">
+							<f:facet name="header">Filtrar por Categor&iacute;a</f:facet>
+							
+                            <p:outputLabel value="Categor&iacute;a: " />
+							<p:selectOneMenu id="cmbCat" style="width: 95px" value="#{mbArquitectura.arqComponente.idCategoria}"
+											 valueChangeListener="#{mbArquitectura.valueChangeCategoria}"
+											 disabled="#{!mbArquitectura.habilitarComp or mbArquitectura.disableForList}"
+											 filter="true" filterMatchMode="contains"
+											 onchange ="showCmbLoading();">
+								<p:ajax listener="#{mbArquitectura.disableList()}" 
+                                        update="cmbSubcat cmbDesc cmbSKU cmbUPC cmbProv cmbDescByProv cmbSKUByProv cmbUPCByProv cmbList cmbSKUByLista cmbUPCByLista" />
+								<f:selectItem itemLabel="Seleccione" itemValue="0"/>
+								<f:selectItems value="#{mbArquitectura.lCategoriasSelected}" var="category"
+											   itemLabel="#{category.idCategory} #{category.code}" itemValue="#{category.idCategory}" />
+							</p:selectOneMenu>
+							
+                            <p:outputLabel value="Subcategor&iacute;a: " />
+							<p:selectOneMenu id="cmbSubcat" style="width: 95px" value="#{mbArquitectura.arqComponente.idSubCategoria}"
+											 disabled="#{!mbArquitectura.habilitarComp or mbArquitectura.disableForList}"
+											 filter="true"
+											 onchange ="showCmbLoading();"
+											 valueChangeListener="#{mbArquitectura.valueChangeSubCategoriaArq}" >
+								<p:ajax update="cmbDesc cmbSKU" />
+								<f:selectItem itemLabel="Seleccione" itemValue="0"/>
+								<f:selectItems value="#{mbArquitectura.lCatSubCategories}" var="subCat"
+											   itemLabel="#{subCat.idSubcategory} #{subCat.code}" itemValue="#{subCat.idSubcategory}" />
+							</p:selectOneMenu>
+							
+                            <p:outputLabel value="Descripci&oacute;n: " rendered="false"/>
+						 	 
+						 	 <p:selectOneMenu id="cmbDesc" style="width: 95px" value="#{mbArquitectura.idDescripcionCombo}" immediate="true" rendered="false"
+											 disabled="#{!mbArquitectura.habilitarComp or mbArquitectura.disableForList}"
+											 filter="true"
+											 valueChangeListener="#{mbArquitectura.valueChangeDesc}">
+								<p:ajax update="cmbUPC cmbSKU" />
+								<f:selectItem itemLabel="Seleccione" itemValue="0"/>
+								<f:selectItems value="#{mbArquitectura.listCatItem}" var="desc"
+											   itemLabel="#{desc.code}" itemValue="#{desc.idItem}" />
+							</p:selectOneMenu>
+							
+							
+                            <p:column>
+								<p:outputLabel value="*" style="color: RED"/>
+								<p:outputLabel value="SKU: " />
+							</p:column>
+                           
+                          <p:selectCheckboxMenu 
+                                id="cmbSKU" value="#{mbArquitectura.arqComponente.lSku}" label="SKUs" 
+                                filter="true" disabled="#{!mbArquitectura.habilitarComp or mbArquitectura.disableForList}"
+                                filterMatchMode="contains" styleClass="element-margin-top" style="width: 95px; text-align: left"
+                                valueChangeListener="#{mbArquitectura.skuChange}"
+                                >
+                                    
+                                    <f:selectItems value="#{mbArquitectura.comboSKU}" var="catItem"
+                                     itemLabel="#{catItem.id} - #{catItem.code}" itemValue="#{catItem.id}" />
+								
+                                <p:ajax event="toggleSelect"  
+                                    process="@this" 
+                                    partialSubmit="true"
+                                    onstart = "showCmbLoading();" 
+                                    oncomplete="closeCmbLoading();" 
+                                    update="cmbUPC"/>
+                                
+                                <p:ajax event="change" update="cmbUPC" />
+							
+                            </p:selectCheckboxMenu>
+							
+                            <p:column>
+								<p:outputLabel value="*" style="color: RED"/>
+								<p:outputLabel value="UPC: " />
+							</p:column>
+			<p:selectCheckboxMenu 
+                                id="cmbUPC" value="#{mbArquitectura.lUpcComp}" label="UPCs"
+                                filter="true" disabled="#{!mbArquitectura.habilitarComp or mbArquitectura.disableForList}"
+                                filterMatchMode="contains" styleClass="element-margin-top" valueChangeListener="#{mbArquitectura.cmbUpcChange}" 
+                                style="width: 95px; text-align: left">
+								
+                                <f:selectItems value="#{mbArquitectura.comboUPC}" var="catItem" itemLabel="#{catItem.id} - #{catItem.code}" itemValue="#{catItem.id}" />
+								
+                                <p:ajax event="toggleSelect"  
+                                    process="@this" 
+                                    partialSubmit="true"
+                                    onstart = "showCmbLoading();" 
+                                    oncomplete="closeCmbLoading();" 
+                                    update="cmbSKU"/>
+                                
+                                <p:ajax event="change" update="cmbSKU" />
+							
+                            </p:selectCheckboxMenu>
+                            
+						</h:panelGrid>
+					</p:column>
+					<p:column>
+                        
+                        <!-- filtros por proveedor-->
+						<h:panelGrid id="filtroProveedor" border="0" cellpadding="5" columns="2">
+							<f:facet name="header">Filtrar por Proveedor</f:facet>
+							<p:outputLabel value="Proveedor: " />
+							<p:selectOneMenu id="cmbProv" style="width: 95px" value="#{mbArquitectura.arqComponente.idProveedor}"
+											 valueChangeListener="#{mbArquitectura.valueChangeProveedor}"
+											 disabled="#{!mbArquitectura.habilitarComp or mbArquitectura.disableForList}"
+											 filter="true" filterMatchMode="contains">
+								<f:selectItem itemLabel="Seleccione" itemValue="0"/>
+								<f:selectItems value="#{mbArquitectura.lCatProveedor}" var="prov"
+											   itemLabel="#{prov.idProveedor} #{prov.code}" itemValue="#{prov.idProveedor}" />
+								<p:ajax event="change" update="cmbCat cmbSubcat cmbSKU cmbUPC cmbDescByProv cmbSKUByProv cmbUPCByProv cmbList cmbSKUByLista cmbUPCByLista"
+										onstart = "showCmbLoading();" oncomplete="closeCmbLoading();" />
+							</p:selectOneMenu>
+							<p:outputLabel value="Descripci&oacute;n: " rendered="false"/>
+							<p:selectOneMenu id="cmbDescByProv" style="width: 95px" value="#{mbArquitectura.idDescFiltroProv}"  rendered="false"
+											 disabled="#{!mbArquitectura.habilitarComp or mbArquitectura.disableForList}"
+											 filter="true"
+											 valueChangeListener="#{mbArquitectura.valueChangeDesc}">
+								<p:ajax update="cmbSKUByProv cmbUPCByProv" event="change" />
+								<f:selectItem itemLabel="Seleccione" itemValue="0"/>
+								<f:selectItems value="#{mbArquitectura.listCatItem}" var="desc"
+											   itemLabel="#{desc.code}" itemValue="#{desc.idItem}" />
+							</p:selectOneMenu>
+							<p:column>
+								<p:outputLabel value="*" style="color: RED"/>
+								<p:outputLabel value="SKU: " />
+							</p:column>
+							<p:selectCheckboxMenu 
+                                id="cmbSKUByProv" value="#{mbArquitectura.arqComponente.lSku}" label="SKUs" 
+                                filter="true" disabled="#{!mbArquitectura.habilitarComp or mbArquitectura.disableForList}"
+								filterMatchMode="contains" styleClass="element-margin-top" 
+                                style="width: 95px; text-align: left"
+                                valueChangeListener="#{mbArquitectura.skuChange}">
+								
+								 <f:selectItems value="#{mbArquitectura.comboSKUByProv}" var="catItem"
+                                     itemLabel="#{catItem.id} - #{catItem.code}" itemValue="#{catItem.id}" />
+                                     
+                               <!--  <f:selectItem itemLabel="#{mbArquitectura.itemIDSelected}" itemValue="#{mbArquitectura.itemIDSelected}" /> -->
+								
+                                <p:ajax event="toggleSelect"  
+                                    process="@this" 
+                                    partialSubmit="true"
+                                    onstart = "showCmbLoading();" 
+                                    oncomplete="closeCmbLoading();" 
+                                    update="cmbUPCByProv"/>
+                                
+                                <p:ajax event="change" update="cmbUPCByProv" />
+                                
+							</p:selectCheckboxMenu>
+							<p:column>
+								<p:outputLabel value="*" style="color: RED"/>
+								<p:outputLabel value="UPC: " />
+							</p:column>
+							<p:selectCheckboxMenu
+                                id="cmbUPCByProv" value="#{mbArquitectura.lUpcComp}" label="UPCs"
+								filter="true" disabled="#{!mbArquitectura.habilitarComp or mbArquitectura.disableForList}"
+							    filterMatchMode="contains" styleClass="element-margin-top" 
+                                style="width: 95px; text-align: left">
+								
+                                <f:selectItems value="#{mbArquitectura.comboUPC}" var="catItem" itemLabel="#{catItem.id} - #{catItem.code}" itemValue="#{catItem.id}" />
+								
+                                <p:ajax event="toggleSelect"  
+                                    process="@this" 
+                                    partialSubmit="true"
+                                    onstart = "showCmbLoading();" 
+                                    oncomplete="closeCmbLoading();" 
+                                    update="cmbUPC cmbUPCByLista"/>
+                                
+                                <p:ajax event="change" update="cmbSKUByProv" />
+                                
+							</p:selectCheckboxMenu>
+						</h:panelGrid>
+					</p:column>
+					<p:column>
+                        
+                        <!-- filtros por familia -->
+						<p:panelGrid id="filtroList" columns="2">
+							<f:facet name="header">Filtrar por Familia</f:facet>
+							
+                            <p:outputLabel value="Familia: "/>
+							<p:selectOneMenu 
+                                id="cmbList" 
+                                style="width: 95px" 
+                                value="#{mbArquitectura.arqComponente.idLista}"
+								disabled="#{!mbArquitectura.habilitarComp}"
+								valueChangeListener="#{mbArquitectura.valueChangeLista}">
+								<p:ajax update="cmbCat cmbSubcat cmbDesc cmbSKU cmbUPC cmbDescByProv cmbSKUByProv cmbUPCByProv cmbSKUByLista cmbUPCByLista crearPromoTiendas"
+										event="change" onstart = "showCmbLoading();" oncomplete="closeCmbLoading();" />
+								<f:selectItem itemLabel="Seleccione" itemValue="0"/>
+								<f:selectItems value="#{mbArquitectura.lCatListas}" var="catLista"
+											   itemLabel="#{catLista.code}" itemValue="#{catLista.idLista}" />
+							</p:selectOneMenu>
+							
+                            
+                            <p:column>
+								<p:outputLabel value="*" style="color: RED"/>
+								<p:outputLabel value="SKU: " />
+							</p:column>
+                            
+                           
+							
+							 <p:selectCheckboxMenu id="cmbSKUByLista" 
+                                value="#{mbArquitectura.arqComponente.lSkuFamilia}" 
+                                label="SKUs" 
+                                filter="true"
+								disabled="#{!mbArquitectura.habilitarComp}"
+						        filterMatchMode="startsWith" 
+                                styleClass="element-margin-top" 
+                                style="width: 95px; text-align: left"
+                                 valueChangeListener="#{mbArquitectura.skuChange}">
+                                
+                                 <f:selectItems value="#{mbArquitectura.comboSKUByFamilia}" var="catItem"
+                                     itemLabel="#{catItem.id} - #{catItem.code}" itemValue="#{catItem.id}" />
+                                     
+								<!-- <f:selectItems value="#{mbArquitectura.skuFiltroLista}" var="item">
+									<f:selectItem itemLabel="#{item}" value="#{item}" />
+								</f:selectItems> -->
+                                
+                                <p:ajax event="toggleSelect"  
+                                    process="@this" 
+                                    partialSubmit="true"
+                                    onstart = "showCmbLoading();" 
+                                    oncomplete="closeCmbLoading();" 
+                                    update="cmbUPCByLista"/>
+                                
+								<p:ajax event="change" update="cmbUPCByLista" />
+                                
+							</p:selectCheckboxMenu>
+                            
+                            
+							<p:column>
+								<p:outputLabel value="*" style="color: RED"/>
+								<p:outputLabel value="UPC: " />
+							</p:column>
+							
+                            <p:selectCheckboxMenu 
+                                id="cmbUPCByLista" value="#{mbArquitectura.lUpcComp}" label="UPCs"
+                                filter="true" disabled="#{!mbArquitectura.habilitarComp}"
+                                filterMatchMode="contains" styleClass="element-margin-top" 
+                                style="width: 95px; text-align: left">
+								
+                                <f:selectItems value="#{mbArquitectura.comboUPC}" var="catItem"
+										itemLabel="#{catItem.id} - #{catItem.code}" itemValue="#{catItem.id}" />
+								
+                                <p:ajax event="toggleSelect"  
+                                    process="@this" 
+                                    partialSubmit="true"
+                                    onstart = "showCmbLoading();" 
+                                    oncomplete="closeCmbLoading();" 
+                                    update="cmbSKUByLista"/>
+                                
+                                <p:ajax event="change" update="cmbSKUByLista" />
+							
+                            </p:selectCheckboxMenu>
+						</p:panelGrid>
+					</p:column>
+					
+                    <!-- columna finales -->
+                    <p:column>
+						<p:panelGrid columns="2" >
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="*" style="color: RED"/>
+                                    <p:outputLabel value="Espacio Promocional: " />
+                                    <p:selectOneMenu 
+                                        id="espProm"
+                                        style="width: 95px; #{mbArquitectura.espacioPromocionalErrorClass}" 
+                                        value="#{mbArquitectura.arqComponente.idEspPromocional}" 
+                                        disabled="#{!mbArquitectura.habilitarComp}" >
+                                        
+                                        <f:selectItem itemLabel="Seleccione" itemValue="0"/>
+                                        <f:selectItems value="#{mbArquitectura.lEspaciosPromocionales}"/>
+                                
+                                    <p:ajax event="change" update="espProm" />
+                                    
+                                    </p:selectOneMenu>
+                                </p:column>
+                            </p:row>
+                            
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="No. Espacio Promocional: " />
+                                    <p:inputText id="numeroEspacioPromocionalId" style="width: 50px"
+                                        value="#{mbArquitectura.arqComponente.numero}" 
+                                        disabled="#{!mbArquitectura.habilitarComp}"/>                                   
+                                </p:column>
+                            </p:row>
+                            
+                            <p:row>
+                                <p:column>
+                                 <p:outputLabel value="Abasto Inicial: " />   
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="abastoInicialId" style="width: 50px"
+						            value="#{mbArquitectura.arqComponente.abastoInicial}" 
+                                    disabled="#{!mbArquitectura.habilitarComp}"/>
+                                    <p:selectOneMenu id="unidadInput" 
+                                        value="#{mbArquitectura.arqComponente.idUnidad}" 
+                                        disabled="#{!mbArquitectura.habilitarComp}">
+                                        <f:selectItem itemLabel="Seleccione" itemValue="0"/>
+                                        <f:selectItems value="#{mbArquitectura.lUnidades}"/>
+                                    </p:selectOneMenu>
+                                </p:column>
+                            </p:row>
+							
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel value="*" style="color: RED"/>
+                                    <p:outputLabel value="Cantidad de productos: " />
+                                </p:column>
+                                <p:inputText id="txtCantProd" 
+                                    value="#{mbArquitectura.arqComponente.cantProductos}" 
+                                    size="5" 
+                                    disabled="#{!mbArquitectura.habilitarComp}"/>
+                            </p:row>
+						</p:panelGrid>
+					</p:column>
+				</p:row>
+			</p:panelGrid>
+                            
+            <p:panelGrid id="panelGridTabs" style="width: 1075px;  border: 1px solid #AFAFAF;" styleClass="form-content">
+                        <p:row>
+                        <p:column style="padding:0px;">
+                            <p:commandLink styleClass="expand-button" onclick="componentesMecanicaPop.show()"/>
+                        </p:column>
+                        </p:row>
+			<p:row>
+                        <p:column style="padding:0px;">
+                        <p:tabView id="tvComponentes" style="width:1067px; border:none!important;">
+				<p:tab title="Detalle Componente" titleStyle="background: #AFAFAF">
+					
+                    <p:dataTable id="DetComp" 
+                                 value="#{mbArquitectura.lArqComponente}" 
+                                 var="detComp" 
+                                 editable="true" 
+                                 editMode="cell"
+								 styleClass="grid-content" style="width: 1050px;">
+						
+                        <p:ajax event="cellEdit" listener="#{mbArquitectura.updateHojaComponente(detComp)}" update="DetComp" />
+						
+                        <p:column width="200px" style="overflow: auto;" sortBy="#{detComp.numeroComponente}" exportable="true">
+							<f:facet name="header">
+								<p:outputLabel value="C"/>
+							</f:facet>
+							<p:outputLabel value="#{detComp.numeroComponente}"/>
+						</p:column>
+						
+                        <p:column width="200px" style="overflow: auto;" filterBy="#{detComp.descripcion}" filterStyle="width: 60px" sortBy="#{detComp.descripcion}" filterMatchMode="contains">
+							<f:facet name="header">
+								<p:outputLabel value="Descripci&oacute;n"/>
+							</f:facet>
+							<p:outputLabel value="#{detComp.descripcion}"/>
+						</p:column>
+						
+                        <p:column width="200px" style="overflow: auto;" sortBy="#{detComp.sku}" filterBy="#{detComp.sku}" filterStyle="width: 30px" filterMatchMode="contains">
+							<f:facet name="header">
+								<p:outputLabel value="SKU"/>
+							</f:facet>
+							<p:outputLabel value="#{detComp.sku}"/>
+						</p:column>
+						
+                        <p:column width="200px" style="overflow: auto;" sortBy="#{detComp.upc}" filterBy="#{detComp.upc}" filterStyle="width: 30px" filterMatchMode="contains">
+							<f:facet name="header">
+								<p:outputLabel value="UPC"/>
+							</f:facet>
+							<p:outputLabel value="#{detComp.upc}"/>
+						</p:column>
+						
+                        <p:column width="200px" style="overflow: auto;" sortBy="#{detComp.senalamiento}" filterBy="#{detComp.senalamiento}" filterStyle="width: 50px" filterMatchMode="contains">
+							<f:facet name="header">
+								<p:outputLabel value="Se&ntilde;alamiento"/>
+							</f:facet>
+							<h:outputLabel value="#{detComp.senalamiento}"/>
+						</p:column>
+                        
+						<p:column width="200px" style="overflow: auto;" sortBy="#{detComp.categoria}" filterBy="#{detComp.categoria}" filterStyle="width: 30px" filterMatchMode="contains">
+							<f:facet name="header">
+								<p:outputLabel value="Categor&iacute;a"/>
+							</f:facet>
+							<p:outputLabel value="#{detComp.categoria}"/>
+						</p:column>
+						
+                        <!-- campo subcategoria-->
+                        <p:column width="200px" style="overflow: auto;" sortBy="#{detComp.subCategoria}" filterBy="#{detComp.subCategoria}" filterStyle="width: 50px" filterMatchMode="contains">
+							<f:facet name="header">
+								<p:outputLabel value="SubCategor&iacute;a"/>
+							</f:facet>
+                            <p:outputLabel value="#{detComp.subCategoria}"/>
+						</p:column>
+                        <!---->
+						
+                                                
+                        <!-- campos editables -->
+                        <p:column width="200px" style="overflow: auto;" sortBy="#{detComp.cantProductos}" filterBy="#{detComp.cantProductos}" filterStyle="width: 30px" filterMatchMode="contains">
+							<f:facet name="header">
+								<p:outputLabel value="Cantidad de productos"/>
+							</f:facet>
+							<p:outputLabel value="#{detComp.cantProductos}" rendered="#{!detComp.editando}"/>
+                                                        <p:inputText label="Cantidad de Productos" value="#{detComp.cantProductosEdit}" rendered="#{detComp.editando}" size="5" required="true" > 
+                                                        </p:inputText>
+						</p:column>
+						
+                                                
+                        <p:column width="200px" style="overflow: auto;" sortBy="#{detComp.numero}" filterBy="#{detComp.numero}" filterStyle="width: 30px" filterMatchMode="contains">
+							<f:facet name="header">
+								<p:outputLabel value="No."/>
+							</f:facet>
+							<p:outputLabel value="#{detComp.numero}" rendered="#{!detComp.editando}"/>
+                                                        <p:inputText label="No." value="#{detComp.numeroEdit}" rendered="#{detComp.editando}" size="5" required="true">
+                                                        </p:inputText>
+						</p:column>
+                                                
+						<p:column width="200px" style="overflow: auto;" sortBy="#{detComp.abastoInicial}" filterBy="#{detComp.abastoInicial}" filterStyle="width: 30px" filterMatchMode="contains">
+							<f:facet name="header">
+								<p:outputLabel value="Abasto Inicial"/>
+							</f:facet>
+							<p:outputLabel value="#{detComp.abastoInicial}" rendered="#{!detComp.editando}"/>
+                                                        <p:inputText label="Abasto Inicial" value="#{detComp.abastoInicialEdit}" rendered="#{detComp.editando}" size="5" required="true"/>
+						</p:column>
+                                                <!-- fin de campos editables -->
+                                                
+                                                <!-- botonera de acciones -->
+						<p:column width="200px" headerText="">
+							
+							<!-- boton editar-->
+							<p:commandLink onclick="muestraLoader();"
+                                           disabled="#{!mbArquitectura.programaActivo}"
+                                           oncomplete="ocultaLoader();"
+                                           styleClass="edit-in-grid-button"
+										   partialSubmit="true"
+										   ajax="true"
+										   update=":frmPromocion:tvComponentes :frmPromocion:tvComponentes2"
+										   rendered="#{!detComp.editando and detComp.lSku.size() > 0}">
+								<f:setPropertyActionListener value="#{true}" target="#{detComp.editando}"/>
+								<f:setPropertyActionListener value="#{detComp}" target="#{mbArquitectura.arqComponenteSel}" />
+							</p:commandLink>
+                                                    
+							<!-- guardar -->
+							<p:commandLink onclick="muestraLoader();"
+                                           disabled="#{!mbArquitectura.programaActivo}"
+										   oncomplete="ocultaLoader();"
+										   styleClass="save-in-grid-button"
+										   title="Guardar"
+										   partialSubmit="true"
+										   ajax="true"
+										   update=":frmPromocion:tvComponentes :frmPromocion:tvComponentes2"
+										   rendered="#{detComp.editando}"
+										   action="#{mbArquitectura.guardarComponenteGrid}">
+								<f:setPropertyActionListener value="#{false}" target="#{detComp.editando}"/>
+								<f:setPropertyActionListener value="#{detComp}" target="#{mbArquitectura.arqComponenteSel}" />
+							</p:commandLink>
+
+							<!-- eliminar -->
+							<p:commandLink id="btnElimComp" disabled="#{!mbArquitectura.programaActivo}"
+                                           ajax="true"
+                                           action="#{mbArquitectura.preBorrarComponente()}"
+                                           onclick="setIdRowArq.call(this,event);"
+                                           styleClass="delete-in-grid-button" title="Eliminar"/>
+
+							<p:confirmDialog header="Confirmaci&oacute;n" message="¿Desea eliminar el registro seleccionado?" severity="alert"
+											 widgetVar="confEliComp" appendToBody="true" styleClass="common-dialog">
+								<p:commandButton styleClass="common-button" value="Aceptar" ajax="true" onclick="confEliComp.hide(); setTimeout(&quot;document.getElementById($('#idRow').val()).click();&quot;, 500)"/>
+								<p:commandButton styleClass="common-button" value="Cancelar" ajax="true" onclick="confEliComp.hide();"/>
+							</p:confirmDialog>
+							
+						    <p:commandButton style="display:none" id="btnElimComp2" onclick="showCmbLoading();" oncomplete="closeCmbLoading();" styleClass="common-button" value="Aceptar" ajax="true" action="#{mbArquitectura.borrarComponente()}"
+				            				 partialSubmit="true" update="DetComp" global="true">
+								<f:setPropertyActionListener value="#{detComp}" target="#{mbArquitectura.arqComponenteSel}" />
+							</p:commandButton>
+				            
+						</p:column>
+					</p:dataTable>
+                    
+				</p:tab>
+				<p:tab title="Detalle Zonas" titleStyle="background: #AFAFAF">
+					<p:dataTable id="DetZona" value="#{mbArquitectura.lArqComponenteZona}" var="detCampZona" style="width:100%" styleClass="grid-content">
+						<p:column>
+							<f:facet name="header">
+								<p:outputLabel value="Zona"/>
+							</f:facet>
+							<p:outputLabel value="#{detCampZona.zona}"/>
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<p:outputLabel value="C"/>
+							</f:facet>
+							<p:outputLabel value="#{detCampZona.numeroComponente}"/>
+						</p:column>
+						<p:column filterBy="#{detCampZona.descripcion}" filterStyle="width: 60px" sortBy="#{detCampZona.descripcion}" filterMatchMode="contains">
+							<f:facet name="header">
+								<p:outputLabel value="Descripci&oacute;n"/>
+							</f:facet>
+							<p:outputLabel value="#{detCampZona.descripcion}"/>
+						</p:column>
+						<p:column sortBy="#{detCampZona.sku}" filterBy="#{detCampZona.sku}" filterStyle="width: 30px" filterMatchMode="contains">
+							<f:facet name="header">
+								<p:outputLabel value="SKU"/>
+							</f:facet>
+							<p:outputLabel value="#{detCampZona.sku}"/>
+						</p:column>
+						<p:column sortBy="#{detCampZona.upc}" filterBy="#{detCampZona.upc}" filterStyle="width: 30px" filterMatchMode="contains">
+							<f:facet name="header">
+								<p:outputLabel value="UPC"/>
+							</f:facet>
+							<p:outputLabel value="#{detCampZona.upc}"/>
+						</p:column>
+						<p:column sortBy="#{detCampZona.senalamiento}" filterBy="#{detCampZona.senalamiento}" filterStyle="width: 50px" filterMatchMode="contains">
+							<f:facet name="header">
+								<p:outputLabel value="Se&ntilde;alamiento"/>
+							</f:facet>
+							<p:outputLabel value="#{detCampZona.senalamiento}" />
+						</p:column>
+						<p:column sortBy="#{detCampZona.categoria}" filterBy="#{detCampZona.categoria}" filterStyle="width: 30px" filterMatchMode="contains">
+							<f:facet name="header">
+								<p:outputLabel value="Categor&iacute;a"/>
+							</f:facet>
+							<p:outputLabel value="#{detCampZona.categoria}"/>
+						</p:column>
+						<p:column sortBy="#{detCampZona.subCategoria}" filterBy="#{detCampZona.subCategoria}" filterStyle="width: 50px" filterMatchMode="contains">
+							<f:facet name="header">
+								<p:outputLabel value="Subcategor&iacute;a"/>
+							</f:facet>
+							<p:outputLabel value="#{detCampZona.subCategoria}"/>
+						</p:column>
+						<p:column sortBy="#{detCampZona.cantProductos}" filterBy="#{detCampZona.cantProductos}" filterStyle="width: 30px" filterMatchMode="contains">
+							<f:facet name="header">
+								<p:outputLabel value="Cantidad de productos"/>
+							</f:facet>
+							<p:outputLabel value="#{detCampZona.cantProductos}"/>
+						</p:column>
+						<p:column sortBy="#{detCampZona.numero}" filterBy="#{detCampZona.numero}" filterStyle="width: 30px" filterMatchMode="contains">
+							<f:facet name="header">
+								<p:outputLabel value="No."/>
+							</f:facet>
+							<p:outputLabel value="#{detCampZona.numero}"/>
+						</p:column>
+						<p:column sortBy="#{detCampZona.abastoInicial}" filterBy="#{detCampZona.abastoInicial}" filterStyle="width: 30px" filterMatchMode="contains">
+							<f:facet name="header">
+								<p:outputLabel value="Abasto Inicial"/>
+							</f:facet>
+							<p:outputLabel value="#{detCampZona.abastoInicial}"/>
+						</p:column>
+						<!-- p:column headerText="">
+							<p:commandLink styleClass="delete-in-grid-button"/>
+						</p:column -->
+                                                
+					</p:dataTable>
+				</p:tab>
+			</p:tabView>
+                        </p:column>
+                        </p:row>
+                        </p:panelGrid>
+                        
+<p:dialog modal="false" 
+          widgetVar="componentesMecanicaPop" 
+          styleClass="common-dialog" 
+          header="Componentes de Mec&aacute;nica"
+          style="border: 1px solid #AFAFAF; max-width:800px; max-height: 500px; overflow-style: scrollbar;overflow-x: scroll;overflow-y: scroll;"
+          >
+    <p:panelGrid id="componentesMecanicaPopGrid" 
+        styleClass="form-content"
+        style="border: 1px solid #AFAFAF;"
+        >
+        <p:row>
+            <p:column style="padding:0px;">
+                <p:tabView id="tvComponentes2" 
+                    style="border:none!important;">
+				<p:tab title="Detalle Componente" titleStyle="background: #AFAFAF">
+					<p:dataTable id="DetComp2" 
+                        value="#{mbArquitectura.lArqComponente}" 
+                        var="detComp2" 
+                        editable="true" 
+                        editMode="cell"
+                        styleClass="grid-content"
+                        >
+						<p:ajax event="cellEdit" listener="#{mbArquitectura.updateHojaComponente(detComp2)}" update="DetComp2" />
+						<p:column width="200px" style="overflow: auto;" sortBy="#{detComp2.numeroComponente}" exportable="true">
+							<f:facet name="header">
+								<p:outputLabel value="C"/>
+							</f:facet>
+							<p:outputLabel value="#{detComp2.numeroComponente}"/>
+						</p:column>
+						<p:column width="200px" style="overflow: auto;" filterBy="#{detComp2.descripcion}" filterStyle="width: 60px" sortBy="#{detComp2.descripcion}" filterMatchMode="contains">
+							<f:facet name="header">
+								<p:outputLabel value="Descripci&oacute;n"/>
+							</f:facet>
+							<p:outputLabel value="#{detComp2.descripcion}"/>
+						</p:column>
+						<p:column width="200px" style="overflow: auto;" sortBy="#{detComp2.sku}" filterBy="#{detComp2.sku}" filterStyle="width: 30px" filterMatchMode="contains">
+							<f:facet name="header">
+								<p:outputLabel value="SKU"/>
+							</f:facet>
+							<p:outputLabel value="#{detComp2.sku}"/>
+						</p:column>
+						<p:column width="200px" style="overflow: auto;" sortBy="#{detComp2.upc}" filterBy="#{detComp2.upc}" filterStyle="width: 30px" filterMatchMode="contains">
+							<f:facet name="header">
+								<p:outputLabel value="UPC"/>
+							</f:facet>
+							<p:outputLabel value="#{detComp2.upc}"/>
+						</p:column>
+						<p:column width="200px" style="overflow: auto;" sortBy="#{detComp2.senalamiento}" filterBy="#{detComp2.senalamiento}" filterStyle="width: 50px" filterMatchMode="contains">
+							<f:facet name="header">
+								<p:outputLabel value="Se&ntilde;alamiento"/>
+							</f:facet>
+							<h:outputLabel value="#{detComp2.senalamiento}"/>
+						</p:column>
+                        <!--
+						<p:column headerText="# Hoja">
+                                                    <p:cellEditor>
+                                                        <f:facet name="output"><p:outputLabel value="#{detComp2.hoja}" /></f:facet>
+                                                        <f:facet name="input"><p:inputText value="#{detComp2.hoja}" style="width: 50px" /></f:facet>
+                                                    </p:cellEditor>
+                                                </p:column>
+                        -->
+						<p:column width="200px" style="overflow: auto;" sortBy="#{detComp2.categoria}" filterBy="#{detComp2.categoria}" filterStyle="width: 30px" filterMatchMode="contains">
+							<f:facet name="header">
+								<p:outputLabel value="Categor&iacute;a"/>
+							</f:facet>
+							<p:outputLabel value="#{detComp2.categoria}"/>
+						</p:column>
+						<p:column width="200px" style="overflow: auto;" sortBy="#{detComp2.subCategoria}" headerText="Subcategor&iacute;a"
+								  filterBy="#{detComp2.subCategoria}" filterStyle="width: 50px" filterMatchMode="contains">
+							<p:outputLabel value="#{detComp2.subCategoria}"/>
+						</p:column>
+						<p:column width="200px" style="overflow: auto;" sortBy="#{detComp2.cantProductos}" filterBy="#{detComp2.cantProductos}" filterStyle="width: 30px" filterMatchMode="contains">
+							<f:facet name="header">
+								<p:outputLabel value="Cantidad de productos"/>
+							</f:facet>
+							<p:outputLabel value="#{detComp2.cantProductos}" rendered="#{!detComp2.editando}"/>
+							<p:inputText value="#{detComp2.cantProductos}" rendered="#{detComp2.editando}" size="5"/>
+						</p:column>
+						<p:column width="200px" style="overflow: auto;" sortBy="#{detComp2.numero}" filterBy="#{detComp2.numero}" filterStyle="width: 30px" filterMatchMode="contains">
+							<f:facet name="header">
+								<p:outputLabel value="No."/>
+							</f:facet>
+							<p:outputLabel value="#{detComp2.numero}" rendered="#{!detComp2.editando}"/>
+							<p:inputText value="#{detComp2.numero}" rendered="#{detComp2.editando}" size="5"/>
+						</p:column>
+						<p:column width="200px" style="overflow: auto;" sortBy="#{detComp2.abastoInicial}" filterBy="#{detComp2.abastoInicial}" filterStyle="width: 30px" filterMatchMode="contains">
+							<f:facet name="header">
+								<p:outputLabel value="Abasto Inicial"/>
+							</f:facet>
+							<p:outputLabel value="#{detComp2.abastoInicial}" rendered="#{!detComp2.editando}"/>
+							<p:inputText value="#{detComp2.abastoInicial}" rendered="#{detComp2.editando}" size="5"/>
+						</p:column>
+                                                <!--
+						<p:column width="200px" headerText="">
+							<p:commandLink onclick="muestraLoader();" oncomplete="ocultaLoader();" styleClass="edit-in-grid-button" title="Editar" partialSubmit="true" ajax="true" update=":frmPromocion:tvComponentes :frmPromocion:tvComponentes2" rendered="#{!detComp.editando and detComp.lSku.size() > 0}">
+								<f:setPropertyActionListener value="#{true}" target="#{detComp2.editando}"/>
+							</p:commandLink>
+							<p:commandLink onclick="muestraLoader();" oncomplete="ocultaLoader();" styleClass="save-in-grid-button" title="Guardar" partialSubmit="true" ajax="true" update=":frmPromocion:tvComponentes :frmPromocion:tvComponentes2" 
+								rendered="#{detComp2.editando}" action="#{mbArquitectura.guardarComponenteGrid}">
+								<f:setPropertyActionListener value="#{false}" target="#{detComp2.editando}"/>
+								<f:setPropertyActionListener value="#{detComp2}" target="#{mbArquitectura.arqComponenteSel}" />
+							</p:commandLink>
+							
+							<p:commandLink id="btnElimComp" ajax="true" action="#{mbArquitectura.preBorrarComponente()}" onclick="setIdRowArq.call(this,event);" styleClass="delete-in-grid-button" title="Eliminar"/>
+							
+							<p:confirmDialog header="Confirmaci&oacute;n" message="¿Desea eliminar el registro seleccionado?" severity="alert"
+				            					 widgetVar="confEliComp" appendToBody="true" styleClass="common-dialog"> 
+				            		<p:commandButton styleClass="common-button" value="Aceptar" ajax="true" onclick="confEliComp.hide(); setTimeout(&quot;document.getElementById($('#idRow').val()).click();&quot;, 500)"/>
+				            		<p:commandButton styleClass="common-button" value="Cancelar" ajax="true" onclick="confEliComp.hide();"/>
+				            </p:confirmDialog>
+							
+							<p:commandButton style="display:none" id="btnElimComp2" onclick="showCmbLoading();" oncomplete="closeCmbLoading();" styleClass="common-button" value="Aceptar" ajax="true" action="#{mbArquitectura.borrarComponente()}"
+				            				 partialSubmit="true" update="DetComp2" global="true">
+				            	<f:setPropertyActionListener value="#{detComp2}" target="#{mbArquitectura.arqComponenteSel}" />
+				            </p:commandButton>
+				            
+						</p:column>
+                                                -->
+					</p:dataTable>
+				</p:tab>
+				<p:tab title="Detalle Zonas" titleStyle="background: #AFAFAF">
+					<p:dataTable id="DetZona2" 
+                        value="#{mbArquitectura.lArqComponenteZona}" 
+                        var="detCampZona2" 
+                        styleClass="grid-content"
+                        style=""
+                        >
+						<p:column>
+							<f:facet name="header">
+								<p:outputLabel value="Zona"/>
+							</f:facet>
+							<p:outputLabel value="#{detCampZona2.zona}"/>
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<p:outputLabel value="C"/>
+							</f:facet>
+							<p:outputLabel value="#{detCampZona2.numeroComponente}"/>
+						</p:column>
+						<p:column filterBy="#{detCampZona2.descripcion}" filterStyle="width: 60px" sortBy="#{detCampZona2.descripcion}" filterMatchMode="contains">
+							<f:facet name="header">
+								<p:outputLabel value="Descripci&oacute;n"/>
+							</f:facet>
+							<p:outputLabel value="#{detCampZona2.descripcion}"/>
+						</p:column>
+						<p:column sortBy="#{detCampZona2.sku}" filterBy="#{detCampZona2.sku}" filterStyle="width: 30px" filterMatchMode="contains">
+							<f:facet name="header">
+								<p:outputLabel value="SKU"/>
+							</f:facet>
+							<p:outputLabel value="#{detCampZona2.sku}"/>
+						</p:column>
+						<p:column sortBy="#{detCampZona2.upc}" filterBy="#{detCampZona2.upc}" filterStyle="width: 30px" filterMatchMode="contains">
+							<f:facet name="header">
+								<p:outputLabel value="UPC"/>
+							</f:facet>
+							<p:outputLabel value="#{detCampZona2.upc}"/>
+						</p:column>
+						<p:column sortBy="#{detCampZona2.senalamiento}" filterBy="#{detCampZona2.senalamiento}" filterStyle="width: 50px" filterMatchMode="contains">
+							<f:facet name="header">
+								<p:outputLabel value="Se&ntilde;alamiento"/>
+							</f:facet>
+						<!--	<p:outputLabel value="#{detCampZona2.senalamiento}" rendered="#{detComp2.lSku.size() > 0}"/> -->
+							<p:outputLabel value="#{detCampZona2.senalamiento}" />
+						</p:column>
+						<p:column sortBy="#{detCampZona2.categoria}" filterBy="#{detCampZona2.categoria}" filterStyle="width: 30px" filterMatchMode="contains">
+							<f:facet name="header">
+								<p:outputLabel value="Categor&iacute;a"/>
+							</f:facet>
+							<p:outputLabel value="#{detCampZona2.categoria}"/>
+						</p:column>
+						<p:column sortBy="#{detCampZona2.subCategoria}" filterBy="#{detCampZona2.subCategoria}" filterStyle="width: 50px" filterMatchMode="contains">
+							<f:facet name="header">
+								<p:outputLabel value="Subcategor&iacute;a"/>
+							</f:facet>
+							<p:outputLabel value="#{detCampZona2.subCategoria}"/>
+						</p:column>
+						<p:column sortBy="#{detCampZona2.cantProductos}" filterBy="#{detCampZona2.cantProductos}" filterStyle="width: 30px" filterMatchMode="contains">
+							<f:facet name="header">
+								<p:outputLabel value="Cantidad de productos"/>
+							</f:facet>
+							<p:outputLabel value="#{detCampZona2.cantProductos}"/>
+						</p:column>
+						<p:column sortBy="#{detCampZona2.numero}" filterBy="#{detCampZona2.numero}" filterStyle="width: 30px" filterMatchMode="contains">
+							<f:facet name="header">
+								<p:outputLabel value="No."/>
+							</f:facet>
+							<p:outputLabel value="#{detCampZona2.numero}"/>
+						</p:column>
+						<p:column sortBy="#{detCampZona2.abastoInicial}" filterBy="#{detCampZona2.abastoInicial}" filterStyle="width: 30px" filterMatchMode="contains">
+							<f:facet name="header">
+								<p:outputLabel value="Abasto Inicial"/>
+							</f:facet>
+							<p:outputLabel value="#{detCampZona2.abastoInicial}"/>
+						</p:column>
+						<!-- p:column headerText="">
+							<p:commandLink styleClass="delete-in-grid-button"/>
+						</p:column -->
+                                                
+					</p:dataTable>
+				</p:tab>
+			</p:tabView>
+                        </p:column>
+                        </p:row>
+                            </p:panelGrid>
+</p:dialog>
+                        
+			<p:panelGrid id="gridPromocion4" style="width: 1075px;  border: 1px solid #AFAFAF;" styleClass="form-content">
+				<p:row>
+					<p:column>
+						<div align="right">
+							<p:commandButton onclick="muestraLoader()" oncomplete="ocultaLoader(); up();" styleClass="common-button" value="Precio Promoci&oacute;n" ajax="true"
+								actionListener="#{mbArquitectura.selectPrecioPromocion}" update=":frmPromocion">
+							</p:commandButton>
+						</div>
+					</p:column>
+				</p:row>
+			</p:panelGrid>
+		</h:panelGroup>	
+		
+        <!-- dialogo de dias promocion -->
+        <p:dialog modal="false"  widgetVar="dlgDiasPromo" styleClass="common-dialog" header="D&iacute;as Promoci&oacute;n">
+			<p:panelGrid id="gridDiasPromocion" style="width: 500px;  border: 1px solid #AFAFAF;" styleClass="grid-content">
+				<p:row>
+					<p:column>
+						<table>
+							<tr>
+								<td>
+									<p:outputLabel value="Hora Inicio:"/>
+								</td>
+								<td>
+									<p:calendar timeOnly="true" size="6" value="#{mbArquitectura.arqMecanica.horaInicio}" locale="es" pattern="HH:mm"/>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<p:outputLabel value="Hora Fin:"/>
+								</td>
+								<td>
+									<p:calendar timeOnly="true" size="6" value="#{mbArquitectura.arqMecanica.horaFin}" locale="es" pattern="HH:mm"/>
+								</td>
+							</tr>
+						</table>
+					</p:column>
+					<p:column>
+						<table>
+							<tr>
+								<td>
+									<p:selectBooleanCheckbox  value="#{mbArquitectura.arqMecanica.lunes}"/>
+								</td>
+								<td>
+									<p:outputLabel value="Lunes"/>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<p:selectBooleanCheckbox value="#{mbArquitectura.arqMecanica.martes}"/>
+								</td>
+								<td>
+									<p:outputLabel value="Martes"/>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<p:selectBooleanCheckbox value="#{mbArquitectura.arqMecanica.miercoles}"/>
+								</td>
+								<td>
+									<p:outputLabel value="Mi&eacute;rcoles"/>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<p:selectBooleanCheckbox value="#{mbArquitectura.arqMecanica.jueves}"/>
+								</td>
+								<td>
+									<p:outputLabel value="Jueves"/>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<p:selectBooleanCheckbox value="#{mbArquitectura.arqMecanica.viernes}"/>
+								</td>
+								<td>
+									<p:outputLabel value="Viernes"/>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<p:selectBooleanCheckbox value="#{mbArquitectura.arqMecanica.sabado}"/>
+								</td>
+								<td>
+									<p:outputLabel value="S&aacute;bado"/>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<p:selectBooleanCheckbox value="#{mbArquitectura.arqMecanica.domingo}"/>
+								</td>
+								<td>
+									<p:outputLabel value="Domingo"/>
+								</td>
+							</tr>
+						</table>
+					</p:column>
+					<p:column>
+						<div style="vertical-align: bottom">
+							<p:commandButton styleClass="common-button" value="Guardar" action="#{mbArquitectura.guardarDiasPromocion}" partialSubmit="true" onclick="dlgDiasPromo.hide()"/>
+						</div>
+					</p:column>
+				</p:row>
+			</p:panelGrid>
+		</p:dialog>	
+		<p:dialog modal="false"  widgetVar="dlgMecaPromo" styleClass="common-dialog" header="Agregar Mec&aacute;nica">
+			<p:panelGrid id="gridAltaMecPromocion" style="width: 500px;  border: 1px solid #AFAFAF;" styleClass="form-content">
+				<p:row>
+					<p:column>
+						<p:outputLabel value="Nombre: "/>
+					</p:column>
+					<p:column>
+						<p:inputText value="#{mbArquitectura.nomNvaMecanica}" size="50"/>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column colspan="2">
+						<div align="center">
+							<p:commandButton styleClass="common-button" 
+                                value="Agregar" 
+                                action="#{mbArquitectura.agregarMecanica}" 
+                                partialSubmit="true" 
+                                update=":frmMenuLogin :frmPromocion"
+                                onstart="muestraLoader();" oncomplete="ocultaLoader();"/>
+						</div>
+					</p:column>
+				</p:row>
+			</p:panelGrid>
+		</p:dialog>
+		<p:dialog modal="false"  widgetVar="dlgImpMecaPromo" styleClass="common-dialog" header="Importar Mec&aacute;nica">
+			<p:panelGrid id="griImpMecPromocion" style="width: 500px;  border: 1px solid #AFAFAF;" styleClass="form-content">
+				<p:row>
+					<p:column>
+						<p:outputLabel value="Evento Promocional: "/>
+					</p:column>
+					<p:column>
+						<p:selectOneMenu id="cmbEventoPromImp" value="#{mbArquitectura.periodoSelectedImport}">
+							<f:selectItem itemLabel="Seleccione" itemValue=""/>
+							<f:selectItems value="#{mbArquitectura.lPeriodosImport}" var="p">
+                                <f:selectItem itemLabel="#{p.nombre}" itemValue="#{p.idCampana}" />
+                            </f:selectItems>
+                            <p:ajax listener="#{mbArquitectura.valueChangePeriodoImpl}" event="change"
+									update="cmbProgImp cmbMecImport bttnImportMec" />
+						</p:selectOneMenu>
+					</p:column>
+					<p:column>
+						<p:outputLabel value="Programas: "/>
+					</p:column>
+					<p:column>
+						<p:selectOneMenu id="cmbProgImp" value="#{mbArquitectura.impProgranaId}" valueChangeListener="#{mbArquitectura.valueChangeProgramaImpl}">
+							<f:selectItem itemLabel="Seleccione..." itemValue="0"/>
+							<f:selectItems value="#{mbArquitectura.lProgramaImp}" var="program"
+    												itemLabel="#{program.nombre}" itemValue="#{program.idPrograma}" />
+                            <p:ajax update="cmbMecImport" event="change" />
+						</p:selectOneMenu>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:outputLabel value="Mec&aacute;nica: "/>
+					</p:column>
+					<p:column>
+						<p:selectOneMenu id="cmbMecImport" value="#{mbArquitectura.mSelectedImport}" converter="tblMecanicaConverter">
+							<f:selectItems value="#{mbArquitectura.lMecImpor}" var="m">
+                                <f:selectItem itemValue="#{m.mecanicaId}" itemLabel="#{m.getNombreMecanica}" />
+                            </f:selectItems>
+						</p:selectOneMenu>
+					</p:column>
+					<p:column colspan="2">
+						<div align="center">
+							<p:commandButton styleClass="common-button" value="Importar" onstart = "showCmbLoading();" oncomplete="closeCmbLoading();"
+                                       id="bttnImportMec" actionListener="#{mbArquitectura.importarMecanica}" disabled="#{mbArquitectura.bttnImportMec}"
+                                             update=":frmMenuLogin :frmPromocion" onclick="dlgImpMecaPromo.hide()"/>
+						</div>
+					</p:column>
+				</p:row>
+			</p:panelGrid>
+		</p:dialog>
+		<p:dialog modal="false"  widgetVar="dlgPrimicia" styleClass="common-dialog" header="Primicia">
+			<p:panelGrid id="gridPrimicia" style="width: 500px;  border: 1px solid #AFAFAF;" styleClass="form-content">
+				<p:row>
+					<p:column colspan="4">
+					</p:column>
+					<p:column>
+						<p:commandButton styleClass="common-button" value="Cerrar" onclick="dlgPrimicia.hide()"/>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:outputLabel value="*" style="color: RED"/>
+						<p:outputLabel value="Art&iacute;culo: "/>
+					</p:column>
+					<p:column colspan="3">
+						<p:selectOneMenu style="width: 115px" value="#{mbArquitectura.numCompPrimicia}">
+							<f:selectItem itemLabel="Seleccione" itemValue="-1"/>
+							<f:selectItems value="#{mbArquitectura.lComponentes}"/>
+						</p:selectOneMenu>
+					</p:column>
+					<p:column>
+						
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:outputLabel value="*" style="color: RED"/>
+						<p:outputLabel value="Descripci&oacute;n: "/>
+					</p:column>
+					<p:column colspan="3">
+						<p:inputText value="#{mbArquitectura.descPrimicia}" size="55"/>
+					</p:column>
+					<p:column>
+						
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:outputLabel value="*" style="color: RED"/>
+						<p:outputLabel value="Categor&iacute;a: "/>
+					</p:column>
+					<p:column>
+						<p:selectOneMenu style="width: 95px" value="#{mbArquitectura.categPrimicia}">
+							<f:selectItem itemLabel="Seleccione" itemValue="0"/>
+							<f:selectItems value="#{mbArquitectura.lCatCategories}" var="cat"
+								itemLabel="#{cat.code}" itemValue="#{cat.idCategory}" />
+						</p:selectOneMenu>
+					</p:column>
+					<p:column>
+						<p:outputLabel value="UPC: "/>
+					</p:column>
+					<p:column>
+						<p:inputText value="#{mbArquitectura.upcPrimicia}" size="20"/>
+					</p:column>
+					<p:column>
+						
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:outputLabel value="Precio: "/>
+					</p:column>
+					<p:column>
+						<p:inputText value="#{mbArquitectura.precioPrimicia}" size="20"/>
+					</p:column>
+					<p:column colspan="2">
+						
+					</p:column>
+					<p:column>
+						
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column colspan="4">
+					</p:column>
+					<p:column>
+						<div align="center">
+                            <p:commandButton styleClass="common-button"
+                                             value="Guardar"
+                                             action="#{mbArquitectura.guardarPrimicia}"
+                                             partialSubmit="true"
+                                             ajax="true"
+                                             onclick="dlgPrimicia.hide()"
+                                             update="frmPromocion" />
+						</div>
+					</p:column>
+				</p:row>
+			</p:panelGrid>
+		</p:dialog>
+		
+    <p:dialog header="Confirmaci&oacute;n" severity="alert" widgetVar="confEliMeca" modal="false"
+              styleClass="common-dialog" showEffect="explode" hideEffect="explode"  >
+        <p align="center" style="font-weight: bold;font-size: larger">
+            Desea eliminar la mec&aacute;nica ?
+        </p>
+        <p:separator />
+        <p:commandButton styleClass="common-button" value="Cancelar" onclick="confEliMeca.hide();"/>
+        <p:commandButton styleClass="common-button" partialSubmit="true" update=":frmPromocion" onstart = "showCmbLoading();" oncomplete="closeCmbLoading();"
+                         value="Eliminar" onclick="confEliMeca.hide();" actionListener="#{mbArquitectura.borrarMecanica}"/>
+
+    </p:dialog>
+    
+    
+
+</ui:composition>

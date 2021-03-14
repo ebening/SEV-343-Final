@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+	
+<h:head>
+<style>
+
+.titulo{
+	color : #98020E;
+	text-align:left;
+	font-size:15pt;
+	}
+	
+.leyenda{
+	text-align:left;
+	font-size:12pt;
+	}
+
+.leyenda_hide{
+	color : #A6A6A6;
+	text-align:left;
+	font-size:12pt;	
+	}
+	
+.comboSmall{
+	height: 25px;
+}
+
+.inputTextSmall{
+	height: 20px;
+	width:150px;
+	font-size:9pt;
+}
+
+.cabecera{
+	font-size:12pt;
+	}
+	
+.text_table{	
+	
+	}
+	
+.column_tree{
+	height: 20px;
+}
+
+</style>
+
+</h:head>
+	
+<h:body>
+
+
+	<ui:composition template="template/common/commonLayout.xhtml">
+		<ui:define name="west">
+			<p:layoutUnit position="west" size="250" resizable="true" closable="false" collapsible="false" id="west"  >
+				<h:form id="frmMenuLogin">
+				
+				<h:outputText value="Listas de Seleccion"  styleClass="titulo_2" style="font-size:14px; font-weight:bold;"></h:outputText>
+				
+				  <p:panel  styleClass="contenedor_opciones"> 
+					  <p:commandLink actionListener="#{MBAnalisis.crearNuevaLista}" ajax="true"  update=":info" styleClass="add-button">  
+
+				        </p:commandLink> 
+				        
+				         
+				        <p:commandLink     oncomplete="eliminarLista.show();"   styleClass="delete-button">  
+    					</p:commandLink>  
+				   </p:panel>
+			        
+				   <div id="nombreListas"  >
+				        
+				        <p:dataList value="#{MBAnalisis.listaSeleccion}" var="item" itemType="disc" >  
+    						<p:commandLink  style="margin-left :5px;" action="#{MBAnalisis.viewInfoLista}" ajax="true" update=":info"  >
+				            	<h:outputText value="#{item.nombre}"   styleClass="leyenda_2" style="font-size:12px; font-weight:bold;" /> <br/>
+				            	<f:param name="idLista" value="#{item.idLista}" />  
+				            </p:commandLink> 
+						</p:dataList>
+						
+					</div>
+				</h:form>
+			</p:layoutUnit>
+		</ui:define>
+		
+		<ui:define name="content">
+			<div>
+				<h:panelGroup id="pgPrincipalLogin">
+					<ui:include src="/pages/ModuloAnalisis.xhtml" />
+				</h:panelGroup>
+			</div>
+		</ui:define>
+		
+	</ui:composition>
+</h:body>
+</html>

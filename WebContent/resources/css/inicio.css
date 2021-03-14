@@ -1,0 +1,99 @@
+#tablero_control{
+	padding-top: 12px;
+	text-align: center;
+	top: 33px;
+	position: relative;
+	float: right;	
+	z-index: 1000px; 
+}
+
+/**
+*Encendido/Apagado de icono de Edicion de Actividades
+*/
+.edicionTarea{
+background: url(../images/pantalla_inicio/editar_black32.png) 0 0 no-repeat;
+height:32px; width:32px; display: block;;
+
+}
+.edicionTarea:hover{
+background: url(../images/pantalla_inicio/editar32.png) 0 0 no-repeat;
+height:32px; width:32px;
+}
+
+/**
+*Encendido/Apagado de icono de Actividad Completada
+*/
+.tareaCompletada{
+background: url(../images/pantalla_inicio/marcar_como_completada_black32.png) 0 0 no-repeat;
+height:32px; width:32px; display: block;  ;
+
+}
+.tareaCompletada:hover{
+background: url(../images/pantalla_inicio/marcar_como_completada32.png) 0 0 no-repeat;
+height:32px; width:32px;
+}
+
+/**
+*Encendido/Apagado grafica de Linea
+*/
+.graficaLinea{
+background: url(../images/tablero_control/linea_black.png) 0 0 no-repeat;
+height:48px; width:48px; display: block;  ;
+
+}
+.graficaLinea:hover{
+background: url(../images/tablero_control/linea.png) 0 0 no-repeat;
+height:48px; width:48px;
+}
+
+/**
+*Encendido/Apagado grafica de Linea
+*/
+.graficaPie{
+background: url(../images/tablero_control/pie_black.png) 0 0 no-repeat;
+height:48px; width:48px; display: block;  ;
+
+}
+.graficaPie:hover{
+background: url(../images/tablero_control/pie.png) 0 0 no-repeat;
+height:48px; width:48px;
+}
+
+/**
+*Encendido/Apagado grafica de Barra
+*/
+.graficaBarra{
+background: url(../images/tablero_control/barra_black.png) 0 0 no-repeat;
+height:48px; width:48px; display: block;  ;
+
+}
+.graficaBarra:hover{
+background: url(../images/tablero_control/barra.png) 0 0 no-repeat;
+height:48px; width:48px;
+}
+
+/**
+*Encendido/Apagado grafica de Barras
+*/
+.graficaBarras{
+background: url(../images/tablero_control/barras_black.png) 0 0 no-repeat;
+height:48px; width:48px; display: block;  ;
+
+}
+.graficaBarras:hover{
+background: url(../images/tablero_control/barras.png) 0 0 no-repeat;
+height:48px; width:48px;
+}
+
+/**
+*Encendido/Apagado grafica de Area
+*/
+.graficaArea{
+background: url(../images/tablero_control/area_black.png) 0 0 no-repeat;
+height:48px; width:48px; display: block;  ;
+
+}
+.graficaArea:hover{
+background: url(../images/tablero_control/area.png) 0 0 no-repeat;
+height:48px; width:48px;
+}

@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:form id="mainForm">
+
+
+	<h:panelGroup id="panelTipoPromo">
+	
+		<h1 class="title">#{MBCatTipoPromo.catalogNametitle}</h1>
+    	<p:messages id="messages" autoUpdate="true" closable="true" />
+        <p:panelGrid columns="2">
+		 <h:outputLabel for="idTipoPromo" value="ID" /> 
+                 <p:inputText id="idTipoPromo"  value="#{MBCatTipoPromo.idTipoPromo}" disabled="true">				 
+                                <p:ajax event="blur" update="idTipoPromo" />
+                </p:inputText>
+		<h:outputLabel for="code" value="DESCRIPCION" /> 
+			<p:inputText id="code" value="#{MBCatTipoPromo.nombre}" maxlength="50" size="65">
+				<f:validateLength minimum="1" maximum="50" />
+			</p:inputText>
+		</p:panelGrid>
+        
+	</h:panelGroup>
+	<br />
+				
+        <p:commandButton value="Guardar" 
+            action="#{MBCatTipoPromo.addCatTipoPromo}" 
+            update=":mainForm"
+            onstart="muestraLoader();" oncomplete="ocultaLoader();"
+            />
+        
+	    <p:commandButton value="Cancelar"
+            style="margin-left: 5px;" 
+            action="#{MBCatTipoPromo.reset}" 
+            update=":mainForm"/>	
+	
+	<br />
+	<br />
+        <p:dataTable id="dataTableTipoPromo" var="item" value="#{MBCatTipoPromo.listCatTipoPromo}" paginator="true" rows="10"
+	                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+	                 emptyMessage="Vacio" 
+                     resizableColumns="true" 
+                     styleClass="ui-datatable-hor-scroll"
+                     >
+	            
+            <p:column  style="width: 70px!Important;">	
+                        <p:commandButton id="edit" action="#{MBCatTipoPromo.setCatTipoPromoInfo(item)}" 
+                                         update=":mainForm" icon="ui-icon-pencil" title="Editar" />
+
+                        <p:commandButton id="delete" actionListener="#{MBCatTipoPromo.setCatTipoPromoInfo(item)}" onclick="deleteConfirmation.show()" 
+                                         icon="ui-icon-trash" />								            
+            </p:column>
+	            
+	       <p:column headerText="ID" resizable="true" style="width:50px!Important;" >
+					<h:outputText value="#{item.idTipoPromo}" />
+			</p:column>
+
+            <p:column headerText="DESCRIPCION" resizable="true" style="white-space: pre-wrap;word-break: break-all;" >
+					<h:outputText value="#{item.nombre}" />
+			</p:column>
+				
+	    </p:dataTable>
+	    
+	       <p:confirmDialog id="deleteConfirmDialog" message="Desea eliminar el registro seleccionado ?"
+                    header="Confirmacion" severity="alert" styleClass="common-dialog"
+                    appendToBody="true" widgetVar="deleteConfirmation">
+
+                   <p:commandButton id="confirm" value="Si" styleClass="ui-confirmdialog-yes"
+                   		action="#{MBCatTipoPromo.eliminarCatTipoPromo}"                       
+                        process="@this"
+                        update="mainForm:dataTableTipoPromo"
+                        oncomplete="deleteConfirmation.hide()"/>
+                        
+                        
+                    <p:commandButton id="decline" value="No" styleClass="ui-confirmdialog-no" onclick="deleteConfirmation.hide()" type="button" />
+                        
+          </p:confirmDialog>
+		
+	</h:form>
+</ui:composition>

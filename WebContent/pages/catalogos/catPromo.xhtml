@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:form id="mainForm">
+	<h:panelGroup id="panelPromo">
+	
+		<h1 class="title">#{MBCatPromo.catalogNametitle}</h1>
+        
+        <p:messages id="messages" autoUpdate="true" closable="true" />
+        <p:message id="idPromoMsg" for="idPromo" display="tooltip"/>
+        
+		<p:panelGrid columns="2">
+            
+            <h:outputLabel for="idPromo" value="ID" /> 
+            
+            <p:inputText id="idPromo"  value="#{MBCatPromo.idPromo}" disabled="true">				 
+                <p:ajax event="blur" update="idPromo" />
+            </p:inputText>
+			
+            <h:outputLabel for="tipopromo" value="Tipo Promocion" />
+            <p:selectOneMenu id="tipopromo" value="#{MBCatPromo.idTipoPromo}">
+                <f:selectItems value="#{MBCatPromo.catTipoPromosList}" var="promos" itemLabel="#{promos.nombre}" itemValue="#{promos.idTipoPromo}"  />
+            </p:selectOneMenu>
+			
+            <h:outputLabel for="code" value="DESCRIPCION" />
+            <p:inputText id="code" value="#{MBCatPromo.nombre}" size="75">
+                    <f:validateLength minimum="2" maximum="300" />
+            </p:inputText>
+                
+        </p:panelGrid>
+		<!--<p:message id="codeMsg" for="code" display="tooltip"/>-->	
+    </h:panelGroup>
+	
+    <br />
+    
+    <p:commandButton value="Guardar" 
+        action="#{MBCatPromo.addPromo}" 
+        update=":mainForm"
+        onstart="muestraLoader();" oncomplete="ocultaLoader();"
+        />
+    <p:commandButton value="Cancelar" style="margin-left: 5px;" action="#{MBCatPromo.reset}" update=":mainForm"/>	
+	
+	<br />
+	<br />
+        <p:dataTable id="dataTablePromo" var="item" value="#{MBCatPromo.catPromosList}" paginator="true" rows="10"
+	                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+	                 emptyMessage="Vacio" resizableColumns="true" styleClass="ui-datatable-hor-scroll">
+	            <p:column  style="width: 3%">
+	            		
+					<p:commandButton id="edit" action="#{MBCatPromo.setInfoPromo(item)}" 
+                                                         update=":mainForm" icon="ui-icon-pencil" title="Editar" />
+					
+					<p:commandButton id="delete"
+                                     actionListener="#{MBCatPromo.setInfoPromo(item)}"
+									  onclick="deleteConfirmation.show()" icon="ui-icon-trash">						
+					</p:commandButton>										
+						            		            
+			</p:column>
+	            
+	       <p:column headerText="ID" resizable="true" style="width: 3%">
+					<h:outputText value="#{item.idPromo}" />
+			</p:column>
+
+			<p:column headerText="TIPO PROMO" resizable="true" style="width: 5%">
+					<h:outputText value="#{item.catTipoPromo.nombre}" />
+			</p:column>
+			
+			<p:column headerText="DESCRIPCION" resizable="true" style="width: 40%">
+					<h:outputText value="#{item.nombre}" />
+			</p:column>
+				
+	    </p:dataTable>
+	    
+	       <p:confirmDialog id="deleteConfirmDialog" message="Desea eliminar el registro seleccionado ?"
+                    header="Confirmacion" severity="alert" styleClass="common-dialog"
+                    appendToBody="true" widgetVar="deleteConfirmation">
+
+                   <p:commandButton id="confirm" value="Si" styleClass="ui-confirmdialog-yes"
+                   		action="#{MBCatPromo.removePromo}"                       
+                        process="@this"
+                        update="mainForm:dataTablePromo"
+                        oncomplete="deleteConfirmation.hide()"/>
+                    <p:commandButton id="decline" value="No" styleClass="ui-confirmdialog-no" onclick="deleteConfirmation.hide()" type="button" />
+                        
+          </p:confirmDialog>
+		
+	</h:form>
+</ui:composition>

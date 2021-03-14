@@ -1,0 +1,920 @@
+@CHARSET "ISO-8859-1";
+
+/****************************/
+/*	Pantalla NuevaCampana  	*/
+/****************************/
+#btnFinalizar_nuevaCampaña{
+	width: 25px;
+	height: 25px;
+}
+
+#newcamp_table2 input{
+	text-align: center;	
+}
+
+#btnUbicacionGeografica{
+	background-color:#EE3B3B;
+	color:white;
+	cursor:pointer;
+	cursor:hand;
+}
+
+#divBase{
+	width:98%;
+	height:100%;
+	background:white;
+}
+
+#newcamp_table{
+	width: 100%;
+	height: 100%;
+	background: #E6E6E6;
+}
+
+#btnFinalizar{
+	height: 25px; 
+	width: 25px;
+	cursor:pointer;
+	cursor:hand;
+	padding-right: 7px;
+}
+
+#btnCalendario{
+	height: 20px;
+	cursor:pointer;
+	cursor:hand;
+	vertical-align: middle;
+	background-color: Silver;
+}
+
+#divButton{
+	text-align:right;
+	background-color:white;
+	padding-bottom:4px;
+	padding-right:8px;
+	width:430px;
+}
+
+/*
+#bordeGris_nuevaCampaña{
+	height: 445px; 	
+}*/
+
+#txtTituloNuevaCampaña{
+	width: 300px;
+}
+
+#select_EtiquetaNvaCampaña{
+	width: 180px;   
+}
+
+#calendario_fin_Campana{
+	width: 80px;
+}
+
+#calendario_inicio_Campana{
+	width: 80px;
+}
+
+#txt_comentarioNuevaCampana{
+	overflow: auto;
+	width: 100%;
+	font-size: 12px !important;
+	font-family: Verdana, Arial, sans-serif;
+	color:DimGray;
+	
+}
+
+#select_NSENvaCampaña{
+	width: 180px;
+}
+
+/*
+#txt_1b{
+	width: 80px
+}
+#txt_2a{
+	width: 80px
+}
+#txt_2b{
+	width: 80px
+}
+#txt_3a{
+	width: 80px
+}
+#txt_3b{
+	width: 80px
+}
+#txt_4a{
+	width: 80px
+}
+#txt_4b{
+	width: 80px
+}
+#txt_5a{
+	width: 80px
+}
+#txt_5b{
+	width: 80px
+}
+#txt_6a{
+	width: 80px
+}
+#txt_6b{
+	width: 80px
+}
+#txt_otro_Campana{
+	width: 120px
+}*/
+
+/****************************/
+/*	Pantalla Planeacion   	*/
+/****************************/
+
+#divPrincipal_ModuloPlaneacion{
+	width: 100%;
+}
+
+#tblHeader_ModuloPlaneacion{
+	width: 100%;
+	font-size: 1em;
+}
+
+#tblHeader_ModuloPlaneacion img{
+	width: 20px;;
+	height: 10px;
+	padding-left: 42%;
+}
+
+
+#franjaWizard_planeación{
+	border-bottom: 3px solid #B11C1C;
+}
+
+/*
+"Utilizado para una mejor vista"
+
+.border_Planeacion{
+	border: 1px solid #BDBDBD;
+}*/
+
+.tamaño{
+	color: #e6e6e6;
+	height: 15px;
+	
+}
+
+#div_Planeacion_body{
+	padding-bottom: 20px;
+	height: 100%;
+}
+
+.th_seleccion{
+	color: #B11C1C;
+}
+
+.th_Seccion_Planeacion{
+	color: #e6e6e6;
+}
+
+/*
+.Seccion_Planeacion{
+	color: #e6e6e6 !important; 
+}*/
+
+.th_Seccion_Planeacion:hover{
+	color: #B11C1C;
+	cursor : pointer;
+}
+
+/*
+.th_Seccion_Planeacion:mousehover{
+	color: #B11C1C;
+	cursor : pointer;
+}*/
+
+#divContent_ModuloPlaneacion{
+	/*font-size: 8pt;*/
+	height: 445px;
+}
+/*****************************/
+/*		Pantalla NuevaCampaña*/
+/*****************************/
+#btnUbicacionGeografica{
+	background-color:#EE3B3B;
+	color:white;
+	cursor:pointer;
+	cursor:hand;
+}
+
+#divBase{
+	border: 1px solid silver; 
+	height: 445px;
+	background-color: WHITE;
+}
+
+#newcamp_table{
+	border: 1px;
+	background: #E6E6E6;
+}
+
+#newcamp_table2{
+	border: 1px;
+	background: #E6E6E6;
+}
+
+#Title_ventana{
+	color: #880038;
+	font-size: 30px;
+	font-style: inherit;
+	width:100%;
+}
+
+#btnFinalizar{
+	height: 25px; 
+	width: 25px;
+	cursor:pointer;
+	cursor:hand;
+}
+
+#btnCalendario1{
+	height: 20px;
+	cursor:pointer;
+	cursor:hand;
+	vertical-align: middle;
+	background-color: Gray;
+}
+
+
+#divButton{
+	text-align:right;
+	background-color:white;
+	padding-bottom:4px;
+	padding-right:8px;
+	width:430px;
+}
+
+#text_title{
+	width: 550px;
+}
+
+#select_Etiqueta{
+	width: 90px;   
+}
+
+#calendario_fin{
+	width: 110px;
+}
+
+#calendario_inicio{
+	width: 110px;
+	
+}
+
+#select_NSE{
+	width: 90px;
+	
+}
+
+#txt_comentarioNuevaCampana{
+	width: 100%;
+}
+
+#txt_1a{
+	width: 80px
+}
+
+/****************************/
+/*    Pantalla Objetivo     */
+/****************************/
+
+.PlaneacionObjetivoDivBase{
+	/*overflow: auto;*/
+	background-color: White; 
+	width: 99%;
+	height: 435px;
+	border: 1px solid silver;
+	/*margin-left: 5px;
+	margin-right: 10px;*/
+}
+
+
+#tbl_PlaneacionObjetivo{
+	background-color: #E6E6E6;
+	color: DimGray;
+	width: 100%;
+	margin-bottom: 5px;
+	padding-bottom: 8px;
+	padding-left: 5px;
+	padding-top: 5px;
+	padding-right: 5px;
+	border: 1px solid Silver;
+}
+
+
+#tbl_PlaneacionObjetivo textarea{
+	width: 96%;
+	margin-right:2px;
+	height: 350px;
+	font-size: 12px !important;
+	font-family: Verdana, Arial, sans-serif;
+	color:DimGray;
+	overflow: auto;
+	
+	
+}
+
+#tbl_PlaneacionObjetivo .input{
+	margin-left:5px;
+	width: 70px;
+	height: 18px;
+	text-align: center;
+}
+
+#tbl_PlaneacionObjetivo select{
+	/*margin-top: 7px;*/
+	width:130px;
+}
+
+/********************************/
+/*	Planeacion Plan De Trabajo	*/
+/********************************/
+
+/*
+#idTableSourter{
+	height: 100%; 
+	width: 99%;
+}
+*/
+#tableSorter_PlanDeTrabajo thead{
+	/*background-color: DimGray;*/
+	color: Black;
+}
+
+#tableSorter_PlanDeTrabajo th{
+	/*border: 1px solid DimGray;*/
+	/*border-bottom: 1px solid Silver;
+	border-top: 1px solid Silver;*/
+}
+
+#tableSorter_PlanDeTrabajo td{
+	/*border: 1px solid Silver;*/
+	/*border-top-width: 0px;*/
+	/*border-bottom: 1px solid Silver;*/
+	padding-left: 3px;
+	padding-right: 3px;
+	/*color: DimGray;*/	
+}
+
+#divPrincipal_PlanDeTrabajo{
+	/*visibility: hidden;*/
+	background-color: White;
+	border: 1px solid silver;
+	width: 100%;
+	height: 445px;
+	/*margin-left: 5px;
+	margin-right: 10px;
+	/*margin-top: 1px;*/
+	margin-bottom: 5px;	
+}
+
+#divHeader_PlanDeTrabajo{
+	background-color: White;
+}
+
+#btnBuscar_PlanDeTrabajo{
+	color: white;
+	height: 22px;
+	padding-bottom: 3px;
+	font-size: 11px;
+	
+	-ms-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	 -khtml-border-radius: 5px;  
+	 border-radius: 5px;
+	
+}
+
+.botonRedondeado{
+	color: white;
+	height: 22px;
+	padding-bottom: 3px;
+	font-size: 11px;
+	-ms-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-khtml-border-radius: 5px;  
+	 border-radius: 5px;
+}
+
+#tableHeader_PlanDeTrabajo{
+	width: 100%;
+	min-width: 50%;
+	padding-left: 20px;
+	padding-top:5px;
+}
+
+.tdBaseDatos_PlanDeTrabajo{
+	text-align:left;
+	width:10%;
+}
+
+#divContent_PlanDeTrabajo{
+	background-color: #E6E6E6; 
+	padding-left: 10px;
+	padding-right: 5px;
+	padding-top: 5px;
+	padding-bottom: 10px;
+	margin-left: 5px;
+	margin-right: 5px;
+	margin-bottom: 10px;
+	overflow-y: auto;
+	height: 380px;
+	border: 1px solid Silver;
+}
+.tblsorter_PlanDeTrabajo{
+	height: 100%;
+	width: 100%;
+	background-color:white;
+	margin-right: 5px;
+	margin-left: 5px;
+	margin-top: 5px;
+	margin-bottom: 0px;
+}
+
+.camp_blue{
+	color: Blue;
+}
+
+#tdButtons_PlanDeTrabajo a{
+	float: right;
+}
+
+.btnAgregar{
+	background: url(../images/extras/agregar_black25.png) 0 0 no-repeat;
+	display:block;
+	height:32px; width:32px; display: block;
+}
+.btnAgregar:hover{
+	background: url(../images/extras/agregar25.png) 0 0 no-repeat;
+	height:32px; width:32px;
+	cursor : pointer;
+	cursor:hand;
+}
+
+.btnEliminar{
+	background: url(../images/actividades/eliminar_black_25.png) 0 0 no-repeat;
+	display:block;
+	height:32px; width:32px; display: block;
+}
+
+.btnEliminar:hover{
+	background: url(../images/actividades/eliminar25.png) 0 0 no-repeat;
+	height:32px; width:32px;
+	cursor : pointer;
+	cursor:hand;
+}
+
+.btnCorreo{
+	background: url(../images/actividades/correo_black25.png) 0 0 no-repeat;
+	display:block;
+	height:32px; width:32px; display: block;
+}
+
+.btnCorreo:hover{
+	background: url(../images/actividades/correo25.png) 0 0 no-repeat;
+	height:32px; width:32px;
+	cursor : pointer;
+	cursor:hand;
+}
+
+.btnImprimir{
+	background: url(../images/extras/imprimir25_black.png) 0 0 no-repeat;
+	display:block;
+	height:32px; width:32px; display: block;
+}
+
+.btnImprimir:hover{
+	background: url(../images/extras/imprimir25.png) 0 0 no-repeat;
+	height:32px; width:32px;
+	cursor : pointer;
+	cursor:hand;
+}
+
+.btnPdf{
+	background: url(../images/extras/pdf25_black.png) 0 0 no-repeat;
+	display:block;
+	height:32px; width:32px; display: block;
+}
+
+.btnPdf:hover{
+	background: url(../images/extras/pdf25.png) 0 0 no-repeat;
+	height:32px; width:32px;
+	cursor : pointer;
+	cursor:hand;
+}
+
+.btnExcel{
+	background: url(../images/extras/excel25_black.png) 0 0 no-repeat;
+	display:block;
+	height:32px; width:32px; display: block;
+}
+
+.btnExcel:hover{
+	background: url(../images/extras/excel25.png) 0 0 no-repeat;
+	height:32px; width:32px;
+	cursor : pointer;
+	cursor:hand;
+}
+
+.button_PlanDeTrabajo{
+	/*background:Red;*/
+	color:white;
+	cursor:pointer;
+	cursor:hand;
+	height:25px;
+}
+
+.buttonVer_PlanDeTrabajo{
+	/*background: Red;*/
+	color: white;
+	cursor: pointer;
+	cursor: hand;
+	height: 16px;
+	font-size: 8pt;
+}
+
+
+.btnAgreg{
+	background: url(../images/extras/agregar_black25.png) 0 0 no-repeat;
+	display:block;
+	height:10px; width:10px; display: block;
+}
+.btnAgreg:hover{
+	background: url(../images/extras/agregar25.png) 0 0 no-repeat;
+	height:10px; width:10px;
+	cursor : pointer;
+	cursor:hand;
+}
+
+.imgCalendario_PlanDeTrabajo{
+	background-color: Silver;
+	vertical-align: top;
+	height:22px;
+}
+
+#divGrafica_PlanDeTrabajo{
+	height: 250px;
+}
+
+
+
+.tdBtnVer_PlanDeTrabajo{
+	padding-right:8px;
+}
+
+#txt_BaseDatos_PlanDeTrabajo{
+	width: 80px; 
+	height: 18px;
+	padding-top: 4px;
+}
+
+.btnComparacion_PlanDeTrabajo{
+	float:right;
+	height: 22px;
+	font-size: 11px;
+	
+	-ms-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	 -khtml-border-radius: 5px;  
+	 border-radius: 5px;
+}
+
+.tdBtnComparacion_PlanDeTrabajo{
+	text-align:right;
+	width:5%;
+}
+
+
+.imgActividad_PlanDeTrabajo{
+	display:block;
+	height: 16px; 
+	display: block;
+}
+
+.imgActividad_PlanDeTrabajo:hover{
+	height: 16px; 
+	width: 16px;
+	cursor: pointer;
+	cursor: hand;
+}
+
+
+/****************************/
+/*	Pantalla Brief       	*/
+/****************************/
+
+/*#divBaseBrief{
+	width: 99%;
+	height: 440px;
+	background-color: white;
+}*/
+
+#PlaneacionBriefDivBase{
+	width: 100%;
+	height: 100%;
+	background: white;
+	/*margin-left: 5px;*/
+	border: 1px solid Silver;
+}
+
+#PlaneacionBriefDivHeader{
+	width: 98%;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-top: 5px;
+	background: White;
+}
+
+#PlaneacionBriefDivContenido{
+	background: #e6e6e6;
+	/*width: 97%;*/
+	overflow: auto;
+	height: 360px;
+	margin-left: 5px;
+	margin-top: 5px;
+	margin-bottom: 10px;
+	margin-right: 5px;
+	padding-right: 5px;
+	padding-left: 15px;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	border: 1px solid Silver;
+}
+
+#PlaneacionBriefDivArchivo{
+	background: White;
+	/*border: 1px solid black;*/
+	width: 99%;
+	height: 500px;
+	/*margin-top: 20px;
+	margin-left: 20px;
+	margin-right: 20px;
+	margin-bottom: 20px;
+	padding-top: 10px;*/
+	font-size: 20px;
+	padding: 20px;
+}
+
+.btnCorreo{
+	background: url(../images/actividades/correo_black25.png) 0 0 no-repeat;
+	display:block;
+	height:32px; width:32px; display: block;
+}
+
+.btnCorreo:hover{
+	background: url(../images/actividades/correo25.png) 0 0 no-repeat;
+	height:32px; width:32px;
+	cursor : pointer;
+	cursor:hand;
+}
+
+.btnImprimir{
+	background: url(../images/extras/imprimir25_black.png) 0 0 no-repeat;
+	display:block;
+	height:32px; width:32px; display: block;
+}
+
+.btnImprimir:hover{
+	background: url(../images/extras/imprimir25.png) 0 0 no-repeat;
+	height:32px; width:32px;
+	cursor : pointer;
+	cursor:hand;
+}
+
+.btnPdf{
+	background: url(../images/extras/pdf25_black.png) 0 0 no-repeat;
+	display:block;
+	height:32px; width:32px; display: block;
+}
+
+.btnPdf:hover{
+	background: url(../images/extras/pdf25.png) 0 0 no-repeat;
+	height:32px; width:32px;
+	cursor : pointer;
+	cursor:hand;
+}
+
+
+
+/****************************/
+/*	Pantalla Presupuesto 	*/
+/****************************/
+
+#principal_div{
+	background-color: white;
+	width: 99%;
+	height: 99%;
+	border: 1px solid ;
+	padding: 5px;
+}
+
+
+#div_Presupuesto{
+	/*background-color: #E6E6E6;*/
+	background-color: White;
+	/*margin-left: 5px;*/
+	width: 99%;
+	height: 440px;
+	border: 1px solid Silver;
+	/*height: 99%;*/
+	padding-left: 5px;
+	padding-top: 5px;
+	padding-right: 5px;
+}
+
+
+#div_Presupuesto_tblTotal{
+	/*overflow: auto;*/
+	background-color: #E6E6E6;
+	padding-top: 10px;
+	text-align: right;
+	padding-bottom: 22px;
+	border-bottom: 1px solid Silver;
+	border-left: 1px solid Silver;
+	border-right: 1px solid Silver;
+	
+}
+
+#tbl_direccion_Presupuesto{
+	background-color: #e6e6e6; 
+	width: 100%;
+}
+
+
+#tbl_Presupuesto{
+	padding-left: 15px;
+	padding-top: 15px;
+	width: 97%;
+	height: 15px;
+	border-top: 1px DimGray;
+	border-left: 1px DimGray;
+}
+
+#tbl_Presupuesto thead{
+	/*background-color: gray;*/
+	/*color: White;*/	
+	text-align:center;
+}
+
+
+#tbl_Presupuesto th{
+	font-size: 12px;
+	height: 25px;
+	/*border: 1px solid dimGray;*/
+	border-bottom: 1px solid Silver;
+	border-top: 1px solid Silver;
+	text-align: left;
+	padding-left: 10px;
+}
+
+
+#tbl_Presupuesto td{
+	text-align:left;
+	/*background-color: white;*/
+	padding-left: 10px;
+	height: 24px;
+	border-bottom: 1px solid silver;
+	/*border-right: 1px solid silver;*/
+	font-size:9pt;
+}
+
+#tbl_Presupuesto input{
+width: 90%;
+height: 10px;
+padding-bottom: 3px;
+border: 1px solid White;
+}
+
+#tbl_Presupuesto_agregar{
+	padding-left: 14px;
+	width: 99%;
+	margin: 5px;
+}
+
+
+
+#tbl_Presupuesto_agregar select{
+	width: 150px;
+	height: 21px;
+}
+
+
+#tbl_Presupuesto_Total{
+	width: 99%;
+	height: 20px;
+	/*
+	border-top: 1px solid silver;
+	border-left: 1px solid silver;
+	
+*/
+}
+
+#tbl_Presupuesto_Total_lblTotal{
+	text-align: right;
+	background-color: DimGray;
+	color: white;
+	padding-right: 10px;
+	width: 11%; 
+	height: 6%;
+}
+
+#td_total_pronosticado_Presupuesto{
+	text-align: center; 
+	width: 145px; 
+	height: 6%;
+	background-color: white; 
+	border: 1px solid Silver; 
+	font-size: 9pt;
+}
+
+#td_total_erogado_Presupuesto{
+	text-align: center; 
+	font-size: 9pt; 
+	width: 170px;
+	height: 6%; 
+	background-color: white; 
+	border-right: 1px solid Silver;
+    border-bottom: 1px solid Silver; 
+	border-top: 1px solid Silver;
+}
+
+#tbl_Presupuesto_div{
+	overflow: auto;
+	text-align: right;
+	height: 375px;
+	/*width: 99%;*/
+	background-color: #E6E6E6;
+	border-top: 1px solid Silver;
+	border-left: 1px solid Silver;
+	border-right: 1px solid Silver;
+}
+
+#anterior_Presupuesto{
+	width: 25px;
+	height: 25px;	
+}
+
+#siguiente_Presupuesto{
+	padding-left: 870px;
+	width: 25px;
+	height: 25px;
+}
+
+
+
+/**********************************************************************************/
+/*	Dialogo Planeacion Plan de Trabajo Comparacion En Plan de Trabajo de Campañas */
+/**********************************************************************************/
+
+#DialogComparacionDeCampanasDivPrincipal{
+	background: White;
+	width: 470px;
+	height: 200px;
+}
+
+#DialogComparacionDeCampanasDivHeader{
+	background: White;
+	width: 100%;
+	border-bottom: 2px solid Gray;
+}
+
+#DialogComparacionDeCampanasDivContenido{
+	background: White;
+	width: 100%;
+	height: 170px;
+}
+
+.DialogComparacionDeCampanasImagenHeader{
+	padding-bottom: 5px;
+}
+
+#DialogComparacionDeCampanasDivButton{
+	padding-top: 20px;
+	text-align: right;
+	padding-right: 20px;
+}
+
+#DialogComparacionDeCampanasButtonComparacion{
+	color: White;
+	height: 22px;
+	font-size: 11px;
+}
+
+.imgCalendarioComparacionDeCampanasButtonComparacion{
+	height: 22px;
+	width: 22px;
+	background: Silver;
+}

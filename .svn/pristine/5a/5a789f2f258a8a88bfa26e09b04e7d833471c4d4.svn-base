@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<h:body>
+<div style="background: white; height: 400px;width: 800px; border: 1px solid Silver;">
+
+	<h:form id="formabutton1">
+ 		<p:panel id="panel" header="New " style="margin-bottom:10px;">
+			<h:panelGrid columns="2" style="width: 700px;">
+				<h:column>
+					<table>
+					<tr>
+						<td><h:outputLabel value="IdAutorizacion *" /></td>
+						<td><p:inputText value="#{MBSolicitudAutorizacion.solicitudAutorizacionDTOPendiente.tblSolicitudAutorizacion.idAutorizacion}"></p:inputText></td>							
+					</tr>
+						<tr>
+							<td><h:outputLabel value="IdCampana *" /></td>
+							<td><p:inputText value="#{MBSolicitudAutorizacion.solicitudAutorizacionDTOPendiente.tblSolicitudAutorizacion.tblCampana.idCampana}"></p:inputText></td>							
+						</tr>
+						<tr>
+							<td><h:outputLabel value="Nombre *" /></td>
+							<td><p:inputText value="#{MBSolicitudAutorizacion.solicitudAutorizacionDTOPendiente.tblSolicitudAutorizacion.tblCampana.nombre}"></p:inputText></td>
+							<td><h:outputLabel value="#{msg.periodo}" /></td>
+							<td><p:selectOneMenu value="#{MBSolicitudAutorizacion.solicitudAutorizacionDTOPendiente.tblSolicitudAutorizacion.tblCampana.idPeriodo}">
+								<f:selectItem itemLabel="#{MBSolicitudAutorizacion.solicitudAutorizacionDTOPendiente.tblSolicitudAutorizacion.tblCampana.idPeriodo}" itemValue="1" />		
+							</p:selectOneMenu></td>						
+						</tr>
+						<tr>
+							<td><h:outputLabel value="#{msg.etiqueta}" /></td>
+							<td><p:selectOneMenu value="#{MBSolicitudAutorizacion.solicitudAutorizacionDTOPendiente.tblSolicitudAutorizacion.tblCampana.idEtiqueta}">
+								<f:selectItem itemLabel="#{MBSolicitudAutorizacion.solicitudAutorizacionDTOPendiente.tblSolicitudAutorizacion.tblCampana.idEtiqueta}" itemValue="1" />		
+							</p:selectOneMenu></td>
+							<td><h:outputLabel value="#{msg.tipoEvento}" /></td>
+							<td><p:selectOneMenu value="#{MBSolicitudAutorizacion.solicitudAutorizacionDTOPendiente.tblSolicitudAutorizacion.tblCampana.idTipoEvento}">
+								<f:selectItem itemLabel="#{MBSolicitudAutorizacion.solicitudAutorizacionDTOPendiente.tblSolicitudAutorizacion.tblCampana.idTipoEvento}" itemValue="1" />		
+							</p:selectOneMenu></td>								
+						</tr>
+						<tr>
+						<td><h:outputLabel value="#{msg.tipoEvento}" /></td>
+							<td><p:selectOneMenu value="#{MBSolicitudAutorizacion.solicitudAutorizacionDTOPendiente.tblSolicitudAutorizacion.tblCampana.idTipoCampana}">
+								<f:selectItem itemLabel="#{MBSolicitudAutorizacion.solicitudAutorizacionDTOPendiente.tblSolicitudAutorizacion.tblCampana.idTipoCampana}" itemValue="1" />		
+							</p:selectOneMenu></td>		
+							<td><h:outputLabel value="#{msg.fechaInicio}" /></td>
+							<td><p:calendar value="#{MBSolicitudAutorizacion.solicitudAutorizacionDTOPendiente.tblSolicitudAutorizacion.tblCampana.fechaInicio}" id="inputCalendar1"
+								showOn="button" /></td>
+						</tr>
+						<tr>
+							<td><h:outputLabel value="#{msg.fechaFin}" /></td>
+							<td><p:calendar value="#{MBSolicitudAutorizacion.solicitudAutorizacionDTOPendiente.tblSolicitudAutorizacion.tblCampana.fechaFin}" id="inputCalendar2"
+								showOn="button" /></td>
+						</tr>
+						<tr>
+					<p:column style="width: 20%">	            	
+	            	<p:commandButton onclick="cd.show()" value="#{msg.misAutorizaciones}" update="itemId"
+	            	action="#{MBSolicitudAutorizacion.getAutorizacionesPrevias(MBSolicitudAutorizacion.solicitudAutorizacionDTOPendiente.tblSolicitudAutorizacion)}"/>	            		
+	            	</p:column>
+						</tr>
+					</table>
+				</h:column>
+			</h:panelGrid>							
+ 		</p:panel>	
+ 		<p:dialog  		header="#{msg.autorizaciones}"
+		            	global="true" showEffect="fade" hideEffect="explode" widgetVar="cd"
+		            	icon="ui-icon-trash" appendToBody="false" modal="true"
+		            	width="600" height="300">
+		 <form>
+<!-- 		    <p:commandButton value="Si" styleClass="ui-confirmdialog-yes"
+		        icon="ui-icon-check" 			       
+		        onclick="cd.hide()"/>
+	
+		        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no"
+		        icon="ui-icon-close" onclick="cd.hide()"/> -->	
+					        		
+					<table>
+						<tr>
+							<td><h:outputLabel value="#{msg.campana}" /></td>
+							<td><h:outputText value="#{MBSolicitudAutorizacion.solicitudAutorizacionDTOPendiente.tblSolicitudAutorizacion.tblCampana.nombre}"></h:outputText></td>
+						</tr>
+						<tr>
+							<td><h:outputLabel value="#{msg.periodo}" /></td>
+							<td><h:outputText value="#{MBSolicitudAutorizacion.solicitudAutorizacionDTOPendiente.periodoDTO.fechaInicio}">
+							<f:convertDateTime pattern="dd/MMM/yyyy" /></h:outputText>
+							-							
+							<h:outputText value="#{MBSolicitudAutorizacion.solicitudAutorizacionDTOPendiente.periodoDTO.fechaFin}">
+							<f:convertDateTime pattern="dd/MMM/yyyy" /></h:outputText>
+							</td>
+						</tr>
+					</table>														        	
+	  <br />		
+				     			            					        					        					        					        					        	            
+	  <p:dataTable id="itemId" var="item"				
+				value="#{MBSolicitudAutorizacion.solicitudesAprobadas}"
+				rowIndexVar="rowIx" paginator="false" rows="5"
+				resizableColumns="true"				
+				styleClass="ui-datatable-hor-scroll">
+ 
+ 	  <p:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.idAutorizacion}" />
+					</f:facet>
+					<h:outputText value="#{item.tblCampanaAutorizacion.id.idAutorizacion}" />
+	  </p:column>
+ 	  <p:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.autorizo}" />
+					</f:facet>
+					<h:outputText value="#{item.usuarioDTO.name}" />
+					<h:outputText value="&#160;" />
+					<h:outputText value="#{item.usuarioDTO.plastName}"/>
+	  </p:column>
+	  <p:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.fechaAutorizacion}" />
+					</f:facet>
+					<h:outputText value="#{item.tblCampanaAutorizacion.fechaAutorizacion}" >
+						 <f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+	  </p:column>	  
+	   <p:column>
+					<f:facet name="header"><h:outputText value="#{msg.comentarios}" /></f:facet>
+					<h:outputText value="#{item.tblCampanaAutorizacion.comentarios}" />
+	  </p:column>	  	  
+ 	</p:dataTable>
+					<br />
+					<table>
+						<tr>
+							<td><h:outputLabel value="#{msg.comentarios}" /></td>
+							<td><p:inputText value="#{MBSolicitudAutorizacion.comentarios}"></p:inputText></td>
+						</tr>
+					</table>
+					<br />
+					<table>
+						<tr>
+							<td><p:commandButton value="#{msg.autorizar}" action="#{MBSolicitudAutorizacion.autorizar(MBSolicitudAutorizacion.solicitudAutorizacionDTOPendiente)}" /></td>
+							<td><p:commandButton value="#{msg.rechazar}" action="#{MBSolicitudAutorizacion.rechazar(MBSolicitudAutorizacion.solicitudAutorizacionDTOPendiente)}" /></td>
+							<td><p:commandButton value="#{msg.cancelar}" onclick="cd.hide()" /></td>
+						</tr>
+					</table>
+				</form>
+</p:dialog>				    	 		 		 		 		 		
+	</h:form>
+	</div>
+</h:body>
+</html>

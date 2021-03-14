@@ -1,0 +1,92 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jstl/core"
+        >
+<h:head>
+
+</h:head>
+<h:body>
+    <ui:composition template="template/common/commonLayout.xhtml">
+        <ui:define name="west">
+            
+        </ui:define>
+        <ui:define name="content">
+            <h:panelGroup id="pgPrincipal">
+                <table width="100%">
+                    <!-- logos -->
+                    <tr>
+                        <td>
+                            <h:graphicImage library="images" name="Logo_Grande_Blanco.png" style="height:100px;" id="HOMELOGOADMASTER" />
+                        </td>
+                        <td align="right">
+                            <h:graphicImage library="images" name="7-11-logo.png" style="height:100px;" id="HOMELOGOSEVEN" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-top:10px;">
+                            <p:outputLabel value="Bienvenido!" style="font-weight: bold; font-size: 1.5em;"></p:outputLabel>
+                            <p:outputLabel value=" A continuaci&oacute;n su men&uacute;:" style="font-weight: bold; font-size: 1.2em;"></p:outputLabel>
+                        </td>
+                    </tr>
+                    
+                    <!-- menus -->
+                    <c:forEach var="currOpc1" items="#{MBCatUsuarios.opciones}">
+                        
+                        <tr>
+                            <td colspan="2" style="padding-left: 20px; padding-top: 10px;">
+                                <table>
+                                    <tr>
+                                        <td rowspan="2">
+                                            <!-- opciones con hipervinculo -->
+                                            <c:if test="#{currOpc1.url !=null and currOpc1.url.length()>0}">
+                                                <a href="#{MBNavigator.url(currOpc1.url)}" title="#{currOpc1.opcName}"
+                                                   style="text-decoration:none;"
+                                                    onclick="#{MBNavigator.initDashboard(currOpc1)}">
+                                                    <h:graphicImage library="images" name="#{currOpc1.fileImage}" style="height: 50px; width: 50px;" />
+                                                </a>
+                                            </c:if> 
+
+                                            <c:if test="#{currOpc1.url ==null or currOpc1.url.length()==0}">
+                                                <p:commandLink style="text-decoration:none;"
+                                                    action="#{MBNavigator.initDashboard(currOpc1)}"
+                                                    update=":frmMenuLogin,:frmMenHor">
+                                                    <h:graphicImage library="images" name="#{currOpc1.fileImage}" style="height: 50px; width: 50px;"/>
+                                                </p:commandLink>
+                                            </c:if>
+                                        </td>
+                                        <td>
+                                            <p:outputLabel value="#{currOpc1.opcName}" style="font-style: italic; font-weight: bold;"></p:outputLabel>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p:outputLabel value="#{currOpc1.menuDescription}."></p:outputLabel>
+                                        </td>
+                                    </tr>
+                                </table> 
+                            </td>
+                        </tr>
+                        
+                    </c:forEach>
+                    
+                    
+                </table>
+            </h:panelGroup>
+        </ui:define>
+        
+    </ui:composition>
+    
+    <script>
+        $(document).ready(function(){
+            $(document).find("#west").hide();
+        });
+    </script>
+</h:body>
+
+
+</html>

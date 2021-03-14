@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:c="http://java.sun.com/jstl/core">
+<h:head>
+</h:head>
+<h:body>
+	<ui:composition template="template/common/commonLayout.xhtml">
+		<ui:define name="west">
+			<p:layoutUnit position="west" header="Medios"
+				style="font-size:14px; font-weight:bold;" resizable="true"
+				closable="false" collapsible="false" id="west">
+				<h:form id="frmMenuLogin">
+					<p:panelMenu>
+						<!-- style="width:200px" -->
+						<c:forEach var="currOpc" items="#{MBUsuarios.opcionesFinal}">
+							<p:submenu label="#{currOpc.opcName}">
+								<c:forEach var="currOpcChild" items="#{currOpc.childsAsArray}">
+									<p:menuitem value="&nbsp;&nbsp;&nbsp;#{currOpcChild.opcName}"
+										action='#{MBNavigator.setCurrentPage(currOpcChild.url)}'
+										update=":pgPrincipalLogin">
+									</p:menuitem>
+								</c:forEach>
+							</p:submenu>
+						</c:forEach>
+					</p:panelMenu>
+					<c:if test="#{MBUsuarios.opcionesFinal==null}">
+						<p:tree value="#{ArquitecturaMB.root}"
+							style="border: none; width:100%;" dynamic="true"
+							selectionMode="single" var="node" id="tree">
+
+							<p:ajax async="true" event="select"
+								listener="#{ArquitecturaMB.onNodeSelect}"
+								update=":pgPrincipalLogin" />
+
+							<p:treeNode id="treeNode" expandedIcon="ui-icon-folder-open"
+								collapsedIcon="ui-icon-folder-collapsed">
+								<h:outputText value="#{node.label}" id="lblNode" escape="false"
+									style="color : #{node.color};font-size:12px;" />
+							</p:treeNode>
+
+							<p:treeNode type="document" icon="ui-icon-document">
+								<h:outputText value="#{node.label}" id="nodeDocument"
+									escape="false" style="color : #{node.color};font-size:12px;" />
+							</p:treeNode>
+
+						</p:tree>
+					</c:if>
+				</h:form>
+			</p:layoutUnit>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

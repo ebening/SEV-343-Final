@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated 19/08/2013 10:38:15 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.Opcion" table="MENU_OPCIONES">
+        <id name="opcId" type="int">
+            <column name="OPC_ID" />
+            <generator class="assigned" />
+        </id>
+        <property name="parentId" type="int">
+            <column name="PARENT_ID"  not-null="true" />
+        </property>
+        
+        <property name="opcLevel" type="short">
+            <column name="OPC_LEVEL"  not-null="true" />
+        </property>
+        
+        <property name="opcName" type="string">
+            <column name="OPC_NAME"  not-null="true" />
+        </property>
+        
+        <property name="descrip" type="string">
+            <column name="DESCRIP"  not-null="true" />
+        </property>
+        
+        <property name="url" type="string">
+            <column name="URL"   />
+        </property>
+        
+        <property name="fileImage" type="string">
+            <column name="FILE_IMG"   />
+        </property>    
+        
+        <property name="menuDescription" type="string">
+            <column name="MENU_DESCRIPTION"></column>
+        </property>    
+        
+        <property name="orderSort" type="short">
+            <column name="ORDER_SORT"   />
+        </property>   
+        
+       <property name="menHor" type="yes_no">
+            <column name="IS_MEN_HOR"   />
+        </property>
+        
+        <property name="active" type="yes_no">
+            <column name="ACTIVE"   />
+        </property>
+        
+    </class>
+</hibernate-mapping>

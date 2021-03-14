@@ -1,0 +1,218 @@
+.scrollable .vscroller {
+	background: -webkit-gradient(
+		linear,
+		left top,
+		right top,
+		/*color-stop(0.0, #333333),
+		color-stop(1.0, #222222)*/
+		color-stop(0.0, White),
+		color-stop(1.0, White)
+	);
+	
+	background: -moz-linear-gradient(
+		left center,
+		/*#333333 0%,
+		#222222 100%*/
+		White 0%,
+		White 100%
+	);
+	cursor: pointer;
+}
+
+.scrollable .hscroller {
+	background: -webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		/*color-stop(0.0, #333333),
+		color-stop(1.0, #222222)*/
+		color-stop(0.0, White),
+		color-stop(1.0, White)
+	);
+	
+	background: -moz-linear-gradient(
+		top center,
+		/*#333333 0%,
+		#222222 100%*/
+		White 0%,
+		White 100%
+	);
+}
+
+.scrollable .vscroller .scrollarea {
+	/*left: 2px;
+	right: 2px;*/
+	left: 8px;
+	right: 2px;
+	width: 2px;
+}
+
+.scrollable .hscroller .scrollarea {
+	top: 8px;
+	bottom: 8px;
+	height: 2px;
+}
+
+.scrollable .scrollarea {
+	/*background-color: #4B4B4B;*/
+	background-color: Silver;
+	
+	/*box-shadow: 1px 1px 4px #111 inset;
+	-moz-box-shadow: 1px 1px 4px #111 inset;
+	-webkit-box-shadow: 1px 1px 4px #111 inset;*/
+	
+	box-shadow: 1px 1px 4px Silver inset;
+	-moz-box-shadow: 1px 1px 4px Silver inset;
+	-webkit-box-shadow: 1px 1px 4px Silver inset;
+	
+	/*border: 1px solid #333333;*/
+	/*border: 1px solid Silver;*/
+	
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+}
+
+.scrollable .scrollblock {
+	/*border: 1px solid #161616;*/
+	/*border: 1px solid Gray;*/
+}
+
+.scrollable .vscroller .scrollblock {
+	/*left: 0px;
+	right: 0px;*/
+	width: 4px;
+	
+	background: -webkit-gradient(
+		linear,
+		left top,
+		right top,
+		/*color-stop(0.0, #3C3C3C),
+		color-stop(1.0, #000)*/
+		color-stop(0.0, Gray),
+		color-stop(1.0, Gray)
+	);
+	
+	background: -moz-linear-gradient(
+		left center,
+		/*#3C3C3C 0%,
+		#000 100%*/
+		Gray 0%,
+		Gray 100%
+	);
+}
+
+/********************/
+/*HOVER */
+/********/
+
+.scrollable .vscroller .scrollblock:HOVER{
+	/*left: 0px;
+	right: 0px;*/
+	width: 4px;
+	
+	background: -webkit-gradient(
+		linear,
+		left top,
+		right top,
+		/*color-stop(0.0, #3C3C3C),
+		color-stop(1.0, #000)*/
+		color-stop(0.0, DimGray),
+		color-stop(1.0, DimGray)
+	);
+	
+	background: -moz-linear-gradient(
+		left center,
+		/*#3C3C3C 0%,
+		#000 100%*/
+		DimGray 0%,
+		DimGray 100%
+	);
+	
+	cursor: pointer;
+}
+
+.scrollable .hscroller .scrollblock {
+	top: -1px;
+	bottom: 0px;
+	height: 4px;
+	
+	background: -webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		/*color-stop(0.0, #3C3C3C),
+		color-stop(1.0, #000)*/
+		color-stop(0.0, Gray),
+		color-stop(1.0, Gray)
+	);
+	
+	background: -moz-linear-gradient(
+		top center,
+		/*#3C3C3C 0%,
+		#000 100%*/
+		Gray 0%,
+		Gray 100%
+	);
+	cursor: pointer;
+}
+
+/*******/
+/*Hover*/
+/*******/
+.scrollable .hscroller .scrollblock:HOVER {
+	top: -1px;
+	bottom: 0px;
+	height: 4px;
+	
+	background: -webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		/*color-stop(0.0, #3C3C3C),
+		color-stop(1.0, #000)*/
+		color-stop(0.0, DimGray),
+		color-stop(1.0, DimGray)
+	);
+	
+	background: -moz-linear-gradient(
+		top center,
+		/*#3C3C3C 0%,
+		#000 100%*/
+		DimGray 0%,
+		DimGray 100%
+	);
+	cursor: pointer;
+}
+
+.scrollable .scrollbtn {
+	/*color: #666;
+	text-shadow: -1px -1px 0px black;*/
+	color: White;
+	text-shadow: -1px -1px 0px White;
+}
+
+.scrollable .scrollbtn:hover {
+	/*color: #888;*/
+	color: White;
+}
+
+.scrollable .filler {
+	background: -webkit-gradient(
+		linear,
+		left top,
+		right bottom,
+		/*color-stop(0.0, #333333),
+		color-stop(0.5, #222)*/
+		color-stop(0.0, White),
+		color-stop(0.5, White)
+	);
+	
+	background: -moz-linear-gradient(
+		-45deg,
+		/*#333333 0%,
+		#222 50%*/
+		White 0%,
+		White 50%
+	);
+}

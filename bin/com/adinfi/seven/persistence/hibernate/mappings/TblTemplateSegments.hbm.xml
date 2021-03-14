@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated 10/01/2014 12:26:09 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.TblTemplateSegments" table="TBL_TEMPLATE_SEGMENTS">
+        <id name="segmentId" type="int">
+            <column name="SEGMENT_ID" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="tblTemplate" class="com.adinfi.seven.business.domain.TblTemplate" fetch="select">
+            <column name="TEMPLATE_ID" not-null="true" />
+        </many-to-one>
+        <property name="segmentParentId" type="java.lang.Integer">
+            <column name="SEGMENT_PARENT_ID" />
+        </property>
+        <property name="width" type="int">
+            <column name="WIDTH" not-null="true" />
+        </property>
+        <property name="height" type="java.lang.Integer">
+            <column name="HEIGHT" />
+        </property>
+        <property name="tipo" type="java.lang.Character">
+            <column name="TIPO" length="1" />
+        </property>
+        <property name="isPercentage" type="java.lang.Character">
+            <column name="IS_PERCENTAGE" length="1" />
+        </property>
+        <property name="elemEq" type="java.lang.Character">
+            <column name="ELEM_EQ" length="1" />
+        </property>
+        <property name="segName" type="string">
+            <column name="SEG_NAME" />
+        </property>
+        <property name="templateChildId" type="int">
+            <column name="TEMPLATE_CHILD_ID" not-null="true" />
+        </property>
+        <many-to-one name="templateChild" update="false" insert="false"  class="com.adinfi.seven.business.domain.TblTemplate"      >
+            <column name="TEMPLATE_CHILD_ID" not-null="false"      />
+        </many-to-one>   
+    </class>
+</hibernate-mapping>

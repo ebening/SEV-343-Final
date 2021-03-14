@@ -1,0 +1,63 @@
+<ui:composition  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <p:dialog id="dashBoardEditDialog" widgetVar="dashBoardEditDialog" header="Detalle Actividad" showEffect="explode" hideEffect="explode" modal="false"
+              styleClass="common-dialog" closeOnEscape="true">
+        <div align="right">
+            <p:commandLink title="Guardar" styleClass="save-button" update=":formDashPrincipal" actionListener="#{MBActividad.saveActividad}" />
+        </div>
+        <h:panelGrid id="gridEditDialog" columns="4" border="0" cellpadding="5" cellspacing="3">
+            <p:outputLabel value="Mecanica" for="comboMecanicaEdit" />
+            <p:selectOneMenu id="comboMecanicaEdit"
+                             converter="tblMecanicaConverter"
+                             value="#{MBActividad.mecanicaSeleccionada}"
+                             disabled="#{MBActividad.actividadSelected.orden == 6}">
+                <f:selectItem itemValue="#{null}" itemLabel="Selecciona Mecanica" />
+                <f:selectItems value="#{MBActividad.mecanicaList}" var="mec">
+                    <f:selectItem itemLabel="#{mec.nombreMecanica}" itemValue="#{mec.mecanicaId}" />
+                </f:selectItems>
+            </p:selectOneMenu>
+            <p:column />
+            <p:column />
+            <p:outputLabel value="Nombre Actividad" for="txtNombreEdit" />
+            <p:inputText id="txtNombreEdit" label="Nombre Actividad" value="#{MBActividad.actividadSelected.descripcion}" disabled="#{MBActividad.actividadSelected.orden == 6}" />
+            <p:outputLabel value="Estatus" for="comboEstatusEdit" />
+            <p:selectOneMenu id="comboEstatusEdit" label="Selecciona Estatus" value="#{MBActividad.actividadSelected.catEstatus}">
+                <f:selectItems value="#{MBActividad.estatusList}" var="s">
+                    <f:selectItem itemLabel="#{s.nombre}" itemValue="#{s.idestatus}" />
+                </f:selectItems>
+            </p:selectOneMenu>
+            <p:outputLabel value="Responsable" for="comboRespEdit" />
+            <p:selectOneMenu id="comboRespEdit" value="#{MBActividad.roleSelected}" disabled="#{MBActividad.actividadSelected.orden == 6}">
+                <f:selectItem itemValue="" itemLabel="Selecciona Rol" />
+                <f:selectItems value="#{MBActividad.roleList}" var="r">
+                    <f:selectItem itemLabel="#{r.desc}" itemValue="#{r.idrole}" />
+                </f:selectItems>
+                <p:ajax event="change" update="comboUserEdit" listener="#{MBActividad.onRoleChangeDialog}" process="@this" />
+            </p:selectOneMenu>
+            <p:outputLabel value="Usuario" for="comboUserEdit" />
+            <p:selectOneMenu id="comboUserEdit" value="#{MBActividad.actividadSelected.catUsuariosByIdresponsable}" disabled="#{MBActividad.actividadSelected.orden == 6}">
+                <f:selectItems value="#{MBActividad.usuariosByRole}" var="us">
+                    <f:selectItem itemValue="#{us.idusuarios}" itemLabel="#{us.nombre} #{us.plastName}" />
+                </f:selectItems>
+            </p:selectOneMenu>
+            <p:outputLabel value="Fecha Inicio" for="startDate" />
+            <p:calendar id="startDate" pattern="dd/MM/yyyy"
+                        value="#{MBActividad.actividadSelected.vigenciaInicio}" disabled="#{MBActividad.actividadSelected.orden == 6}"
+                        readonlyInput="true" locale="es" showOn="button" size="10">
+                <p:ajax event="dateSelect" update="vencimientoDate" />
+            </p:calendar>
+            <p:outputLabel value="Vencimiento" for="vencimientoDate" />
+            <p:calendar id="vencimientoDate" pattern="dd/MM/yyyy" mindate="#{MBActividad.actividadSelected.vigenciaInicio}"
+                        value="#{MBActividad.actividadSelected.vigenciaFinal}" disabled="#{MBActividad.actividadSelected.orden == 6}"
+                        readonlyInput="true" locale="es" showOn="button" size="10"  />
+            <p:outputLabel value="Fecha Fin Real" for="endDate" />
+            <p:calendar id="endDate" pattern="dd/MM/yyyy" value="#{MBActividad.actividadSelected.fechaFin}" disabled="true"
+                        locale="es" showOn="button" size="10" readonly="true" />
+
+        </h:panelGrid>
+    </p:dialog>
+</ui:composition >

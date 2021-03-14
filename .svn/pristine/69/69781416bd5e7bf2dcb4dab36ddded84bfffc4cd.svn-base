@@ -1,0 +1,205 @@
+required=El campo {0} es requerido
+msj_required=Falta informaci\u00f3n por capturar, revise e int\u00e9ntelo de nuevo. Campo: {0}.
+msg_userOrPasswordIncorrect=El usuario o contrase\u00f1a es incorrecto
+msg_userException=Ocurrio un error y no se pudo obtener los datos del usuario
+msg_correctPasswordSend=Se le envio un correo con su nueva contrase\u00f1a
+msg_userIncorrect=Usuario incorrecto
+msg_redirectError=Ocurrio un error al redireccionar
+msg_passwordException=Ocurrio un error al cambiar la contrase\u00f1a
+msg_passwordNotMatch=Las contrase\u00f1as no coincide
+msg_passwordSyntaxError=La contrase\u00f1a debe ser alfanumerica y de 6 caracteres
+mensajeFolioRequerido=Los filtros son necesarios
+updateSuccess=Registro actualizado con exito
+regExist=El registro ya existente
+insertSuccess=Registro guardado con exito
+Configuracion=Configuracion
+Salir=Salir
+deleteSucess=Registro eliminado con exito
+deleteError=Error al eliminar registro
+Catalogos=Catalogos
+JerarquiaOrganizacional=Jerarquia Organizacional
+Division=Division
+Plaza=Plaza
+Mercado=Mercado
+Campo=Campo
+Tienda=Tienda
+JerarquiaMercancia=Jerarquia Articulos
+MercanciasServicios=Mercancias/Servicios
+Departamento=Departamento
+Categoria=Categor\u00eda(s)
+SubCategoria=Sub-Categor\u00eda
+Segmento=Segmentota
+Articulo=Articulo
+Formatodetienda=Formato de tienda
+FormatodeTiendaInferior=FormatodeTienda
+ABC=ABC's
+Compania=Compa\u00f1ia
+Usuarios=Usuarios
+Roles=Roles
+Actividades=Actividades
+MaterialPOP=Material POP
+MaterialPOPportienda=Material POP por tienda
+Periodos=Periodos
+Notificaciones=Notificaciones
+Notificacionesdeactividades=Notificaciones de actividades
+Calendario=Calendario
+Correo=Correo
+Chat=Chat
+Seleccion=Seleccion
+Pronostico=Pronostico
+Selecciona=Selecciona
+Todas=Todas
+
+##############################
+###### ENVIO DE CORREOS ######
+##############################
+#SMTP_HOST_NAME=smtp.alestraune.net.mx
+#SMTP_AUTH_USER=noreply@adinfi.com
+#SMTP_AUTH_USER_PERSONAL=AD Master
+#SMTP_AUTH_PWD=sinrespuesta
+
+SMTP_HOST_NAME=smtp.alestraune.net.mx
+SMTP_SOCKETFACTORY_PORT=587
+SMTP_PORT=587
+SMTP_SOCKETFACTORY_CLASS=javax.net.ssl.SSLSocketFactory
+SMTP_AUTH_USER=jorged@adinfi.com
+SMTP_FROM_EMAIL=noreply@admaster.com
+SMTP_AUTH_USER_PERSONAL=AD Master
+SMTP_AUTH_PWD=doaj8101
+
+#SMTP_HOST_NAME=172.17.1.200
+#SMTP_AUTH_USER=notificaciones.admaster@
+#SMTP_AUTH_PWD=zimbra
+
+EMAIL_RECOVERY_PASS_TITLE=Recuperaci\u00f3n de contrase\u00f1a
+EMAIL_RECOVERY_PASS_DETAIL=Estimado Usuario,<br/><br/>Su nueva contrase\u00f1a ha sido generada, favor de ingresar al Sistema con la contrase\u00f1a: <b>{0}</b><br/><br/>Este es un correo autom\u00e1tico, favor de no responderlo.
+NOTIF_SUBJECT=NOTIFICACION DE RECORDATORIO
+NOTIF_BODY=ACTIVIDAD PENDIENTE
+
+EMAIL_ACTIVIDADES_RESPONSABLE_TITLE=Notificacion
+EMAIL_ACTIVIDADES_RESPONSABLE_DETAIL=Ha sido asignado como Responsable del Evento Promocional {0}, favor de verificar el seguimiento en la opci&oacute;n de actividades del sistema Ad Master
+EMAIL_ACTIVIDADES_RESPONSABLE_MEDIO_DETAIL=Ha sido asignado como Responsable del medio {0} para el Evento Promocional {1}, favor de verificar el seguimiento en la opcion de actividades del sistema Ad Master
+
+EMAIL_PUBLICISTA_TITLE=Asignaci\u00f3n de Dise\u00f1adores
+EMAIL_PUBLICISTA_DETAIL=<span style="font-family:sans-serif;">Favor de asignar dise\u00f1adores al {0}, para el Evento Promocional {1}</span>
+
+EMAIL_GENERAR_ACTIVIDADES_TITLE=Notificacion de actividades generadas
+EMAIL_GENERAR_ACTIVIDADES_DETAIL=Estimado Usuario,<br/><br/>Una actividad relacionada a usted ha sido generada, favor de ingresar al Sistema y ver la actividad: <b>{0}</b><br/><br/>Este es un correo autom&aacute;tico, favor de no responderlo.
+
+EMAIL_AUTORIZACIONES_TITLE=Notificacion de Solicitud de Autorizacion 
+EMAIL_AUTORIZACIONES_DETAIL=Estimado Usuario,<br/><br/>Una notificacion de solicitud de autorizaci\u00f3n le ha sido enviada, favor de ingresar al Sistema y ver la solicitud del Evento Promocional: <b>{0}</b><br/><br/>Este es un correo autom&aacute;tico, favor de no responderlo.
+
+EMAIL_AUTORIZACIONES_RECHAZO_TITLE=Notificacion de Solicitud de Autorizacion 
+EMAIL_AUTORIZACIONES_RECHAZO_DETAIL=Estimado Usuario,<br/><br/>Una notificacion de rechazo de solicitud de autorizaci\u00f3n le ha sido enviada para el Evento Promocional: <b>{0}</b><br/><br/>Este es un correo autom&aacute;tico, favor de no responderlo.
+
+EMAIL_JUNTA_PLANEACION_TITLE=AdMaster - Nueva Junta de Planeaci\u00f3n Anual
+EMAIL_JUNTA_PLANEACION_DETAIL=<html xmlns='http://www.w3.org/1999/xhtml'><head><meta http-equiv='Content-Type' content='text/html; charset=utf-8'/><title></title></head><body class='estiloMail'><p>Buen d&iacute;a,</p><p>Ha sido invitado(a) a la Junta de Planeaci&oacute;n Anual convocada por <b>{0}</b>, que se llevar&aacute; acabo el d&iacute;a <b>{1} de {2} del {3} en {4}</b>.</p><p>La reuni&oacute; tendra una horario de <b>{5} a {6}</b> hrs.</p><p>Los temas a tratar son: <br/><b>{7}</b></p><p>Cometarios:<br/><b>{8}</b></p><p>Los invitados a la reuni&oacute;n son:<br/><b>{9}</b></p><p>Este es un correo autom&aacute;tico, favor de no responderlo.</p></body></html>
+
+EMAIL_CAMPANA_TITLE=AdMaster - Se ha creado un nuevo Evento Promocional
+EMAIL_CAMPANA_DETAIL=<html xmlns='http://www.w3.org/1999/xhtml'><head><meta http-equiv='Content-Type' content='text/html; charset=utf-8'/><title></title></head><body class='estiloMail'><p>Se ha creado la Campa&ntilde;a llamada <b>{0}</b>, por el usuario <b>{1}</b>. La(s) categor&iacute;a(s) <b>{2}</b> participa(n) en la Campa&ntilde;a creada. Favor de ingresar al sistema para obtener m&aacute;s informaci\u00f3n.</p><p>Este es un correo autom&aacute;tico, favor de no responderlo.</p></body></html>
+
+#$modulo.$(xhtml/managedBean).$prefix.$propertie
+actividades.mbactivity.msg.duracion={0} d\u00edas {1} horas
+
+
+responsable=Responsable
+periodo=Peri\u00f3do
+fechaCaptura=Fecha Captura
+verDetalle=Ver Detalle
+misAutorizaciones=Mis Autorizaciones
+autorizar=Autorizar
+autorizaciones=Autorizaciones
+promocionAdicional=Promoci\u00f3n Adicional
+idAutorizacion=idAutorizacion
+tblAutorizacionesVacia=No cuenta con autorizaciones pendientes
+rechazar=Rechazar
+cancelar=Cancelar
+comentarios=Comentarios
+fechaAutorizacion=Fecha Autorizaci\u00f3n
+autorizo=Autoriz\u00f3
+campana=Evento Promocional:
+fechaInicio=Fecha Inicio: *
+fechaFin=Fecha Fin: *
+tipoEvento=Tipo Evento:
+etiqueta=Etiqueta:
+etiquetaEnc=Etiqueta
+tipoCampanaEnc=Tipo Evento Promocional
+campanaEnc=Evento Promocional
+periodoEnc=Periodo
+responsableEnc=Responsable
+Anio=A\u00f1o
+faltaInformacion=Falta informaci\u00f3n por capturar, revise e int\u00e9ntelo de nuevo
+crearCadena=Crear
+eliminarCadena=Eliminar
+agregarUsuario=Agregar
+medio=Medio
+tipo=Tipo
+emptyCategoria=No contiene categorias asociadas
+emptyPrograms=No contiene programas asociados
+
+finalizar=Finalizar
+
+
+##############################
+###### MODULO ANALISIS #######
+##############################
+
+sku=SKU
+descripcionSKU=Descripci\u00f3n
+ventasHistoricas=Vtas. Hist\u00f3ricas
+margenContribucion=M.C
+inventario=Inventario
+articuloNuevo=NVO
+fechaUltimaPromocion=Fecha Ultima Prom
+tipoUltimaPromocion=Tpo Ultima Prom
+precioUltimaPromocion=Precio Ultima Prom
+tipoPromocionAnioAnterior=Tpo Prom A\u00f1o Anterior
+precioPromocionAnioAnterior =Precio Promocion A\u00f1o Anterior
+tblProductosVacia=No se Encontraron Productos
+Pronosticar=Pronosticar
+Departamentos=Departamentos
+Categorias=Categorias
+Subcategorias=Subcategorias
+
+##############################
+###### MODULO EVENTO PROMOCIONAL #######
+##############################
+msg1=Ha ocurrido un error en la conexi\u00f3n con la base de datos. El sistema se cerrar\u00e1 por seguridad. Intente iniciar sesi\u00f3n nuevamente. Si es necesario, avise al Administrador del Sistema.
+msg2=Falta informaci\u00f3n por capturar, revise e int\u00e9ntelo de nuevo.
+msg3=Se eliminar\u00e1n los resultados anteriores.\u00bfDesea continuar?
+msg4=La informaci\u00f3n se ha guardado satisfactoriamente.
+msg5=La Promoci\u00f3n Adicional ya se encuentra fuera del Per\u00edodo
+msg6=El registro ya existe en la Base de Datos, favor de verificarlo.
+msg7=No se puede eliminar el registro debido a que tiene informaci\u00f3n asociada.
+msg8=No es posible activar m\u00e1s de un registro. Seleccione solamente uno.
+msg9=No es posible activar m\u00e1s de un registro. Seleccione solamente uno.
+msg10=No es posible guardar la campa\u00f1a/promoci\u00f3n debido a que se excede del l\u00edmite de d\u00edas permitidos.
+msg11=No cuenta con autorizaciones pendientes.
+msg12=No se ha seleccionado ninguna campa\u00f1a, favor de seleccionarla mediante el Panel Izquierdo.
+msg13=Para ejecutar el proceso de \u201cGenerar Actividades\u201d se debe seleccionar solamente una campa\u00f1a.
+msg14=No existe informaci\u00f3n en pantalla, no es posible exportar a Excel. Seleccione una campa\u00f1a e int\u00e9ntelo de nuevo.
+msg15=El rango de fechas seleccionado es incorrecto. Favor de intentarlo de nuevo.
+msg16=El valor es requerido.
+
+
+##############################
+######### REPORTES ###########
+##############################
+
+distrito = Distrito
+zona = Zona
+sucursal = Sucursal
+ventaUnidades = Venta Unidades
+ventaPesos = Venta Pesos
+total = Total
+invTienda = Inv. Tienda
+invCedis = Inv. CEDIS
+invTransito = Transito
+
+##############################
+######### REPORTES ###########
+##############################
+imagen= Imagen
+precioPromocion= Precio Promocion
+
+

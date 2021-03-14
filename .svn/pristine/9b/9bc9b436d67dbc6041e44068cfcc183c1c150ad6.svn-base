@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated 6/11/2013 05:29:07 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.TblCampanaCategorias" table="TBL_CAMPANA_CATEGORIAS">
+        <composite-id name="id" class="com.adinfi.seven.business.domain.TblCampanaCategoriasId">
+            <key-property name="idCampana" type="long">
+                <column name="ID_CAMPANA" />
+            </key-property>
+            <key-property name="idCategoria" type="int">
+                <column name="ID_CATEGORIA" />
+            </key-property>
+        </composite-id>
+        <property name="idPrograma" type="int">
+            <column name="ID_PROGRAMA" />
+        </property>
+        <property name="ingreso" type="double">
+            <column name="INGRESO" />
+        </property>
+        <property name="esSencillo" type="int">
+            <column name="ES_SENCILLO" />
+        </property>   
+        <set name="tblCategoriasPlazas" inverse="true">
+            <key>
+            	<column name="ID_CAMPANA" not-null="true" />
+                <column name="ID_CATEGORIA" not-null="true" />
+            </key>
+            <one-to-many class="com.adinfi.seven.business.domain.TblCampanaCategoriasPlaza"/>
+        </set>  
+        <many-to-one name="tblCampana" class="com.adinfi.seven.business.domain.TblCampana" update="false" insert="false" fetch="select">
+            <column name="ID_CAMPANA" not-null="true" />
+        </many-to-one>        
+    </class>
+</hibernate-mapping>

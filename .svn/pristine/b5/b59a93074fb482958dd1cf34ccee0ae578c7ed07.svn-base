@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+<h:head>
+</h:head>
+<h:body>
+	<ui:composition template="template/common/commonLayout.xhtml">
+		<ui:define name="sections">
+			<h:form>
+				<h:commandLink value="EVENTO PROMOCIONAL" action="/pages/HomeCampanaSeven.xhtml" />
+				<h:commandLink value="DETALLE EVENTO PROMOCIONAL" action="/pages/CategoriasCampanaSeven.xhtml"  style="margin-left: 10px; display: inline"/>
+			</h:form>
+		</ui:define>
+		<ui:define name="west">
+			<p:layoutUnit position="west" size="250" header="Opciones"
+				resizable="true" closable="false" collapsible="false" id="west">
+				<h:form id="frmMenuLogin">
+					<h:form>
+						<p:tree value="#{MBDetalleCampanaSeven.raiz}" style="border: none;"
+							dynamic="true" selectionMode="single"
+							selection="#{MBDetalleCampanaSeven.selectedNode}" var="node"
+							id="tree">
+							<p:ajax event="select"
+								listener="#{MBDetalleCampanaSeven.onNodeSelect}"
+								update=":pgPrincipalLoginCat" />
+							<p:ajax event="expand"
+								listener="#{MBDetalleCampanaSeven.onNodeExpand}" />
+							<p:ajax event="collapse"
+								listener="#{MBDetalleCampanaSeven.onNodeCollapse}" />
+							<p:ajax event="unselect"
+								listener="#{MBDetalleCampanaSeven.onNodeUnselect}" />
+							<p:treeNode id="treeNode">
+								<h:outputText value="#{node}" id="lblNode" />
+							</p:treeNode>
+						</p:tree>
+					</h:form>
+				</h:form>
+			</p:layoutUnit>
+		</ui:define>
+		<ui:define name="content">
+			<h:panelGroup id="pgPrincipalLoginCat">
+				<p:growl id="growl" showDetail="true" sticky="true" />
+					<ui:include src="/pages/ConsultarCategoriasCampanaSeven.xhtml" />
+					<ui:include src="/pages/EditCategoriasCampanasSeven.xhtml" />
+			</h:panelGroup>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

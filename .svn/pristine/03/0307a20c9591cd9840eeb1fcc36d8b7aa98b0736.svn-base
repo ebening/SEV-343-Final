@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets" >
+    <div id="contenedorDetalle" style="margin: 0px; padding: 0px; width: 100%;height: 100%;">
+        <div align="right" style="float: right; width: 100px;">
+            <p:commandLink  actionListener="#{MBActividad.onNewButton}" update=":formDashPrincipal:gridEditDialog" >
+                <p:graphicImage library="images" name="actividades.png" width="25" height="25"/>
+            </p:commandLink>
+            <p:spacer width="10" />
+            <p:commandLink ajax="false" actionListener="#{MBActividad.xlsExportTable(MBActividad.findComponent('mainTable'), 'actividades')}" >
+                <h:graphicImage library="images/extras" name="excel.png" width="25" height="25"/>
+            </p:commandLink>
+            <p:spacer width="10"/>
+            <p:commandLink ajax="false" actionListener="#{MBActividad.pdfExportTable(MBActividad.findComponent('mainTable'), 'actividades')}">
+                <h:graphicImage library="images/extras" name="pdf.png" width="25" height="25"/>
+            </p:commandLink>
+        </div>
+        <div align="center" style="float: left;width: 80%">
+	        <h:panelGrid columns="8" border="0" cellpadding="5" style="width: 100%" >
+	            <p:outputLabel value="Periodo Promocional" for="txtPeriodoPromocional" />
+	            <p:inputText id="txtPeriodoPromocional" value="#{MBActividad.dashboardItemSelected.tblCampana.nombre}" disabled="true" style="width: 90%" />
+	            <p:outputLabel value="Periodo" for="txtPeriodo" />
+	            <p:inputText id="txtPeriodo" disabled="true" style="width: 90%" value="#{MBActividad.dashboardItemSelected.periodoStr}" />
+	            <p:outputLabel value="Flujo" for="txtFlujo" />
+	            <p:inputText id="txtFlujo" disabled="true" style="width: 90%" value="#{MBActividad.dashboardItemSelected.tblCampana.catFlujoAct.nombre}" />
+	            <p:outputLabel value="Estatus" for="txtEstatus" />
+	            <p:inputText id="txtEstatus" disabled="true" style="width: 90%" value="#{MBActividad.dashboardItemSelected.tblCampana.catEstatus.nombre}" />
+	            <p:outputLabel value="Programa" for="comboPrograma" />
+	            
+	            <p:selectOneMenu id="comboPrograma" value="#{MBActividad.programaSelected}">
+	                <f:selectItem itemLabel="Todos los Programas" itemValue="0" />
+	                <f:selectItems value="#{MBActividad.dashboardItemSelected.programasList}" var="pro">
+	                    <f:selectItem itemValue="#{pro.id.idPrograma}" itemLabel="#{pro.descripcion}" />
+	                </f:selectItems>
+	                <p:ajax event="change" listener="#{MBActividad.onProgramaSelected()}" update="comboMecanicas openButtonAct mainTable txtEtapa" />
+	            </p:selectOneMenu>
+	            
+	            <p:outputLabel value="Etapa" for="txtEtapa" />
+	            <p:inputText id="txtEtapa" disabled="true" style="width: 90%" value="#{MBActividad.etapaProgrma}" />
+	            <p:column />
+	            
+	            <p:commandButton id="openButtonAct" value="Abrir Actividades" styleClass="common-button" actionListener="#{MBActividad.abrirActividades}"
+	                             style="width: 100%" disabled="#{MBActividad.buttonOpenAct}" update="mainTable txtEtapa" />
+	            <p:column />
+	            
+	            <p:commandButton id="backButton" value="Regresar" styleClass="common-button" style="width: 100%" actionListener="#{MBActividad.onBackButton}" update=":formDashPrincipal"/>
+	            
+	            <p:outputLabel value="Categoria" for="comboCategoria" />
+	            <p:selectOneMenu id="comboCategoria" value="#{MBActividad.catCategorySelected}">
+	                <f:selectItem itemValue="0" itemLabel="Todas las categorias" />
+	                <f:selectItems value="#{MBActividad.dashboardItemSelected.catCategoryList}" var="cat">
+	                    <f:selectItem itemLabel="#{cat.code}" itemValue="#{cat.idCategory}" />
+	                </f:selectItems>
+	                <p:ajax event="change" listener="#{MBActividad.onProgramaSelected()}" update="comboMecanicas mainTable" />
+	            </p:selectOneMenu>
+	            
+	            <p:outputLabel value="Mecanica" for="comboMecanicas" />
+	            <p:selectCheckboxMenu id="comboMecanicas" label="Mecanicas" style="width: 90%" converter="tblMecanicaConverter"
+	                                  value="#{MBActividad.mecSelected}" valueChangeListener="#{MBActividad.onMecanicaSelected}">
+	                <f:selectItems value="#{MBActividad.mecanicaList}" var="mec">
+	                    <f:selectItem itemLabel="#{mec.nombreMecanica}" itemValue="#{mec.mecanicaId}" />
+	                </f:selectItems>
+	                <p:ajax event="change" update="mainTable" />
+	                <p:ajax event="toggleSelect" update="mainTable" listener="#{MBActividad.toggleMecanicaSelected}" />
+	            </p:selectCheckboxMenu>
+	            
+	        </h:panelGrid>
+        </div>
+        <div id="tableDivDetalle" align="center" style="float: left;width: 99%">
+	        <p:dataTable id="mainTable" value="#{MBActividad.mecanicasActivities}" style="border: none" rowIndexVar="rowIndex"
+	                     var="mecact" emptyMessage="No hay mecanicas seleccionadas" styleClass="borderless">
+	            <f:facet name="header">Actividades por Mecanica</f:facet>
+	            <p:column>
+	                <p:dataTable value="#{mecact.actividadList}" var="act" styleClass="grid-content" >
+	                    <p:column headerText="Mecanica" style="width: 15%">
+	                        <h:outputText value="#{act.tblMecanica.nombreMecanica}" />
+	                    </p:column>
+	                    <p:column headerText="Actividad" style="width: 30%">
+	                        <h:outputText value="#{act.descripcion}" />
+	                    </p:column>
+	                    <p:column headerText="Fecha Inicio" style="width: 10%">
+	                        <h:outputLabel value="#{act.vigenciaInicio}" >
+	                            <f:convertDateTime pattern="dd/MM/yyyy" />
+	                        </h:outputLabel>
+	                    </p:column>
+	                    <p:column headerText="Vencimiento" style="width: 10%">
+	                        <h:outputText value="#{act.vigenciaFinal}" >
+	                            <f:convertDateTime pattern="dd/MM/yyyy" />
+	                        </h:outputText>
+	                    </p:column>
+	                    <p:column headerText="Fecha Fin" style="width: 10%">
+	                        <h:outputLabel value="#{act.fechaFin}" >
+	                            <f:convertDateTime pattern="dd/MM/yyyy" />
+	                        </h:outputLabel>
+	                    </p:column>
+	                    <p:column headerText="Estatus" style="width: 10%">
+	                        <p:outputLabel value="#{act.catEstatus.nombre}" />
+	                    </p:column>
+	                    <p:column headerText="Responsable" style="width: 30%">
+	                        <p:outputLabel value="#{act.catUsuariosByIdresponsable.nombre} #{act.catUsuariosByIdresponsable.plastName}" />
+	                    </p:column>
+	                    <p:column headerText="Acciones" exportable="false">
+	                        <p:commandLink disabled="#{act.catEstatus.nombre == 'Cerrado' or act.catEstatus.nombre == 'Vencido'}"
+	                                       actionListener="#{MBActividad.onDelegarButton(act)}" update=":formDashPrincipal:panelDelegar" >
+	                            <p:graphicImage library="images/menu_nueva_actividad" name="perioricidad.png" width="25" height="25"/>
+	                        </p:commandLink>
+	                        <p:spacer width="10"/>
+	                        <p:commandLink rendered="#{MBActividad.renderEditButton(act)}" update=":formDashPrincipal:gridEditDialog" actionListener="#{MBActividad.onEditButton(act)}" >
+	                            <p:graphicImage library="images/menu_nueva_actividad" name="editar.png" width="25" height="25"/>
+	                        </p:commandLink>
+	                        <p:spacer width="10"/>
+	                        <p:commandLink rendered="#{act.orden == 0}" update=":formDashPrincipal" actionListener="#{MBActividad.deleteActividad(act)}">
+	                            <p:graphicImage library="images/menu_nueva_actividad" name="eliminar.png" width="25" height="25"/>
+	                        </p:commandLink>
+	                    </p:column>
+	
+	                </p:dataTable>
+	            </p:column>
+	        </p:dataTable>
+        </div>
+    </div>
+
+    <ui:include src="delegarDialog.xhtml" />
+    <ui:include src="editarDialog.xhtml" />
+</ui:composition>

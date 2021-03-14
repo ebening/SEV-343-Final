@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head></h:head>
+<body>
+<script type="text/javascript" src="../resources/js/localePrimefaces.js"/>
+	<h:form enctype="multipart/form-data">
+			<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+		<div>
+			<div style="height: 30px;text-align: left;vertical-align: middle;">
+				<p:selectCheckboxMenu id="datosExportar" label="Datos a Exportar" styleClass="comboSmall"
+					panelStyle="width:220px" value="#{MBEjecucion.datosExp}" >
+					<f:selectItem itemLabel="#{msg.imagen}" itemValue="imagen" />
+					<f:selectItem itemLabel="#{msg.sku}" itemValue="sku" />
+					<f:selectItem itemLabel="#{msg.precioPromocion}" itemValue="precio" />
+					<f:selectItem itemLabel="#{msg.descripcionSKU}" itemValue="descripcion" />
+					<f:selectItem itemLabel="#{msg.comentarios}" itemValue="comentario" />
+				</p:selectCheckboxMenu>
+				<p:commandLink actionListener="#{MBEjecucion.exportarIndesing}" ajax="false">
+					<p:graphicImage value="../resources/images/ejecucion/InDesign.png" />
+				</p:commandLink>
+			</div>
+			<div style="height: 30px;text-align: right;vertical-align: middle;">
+				<p:fileUpload value="#{MBEjecucion.file}" mode="simple" auto="true" label="Adjuntar PDF" description="Adjuntar PDF"/>
+				&nbsp;&nbsp;
+				<p:commandLink action="#{MBEjecucion.fileUpload}" ajax="false" value="Adjuntar" update="exportar"/>
+				&nbsp;&nbsp;
+				<h:commandLink value="Ver PDF" id="exportar" immediate="true">
+					<p:fileDownload value="#{MBEjecucion.fileStream}"/>
+				</h:commandLink>
+			</div>
+		</div>
+	</h:form>
+	<IFRAME src="#{MBEjecucion.rutaJsp}" width='100%' height='100%'></IFRAME>
+</body>
+</html>

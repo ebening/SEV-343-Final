@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 29, 2014 11:31:30 AM by Hibernate Tools 3.6.0 -->
+<!-- <hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.CatCategory" table="CAT_CATEGORY">
+        <id name="categoryId" type="int">
+            <column name="ID_CATEGORY" />
+            <generator class="assigned"/>
+        </id>
+        <property name="code" type="string">
+            <column name="CODE" length="100" />
+        </property>
+        <many-to-one name="catDepto" class="com.adinfi.seven.business.domain.CatDepto" fetch="select">
+            <column name="ID_DEPTO" not-null="true" />
+        </many-to-one>
+        <property name="esMercancia" type="boolean">
+            <column name="ES_MERCANCIA" />
+        </property>
+         
+    </class>
+</hibernate-mapping> 
+
+
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.CatCategory" table="CAT_CATEGORY">
+        <id name="idCategory" type="integer">
+            <column name="ID_CATEGORY" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="catDepto" class="com.adinfi.seven.business.domain.CatDepto" fetch="select">
+            <column name="ID_DEPTO" not-null="true" />
+        </many-to-one>
+        <property name="code" type="string">
+            <column name="CODE" length="100" />
+        </property>
+        <property name="esMercancia" type="boolean">
+            <column name="ES_MERCANCIA" precision="1" scale="0" not-null="true" />
+        </property>
+        <set name="catSubcategories" table="CAT_SUBCATEGORY" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_SUBCATEGORY" />
+            </key>
+            <one-to-many class="com.adinfi.seven.business.domain.CatSubCategory" />
+        </set>
+        <set name="catItems" table="CAT_ITEM" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_CATEGORY" />
+            </key>
+            <one-to-many class="com.adinfi.seven.business.domain.CatItem" />
+        </set>
+    </class>
+</hibernate-mapping> -->
+
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.CatCategory" table="CAT_CATEGORY" optimistic-lock="version">
+        <id name="idCategory" type="int">
+            <column name="ID_CATEGORY" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="catDepto" class="com.adinfi.seven.business.domain.CatDepto" fetch="select">
+            <column name="ID_DEPTO" not-null="true" />
+        </many-to-one>
+        <property name="code" type="string">
+            <column name="CODE" length="100" />
+        </property>
+        <property name="esMercancia" type="boolean">
+            <column name="ES_MERCANCIA" precision="1" scale="0" not-null="true" />
+        </property>
+        <set name="relUsuariosCategoriases" table="REL_USUARIOS_CATEGORIAS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_CATEGORY" />
+            </key>
+            <one-to-many class="com.adinfi.seven.business.domain.RelUsuariosCategorias" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,160 @@
+@CHARSET "ISO-8859-1";
+
+#div_Principal{	
+	width: 990px;
+	background: white;
+}
+
+#div_top{
+	width: 99%;
+	background:white;
+	margin-bottom: 5px;
+	
+}
+
+#image_title{
+	height: 18px;
+}
+
+#Revista_table{
+	
+	border: 0;
+	width: 100%;
+	background: white;
+}
+
+#Revista_table2{
+	
+	border: 0;
+	width: 100%;
+	background: white;
+}
+
+
+#txt_title{
+	
+	 width: 100%;
+}
+/*
+#select_campana{
+	width: 60% !important;
+}
+
+#select_TA{
+	width: 100%;
+}
+
+#txt_tiraje{
+	width: 150px;
+}
+*/
+#txt_pa{
+	
+	 width: 110px;
+}
+/*
+#txt_Aud{
+	
+	 width: 50px;
+}
+
+#txt_NumA{
+	
+	width: 50px;
+}
+
+#select_grp{
+	
+	 width: 400px;
+}
+*/
+/*
+#cal_ini_rev{
+	
+	 width: 110px;
+}
+*/
+#cal_fin_rev{
+	
+	 width: 140px;
+}
+
+#btnCalendario{
+	height: 20px;
+	cursor:pointer;
+	cursor:hand;
+	vertical-align: middle;
+	background-color: silver;
+}
+/*
+#btnFinalizar{
+	color:white; 
+	width: 155px;
+	cursor:pointer;
+	cursor:hand;
+	background-color:#EE3B3B;
+}
+*/
+#btnUbicacionGeografica_Revista{
+	color:white;
+	height: 22px;
+}
+
+
+#div_middle{
+	
+	background:white;
+}
+
+#img_perio{
+	
+	  width: 30px; 
+	  vertical-align: middle;
+	  cursor:pointer;
+	  cursor:hand;
+}
+
+#txt_Distribucion{
+	
+	width: 270px;
+}
+
+#txt_1a{
+	width: 80px
+}
+#txt_1b{
+	width: 80px
+}
+#txt_2a{
+	width: 80px
+}
+#txt_2b{
+	width: 80px
+}
+#txt_3a{
+	width: 80px
+}
+#txt_3b{
+	width: 80px
+}
+#txt_4a{
+	width: 80px
+}
+#txt_4b{
+	width: 80px
+}
+#txt_5a{
+	width: 80px
+}
+#txt_5b{
+	width: 80px
+}
+#txt_6a{
+	width: 80px
+}
+#txt_6b{
+	width: 80px
+}
+#txt_otro{
+	width: 80px
+}

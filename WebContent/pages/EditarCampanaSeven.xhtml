@@ -1,0 +1,116 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	<h:form id="edicion">
+            <p:panel header="#{campanaControllerSeven.alta ? 'Nuevo' : 'Editar'} Periodo Promocional" styleClass="panel-form">
+		<p:panelGrid id="grid" style="width: 100%" styleClass="form-content">
+			<p:row rendered="#{!campanaControllerSeven.detalle}">
+				<p:column colspan="5">
+					<div align="right">
+					<p:commandLink ajax="true" action="#{campanaControllerSeven.preCreateCampanas}" title="Guardar" styleClass="save-button" update=":pgPrincipalLogin :frmMenuLogin"/>
+					</div>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<p:outputLabel value="Eventos" />
+				</p:column>
+				
+                
+                <p:column>
+					<p:selectOneMenu id="tipoCampana" disabled="#{campanaControllerSeven.detalle or campanaControllerSeven.section eq 'categorias'}"
+						value="#{campanaControllerSeven.current.tipo}">
+						<f:selectItems value="#{campanaControllerSeven.tipoCampanas}" />
+					</p:selectOneMenu>
+				</p:column>
+                
+               
+                
+				<p:column>
+					<p:outputLabel value="Flujo: " />
+				</p:column>
+				
+                <p:column>
+					<p:selectOneMenu id="comboFlujos" value="#{campanaControllerSeven.current.tblCampana.catFlujoAct}">
+						<f:selectItem itemValue="-1" itemLabel="Selecciona" />
+						<f:selectItems value="#{campanaControllerSeven.flujoActList}" var="flujo">
+							<f:selectItem itemValue="#{flujo.id}" itemLabel="#{flujo.nombre}" />
+						</f:selectItems>
+					</p:selectOneMenu>
+				</p:column>
+                
+                
+                
+			</p:row>
+			<p:row>
+                
+				<p:column>
+					<p:outputLabel value="Periodo Promocional: " />
+				</p:column>
+				<p:column>
+					<p:inputText value="#{campanaControllerSeven.current.tblCampana.nombre}" />
+				</p:column>
+                
+                
+                
+				<p:column style="width: 50px">
+					<p:outputLabel value="Etiqueta: " />
+				</p:column>
+				<p:column>
+					<p:selectOneMenu id="etiquetaCamId" 
+                                     value="#{campanaControllerSeven.current.etiqueta}" var="etiCamp" style="background-color:white;">
+						<f:selectItems value="#{campanaControllerSeven.etiquetas}"/>
+                                                
+						<p:column headerText="Etiqueta" style="width:25%;">
+							<div id="circulo" style="background-color: #{etiCamp.codigo}" />
+                                                        
+						</p:column>
+					</p:selectOneMenu>
+				</p:column>
+                
+			</p:row>
+			<p:row>
+                
+				<p:column> 
+					<p:outputLabel value="Vigencia: "  />
+				</p:column>
+				
+                <p:column rendered="#{campanaControllerSeven.current.tipo.id eq '3'}">
+					<p:outputLabel value="Fecha Incial: " />
+					<p:calendar style="width: 10px" disabled="#{campanaControllerSeven.detalle or campanaControllerSeven.section eq 'categorias'}"
+						value="#{campanaControllerSeven.current.tblCampana.fechaInicio}" locale="es"
+						id="fechaInicial" showOn="button" pattern="dd/MM/yyyy HH:mm" mindate="#{campanaControllerSeven.today}"/>
+				</p:column>
+                
+				<p:column colspan="2" rendered="#{campanaControllerSeven.current.tipo.id eq '3'}">
+					<p:outputLabel value="Fecha Final: " />
+					<p:calendar value="#{campanaControllerSeven.current.tblCampana.fechaFin}" disabled="#{campanaControllerSeven.detalle or campanaControllerSeven.section eq 'categorias'}"
+						id="fechaFinal" showOn="button" pattern="dd/MM/yyyy HH:mm" mindate="#{campanaControllerSeven.today}" locale="es"/>
+				</p:column>
+				<p:column colspan="3" rendered="#{campanaControllerSeven.current.tipo.id ne '3'}">
+					<p:outputLabel value="Periodo: " style="vertical-align:middle;"/>																					
+					<p:selectOneMenu id="periodo" disabled="#{campanaControllerSeven.detalle or campanaControllerSeven.section eq 'categorias'}"
+									value="#{campanaControllerSeven.current.periodo}" style="vertical-align:middle;">
+									<f:selectItems value="#{campanaControllerSeven.periodos}" />
+					</p:selectOneMenu>
+				</p:column>
+                
+                
+			</p:row>
+			<p:row>
+                
+				<p:column>
+					<p:outputLabel value="Comentarios: " />
+				</p:column>
+				<p:column colspan="3">
+					<p:inputTextarea value="#{campanaControllerSeven.current.tblCampana.comentarios}" maxlength="250" cols="73"
+						readonly="#{campanaControllerSeven.detalle or campanaControllerSeven.section eq 'categorias'}"/>
+				</p:column>
+                
+			</p:row>
+		</p:panelGrid>
+		</p:panel>
+	</h:form>
+</ui:composition>

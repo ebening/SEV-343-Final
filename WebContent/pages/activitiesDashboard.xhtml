@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:c="http://java.sun.com/jstl/core">
+<h:body>
+	<ui:composition template="template/common/commonLayout.xhtml">
+		<ui:define name="west">
+			<p:layoutUnit position="west" header="Actividades"
+				resizable="false" closable="false" collapsible="false">
+				<h:form id="frmMenuLogin" >
+                                    
+				</h:form>
+				<h:form id="frmMenu" style="font-size: 0.8em">
+					<p:schedule id="scheduleActivities" locale="es"
+						widgetVar="scheduleActivitiesWVR" showHeader="false" 
+						draggable="false" resizable="false" style="font-size: 0.8em"/>
+					<p:menu model="#{MBActividad.model}" style="font-size: 0.8em;width:200%;border:none;"/>
+					<p:menu style="border:none;">
+						<p:submenu label="Correo" icon="ui-icon-mail-open" style="font-size: 0.8em;border:none;">
+							<p:menuitem value="Correo" onclick="location.href='mailto:'" style="font-size: 0.8em;width:200%;border:none;"
+								icon="ui-icon-mail-open" />
+						</p:submenu>
+					</p:menu>
+				</h:form>
+			</p:layoutUnit>
+		<!--	<p:layoutUnit position="east" size="250" resizable="true" collapsible="true" header="">
+				<h:panelGroup id="pgActivitiesEast">
+					<h:form id="frmActivitiesPanel" style="font-size: 0.8em">
+						<p:dataList value="#{MBActividad.tblActividadListToday}" var="todayMenu">
+							<f:facet name="header">Hoy</f:facet>
+							<p:column>
+								<p:commandLink
+									action="#{MBActivity.viewActivityDetail(todayMenu.idactividad)}"
+									oncomplete="editAcitivityDetailDialog.show()"
+									update=":frmActivityDetail">
+									<h:outputText value="#{todayMenu.nombreActividad}" style="color: #{todayMenu.codigoColor}"/>
+									<br />
+									<h:outputText
+										value="#{todayMenu.fechaInicioStr} - #{todayMenu.fechaFinStr}" />
+								</p:commandLink>
+							</p:column>
+						</p:dataList>
+						<p:dataList value="#{MBActivity.listActivityTomorrow}"
+							var="tomorrowMenu">
+							<f:facet name="header">Mañana</f:facet>
+							<p:column>
+								<p:commandLink
+									action="#{MBActivity.viewActivityDetail(tomorrowMenu.id)}"
+									oncomplete="editAcitivityDetailDialog.show()"
+									update=":frmActivityDetail">
+									<h:outputText value="#{tomorrowMenu.nombreActividad}" style="color: #{tomorrowMenu.codigoColor}"/>
+									<br />
+									<h:outputText
+										value="#{tomorrowMenu.fechaInicioStr} - #{tomorrowMenu.fechaFinStr}" />
+								</p:commandLink>
+							</p:column>
+						</p:dataList>
+					</h:form>
+				</h:panelGroup>
+			</p:layoutUnit> -->
+		</ui:define>
+		<ui:define name="content">
+			<p:messages id="messageLayaout" autoUpdate="true" closable="true" />
+			<h:panelGroup id="pgActivitiesCenter" style="font-size : small;">
+				<ui:include src="#{MBNavigator.activitiesPage}" />
+			</h:panelGroup>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated 26/10/2013 09:27:47 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.BitacoraParam" table="BITACORA_PARAM">
+        <id name="bitacoraParamId" type="int">
+            <column name="BITACORA_PARAM_ID" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="bitacora" class="com.adinfi.seven.business.domain.Bitacora" fetch="select">
+            <column name="BITACORA_ID" not-null="true" />
+        </many-to-one>
+        <property name="paramNombre" type="string">
+            <column name="PARAM_NOMBRE" length="100" />
+        </property>
+        <property name="paramValue" type="string">
+            <column name="PARAM_VALUE" length="100" />
+        </property>
+    </class>
+</hibernate-mapping>

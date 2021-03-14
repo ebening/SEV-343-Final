@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated 10/01/2014 12:26:09 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.TblTemplateUser" table="TBL_TEMPLATE_USER">
+        <id name="idTemplateUser" type="int">
+            <column name="ID_TEMPLATE_USER" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="tblTemplate" class="com.adinfi.seven.business.domain.TblTemplate" fetch="select">
+            <column name="TEMPLATE_ID" not-null="true" />
+        </many-to-one>
+        <property name="idUser" type="int">
+            <column name="ID_USER" not-null="true" />
+        </property>
+        <property name="idCategory" type="int">
+            <column name="ID_CATEGORY" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

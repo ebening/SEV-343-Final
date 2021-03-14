@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<style>
+	    
+	    .paraTd .ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td {
+	       white-space : normal;
+	     }
+	    
+	</style>
+</h:head>
+<body style="font-size: x-small">
+<h:form id="mainForm">
+        <h1 class="title">#{MBRelUsuariosCategorias.catalogNametitle}</h1>
+        <p:messages id="messages" autoUpdate="true" closable="true" />
+        <h:panelGrid id="panelCategory" columns="3">
+        
+      <p:outputLabel for="usuarios" value="Usuario:" />
+        <p:selectOneMenu filter="true" filterText="Filter" filterMatchMode="contains"  disabled="#{MBRelUsuariosCategorias.desabilitado}" id="usuarios" value="#{MBRelUsuariosCategorias.usuarioSeleccionado}" style="width:200px">
+            <f:selectItem itemLabel="Seleccione un usuario" itemValue="-1" />
+            <f:selectItems value="#{MBRelUsuariosCategorias.usuariosLstAux}"/>
+        </p:selectOneMenu>
+        
+        <br></br>
+        
+        <p:outputLabel for="categorias" value="Categorias:" />
+        <p:selectCheckboxMenu disabled="#{MBRelUsuariosCategorias.desabilitado}" id="categorias" label="Categorias" filter="true" filterText="Filter" 
+        value="#{MBRelUsuariosCategorias.categoriasSelected}"
+		filterMatchMode="startsWith" styleClass="element-margin-top" style="width: 200px; text-align: left" >
+        <f:selectItems value="#{MBRelUsuariosCategorias.categorias}" var="cat"
+									itemLabel="#{cat.code}" itemValue="#{cat.idCategory}" />
+		</p:selectCheckboxMenu>
+		
+		<br></br>
+		
+		 <f:facet name="footer">
+                <h:panelGroup style="display:block; text-align:center">
+                    <p:commandButton disabled="#{MBRelUsuariosCategorias.desabilitado}" value="Guardar" action="#{MBRelUsuariosCategorias.guardarRelacion}" update=":mainForm"/>
+                    <p:commandButton value="#{MBRelUsuariosCategorias.label}" style="margin-left: 5px;" action="#{MBRelUsuariosCategorias.estado}" update=":mainForm"/>
+                </h:panelGroup>
+            </f:facet>
+		
+           
+ 
+        </h:panelGrid>
+        
+	<br />
+        <p:dataTable  id="itemId" var="item" value="#{MBRelUsuariosCategorias.relUsuariosCategoriasDTOList}" paginator="true" rows="10" 
+	                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+	                 emptyMessage="Vacio" resizableColumns="true" styleClass="ui-datatable-hor-scroll">
+            
+       
+            <p:column headerText="ID USUARIO" resizable="true" >
+                <h:outputText value="#{item.idUsuario}" />
+            </p:column>
+            
+            <p:column headerText="USUARIO" resizable="true" >
+                <h:outputText value="#{item.usuarioLogin}" />
+            </p:column>
+            
+            <p:column headerText="NOMBRE" resizable="true" >
+                <h:outputText value="#{item.usuario}" />
+            </p:column>
+            
+            <p:column styleClass="paraTd" headerText="CATEGORIA(s)" resizable="true" >
+                <h:outputText value="#{item.categoriasNombres}" />
+            </p:column>	
+            
+            <p:column headerText="CATEGORIAS ID(s)" resizable="true" >
+                <h:outputText value="#{item.categorias}" />
+            </p:column>	
+            
+        </p:dataTable>
+        
+</h:form>
+</body>
+</html>

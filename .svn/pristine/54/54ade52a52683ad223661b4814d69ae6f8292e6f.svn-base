@@ -1,0 +1,451 @@
+@CHARSET "ISO-8859-1";
+
+/************************/
+/* 		ANALISIS		*/
+
+
+/***************************/
+/* 		VENTANA  ANALISIS  */
+/***************************/
+
+.sizeAnalisis{
+	
+	color: DimGray;
+	height: 15px;
+}
+
+#div_generalAnalisis{
+	width: 100%;
+}
+
+
+#tbl_Analisis{
+	width: 100%;
+	font-size: 1em;
+}
+
+.th_Seccion_Analisis{
+	color: #E6E6E6;
+}
+
+#tbl_Analisis th{
+	border-bottom: 3px solid #B11C1C;
+}
+
+.th_Seccion_Analisis:hover{
+	color: #B11C1C;
+	cursor : pointer;
+}
+
+
+#tbl_Analisis img{
+	width: 20px;;
+	height: 10px;
+	padding-left: 42%;
+}
+
+/************************/
+/* 		ICONOS	HEADER  */
+/************************/
+
+.agregarAnalisis{
+	background: url("../images/analisis/agregar.png") 0 0 no-repeat;
+	height:32px; width:32px; display: block;
+}
+
+.agregarAnalisis:hover{
+	background: url("../images/analisis/agregar.png") 0 0 no-repeat;
+	height:32px; width:32px;
+	cursor : pointer;
+	cursor:hand;
+}
+
+.guardarAnalisis{
+	background: url("../images/analisis/guardar.png") 0 0 no-repeat;
+	height: 32px; width: 32px; display: block;
+}
+
+.guardarAnalisis:hover{
+		background: url("../images/analisis/guardar.png") 0 0 no-repeat;
+		height:32px; width:32px;
+		cursor : pointer;
+		cursor:hand;
+}
+
+
+.imprimirAnalisis{
+	background: url("../images/extras/imprimir25_black.png") 0 0 no-repeat;
+	height:32px; width:32px;
+	display:block;
+}
+
+.imprimirAnalisis:hover{
+	background: url("../images/extras/imprimir25.png") 0 0 no-repeat;
+	height:32px; width:32px;
+	cursor:pointer;
+	cursor:hand;
+}
+
+.pdfAnalisis{
+	background: url("../images/extras/pdf25_black.png") 0 0 no-repeat;
+	height:32px; width:32px;
+	display:block;
+}
+
+.pdfAnalisis:hover{
+	background: url("../images/extras/imprimir25.png") 0 0 no-repeat;
+	height:32px; width:32px;
+	cursor:pointer;
+	cursor:hand;
+}
+
+.excelAnalisis{
+	background: url("../images/extras/excel25_black.png") 0 0 no-repeat;
+	height:32px; width:32px;
+	display:block;
+}
+
+.excelAnalisis:hover{
+	background: url("../images/extras/excel25.png") 0 0 no-repeat;
+	height:32px; width:32px;
+	cursor:pointer;
+	cursor:hand;	
+}
+
+.eliminarAnalisis{
+	background: url("../images/actividades/eliminar_black_25.png") 0 0 no-repeat;
+	height: 32px; 
+	width: 32px; 
+	display: block;
+}
+
+.eliminarAnalisis:hover{
+	background: url("../images/actividades/eliminar25.png") 0 0 no-repeat;
+	height: 32px;
+	width: 32px;
+	cursor : pointer;
+	cursor:hand;
+}
+
+.onlineAnalisis{
+	background: url("../images/extras/online.png") 0 0 no-repeat;
+	height: 25px; 
+	width: 32px; 
+	display: block;
+}
+
+.onlineAnalisis:hover{
+	background: url("../images/extras/online.png") 0 0 no-repeat;
+	height: 25px;
+	width: 32px;
+	cursor : pointer;
+	cursor:hand;
+}
+
+
+.buscar{
+	background-image:
+		url(../images/extras/buscar24.png);
+	background-repeat: no-repeat;
+	width:100px;
+	height:24px;
+	padding-left : 30px;
+	padding-top:4px;
+	border: 0.5px solid silver;
+}
+
+/************************************/
+/*	 Analisis Seleccion				*/
+/************************************/
+
+#AnalisisSeleccionDivPrincipal{
+	background: White;
+	border: 1px solid Silver;
+	width: 100%;
+	height: 445px;
+}
+
+#AnalisisSeleccionDivHeader{
+	background: White;
+	width: 100%;	
+}
+
+.btnAgregar{
+	background: url(../images/extras/agregar_black25.png) 0 0 no-repeat;
+	display:block;
+	height:32px; 
+	width:32px; 
+	display: block;
+}
+.btnAgregar:hover{
+	background: url(../images/extras/agregar25.png) 0 0 no-repeat;
+	height:32px; 
+	width:32px;
+	cursor : pointer;
+	cursor:hand;
+}
+
+.btnEliminar{
+	background: url(../images/actividades/eliminar_black_25.png) 0 0 no-repeat;
+	display:block;
+	height:32px; 
+	width:32px; 
+	display: block;
+}
+
+.btnEliminar:hover{
+	background: url(../images/actividades/eliminar25.png) 0 0 no-repeat;
+	height:32px; 
+	width:32px;
+	cursor : pointer;
+	cursor:hand;
+}
+
+.btnGuardar{
+	background: url(../images/menu_nueva_actividad/guardar25_black.png) 0 0 no-repeat;
+	display:block;
+	height:32px; 
+	width:32px; 
+	display: block;
+}
+
+.btnGuardar:hover{
+	background: url(../images/analisis/guardar.png) 0 0 no-repeat;
+	height:32px; 
+	width:32px;
+	cursor: pointer;
+	cursor:hand;
+}
+
+.btnImprimir{
+	background: url(../images/extras/imprimir25_black.png) 0 0 no-repeat;
+	display:block;
+	height:32px; 
+	width:32px; 
+	display: block;
+}
+
+.btnImprimir:hover{
+	background: url(../images/extras/imprimir25.png) 0 0 no-repeat;
+	height:32px; 
+	width:32px;
+	cursor : pointer;
+	cursor:hand;
+}
+
+.btnPdf{
+	background: url(../images/extras/pdf25_black.png) 0 0 no-repeat;
+	display:block;
+	height:32px; 
+	width:32px; 
+	display: block;
+}
+
+.btnPdf:hover{
+	background: url(../images/extras/pdf25.png) 0 0 no-repeat;
+	height:32px; 
+	width:32px;
+	cursor : pointer;
+	cursor:hand;
+}
+
+.btnExcel{
+	background: url(../images/extras/excel25_black.png) 0 0 no-repeat;
+	display:block;
+	height:32px; 
+	width:32px; 
+	display: block;
+}
+
+.btnExcel:hover{
+	background: url(../images/extras/excel25.png) 0 0 no-repeat;
+	height:32px; 
+	width:32px;
+	cursor : pointer;
+	cursor:hand;
+}
+
+#AnalisisSeleccionTextboxSearch{
+	background-image:
+		url(../images/extras/buscar24.png);
+	background-repeat: no-repeat;
+	width: 200px;
+	height: 18px;
+	padding-left: 30px;
+	padding-top: 6px;
+	border: 1px solid Silver;
+}
+
+#AnalisisSeleccionDivContenido{
+	background: White;
+	width: 99%;
+	height: 327px;
+	margin-right: 5px;
+	margin-left: 5px;
+	margin-bottom: 5px;
+	padding-top: 5px;
+	/*padding-left: ;
+	padding-right: ;*/
+	padding-bottom: 20px;
+}
+
+#AnalisisSeleccionTableContenido{
+	width: 98%;
+	height: 200px;
+	overflow: auto;
+	background: #9A9B9D;
+	color: white;
+}
+
+#AnalisisSeleccionTableContenido thead{
+	/*background-color: DimGray;*/
+	/*color: White;*/
+}
+
+#AnalisisSeleccionTableContenido th{
+	/*border: 1px solid DimGray;*/
+	/*color: black;*/
+}
+
+#AnalisisSeleccionTableContenido td{
+	/*border: 1px solid Silver;
+	border-top-width: 0px;*/
+	padding-left: 3px;
+	padding-right: 3px;
+	/*color: DimGray;*/	
+	text-align: left;
+}
+
+
+
+/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*
+/*/*/* Table sourter */*/*/*/*/*/*/*/*
+/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/**/
+
+
+
+
+/***********************************/
+/*		Análisis Pronóstico		   */
+/***********************************/
+.tbl_analisisPronostico{
+	padding-left: 240px;
+}
+.centrar{	
+	text-align: center;
+}
+
+#tbl_filtro select{
+	width: 180px;
+	height: 30px;
+}
+
+.tbl_filtro_td{
+	 color: #909090;
+}
+
+#div_scrollTabla_analisisPronostico{
+	height: 300px;
+	width: 98%;
+	float: right;
+	overflow-y: auto;
+	background-color: white;
+	padding-right: 8px;
+	padding-left: 8px;
+	padding-bottom: 5px;
+}
+
+#tbl_analisisPronostico thead{
+	height: 40px;
+	
+	/*background-color: Gray;
+	color: White;*/
+}
+
+#tbl_analisisPronostico td{
+	/*border: 1px solid Silver;
+	border-top-width: 0px;*/
+	padding-left: 2px;
+	padding-right: 2px;
+	height: 25px;
+}
+
+
+#tbl_analisisPronostico select{
+	width: 80px;
+}
+
+#tbl_analisisPronostico th{
+	/*border: 1px solid DimGray;*/
+	/*padding-left: 2px !important;*/
+	text-align: center;
+	height: 33px;
+}
+
+/*    BOTONES SUPERIOR DERECHOS     */
+.btnHeaderRight{
+	float: right;
+}
+
+#td_total{
+	background-color: gray; 
+	color: white; 
+	width: 295px; 
+	padding-right: 15px;
+}
+
+/***************************************/
+/*  ANÁLISIS PRONOSTICO COMPARAR       */
+/***************************************/
+
+.bordePronosticoComparar{
+	border: 1px solid gray;
+	background-color: #CB6666;
+	color: white;
+	font-size: 12px;
+}
+
+#tbl_analisisPronosticoComparar td{
+	border: 1px solid #e6e6e6;
+}
+
+#tbl_filtroComparar select{
+	width: 180px;
+	/*height: 30px;*/
+}
+
+#div_analisisPronostico {
+	background-color: white;
+	height: 445px;
+	/*padding-left: 5px;*/
+	border: 1px solid silver;
+}
+
+#div_analisisPronosticoComparar thead{
+	background-color: Gray;
+	color: White;
+}
+
+#div_tbl_analisisPronosticoComparar{
+	/*border: 1px solid silver;*/
+	width: 100%;
+	height: 445px;
+}
+
+#div_analisisPronosticoComparar td{
+/*	border: 1px solid Silver;*/
+	/*border-top-width: 0px;*/
+	padding-left: 4px;
+	height: 25px;
+}
+
+#div_analisisPronosticoComparar th{
+	padding-left: 8px;
+	text-align: left;
+}
+
+#tbody_pronosticosComparar td{
+	margin-top: 4px;
+	
+}
+

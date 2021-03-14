@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated 24/12/2013 10:24:06 AM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.TblMarcaLogoDet" table="TBL_MARCA_LOGO_DET">
+        <id name="idMarcaDet" type="int">
+            <column name="ID_MARCA_DET" />
+            <generator class="native" />
+        </id>
+        <many-to-one cascade="all" name="tblMarcaLogo" class="com.adinfi.seven.business.domain.TblMarcaLogo" fetch="select">
+            <column name="ID_MARCA" not-null="true" />
+        </many-to-one>
+        <property name="pathLogo" type="string">
+            <column name="PATH_LOGO" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

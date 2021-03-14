@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 29, 2014 11:31:30 AM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.TblComponenteZonaPrecio" table="TBL_COMPONENTE_ZONA_PRECIO">
+        
+        <id name="componenteZonaPrecioId" type="int">
+            <column name="COMPONENTE_ZONA_PRECIO_ID" />
+            <generator class="sequence">
+                <param name="sequence">SEV343DEV.TBL_COMPONENTE_ZONA_PRECIO_SEQ</param>
+            </generator>
+        </id>
+        
+        <property name="componenteId" type="int">
+            <column name="COMPONENTE_ID" not-null="true" />
+        </property>
+        
+        <property name="zonaId" type="int">
+            <column name="ZONA_ID" not-null="true" />
+        </property>
+        
+        <property name="precioProducto" type="java.lang.Double">
+            <column name="PRECIO_PRODUCTO"/>
+        </property>
+        
+        <property name="cantidad" type="java.lang.Double">
+            <column name="CANTIDAD"/>
+        </property>
+        
+        <property name="precioVenta" type="java.lang.Double">
+            <column name="PRECIO_VENTA"/>
+        </property>
+        
+        <property name="porcentajeMargenRegularProducto" type="java.lang.Double">
+            <column name="POR_MARGEN_REGULAR_PRODUCTO"/>
+        </property>
+        
+        <property name="margenRegularProducto" type="java.lang.Double">
+            <column name="MARGEN_REGULAR_PRODUCTO"/>
+        </property>
+        
+        <property name="margenRegular" type="java.lang.Double">
+            <column name="MARGEN_REGULAR"/>
+        </property>
+        
+        <property name="impuesto" type="java.lang.Double">
+            <column name="IMPUESTO"/>
+        </property>
+        
+    </class>
+</hibernate-mapping>

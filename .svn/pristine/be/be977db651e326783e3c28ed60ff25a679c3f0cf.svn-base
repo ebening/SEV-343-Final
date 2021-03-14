@@ -1,0 +1,22 @@
+package com.adinfi.seven.persistence.daos;
+
+import java.util.List;
+
+import com.adinfi.seven.business.domain.CatSenal;
+import com.adinfi.seven.business.domain.RelDisenoSenal;
+import com.adinfi.seven.business.domain.TblDisenos;
+
+public interface DAOTblDisenos extends AbstractDao<TblDisenos> {
+	List<TblDisenos> getDisenos(Integer programaId, Integer mecanicaId, List<String> grupoZonaId,
+								List<String> zonaId, List<CatSenal> senals, List<String> storeId, Integer estatusPrecio,
+								Integer estatusDiseno) throws Exception;
+	
+	List<TblDisenos> getDiseno(Integer mecanicaID) throws Exception;
+	
+	boolean updateStatusDisenoByMecanica(Integer idMecanica, Integer idStatus) throws Exception;
+
+	boolean deleteByMecanicaId(int idmecanica);
+	
+	
+	
+}

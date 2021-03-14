@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<style type="text/css" media="print">
+	  @page { size: landscape; }
+	</style>
+</h:head>
+<body onload="window.print(); window.close();">
+	
+	<h:panelGroup>
+	<p:dataTable id="DetComp" value="#{sessionScope.lArqComponente}" var="detComp" styleClass="grid-content" style="width: 1050px;">
+		<p:column width="200px" style="overflow: auto;" exportable="true">
+			<f:facet name="header">
+				<p:outputLabel value="C"/>
+			</f:facet>
+			<p:outputLabel value="#{detComp.numeroComponente}"/>
+		</p:column>
+		<p:column width="200px" style="overflow: auto;">
+			<f:facet name="header">
+				<p:outputLabel value="Descripción"/>
+			</f:facet>
+			<p:outputLabel value="#{detComp.descripcion}"/>
+		</p:column>
+		<p:column width="200px" style="overflow: auto;">
+			<f:facet name="header">
+				<p:outputLabel value="SKU"/>
+			</f:facet>
+			<p:outputLabel value="#{detComp.sku}"/>
+		</p:column>
+		<p:column width="200px" style="overflow: auto;">
+			<f:facet name="header">
+				<p:outputLabel value="UPC"/>
+			</f:facet>
+			<p:outputLabel value="#{detComp.upc}"/>
+		</p:column>
+		<p:column width="200px" style="overflow: auto;">
+			<f:facet name="header">
+				<p:outputLabel value="Señalamiento"/>
+			</f:facet>
+			<h:outputLabel value="#{detComp.senalamiento}" rendered="#{detComp.lSku.size() > 0}"/>
+		</p:column>
+		<p:column width="200px" style="overflow: auto;">
+			<f:facet name="header">
+				<p:outputLabel value="Categoría"/>
+			</f:facet>
+			<p:outputLabel value="#{detComp.categoria}"/>
+		</p:column>
+		<p:column width="200px" style="overflow: auto;">
+			<f:facet name="header">
+				<p:outputLabel value="Subcategoría"/>
+			</f:facet>
+			<p:outputLabel value="#{detComp.subCategoria}"/>
+		</p:column>
+		<p:column width="200px" style="overflow: auto;">
+			<f:facet name="header">
+				<p:outputLabel value="Cantidad de productos"/>
+			</f:facet>
+			<p:outputLabel value="#{detComp.cantProductos}"/>
+		</p:column>
+		<p:column width="200px" style="overflow: auto;">
+			<f:facet name="header">
+				<p:outputLabel value="No."/>
+			</f:facet>
+			<p:outputLabel value="#{detComp.numero}"/>
+		</p:column>
+		<p:column width="200px" style="overflow: auto;">
+			<f:facet name="header">
+				<p:outputLabel value="Abasto Inicial"/>
+			</f:facet>
+			<p:outputLabel value="#{detComp.abastoInicial}"/>
+		</p:column>
+	</p:dataTable>
+	</h:panelGroup>
+	<br/>
+	<h:panelGroup>
+	<p:dataTable id="DetZona" value="#{sessionScope.lArqComponenteZona}" var="detCampZona" style="width:100%" styleClass="grid-content">
+		<p:column>
+			<f:facet name="header">
+				<p:outputLabel value="Zona"/>
+			</f:facet>
+			<p:outputLabel value="#{detCampZona.zona}"/>
+		</p:column>
+		<p:column>
+			<f:facet name="header">
+				<p:outputLabel value="C"/>
+			</f:facet>
+			<p:outputLabel value="#{detCampZona.numeroComponente}"/>
+		</p:column>
+		<p:column>
+			<f:facet name="header">
+				<p:outputLabel value="Descripción"/>
+			</f:facet>
+			<p:outputLabel value="#{detCampZona.descripcion}"/>
+		</p:column>
+		<p:column>
+			<f:facet name="header">
+				<p:outputLabel value="SKU"/>
+			</f:facet>
+			<p:outputLabel value="#{detCampZona.sku}"/>
+		</p:column>
+		<p:column>
+			<f:facet name="header">
+				<p:outputLabel value="UPC"/>
+			</f:facet>
+			<p:outputLabel value="#{detCampZona.upc}"/>
+		</p:column>
+		<p:column>
+			<f:facet name="header">
+				<p:outputLabel value="Señalamiento"/>
+			</f:facet>
+			<p:outputLabel value="#{detCampZona.senalamiento}" rendered="#{detComp.lSku.size() > 0}"/>
+		</p:column>
+		<p:column>
+			<f:facet name="header">
+				<p:outputLabel value="Categoría"/>
+			</f:facet>
+			<p:outputLabel value="#{detCampZona.categoria}"/>
+		</p:column>
+		<p:column>
+			<f:facet name="header">
+				<p:outputLabel value="Subcategoría"/>
+			</f:facet>
+			<p:outputLabel value="#{detCampZona.subCategoria}"/>
+		</p:column>
+		<p:column>
+			<f:facet name="header">
+				<p:outputLabel value="Cantidad de productos"/>
+			</f:facet>
+			<p:outputLabel value="#{detCampZona.cantProductos}"/>
+		</p:column>
+		<p:column>
+			<f:facet name="header">
+				<p:outputLabel value="No."/>
+			</f:facet>
+			<p:outputLabel value="#{detCampZona.numero}"/>
+		</p:column>
+		<p:column>
+			<f:facet name="header">
+				<p:outputLabel value="Abasto Inicial"/>
+			</f:facet>
+			<p:outputLabel value="#{detCampZona.abastoInicial}"/>
+		</p:column>
+	</p:dataTable>
+	</h:panelGroup>
+</body>
+</html>

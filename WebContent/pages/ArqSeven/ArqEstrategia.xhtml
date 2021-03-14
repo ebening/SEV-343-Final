@@ -1,0 +1,200 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<body>
+	<script type="text/javascript" src="../resources/js/localePrimefaces.js"></script>
+	<h:panelGroup styleClass="panel-form">
+		<p:panelGrid id="gridEstrategia" style="width: 100%; background: #c1c1c1; border: 1px solid #AFAFAF;" styleClass="form-content">
+			<p:row>
+				<p:column colspan="8">
+				</p:column>
+				<p:column>
+					<div align="right">
+						<p:commandLink styleClass="print-button"/>
+					</div>
+				</p:column>
+			</p:row>
+			<p:row>
+                            <p:column>
+					<p:outputLabel value="Categoría: "/>
+				</p:column>
+				<p:column>
+                                    <p:selectOneMenu value="#{mbArquitectura.idCategEstra2}" >
+						<f:selectItem itemLabel="Seleccione" itemValue="-1"/>
+                                                <f:selectItems value="#{mbArquitectura.getlCategEstra2()}" var="cat" >
+                                                    <f:selectItem itemLabel="#{cat.label}" itemValue="#{cat.value}" />
+                                                </f:selectItems>
+                                                <p:ajax listener="#{mbArquitectura.fillComboDescEstrategia}" update="descEstra" />
+					</p:selectOneMenu>
+				</p:column>
+				<p:column>
+					<p:outputLabel value="Descripción: "/>
+				</p:column>
+				<p:column>
+                                    <p:selectOneMenu value="#{mbArquitectura.idDescEstra2}" id="descEstra">
+						<f:selectItem itemLabel="Seleccione" itemValue="-1"/>
+                                                <f:selectItems value="#{mbArquitectura.getlDescEstra2()}" var="desc" itemLabel="#{desc.label}" 
+                                                               itemValue="#{desc.value}" />
+                                                <p:ajax listener="#{mbArquitectura.fillComboSKUEstrategia()}" update="skuEstra" />
+					</p:selectOneMenu>
+				</p:column>
+				<p:column>
+					<p:outputLabel value="SKU: "/>
+				</p:column>
+				<p:column>
+                                    <p:selectOneMenu value="#{mbArquitectura.idSkuEstra2}" id="skuEstra">
+						<f:selectItem itemLabel="Seleccione" itemValue="-1"/>
+                                                <f:selectItems value="#{mbArquitectura.getlSKUEstra2()}" var="sku" >
+                                                    <f:selectItem itemLabel="#{sku.label}" itemValue="#{sku.description}" />
+                                                </f:selectItems>
+								
+					</p:selectOneMenu>
+				</p:column>
+				<p:column>
+					<p:outputLabel value="UPC: "/>
+				</p:column>
+				<p:column>
+					<p:selectOneMenu value="#{mbArquitectura.idUpcEstra2}">
+						<f:selectItem itemLabel="Seleccione" itemValue="-1"/>
+                                                <f:selectItems value="#{mbArquitectura.getlUpcEstra2()}" var="upc">
+                                                    <f:selectItem itemLabel="#{upc.description}" itemValue="#{upc.label}" />
+                                                </f:selectItems>
+					</p:selectOneMenu>
+				</p:column>
+				
+				<p:column>
+					<div align="right">
+						<p:commandButton value="Buscar" styleClass="common-button"
+						action="#{mbArquitectura.filterGrid2}" update="dtEstrategia2"/>
+						</div>
+				</p:column>
+			</p:row>
+		</p:panelGrid>
+		<p:dataTable id="dtEstrategia2" var="item" value="#{mbArquitectura.responseArray2}" rowIndexVar="rowIx" paginator="true" rows="10"  
+	                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+	                 emptyMessage="Vacio" resizableColumns="true" styleClass="ui-datatable-hor-scroll">
+		    	<p:columns value="#{mbArquitectura.columns2}" var="column" columnIndexVar="colIndex"
+		    		resizable="true" sortBy="#{item.get(column.header)}">
+		    		<f:facet name="header">
+		    			<h:outputText value="#{column.property}" />
+		    		</f:facet>
+						<h:outputText value="#{item.get(column.header)}" />
+				</p:columns>
+	    </p:dataTable>
+		<p:panelGrid id="gridEstrategia2" style="width: 100%; background: #c1c1c1; border: 1px solid #AFAFAF;" styleClass="form-content">
+			<p:row>
+				<p:column>
+					<p:outputLabel value="Descripción: "/>
+				</p:column>
+				<p:column>
+					<p:selectOneMenu value="#{mbArquitectura.idDescEstra}">
+						<f:selectItem itemLabel="Seleccione" itemValue="-1"/>
+                                                <f:selectItems value="#{mbArquitectura.getlDescEstra2()}" var="desc">
+                                                    <f:selectItem	itemLabel="#{desc.description}" itemValue="#{desc.label}" />
+                                                </f:selectItems>
+					</p:selectOneMenu>
+				</p:column>
+				<p:column>
+					<p:outputLabel value="SKU: "/>
+				</p:column>
+				<p:column>
+					<p:selectOneMenu value="#{mbArquitectura.idSkuEstra}">
+						<f:selectItem itemLabel="Seleccione" itemValue="-1"/>
+                                                <f:selectItems value="#{mbArquitectura.getlCatSKUEstra2}" var="sku">
+                                                    <f:selectItem itemLabel="#{sku.code}" itemValue="#{sku.id}" />
+                                                </f:selectItems>
+								
+					</p:selectOneMenu>
+				</p:column>
+				<p:column>
+					<p:outputLabel value="UPC: "/>
+				</p:column>
+				<p:column>
+					<p:selectOneMenu value="#{mbArquitectura.idUpcEstra}">
+						<f:selectItem itemLabel="Seleccione" itemValue="-1"/>
+                                                <f:selectItems value="#{mbArquitectura.getlUpcEstra2}"/>
+					</p:selectOneMenu>
+				</p:column>
+				<p:column>
+					<p:outputLabel value="Categoría: "/>
+				</p:column>
+				<p:column>
+					<p:selectOneMenu value="#{mbArquitectura.idCategEstra}">
+						<f:selectItem itemLabel="Seleccione" itemValue="-1"/>
+                                                <f:selectItems value="#{mbArquitectura.getlCatCategEstra2}" var="cat" >
+                                                    <f:selectItem itemLabel="#{cat.code}" itemValue="#{cat.code}" />
+                                                </f:selectItems>
+								
+					</p:selectOneMenu>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<p:outputLabel value="Grupo Zona: " />
+				</p:column>
+				<p:column>
+					<p:selectCheckboxMenu label="Grupo Zona" filter="true" filterText="Filter" value="#{mbArquitectura.lGposZonaEstra}"
+				            					  filterMatchMode="startsWith" styleClass="element-margin-top" style="width: 95px; text-align: left"
+				            					  valueChangeListener="#{mbArquitectura.valueChangeGrupoZonaEstr}">						
+						<f:selectItems value="#{mbArquitectura.mCatGposZonaEstra}" var="catGZone"
+									itemLabel="#{catGZone.code}" itemValue="#{catGZone.idGrupoZona}" />
+					</p:selectCheckboxMenu>
+				</p:column>
+				<p:column>
+					<p:outputLabel value="Zona: " />
+				</p:column>
+				<p:column>
+					<p:selectCheckboxMenu label="Zona" filter="true" filterText="Filter" value="#{mbArquitectura.lZonasEstra}"
+				            					  filterMatchMode="startsWith" styleClass="element-margin-top" style="width: 95px; text-align: left">
+								<f:selectItems value="#{mbArquitectura.mCatZonasEstra}" var="zona"
+								itemLabel="#{zona.code}" itemValue="#{zona.idZone}" />
+					</p:selectCheckboxMenu>
+				</p:column>
+				<p:column>
+					<p:outputLabel value="Familia: " />
+				</p:column>
+				<p:column>
+					<p:selectOneMenu style="width: 95px" value="#{mbArquitectura.idListaEstra}" valueChangeListener="#{mbArquitectura.valueChangeListaPrec}">
+						<f:selectItem itemLabel="Seleccione" itemValue="0"/>						
+							<f:selectItems value="#{mbArquitectura.lCatListasPrec}" var="catLista"
+									itemLabel="#{catLista.code}" itemValue="#{catLista.idLista}" />
+						<f:ajax render="dtPrecPromo" execute="@form"/>
+					</p:selectOneMenu>
+				</p:column>
+				<p:column colspan="3">
+					<div align="right">
+						<p:commandButton value="Buscar" styleClass="common-button"
+						action="#{mbArquitectura.filterGrid}" update="dtEstrategia"/>
+					</div>
+				</p:column>
+			</p:row>
+		</p:panelGrid>
+		<p:dataTable id="dtEstrategia" var="item" value="#{mbArquitectura.responseArray}" rowIndexVar="rowIx" paginator="true" rows="10"  
+	                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+	                 emptyMessage="Vacio" resizableColumns="true" styleClass="ui-datatable-hor-scroll">
+		    	<p:columns value="#{mbArquitectura.columns}" var="column" columnIndexVar="colIndex"
+		    		resizable="true" sortBy="#{item.get(column.header)}">
+		    		<f:facet name="header">
+		    			<h:outputText value="#{column.property}" />
+		    		</f:facet>
+						<h:outputText value="#{item.get(column.header)}" />
+				</p:columns>
+	    </p:dataTable>
+		<p:panelGrid id="gridEstrategia3" style="width:100%; background: #c1c1c1; border: 1px solid #AFAFAF;" styleClass="form-content">
+			<p:row>
+				<p:column>
+					<div align="right">
+						<p:commandButton styleClass="common-button" value="Volver" partialSubmit="true"
+						ajax="true" action="#{mbArquitectura.regresarCapturaPromo}" update=":frmPromocion"/>
+					</div>
+				</p:column>
+			</p:row>
+		</p:panelGrid>
+	</h:panelGroup>	
+</body>
+</html>

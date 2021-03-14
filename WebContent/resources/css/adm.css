@@ -1,0 +1,779 @@
+@CHARSET "ISO-8859-1";
+
+body {
+	background: #e6e6e6;
+}
+
+.create-button {
+	display: inline-block;
+    background: url(#{resource[ 'images/botones:nueva.png' ]}) no-repeat;
+	background-size: 20px 20px;
+	background-position: center;
+	width: 20px;
+	height: 20px;
+	padding-left: 5px;
+	background-position: center;
+}
+
+.create-button:hover {
+    background: url(#{resource[ 'images/botones:nueva_black.png' ]}) no-repeat;
+	background-size: 20px 20px;
+	background-position: center;
+	width: 20px;
+	height: 20px;
+}
+
+.edit-button {
+	display: inline-block;
+    background: url(#{resource[ 'images/botones:editar.png' ]}) no-repeat;
+	background-size: 20px 20px;
+	background-position: center;
+	padding-left: 5px;
+	background-position: center;
+	width: 20px;
+	height: 20px;
+}
+
+.edit-button:hover {
+    background: url(#{resource[ 'images/botones:editar_black.png' ]}) no-repeat;
+	background-size: 20px 20px;
+	background-position: center;
+	width: 20px;
+	height: 20px;
+}
+
+.edit-in-grid-button {
+	display: inline-block;
+    background: url(#{resource[ 'images/botones:editar_grid.png' ]}) no-repeat;
+	background-size: 20px 20px;
+	background-position: center;
+	width: 20px;
+	height: 20px;
+	padding-left: 5px;
+}
+
+.edit-in-grid-button:hover {
+    background: url(#{resource[ 'images/botones:editar_grid-black.png' ]}) no-repeat;
+}
+
+.edit-all-button {
+	display: inline-block;
+    background: url(#{resource[ 'images/botones:editar_grid_all.png' ]}) no-repeat;
+	background-size: 13px 13px;
+	background-position: center;
+	width: 13px;
+	height: 13px;
+	padding-left: 5px;
+}
+
+.edit-all-button:hover {
+    background: url(#{resource[ 'images/botones:editar_black_all.png' ]}) no-repeat;
+}
+
+.delete-button {
+	display: inline-block;
+    background: url(#{resource[ 'images/botones:eliminar.png' ]}) no-repeat;
+	background-size: 20px 20px;
+	background-position: center;
+	width: 20px;
+	height: 20px;
+	padding-left: 5px;
+	background-position: center;
+}
+
+.delete-button:hover {
+    background: url(#{resource[ 'images/botones:eliminar_black.png' ]}) no-repeat;
+	background-size: 20px 20px;
+	background-position: center;
+	width: 20px;
+	height: 20px;
+}
+
+.delete-in-grid-button {
+	display: inline-block;
+    background: url(#{resource[ 'images/botones:eliminar_grid.png' ]}) no-repeat;
+	width: 25px;
+	height: 25px;
+	padding-left: 5px;
+}
+
+.delete-in-grid-button:hover {
+    background: url(#{resource[ 'images/botones:eliminar_grid_black.png' ]}) no-repeat;
+}
+
+.save-in-grid-button {
+	display: inline-block;
+    background: url(#{resource[ 'images/botones:guardar_grid.png' ]}) no-repeat;
+	width: 25px;
+	height: 25px;
+	padding-left: 5px;
+}
+
+.disable-scroll .ui-dialog-content {
+  overflow: hidden !important;
+}
+
+.save-in-grid-button:hover {
+    background: url(#{resource[ 'images/botones:guardar_black_grid.png' ]}) no-repeat;
+}
+
+.ui-confirm-dialog .delete-button {
+	background: none;
+	width: 0px;
+	height: 0px;
+}
+
+.ui-confirm-dialog .delete-button:hover {
+	background: none;
+	width: 0px;
+	height: 0px;
+}
+
+.save-button {
+	display: inline-block;
+	background-size: 20px 20px;
+	background-position: center;
+    background: url(#{resource[ 'images/botones:disk2.png' ]}) no-repeat;
+	width: 20px;
+	height: 20px;
+	padding-left: 0px;
+	background-position: center;
+}
+
+.save-button:hover {
+    background: url(#{resource[ 'images/botones:disk3.png' ]}) no-repeat;
+}
+
+.periodicity-button {
+	display: inline-block;
+	background-size: 20px 20px;
+	background-position: center;
+    background: url(#{resource[ 'images/botones:perioricidad.png' ]}) no-repeat;
+	width: 20px;
+	height: 20px;
+	padding-left: 5px;
+	background-position: center;
+}
+
+.periodicity-button:hover {
+    background: url(#{resource[ 'images/botones:perioricidad_black.png' ]}) no-repeat;
+}
+
+.exit-button {
+	display: inline-block;
+	background-size: 20px 20px;
+	background-position: center;
+    background: url(#{resource[ 'images/botones:salir.png' ]}) no-repeat;
+	width: 20px;
+	height: 20px;
+	padding-left: 5px;
+	background-position: center;
+}
+
+.exit-button:hover {
+    background: url(#{resource[ 'images/botones:salir_black.png' ]}) no-repeat;
+	background-size: 20px 20px;
+	background-position: center;
+	width: 20px;
+	height: 20px;
+}
+
+.next-button {
+	background-size: 20px 20px;
+	background-position: center;
+	display: inline-block;
+    background: url(#{resource[ 'images/botones:siguiente.png' ]}) no-repeat;
+	width: 20px;
+	height: 20px;
+	padding-left: 5px;
+}
+
+.excel-button {
+	display: inline-block;
+    background: url(#{resource[ 'images/botones:excel.png' ]}) no-repeat;
+	background-size: 20px 20px;
+	background-position: center;
+	width: 20px;
+	height: 20px;
+	padding-left: 5px;
+	background-position: center;
+}
+.excel2-button {
+	display: inline-block;
+	background: url(#{resource[ 'images/botones:buscar.png' ]}) no-repeat;
+	background-size: 20px 20px;
+	background-position: center;
+	width: 20px;
+	height: 20px;
+	padding-left: 5px;
+	background-position: center;
+}
+.excel2-button:hover {
+	background: url(#{resource[ 'images/botones:buscar.png' ]}) no-repeat;
+	background-size: 20px 20px;
+	background-position: center;
+	width: 20px;
+	height: 20px;
+}
+.excel-button:hover {
+    background: url(#{resource[ 'images/botones:excel_black.png' ]}) no-repeat;
+	background-size: 20px 20px;
+	background-position: center;
+	width: 20px;
+	height: 20px;
+}
+
+.pdf-button {
+	display: inline-block;
+    background: url(#{resource[ 'images/botones:pdf.png' ]}) no-repeat;
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+	background-position: center;
+	padding-left: 5px;
+	background-position: center;
+}
+
+.pdf-button:hover {
+    background: url(#{resource[ 'images/botones:pdf_black.png' ]}) no-repeat;
+	background-size: 20px 20px;
+	background-position: center;
+	width: 20px;
+	height: 20px;
+}
+
+.print-button {
+	display: inline-block;
+    background: url(#{resource[ 'images/botones:imprimir.png' ]}) no-repeat;
+	background-size: 20px 20px;
+	background-position: center;
+	width: 20px;
+	height: 20px;
+	padding-left: 5px;
+	background-position: center;
+}
+
+.print-button:hover {
+    background: url(#{resource[ 'images/botones:imprimir_black.png' ]}) no-repeat;
+	background-size: 20px 20px;
+	background-position: center;
+	width: 20px;
+	height: 20px;
+}
+
+.common-button {
+    background: url(#{resource[ 'images/botones:degradado_btn.png' ]}) 50% 50% repeat-x;
+	color: #fff;
+}
+
+.common-button:hover {
+    background: url(#{resource[ 'images/botones:degradado_btn_black.png' ]}) 50% 50%
+		repeat-x;
+}
+
+.fileupload-buttonbar .ui-button {
+    background: #c1c1c1 url(#{resource[ 'images/botones:degradado_btn.png' ]}) 50% 50%
+		repeat-x;
+	color: #fff;
+}
+
+.fileupload-buttonbar .ui-button:hover {
+    background: #c1c1c1 url(#{resource[ 'images/botones:degradado_btn_black.png' ]}) 50% 50% repeat-x;
+}
+
+.chat-button {
+	display: inline-block;
+    background: url(#{resource[ 'images/botones:chat.png' ]}) no-repeat;
+	background-size: 20px 20px;
+	background-position: center;
+	width: 20px;
+	height: 20px;
+	padding-left: 5px;
+	background-position: center;
+}
+
+.chat-button:hover {
+    background: url(#{resource[ 'images/botones:chat_black.png' ]}) no-repeat;
+	background-size: 20px 20px;
+	background-position: center;
+	width: 20px;
+	height: 20px;
+}
+
+.mail-button {
+	display: inline-block;
+    background: url(#{resource[ 'images/botones:correo.png' ]}) no-repeat;
+	background-size: 20px 20px;
+	background-position: center;
+	width: 20px;
+	height: 20px;
+	padding-left: 5px;
+	background-position: center;
+	width: 20px;
+	height: 20px;
+}
+
+.mail-button:hover {
+    background: url(#{resource[ 'images/botones:correo_black.png' ]}) no-repeat;
+	background-size: 20px 20px;
+	background-position: center;
+	width: 20px;
+	height: 20px;
+}
+
+.calendar-button {
+	display: inline-block;
+	background-size: 20px 20px;
+	background-position: center;
+    background: url(#{resource[ 'images/botones:calendario.png' ]}) no-repeat;
+	width: 20px;
+	height: 20px;
+	padding-left: 5px;
+	background-position: center;
+}
+
+.calendar-button:hover {
+    background: url(#{resource[ 'images/botones:calendario_black.png' ]}) no-repeat;
+}
+
+.activities-button {
+	display: inline-block;
+	background-size: 20px 20px;
+	background-position: center;
+    background: url(#{resource[ 'images/botones:actividades.png' ]}) no-repeat;
+	width: 20px;
+	height: 20px;
+	padding-left: 5px;
+	background-position: center;
+}
+
+.activities-button:hover {
+    background: url(#{resource[ 'images/botones:actividades_black.png' ]}) no-repeat;
+}
+
+.attach-button {
+	display: inline-block;
+	background-size: 20px 20px;
+	background-position: center;
+    background: url(#{resource[ 'images/botones:adjuntar.png' ]}) no-repeat;
+	width: 20px;
+	height: 20px;
+	padding-left: 5px;
+	background-position: center;
+}
+
+.attach-button:hover {
+    background: url(#{resource[ 'images/botones:adjuntar_black.png' ]}) no-repeat;
+}
+
+.add-button {
+	display: inline-block;
+    background: url(#{resource[ 'images/botones:agregar.png' ]}) no-repeat;
+	background-size: 20px 20px;
+	background-position: center;
+	width: 20px;
+	height: 20px;
+	padding-left: 5px;
+	background-position: center;
+}
+
+.add-button:hover {
+    background: url(#{resource[ 'images/botones:agregar_black.png' ]}) no-repeat
+}
+
+.add-in-grid-button {
+	display: inline-block;
+    background: url(#{resource[ 'images/botones:agregar_grid.png' ]}) no-repeat;
+	width: 30px;
+	height: 30px;
+	padding-left: 5px;
+}
+
+.add-in-grid-button:hover {
+    background: url(#{resource[ 'images/botones:agregar_grid_black.png' ]}) no-repeat;
+}
+
+.expand-button {
+	display: inline-block;
+    background: url(#{resource[ 'images/botones:popup.png' ]}) no-repeat;
+	width: 30px;
+	height: 30px;
+	padding-left: 5px;
+}
+
+.expand-button:hover {
+    background: url(#{resource[ 'images/botones:popup-hover.png' ]}) no-repeat;
+}
+
+.area-graphic-grid-button {
+	display: inline-block;
+    background: url(#{resource[ 'images/botones:area.png' ]}) no-repeat;
+	width: 30px;
+	height: 30px;
+	padding-left: 5px;
+}
+
+.area-graphic-grid-button:hover {
+    background: url(#{resource[ 'images/botones:area_black.png' ]}) no-repeat;
+}
+
+.bar-graphic-grid-button {
+	display: inline-block;
+    background: url(#{resource[ 'images/botones:barra.png' ]}) no-repeat;
+	width: 30px;
+	height: 30px;
+	padding-left: 5px;
+}
+
+.bar-graphic-grid-button:hover {
+    background: url(#{resource[ 'images/botones:barra_black.png' ]}) no-repeat;
+}
+
+.hor-bar-graphic-grid-button {
+	display: inline-block;
+    background: url(#{resource[ 'images/botones:barrasHorizontales.png' ]}) no-repeat;
+	width: 30px;
+	height: 30px;
+	padding-left: 5px;
+}
+
+.hor-bar-graphic-grid-button:hover {
+    background: url(#{resource[ 'images/botones:barrasHorizontales_black.png' ]}) no-repeat;
+}
+
+.line-graphic-grid-button {
+	display: inline-block;
+    background: url(#{resource[ 'images/botones:linea.png' ]}) no-repeat;
+	width: 30px;
+	height: 30px;
+	padding-left: 5px;
+}
+
+.line-graphic-grid-button:hover {
+    background: url(#{resource[ 'images/botones:linea_black.png' ]}) no-repeat;
+}
+
+.pie-graphic-grid-button {
+	display: inline-block;
+    background: url(#{resource[ 'images/botones:pie.png' ]}) no-repeat;
+	width: 30px;
+	height: 30px;
+	padding-left: 5px;
+}
+
+.pie-graphic-grid-button:hover {
+    background: url(#{resource[ 'images/botones:pie_black.png' ]}) no-repeat;
+}
+
+.back-button {
+	display: inline-block;
+    background: url(#{resource[ 'images/botones:atras.png' ]}) no-repeat;
+	width: 30px;
+	height: 30px;
+	padding-left: 5px;
+}
+
+.find-button {
+	display: inline-block;
+    background: url(#{resource[ 'images/botones:buscar.png' ]}) no-repeat;
+	width: 30px;
+	height: 30px;
+	padding-left: 5px;
+}
+
+.fine-button {
+	display: inline-block;
+    background: url(#{resource[ 'images/botones:completada.png' ]}) no-repeat;
+	width: 30px;
+	height: 30px;
+	padding-left: 5px;
+}
+
+.fine-button:hover {
+    background: url(#{resource[ 'images/botones:completada_black.png' ]}) no-repeat;
+}
+
+.send-button {
+	display: inline-block;
+    background: url(#{resource[ 'images/botones:enviar.png' ]}) no-repeat;
+	width: 30px;
+	height: 30px;
+	padding-left: 5px;
+}
+
+.send-button:hover {
+    background: url(#{resource[ 'images/botones:enviar_black.png' ]}) no-repeat;
+}
+
+.qrcode-button {
+	display: inline-block;
+    background: url(#{resource[ 'images/botones:qrCode.png' ]}) no-repeat;
+	width: 30px;
+	height: 30px;
+	padding-left: 5px;
+}
+
+.online-shop-button {
+	display: inline-block;
+    background: url(#{resource[ 'images/botones:tienda_virtual.png' ]}) no-repeat;
+	width: 30px;
+	height: 30px;
+	padding-left: 5px;
+}
+
+.online-shop-button:hover {
+    background: url(#{resource[ 'images/botones:tienda_virtual_black.png' ]}) no-repeat;
+}
+
+/*Grids*/
+.grid-no-border, .grid-no-border tbody tr td, .grid-no-border thead tr th,
+	.grid-no-border tfoot tr td {
+	border: 0px;
+}
+
+.grid-with-overflow tr td {
+	white-space: normal;
+}
+
+.col-with-overflow {
+	white-space: normal;
+}
+
+.grid-content tr td {
+	border: 1px solid #aaaaaa;
+	background: #fff;
+}
+
+.grid-content tr .ui-state-default {
+	border: 1px solid #222222;
+}
+
+.grid-content th {
+	border: 1px solid #222222;
+	background: #868484 50% 50% repeat-x;
+	color: #ffffff;
+	font-weight: normal;
+	padding: 4px 10px;
+	overflow: hidden;
+	white-space: nowrap;
+	border-width: 1px;
+	border-style: solid;
+}
+
+.grid-content tr td input {
+	background: #ffffff;
+}
+
+.grid-content .ui-radiobutton .ui-state-default {
+	border: 1px solid #999999;
+	background: #fff;
+}
+
+.grid-content .ui-radiobutton .ui-state-hover {
+	background: #fff;
+}
+
+.grid-content .ui-radiobutton .ui-state-active {
+	background: #fff;
+}
+
+.grid-content .ui-chkbox .ui-state-default {
+	border: 1px solid #999999;
+	background: #fff;
+}
+
+.grid-content .ui-chkbox .ui-state-hover {
+	background: #fff;
+}
+
+.grid-content .ui-chkbox .ui-state-active {
+	background: #fff;
+}
+
+.grid-content-no-borders-nobody tbody {
+	display: none;
+	background-color: transparent;
+}
+
+.grid-content-no-borders-nobody thead th {
+	background-color: #868484;
+	color: white;
+	border: 1px solid #868484 !important;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+	border-collapse: collapse;
+	text-align: left;
+}
+
+.grid-content-no-borders thead tr {
+	display: none;
+	background-color: transparent;
+}
+
+.grid-content-no-borders thead th, .grid-content-no-borders tbody tr,
+	.grid-content-no-borders tbody, .grid-content-no-borders tbody td,
+	.grid-content-no-borders tbody tr td {
+	overflow: hidden;
+	white-space: nowrap;
+	border-width: 1px;
+	border-style: solid;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+	background-color: #ffffff !important;
+	color: black !important;
+}
+
+.grid-sub-headers, .grid-sub-headers tbody tr td {
+	background-color: #868484;
+	color: white;
+	border: 0px;
+	border-style: none;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+	border-collapse: collapse;
+	text-align: left;
+}
+
+/*Form*/
+.header-panel {
+	background: #c1c1c1;
+}
+
+.header-panel .ui-layout-unit-content {
+	background: #fff;
+}
+
+.panel-form {
+	border: 0px;
+}
+
+.panel-form .ui-panel-titlebar .ui-panel-title {
+	color: #8e292c;
+}
+
+.panel-form .ui-panel-content table {
+    background: #F0F0F0 url(#{resource[ 'images/bg:bg-form.png' ]}) 50% 100% repeat-x;
+}
+
+.panel-form .ui-panel-content table tr {
+	background: none;
+}
+
+.area-content {
+	background: #fff;
+}
+
+.form-content {
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	border-radius: 6px;
+	border: 1px solid #c0c0c0;
+}
+
+.form-content tr td {
+	/*background: #ffeded;*/
+	
+}
+
+.ui-selectonemenu-items-wrapper ul, .ui-selectonemenu-items-wrapper table,
+	.ui-selectcheckboxmenu-panel {
+	background: #fff;
+}
+
+.ui-selectonemenu-items-wrapper ul li:hover,
+	.ui-selectonemenu-items-wrapper table tr:hover,
+	.ui-selectcheckboxmenu-panel div ul li:hover {
+	background: #e6e6e6;
+}
+
+.bg-footer {
+    background: #e6e6e6 url(#{resource[ 'images/bg:bg-footer.png' ]}) repeat-x;
+}
+
+.bg-west {
+	background: #fff;
+}
+
+.bg-center {
+	background: #fff;
+}
+
+.bg-north {
+	
+}
+
+.bg-subtitle {
+    background: url(#{resource[ 'images/bg:bg_subtitle.png' ]}) repeat-x;
+}
+
+.element-margin-top {
+	margin-top: 5px;
+}
+
+.center-column {
+	text-align: center !important;
+}
+
+/*Dialog*/
+.common-dialog {
+	background: #fff !important;
+}
+
+/*Loading*/
+.ui-widget-overlay-content {
+    background: #fff url(#{resource[ 'images:cargando.gif' ]}) no-repeat center center;
+	height: 100px;
+	width: 100px;
+	position: fixed;
+	z-index: 10001;
+	left: 50%;
+	top: 50%;
+	margin: -25px 0 0 -25px;
+	opacity: 1.0;
+	filter: Alpha(Opacity = 100);
+}
+
+#edicion\:etiquetaCamId_label {
+	background-color: transparent;
+	color: inherit;
+}
+
+#alta\:etiquetaCamId_label {
+	background-color: transparent;
+	color: inherit;
+}
+
+#circulo {
+	width: 10px;
+	height: 10px;
+	-moz-border-radius: 70px;
+	-webkit-border-radius: 70px;
+	border-radius: 70px;
+}
+
+.circulo {
+	width: 10px;
+	height: 10px;
+	-moz-border-radius: 70px;
+	-webkit-border-radius: 70px;
+	border-radius: 70px;
+}
+
+.cuadrado {
+	width: 10px;
+	height: 10px;
+}
+
+
+.grid-catalogos th{
+    background-color: rgb(132,134,134);
+}
+
+.algo{
+    background-color:rgb(0, 71, 118);
+
+}
+
+.rowStyleZigZag{
+   background: #efefef!Important;
+}

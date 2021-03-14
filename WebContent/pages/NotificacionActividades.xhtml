@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+	
+</h:head> 
+<h:body> 
+<h:form id="notificacion">
+		<div style="background: White; width: 98%;padding: 10px;color: DimGray;">
+			<h:panelGrid columns="2" cellpadding="0" cellspacing="15" style="border:none!important;text-align: left!important;">
+				<f:facet name="header" style="text-align: left!important;">
+					<h:outputLabel value="Notificaciones de Actividades" style="color: Dimgray;text-align: left!important;"></h:outputLabel>
+				</f:facet>
+				 
+				<h:outputLabel  value="Frecuencia:"></h:outputLabel>
+				<p:selectOneRadio id="chkFrecuencia" value="#{MBNotificacion.frecuencia}">  
+		            <f:selectItem itemLabel="Dias" itemValue="0" />  
+		            <f:selectItem itemLabel="Horas" itemValue="1" />  
+		        </p:selectOneRadio>
+				
+				<h:outputLabel value="Cantidad: "/>
+				<p:inputText value="#{MBNotificacion.cantidad}" style="width: 50px;" id="cantidadFrecuencia"></p:inputText>
+				
+				<p:commandButton id="btnAgregarNotificacion" value="Agregar" actionListener="#{MBNotificacion.saveNotificacion()}"/>
+			</h:panelGrid>
+		</div>
+</h:form>
+<h:form id="notificacionResultados">
+	<div style="background: White; width: 98%;padding: 10px;color: DimGray;">
+			<p:scrollPanel style="width:500px;height:200px; border: none!important;">
+				<p:dataTable value="#{MBNotificacion.listNoti}" var="o">
+					<p:column headerText="ID" sortBy="ID">
+						<h:outputText value="#{o.idNotificacion}" /> 
+					</p:column>
+					<p:column headerText="Frecuencia" sortBy="Frecuencia">
+						<h:outputText value="#{o.frecuencia}" /> 
+					</p:column>
+					<p:column headerText="Cantidad" sortBy="Cantidad">
+						<h:outputText value="#{o.cantidad}" /> 
+					</p:column>
+				</p:dataTable>			
+			</p:scrollPanel>
+	</div>
+</h:form>
+</h:body> 
+</html>

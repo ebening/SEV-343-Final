@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated 19/08/2013 10:38:15 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.RolOpcion" table="ROL_OPCIONES">
+        <id name="rolOpcId" type="int">
+            <column name="ROL_OPC_ID" />
+            <generator class="assigned" />
+        </id>                
+        
+        <property name="role" type="string">
+            <column name="ROLE"  not-null="true" />
+        </property>
+        
+        <many-to-one name="opcion" column="OPC_ID"  fetch="select"  />
+                    
+    </class>
+</hibernate-mapping>
+

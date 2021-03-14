@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+        <h:panelGroup styleClass="panel-form">
+            <p:panelGrid columns="1" id="gridEstrategia" style="width: 100%; background: #c1c1c1; border: 1px solid #AFAFAF;">
+                        
+                    <p:layout style="width: 100%; height: 100%">
+                        <p:layoutUnit position="west" size="350" header="Filtros" resizable="false" closable="false" collapsible="true">
+                            <p:panelGrid id="gridFiltros" style="width: 100%" styleClass="form-content">
+                                
+                                <p:row>
+                                    <p:column>
+                                    <p:outputLabel value="Categoría: "/>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <p:selectOneMenu value="#{MBEstrategia.categoSelected}" id="categosOneMenu"
+                                                         filterMatchMode="startsWith" filter="true">
+                                            <f:selectItem itemLabel="Seleccione" itemValue="-1"/>
+                                            <f:selectItems value="#{MBEstrategia.lcategorias}" var="cat" >
+                                                <f:selectItem itemLabel="#{cat.value} #{cat.label}" itemValue="#{cat.value}" />
+                                            </f:selectItems>
+                                            <p:ajax listener="#{MBEstrategia.fillComboDescEstrategia()}" update="descEstra"  />
+                                        </p:selectOneMenu>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                <p:column>
+					<p:outputLabel value="Descripción: "/>
+				</p:column>
+                                </p:row>
+                                <p:row>
+				<p:column>
+                                    <p:selectOneMenu value="#{MBEstrategia.descripSelected}" id="descEstra"
+                                                     filterMatchMode="startsWith" filter="true">
+                                        <f:selectItem itemLabel="Seleccione" itemValue="-1"/>
+                                        <f:selectItems value="#{MBEstrategia.ldescrips}" var="desc" itemLabel="#{desc.label}" 
+                                                       itemValue="#{desc.value}" />
+                                    </p:selectOneMenu>
+				</p:column>
+                                </p:row>
+                                <p:row>
+                                <p:column>
+                                    <div align="center">
+                                        <p:commandButton value="Agregar" styleClass="common-button" update="itemsSelected descEstra categosOneMenu" 
+                                                         process="@this descEstra" 
+                                                         actionListener="#{MBEstrategia.addItemToList()}" />
+                                        <p:commandButton value="Actualizar Tablas" styleClass="common-button" update="tableRelPItem panelTableZone" 
+                                                         action="#{MBEstrategia.fillPrecioZoneTable()}" />
+                                    </div>
+				</p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <p:orderList style="width: 350px;" id="itemsSelected" value="#{MBEstrategia.litemSelected}" var="item"
+                                                     controlsLocation="left" itemValue="#{item}" >
+                                            <p:column>
+                                                <h:outputText value="#{item}" />
+                                            </p:column>
+                                            <p:column style="width: 4%">
+                                                <p:commandButton icon="ui-icon-check" actionListener="#{MBEstrategia.fillItemTable()}" update="tableGZones" >
+                                                    <f:param name="itemToTable" value="#{item}" />
+                                                </p:commandButton>
+                                                <p:commandButton icon="ui-icon-close" update="itemsSelected" 
+                                                                 actionListener="#{MBEstrategia.deleteItemFromList()}">
+                                                    <f:param name="itemSelected" value="#{item}" />
+                                                </p:commandButton>
+                                            </p:column>
+                                        </p:orderList>
+                                    </p:column>
+                                </p:row>
+                            </p:panelGrid>
+                        </p:layoutUnit>
+                        <p:layoutUnit position="center">
+                            <p:panel id="panelTableGZone" header="Precios por Grupo Zonas del Articulo Seleccionado" toggleable="true" toggleOrientation="horizontal">
+                             <!--   <div align="right">
+                                    <h:commandLink styleClass="excel-button">
+                                        <p:dataExporter type="xls" target="tableGZones" title="Exportar a Excel" fileName="precioGrupoZona" encoding="iso-8859-1" />
+                                    </h:commandLink>
+                                </div> -->
+                                <p:dataTable value="#{MBEstrategia.precioItemsGZone}" var="p" id="tableGZones">
+                                    <f:facet name="header">
+                                        <h:outputText value="Gupos Zonas" />
+                                    </f:facet>
+                                    <p:columnGroup type="header">
+                                        <p:row>
+                                            <p:column rowspan="2" width="50%" headerText="Grupo Zona" />
+                                            <p:column colspan="2" width="50%" headerText="Precio x Zona" />
+                                        </p:row>
+                                        <p:row>
+                                            <p:column headerText="Zona" />
+                                            <p:column headerText="Precio" />
+                                        </p:row>
+                                    </p:columnGroup>
+                                    <p:subTable value="#{p.catGZone.catZones.toArray()}" var="g">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{p.catGZone.code}" />
+                                        </f:facet>
+                                        <p:column />
+                                        <p:column>
+                                            <h:outputText value="#{g.code}" />
+                                        </p:column>
+                                        <p:column>
+                                            <h:outputText value="#{p.precio}" />
+                                        </p:column>
+                                    </p:subTable>
+                                </p:dataTable>
+                            </p:panel>
+                            <p:panel id="panelTableZone" header="Precios por Articulos de Zonas Formato" toggleable="true" toggleOrientation="horizontal">
+                                
+                                <p:panelGrid columns="4" style="width: 100%">
+                                        <p:selectCheckboxMenu label="Grupo Zona" filter="true" value="#{MBEstrategia.gzoneSelected}"
+                                                          filterMatchMode="startsWith" styleClass="element-margin-top" 
+                                                          style="width: 95px; text-align: left">						
+                                                <f:selectItems value="#{MBEstrategia.gzoneslist}" var="catGZone"
+                                                                itemLabel="#{catGZone.idGrupoZona} #{catGZone.code}" itemValue="#{catGZone.idGrupoZona}" />
+                                                <p:ajax event="change" listener="#{MBEstrategia.changeGrupoZonasEstr()}" update="zonaCheckBox" />
+                                                </p:selectCheckboxMenu>
+                                            <p:selectCheckboxMenu id="zonaCheckBox" label="Zona" filter="true" value="#{MBEstrategia.zoneSelected}"
+                                                                  filterMatchMode="startsWith" styleClass="element-margin-top" 
+                                                                  style="width: 95px; text-align: left">
+                                                <f:selectItems value="#{MBEstrategia.zoneslist}" var="zona"
+                                                                itemLabel="#{zona.idZone} #{zona.code}" itemValue="#{zona.idZone}" />
+                                                </p:selectCheckboxMenu>
+                                            <p:commandButton value="Aplicar Filtro Zona" styleClass="common-button" update="tableRelPItem" 
+                                                             actionListener="#{MBEstrategia.updateTableBySelectedZones()}" />
+                                        <!--    <h:commandLink styleClass="excel-button">
+                                                <p:dataExporter type="xls" target="tableRelPItem" title="Exportar a Excel" fileName="precioArticulosZona" encoding="iso-8859-1" />
+                                            </h:commandLink> -->
+                                </p:panelGrid>
+                                
+                                <p:dataTable var="relPItem" value="#{MBEstrategia.preciosForSelectedItems}" id="tableRelPItem">
+                                    <f:facet name="header">
+                                        <h:outputText value="Productos Seleccionados" />
+                                    </f:facet>
+                                    <p:columnGroup type="header">
+                                        <p:row>
+                                            <p:column rowspan="2" width="50%" headerText="Producto" />
+                                            <p:column colspan="2" width="50%" headerText="Precio X Zona" />
+                                        </p:row>
+                                        <p:row>
+                                            <p:column headerText="Zona" />
+                                            <p:column headerText="Precio" />
+                                        </p:row>
+                                    </p:columnGroup>
+                                    <p:subTable var="p" value="#{relPItem.precioZona}" rows="10" >
+                                        <f:facet name="header">
+                                            <h:outputText value="#{relPItem.catItem.code}" />
+                                        </f:facet>
+                                        <p:column>
+                                            
+                                        </p:column>
+                                        <p:column >
+                                            <h:outputText value="#{p.catZone.code}" />
+                                        </p:column>
+                                        <p:column sortBy="#{p.precio}">
+                                            <h:outputText value="#{p.precio}" />
+                                        </p:column>
+                                    </p:subTable>
+                                </p:dataTable>
+                            </p:panel>
+                        </p:layoutUnit>
+                    </p:layout>
+            </p:panelGrid>
+        </h:panelGroup>
+</ui:composition>

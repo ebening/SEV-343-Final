@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<body>
+	<h:form id="detalle" rendered="#{campanaControllerSeven.detalle}">
+		<p:panelGrid id="grid" columns="2">
+			<f:facet name="header">
+				<h:outputLabel value="Editar" />
+			</f:facet>
+			<p:outputLabel value="Tipo Evento Promocional " />
+			<p:selectOneMenu id="tipoCampana" required="true" disabled="true"
+				value="#{campanaControllerSeven.current.tipo}">
+				<f:selectItems value="#{campanaControllerSeven.tipoCampanas}" />
+			</p:selectOneMenu>
+			<p:outputLabel value="Titulo: " />
+			<p:row>
+				<p:panelGrid columns="3">
+					<p:inputText value="#{campanaControllerSeven.current.tblCampana.nombre}" disabled="true" />
+					<p:outputLabel value="Etiqueta: " />
+					<p:selectOneMenu required="true" id="etiqueta" disabled="true"
+						value="#{campanaControllerSeven.current.etiqueta}">
+						<f:selectItems value="#{campanaControllerSeven.etiquetas}" />
+					</p:selectOneMenu>
+				</p:panelGrid>
+			</p:row>
+			<p:row>
+				<p:outputLabel value="Vigencia: " />
+			</p:row>
+			<p:row>
+				<p:outputLabel value="Fecha Incial: " />
+				<p:calendar
+					value="#{campanaControllerSeven.current.tblCampana.fechaInicio}" disabled="true"
+					id="fechaInicial" showOn="button" />
+				<p:spacer height="30" />
+				<p:outputLabel value="Fecha Final: " />
+				<p:calendar value="#{campanaControllerSeven.current.tblCampana.fechaFin}" disabled="true"
+					id="fechaFinal" showOn="button" required="true" />
+				<p:dialog header="Selected Dates" widgetVar="dialog"
+					showEffect="fade" hideEffect="fade">
+					<h:panelGrid id="display" columns="2" cellpadding="5">
+						<h:outputText value="Inline Date:" />
+						<h:outputText value="#{campanaControllerSeven.date1}" id="inlineDate">
+							<f:convertDateTime pattern="d/M/yyyy" />
+						</h:outputText>
+						<h:outputText value="Popup Date:" />
+						<h:outputText value="#{campanaControllerSeven.date1}" id="popupDate">
+							<f:convertDateTime pattern="d/M/yyyy" />
+						</h:outputText>
+						<h:outputText value="Popup Button Date: " />
+						<h:outputText value="#{campanaControllerSeven.date1}"
+							id="popupButtonDate">
+							<f:convertDateTime pattern="d/M/yyyy" />
+						</h:outputText>
+					</h:panelGrid>
+				</p:dialog>
+			</p:row>
+
+			<p:outputLabel value="Responsable: " />
+			<p:selectOneMenu id="responsable" disabled="true"
+				value="#{campanaControllerSeven.current.responsable}">
+				<f:selectItems value="#{campanaControllerSeven.responsables}" />
+			</p:selectOneMenu>
+			<p:outputLabel value="Comentarios: " />
+			<p:inputTextarea disabled="true"
+				value="#{campanaControllerSeven.current.tblCampana.comentarios}" />
+
+		</p:panelGrid>
+	</h:form>
+</body>
+</html>

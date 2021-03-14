@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated 31/01/2014 04:48:00 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.TblFolleto" table="TBL_FOLLETO">
+        <id name="idFolleto" type="int">
+            <column name="ID_FOLLETO" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="tblCampana" class="com.adinfi.seven.business.domain.TblCampana" fetch="select">
+            <column name="ID_CAMPANA" />
+        </many-to-one>
+        <property name="fechaInicio" type="date">
+            <column name="FECHA_INICIO" length="10" />
+        </property>
+        <property name="fechaFin" type="date">
+            <column name="FECHA_FIN" length="10" />
+        </property>
+        <property name="hojas" type="java.lang.Integer">
+            <column name="HOJAS" />
+        </property>
+        <set name="tblPreciosFolletos" table="TBL_PRECIOS_FOLLETO" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_FOLLETO" not-null="true" />
+            </key>
+            <one-to-many class="com.adinfi.seven.business.domain.TblPreciosFolleto" />
+        </set>
+    </class>
+</hibernate-mapping>

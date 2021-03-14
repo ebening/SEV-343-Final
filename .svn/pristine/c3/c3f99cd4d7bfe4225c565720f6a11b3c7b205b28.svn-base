@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	
+</h:head>
+<body>
+	<script type="text/javascript" src="../resources/js/localePrimefaces.js"></script>
+	<h:panelGroup styleClass="panel-form">
+		<p:panelGrid id="gridEstrategia" style="width: 100%;  border: 1px solid #AFAFAF;" styleClass="form-content">
+			<p:row>
+				<p:column colspan="8">
+				</p:column>
+				<p:column>
+					<p:commandLink styleClass="print-button"/>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<p:outputLabel value="Descripción: "/>
+				</p:column>
+				<p:column>
+					<p:selectOneMenu value="#{mbArquitectura.idDescEstra2}">
+						<f:selectItem itemLabel="Seleccione" itemValue="-1"/>
+						<f:selectItems value="#{mbArquitectura.lCatDescEstra2}" var="desc"
+								itemLabel="#{desc.code}" itemValue="#{desc.idDescripcion}" />
+						<f:ajax render="gridPrimicia"/>
+					</p:selectOneMenu>
+				</p:column>
+				<p:column>
+					<p:outputLabel value="SKU: "/>
+				</p:column>
+				<p:column>
+					<p:selectOneMenu value="#{mbArquitectura.idSkuEstra2}">
+						<f:selectItem itemLabel="Seleccione" itemValue="-1"/>
+						<f:selectItems value="#{mbArquitectura.lCatSKUEstra2}" var="sku"
+								itemLabel="#{sku.code}" itemValue="#{sku.id}" />
+					</p:selectOneMenu>
+				</p:column>
+				<p:column>
+					<p:outputLabel value="UPC: "/>
+				</p:column>
+				<p:column>
+					<p:selectOneMenu value="#{mbArquitectura.idUpcEstra2}">
+						<f:selectItem itemLabel="Seleccione" itemValue="-1"/>
+						<f:selectItems value="#{mbArquitectura.lUpcEstra2}"/>
+					</p:selectOneMenu>
+				</p:column>
+				<p:column>
+					<p:outputLabel value="Categoría: "/>
+				</p:column>
+				<p:column>
+					<p:selectOneMenu value="#{mbArquitectura.idCategEstra2}">
+						<f:selectItem itemLabel="Seleccione" itemValue="-1"/>
+						<f:selectItems value="#{mbArquitectura.lCatCategEstra2}" var="cat"
+								itemLabel="#{cat.categoryId} #{cat.code}" itemValue="#{cat.categoryId}" />
+					</p:selectOneMenu>
+				</p:column>
+				<p:column>
+					<p:commandButton value="Buscar" styleClass="common-button"
+					action="#{mbArquitectura.filterGrid2}" update="dtEstrategia2"/>
+				</p:column>
+			</p:row>
+		</p:panelGrid>
+		<p:dataTable id="dtEstrategia2" var="item" value="#{mbArquitectura.responseArray2}" rowIndexVar="rowIx" paginator="true" rows="10"  
+	                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+	                 emptyMessage="Vacio" resizableColumns="true" styleClass="ui-datatable-hor-scroll">
+		    	<p:columns value="#{mbArquitectura.columns2}" var="column" columnIndexVar="colIndex"
+		    		resizable="true" sortBy="#{item.get(column.header)}">
+		    		<f:facet name="header">
+		    			<h:outputText value="#{column.property}" />
+		    		</f:facet>
+						<h:outputText value="#{item.get(column.header)}" />
+				</p:columns>
+	    </p:dataTable>
+		<p:panelGrid id="gridEstrategia2" style="width: 100%;  border: 1px solid #AFAFAF;" styleClass="form-content">
+			<p:row>
+				<p:column>
+					<p:outputLabel value="Descripción: "/>
+				</p:column>
+				<p:column>
+					<p:selectOneMenu value="#{mbArquitectura.idDescEstra}">
+						<f:selectItem itemLabel="Seleccione" itemValue="-1"/>						
+						<f:selectItems value="#{mbArquitectura.lCatDescEstra}" var="desc"
+								itemLabel="#{desc.code}" itemValue="#{desc.idDescripcion}" />
+					</p:selectOneMenu>
+				</p:column>
+				<p:column>
+					<p:outputLabel value="SKU: "/>
+				</p:column>
+				<p:column>
+					<p:selectOneMenu value="#{mbArquitectura.idSkuEstra}">
+						<f:selectItem itemLabel="Seleccione" itemValue="-1"/>						
+						<f:selectItems value="#{mbArquitectura.lCatSKUEstra}" var="sku"
+								itemLabel="#{sku.code}" itemValue="#{sku.id}" />
+					</p:selectOneMenu>
+				</p:column>
+				<p:column>
+					<p:outputLabel value="UPC: "/>
+				</p:column>
+				<p:column>
+					<p:selectOneMenu value="#{mbArquitectura.idUpcEstra}">
+						<f:selectItem itemLabel="Seleccione" itemValue="-1"/>
+						<f:selectItems value="#{mbArquitectura.lUpcEstra}"/>
+					</p:selectOneMenu>
+				</p:column>
+				<p:column>
+					<p:outputLabel value="Categoría: "/>
+				</p:column>
+				<p:column>
+					<p:selectOneMenu value="#{mbArquitectura.idCategEstra}">
+						<f:selectItem itemLabel="Seleccione" itemValue="-1"/>						
+							<f:selectItems value="#{mbArquitectura.lCatCategEstra}" var="cat"
+								itemLabel="#{cat.categoryId} #{cat.code}" itemValue="#{cat.categoryId}" />
+					</p:selectOneMenu>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<p:outputLabel value="Grupo Zona: " />
+				</p:column>
+				<p:column>
+					<p:selectCheckboxMenu label="Grupo Zona" filter="true" filterText="Filter" value="#{mbArquitectura.lGposZonaEstra}"
+				            					  filterMatchMode="startsWith" styleClass="element-margin-top" style="width: 95px; text-align: left"
+				            					  valueChangeListener="#{mbArquitectura.valueChangeGrupoZonaEstr}">
+							<f:selectItems value="#{mbArquitectura.mCatGposZonaEstra}" var="catGZone"
+									itemLabel="#{catGZone.idGrupoZona} #{catGZone.code}" itemValue="#{catGZone.idGrupoZona}" />
+					</p:selectCheckboxMenu>
+				</p:column>
+				<p:column>
+					<p:outputLabel value="Zona: " />
+				</p:column>
+				<p:column>
+					<p:selectCheckboxMenu label="Zona" filter="true" filterText="Filter" value="#{mbArquitectura.lZonasEstra}"
+				            					  filterMatchMode="startsWith" styleClass="element-margin-top" style="width: 95px; text-align: left">
+						<f:selectItems value="#{mbArquitectura.mCatZonasEstra}" var="zone"
+								itemLabel="#{zone.idZone} #{zone.code}" itemValue="#{zone.idZone}" />
+					</p:selectCheckboxMenu>
+				</p:column>
+				<p:column>
+					<p:commandButton value="Buscar" styleClass="common-button"
+					action="#{mbArquitectura.filterGrid}" update="dtEstrategia"/>
+				</p:column>
+				<p:column colspan="4">
+				</p:column>
+			</p:row>
+		</p:panelGrid>
+		<p:dataTable id="dtEstrategia" var="item" value="#{mbArquitectura.responseArray}" rowIndexVar="rowIx" paginator="true" rows="10"  
+	                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+	                 emptyMessage="Vacio" resizableColumns="true" styleClass="ui-datatable-hor-scroll">
+		    	<p:columns value="#{mbArquitectura.columns}" var="column" columnIndexVar="colIndex"
+		    		resizable="true" sortBy="#{item.get(column.header)}">
+		    		<f:facet name="header">
+		    			<h:outputText value="#{column.property}" />
+		    		</f:facet>
+						<h:outputText value="#{item.get(column.header)}" />
+				</p:columns>
+	    </p:dataTable>
+		<p:panelGrid id="gridEstrategia3" style="width:100%;  border: 1px solid #AFAFAF;" styleClass="form-content">
+			<p:row>
+				<p:column>
+					<div align="right">
+						<p:commandButton styleClass="common-button" value="Volver"/>
+					</div>
+				</p:column>
+			</p:row>
+		</p:panelGrid>
+	</h:panelGroup>	
+</body>
+</html>

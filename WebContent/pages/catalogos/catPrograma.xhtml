@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:form id="formCatPrograma">
+
+    <h:panelGroup id="panelPrograma" styleClass="panel-form">
+	
+		<h1 class="title">#{MBCatPrograma.catalogNametitle}</h1>
+    	<p:messages id="messages" autoUpdate="true" closable="true" />
+        <p:message id="idProgramaMsg" for="idPrograma" display="tooltip"/>
+        
+        <p:panelGrid columns="2">
+             <h:outputLabel for="idPrograma" value="ID" /> 
+             <p:inputText id="idPrograma"  value="#{MBCatPrograma.idPrograma}" disabled="true">				 
+                            <p:ajax event="blur" update="idPrograma" />
+            </p:inputText>
+            <h:outputLabel for="code" value="DESCRIPCION" /> 
+             <p:inputText id="code"  value="#{MBCatPrograma.nombre}">
+                            <p:ajax event="blur" update="codeMsg" />
+            </p:inputText>
+		
+        </p:panelGrid>	
+        <p:message id="codeMsg" for="code" display="tooltip"/>
+	</h:panelGroup>
+	<br />
+    
+    <!-- boton guardar -->
+    <p:commandButton value="Guardar" 
+        action="#{MBCatPrograma.addCatPrograma}" 
+        onstart="muestraLoader();" 
+        oncomplete="ocultaLoader();"
+        update=":formCatPrograma"/>
+    
+	<p:commandButton value="Cancelar" style="margin-left: 5px;" 
+        action="#{MBCatPrograma.reset}" update=":formCatPrograma"/>	
+	
+	<br />
+	<br />
+        <p:dataTable id="dataTablePrograma"
+            var="item"
+            sortBy="#{item.idPrograma}"
+            value="#{MBCatPrograma.catProgramasList}" 
+            paginator="true" 
+            rows="10"
+            widgetVar="programDatatable"
+	        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+	        emptyMessage="Vacio" 
+            resizableColumns="true" 
+            styleClass="ui-datatable-hor-scroll">
+            
+            <p:ajax event="sort"></p:ajax>
+	            
+            <p:column  style="width: 20%" sortBy="#{item.idPrograma}">
+	            		
+                        <p:commandButton id="edit" action="#{MBCatPrograma.setCatGProgramaInfo(item)}" 
+                                         update=":formCatPrograma" title="Editar" icon="ui-icon-pencil" />
+
+                        <p:commandButton id="delete" actionListener="#{MBCatPrograma.setCatGProgramaInfo(item)}"									  
+                                                          onclick="deleteConfirmation.show()" icon="ui-icon-trash">						
+                        </p:commandButton>										
+						            		            
+                    </p:column>
+	            
+            <p:column id="idProgramaColumnId" headerText="ID" resizable="true" sortBy="#{item.idPrograma}" >
+					<h:outputText value="#{item.idPrograma}" />
+			</p:column>
+
+			<p:column headerText="DESCRIPCION" resizable="true" sortBy="#{item.idPrograma}">
+					<h:outputText value="#{item.nombre}" />
+			</p:column>
+				
+	    </p:dataTable>
+	    
+           <p:confirmDialog id="deleteConfirmDialog" message="Desea eliminar el registro seleccionado ?" styleClass="common-dialog"
+                    header="Confirmacion" severity="alert"
+                    appendToBody="true" widgetVar="deleteConfirmation">
+
+                   <p:commandButton id="confirm" value="Si" styleClass="ui-confirmdialog-yes"
+                   		action="#{MBCatPrograma.removePrograma}"                       
+                        process="@this"
+                        update="formCatPrograma:dataTablePrograma"
+                        oncomplete="deleteConfirmation.hide()"/>
+                        
+                        
+                    <p:commandButton id="decline" value="No" styleClass="ui-confirmdialog-no" onclick="deleteConfirmation.hide()" type="button" />
+                        
+          </p:confirmDialog>
+		
+	</h:form>
+</ui:composition>

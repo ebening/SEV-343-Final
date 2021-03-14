@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 29, 2014 11:31:30 AM by Hibernate Tools 3.6.0 -->
+<!--  
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.CatDepto" table="CAT_DEPTO">
+        <id name="deptoId" type="int" >
+            <column name="ID_DEPTO" />
+            <generator class="assigned"/>
+        </id>
+        <property name="code" type="string">
+            <column name="CODE" length="100" not-null="true"/>
+        </property>
+        <property name="esMercancia" type="boolean">
+            <column name="ES_MERCANCIA" />
+        </property>
+    </class>
+</hibernate-mapping> -->
+
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.CatDepto" table="CAT_DEPTO" optimistic-lock="version">
+        <id name="idDepto" type="int">
+            <column name="ID_DEPTO" />
+            <generator class="identity" />
+        </id>
+        <property name="code" type="string">
+            <column name="CODE" length="100" />
+        </property>
+        <property name="esMercancia" type="boolean">
+            <column name="ES_MERCANCIA" precision="1" scale="0" not-null="true" />
+        </property>
+        <set name="catCategories" table="CAT_CATEGORY" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_DEPTO" not-null="true" />
+            </key>
+            <one-to-many class="com.adinfi.seven.business.domain.CatCategory" />
+        </set>
+    </class>
+</hibernate-mapping>
+

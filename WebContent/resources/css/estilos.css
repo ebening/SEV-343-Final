@@ -1,0 +1,83 @@
+#bloque {width: 1024px;
+margin: 0 auto;
+}
+#caja1 {width: 50%;
+margin-left: 2px;
+float: left;
+}
+
+#caja2
+{width: 30%;
+margin-left: 2px;
+float: left;
+vertical-align: middle;
+height: 100%;
+}
+
+#caja3
+{width: 20%;
+margin-left: 2px;
+float: right;
+}
+
+#caja1 {background-color: #fff;
+margin-left: 2px!important;
+margin-left: 1px;
+}
+#caja2 {background-color: #fff;}
+#caja3 {background-color: #fff;}
+.salto {clear: both;}
+
+
+/*
+Pantalla de Inicio
+*/
+.autor_comentario{
+	display:block;
+	width:80%;
+	margin-left:7px;
+	background-color:#F2F2F2;
+	border:1px solid #DDD;
+	padding:4px;
+	color:#555;
+}
+
+
+.tablacomentarios {
+	width:100%; 
+	border-bottom:1px solid #daecf2;
+	background-color: #FFF;
+	background-image: url(../Imagenes/bgcomentarios.gif);
+	background-repeat: no-repeat;
+	font: 10px Century Gothic, Arial, Helvetica, sans-serif;
+	padding: 10px 0px 8px;	
+}
+.tablacomentarios span{ font: 10px Century Gothic, Arial, Helvetica, sans-serif; }
+
+
+.resultado{
+			
+			font-size: 12pt;
+			
+		}
+ #encabezado{
+	background: #D8D8D8;
+	width: 100%;
+	padding: 10px 0px 8px;	
+	border-spacing: 5px;
+}
+
+#actividades{
+	border: 1px solid #D8D8D8;
+	width: 40%;
+	height: 388px;
+	overflow : auto;;
+	padding: 0px;	
+}
+
+#contenedorCampana, #barchart{
+	border: 1px solid #D8D8D8;
+	width: 100%;
+	padding: 0px;	
+}
+

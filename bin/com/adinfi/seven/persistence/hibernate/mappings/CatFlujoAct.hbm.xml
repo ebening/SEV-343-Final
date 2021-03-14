@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 18, 2016 6:51:26 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.CatFlujoAct" table="CAT_FLUJO_ACT" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="ID" />
+            <generator class="identity" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="NOMBRE" length="50" />
+        </property>
+        <property name="diasantes" type="java.lang.Integer">
+            <column name="DIASANTES" />
+        </property>
+        <set name="relFlujoActs" table="REL_FLUJO_ACT" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_FLUJO" not-null="true" />
+            </key>
+            <one-to-many class="com.adinfi.seven.business.domain.RelFlujoAct" />
+        </set>
+    </class>
+</hibernate-mapping>

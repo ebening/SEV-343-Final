@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 29, 2014 11:31:30 AM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.TblPrograma" table="TBL_PROGRAMA">
+        <id name="programaId" type="int">
+            <column name="PROGRAMA_ID" />
+        </id>
+        <many-to-one name="tblMecanica" class="com.adinfi.seven.business.domain.TblMecanica" fetch="select">
+            <column name="MECANICA_ID" not-null="true" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

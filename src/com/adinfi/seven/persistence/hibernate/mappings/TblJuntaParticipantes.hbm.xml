@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated 17/12/2013 10:07:48 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.TblJuntaParticipantes" table="TBL_JUNTA_PARTICIPANTES">
+        <id name="id" type="int">
+            <column name="ID" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="tblJuntaPlaneacion" class="com.adinfi.seven.business.domain.TblJuntaPlaneacion" fetch="select">
+            <column name="ID_JUNTA" not-null="true"/>
+        </many-to-one>
+        <property name="idUsuario" type="int">
+            <column name="ID_USR" />
+        </property>
+    </class>
+</hibernate-mapping>

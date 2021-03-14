@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	
+</h:head>
+<body>
+<h:form id="roleForm">
+	<h:panelGroup id="rolePanel" styleClass="panel-form">
+		<h1 class="title">#{MBCatRole.catalogName}</h1>
+		<p:messages id="messages" autoUpdate="true" closable="true" />
+        <p:message id="idPromoMsg" for="idRole" display="tooltip"/>
+        <p:panelGrid columns="2" >
+        	<h:outputLabel for="idRole" value="ID" />
+        	<p:inputText id="idRole" value="#{MBCatRole.current.idrole}" disabled="true" />
+        	
+        	<h:outputLabel for="descripcion" value="DESCRIPCION" />
+        	<p:inputText id="descripcion" value="#{MBCatRole.current.desc}" />
+        </p:panelGrid>
+	
+		<br />
+		<p:commandButton value="Limpiar Informacion" actionListener="#{MBCatRole.resetInfo()}" update=":roleForm" />
+		<p:commandButton value="Guardar" actionListener="#{MBCatRole.guardarRole()}" update=":roleForm" />
+		
+		<br /><br />
+		<p:dataTable id="roleTable" value="#{MBCatRole.allroles}" var="item" paginator="true" rows="10" 
+					 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
+					 emptyMessage="Vacio" resizableColumns="true" styleClass="ui-datatable-hor-scroll">
+			<p:column  style="width: 20%">
+		            		
+				<p:commandButton id="edit" actionListener="#{MBCatRole.setSelectedRole(item)}" update=":roleForm" icon="ui-icon-pencil" title="Editar" />		
+				<p:commandButton id="delete" actionListener="#{MBCatRole.setSelectedRole(item)}" onclick="deleteConfirmation.show()" icon="ui-icon-trash" />						
+				            		            
+			</p:column>
+			<p:column style="width: 20%" headerText="ID">
+				<h:outputLabel value="#{item.idrole}" />
+			</p:column>
+			<p:column style="width: 60%" headerText="DESCRIPCION">
+				<h:outputLabel value="#{item.desc}" />
+			</p:column>
+		</p:dataTable>
+	
+		<p:confirmDialog id="deleteConfirmDialog" message="Desea eliminar el registro seleccionado ?"
+	                    header="Confirmacion" severity="alert" styleClass="common-dialog"
+	                    appendToBody="true" widgetVar="deleteConfirmation">
+	    	<p:commandButton id="confirm" value="Si" styleClass="ui-confirmdialog-yes"
+	                   		action="#{MBCatRole.deleteRole()}"                       
+	                        process="@this"
+	                        update="roleForm:roleTable"
+	                        oncomplete="deleteConfirmation.hide()"/>
+	        <p:commandButton id="decline" value="No" styleClass="ui-confirmdialog-no" onclick="deleteConfirmation.hide()" type="button" />                        
+	    </p:confirmDialog>
+    </h:panelGroup>
+</h:form>
+</body>
+</html>

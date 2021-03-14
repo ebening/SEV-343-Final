@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+<h:head>
+</h:head>
+<h:body onload="#{ABCFotosMB.init()}">
+	<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+	<p:panel header="ABC Fotos" styleClass="panel-form">
+		<h:form id="abcbusqueda">
+			<p:panelGrid id="panelfoto" styleClass="form-content" columns="3" style="width: 100%" cellpadding="0" cellspacing="15">
+				
+				<p:outputLabel for="idarticulo" value="Articulo: " />
+				<p:inputText id="idarticulo" value="#{ABCFotosMB.idArticulo}" size="30" />
+				<p:commandButton styleClass="common-button" value="Buscar" actionListener="#{ABCFotosMB.buscaSKUById}" update=":abcpie:dgimg" />
+				
+			</p:panelGrid>
+		</h:form>
+		
+		<h:form id="abcimagen" enctype="multipart/form-data">
+			<p:panelGrid styleClass="form-content" columns="3" style="width: 100%" cellpadding="0" cellspacing="15">
+				<p:outputLabel for="imgval" value="Imagen: " />
+				<p:inputText id="imgval" value="#{ABCFotosMB.imagen}" readonly="true" size="30"/>
+				<p:row id="upimg" >
+					<p:column>
+						<p:fileUpload id="up1" mode="advanced" cancelLabel="Cancelar" uploadLabel="Adjuntar archivo(s)" label="Examinar" 
+							dragDropSupport="false" update="imgval" auto="false" sizeLimit="10485760" fileUploadListener="#{ABCFotosMB.cargarFoto}"
+		          				multiple="true" invalidFileMessage="Tipo de archivo inválido" showButtons="false"
+		          				invalidSizeMessage="El(los) docuemnto(s) excenden el tamaño máximo permitido" />
+		          		</p:column>
+				</p:row>
+			</p:panelGrid>
+		</h:form>
+					
+		<h:form id="abcdesc" enctype="multipart/form-data">
+			<p:panelGrid styleClass="form-content" columns="3" style="width: 100%" cellpadding="0" cellspacing="15">
+				<p:outputLabel for="desc" value="Descripcion: " />
+				<p:inputText id="desc" value="#{ABCFotosMB.descripcion}" readonly="true" size="30" />
+				<p:row id="updesc" >
+					<p:column>
+						<p:fileUpload id="up2" mode="advanced" fileUploadListener="#{ABCFotosMB.cargarDesc}" dragDropSupport="false"
+							showButtons="false" label="Examinar" auto="false" sizeLimit="10485760" multiple="true" update="desc"
+							invalidFileMessage="Tipo de archivo inválido" invalidSizeMessage="El(los) docuemnto(s) excenden el tamaño máximo permitido" />
+					</p:column>
+				</p:row>
+			</p:panelGrid>
+		</h:form>
+		
+		<h:form id="abcguardar">
+			<p:panelGrid styleClass="form-content" columns="1" style="width: 100%" cellpadding="0" cellspacing="15">	
+				<f:facet name="footer">
+					<p:commandButton styleClass="common-button" value="Guardar" actionListener="#{ABCFotosMB.save}" style="margin:0" update=":abcpie:dgimg, :abcimagen:imgval, :abcdesc:desc"/>
+				</f:facet>
+			</p:panelGrid>
+		</h:form>
+	</p:panel>
+			
+	<h:form id="abcpie">
+		<p:panel header="Imagenes del Articulo" styleClass="panel-form">
+			<p:dataGrid id="dgimg" var="img"  value="#{ABCFotosMB.imgArticulos}" styleClass="form-content" style="width: 100%" cellpadding="0" cellspacing="15"
+						columns="#{ABCFotosMB.imgArticulos.size()}" emptyMessage="Sin imagenes">
+				<p:column>
+					<p:commandLink update=":abcpie:display" oncomplete="dlg.show()">
+						<f:setPropertyActionListener target="#{ABCFotosMB.imgArtSel}" value="#{img}" />
+						<p:graphicImage width="80px" value="#{ABCFotosMB.rutaFoto}#{img.tblImagenes.pathFile}" />
+					</p:commandLink>
+				</p:column>
+			</p:dataGrid>
+		</p:panel>
+		
+		<p:dialog widgetVar="dlg" header="Foto" styleClass="common-dialog" dynamic="false">
+			<h:panelGrid id="display" columns="1">
+				<f:facet name="header">
+					<c:if test="#{ABCFotosMB.imgArtSel.tblImagenes ne null and ABCFotosMB.imgArtSel.tblImagenes.pathFile.trim() ne ''}">
+						<p:graphicImage width="80px" value="#{ABCFotosMB.rutaFoto}#{ABCFotosMB.imgArtSel.tblImagenes.pathFile}"/> 
+					</c:if>
+				</f:facet>
+				<f:facet name="footer">
+					<p:commandButton styleClass="common-button" value="Cancelar" onclick="dlg.hide()" style="margin:0"/>
+					<p:commandButton styleClass="common-button" value="Eliminar Foto" actionListener="#{ABCFotosMB.eliminarFoto()}" oncomplete="dlg.hide()" style="margin:0" update="dgimg"/>
+				</f:facet>
+			</h:panelGrid>
+		</p:dialog>
+	</h:form>
+</h:body>
+</html>

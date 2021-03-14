@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"> 
+
+<h:head></h:head> 
+<body> 
+	<h:form id="arqprecioscarga" enctype="multipart/form-data">
+		<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+		<p:panel header="Carga de Precios" styleClass="panel-form">
+			<p:panelGrid id="folletoHeader" styleClass="form-content" style="width: 100%">
+
+				<p:row>
+					<p:column>
+						<p:outputLabel value="Campaña: " />
+					</p:column>
+					<p:column>
+						<p:inputText value="#{MBPrecios.precio.campana.nombre}" readonly="true" />
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:outputLabel value="Vigencia: " />
+					</p:column>
+					<p:column>
+						<p:inputText value="#{MBPrecios.precio.campana.fechaInicio}" readonly="true">
+							<f:convertDateTime type="date" pattern="dd-MM-yyyy" locale="es"/>
+						</p:inputText>
+						<p:outputLabel value=" al " />
+						<p:inputText value="#{MBPrecios.precio.campana.fechaFin}" readonly="true">
+							<f:convertDateTime type="date" pattern="dd-MM-yyyy" locale="es"/>
+						</p:inputText>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:outputLabel value="Medio: " />
+					</p:column>
+					<p:column>
+						<p:inputText value="#{MBPrecios.precio.medio.code}" readonly="true" />
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:outputLabel value="Tipo: " />
+					</p:column>
+					<p:column>
+						<p:inputText value="#{MBPrecios.precio.tipoMedio.code}" readonly="true" />
+					</p:column>
+				</p:row>
+
+			</p:panelGrid>
+		</p:panel>
+		<p:panel header="Subir archivo" styleClass="panel-form">
+			<p:panelGrid id="panelCarga" columns="4" cellpadding="0" cellspacing="15" styleClass="form-content" style="width: 100%" >
+				
+				<p:outputLabel value="Seleccione archivo a cargar" ></p:outputLabel>
+				<p:inputText id="excel" value="#{MBPrecios.nombreExcel}" size="30" readonly="true"></p:inputText>
+				<p:fileUpload mode="advanced" cancelLabel="Cancelar" uploadLabel="Adjuntar" label="Examinar" showButtons="false"
+							dragDropSupport="false" update="excel" auto="false" sizeLimit="10485760" fileUploadListener="#{MBPrecios.upload}"
+		 					multiple="true"  invalidFileMessage="Tipo de archivo inválido" allowTypes="/(\.|\/)(xls)$/"
+		 					invalidSizeMessage="El(los) docuemnto(s) excenden el tamaño máximo permitido" rendered="true"/>
+				<p:commandButton styleClass="common-button" value="Cargar Excel" action="#{MBPrecios.cargaExcel}" update="lib"></p:commandButton>
+			
+			</p:panelGrid>
+		</p:panel>
+		<br />
+		<p:panel header="Precios cargados" styleClass="panel-form">
+		<p:tabView id="lib" value="#{MBPrecios.sistemasVentas}" var="sisven" >
+			<p:tab title="#{sisven.code}" >
+				<p:dataTable styleClass="grid-content" var="hoja" value="#{MBPrecios.getMuestraHoja(sisven.code)}" rowKey="#{hoja.sku}" resizableColumns="true" 
+							 scrollable="true" scrollHeight="400" emptyMessage="Sin registros por Cargar">
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="SKU" />
+						</f:facet>
+						<h:outputText value="#{hoja.sku}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Credito a Contado" />
+						</f:facet>
+						<h:outputText value="#{hoja.contado}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="AB Sem 6 Mes" />
+						</f:facet>
+						<h:outputText value="#{hoja.abSem6Mes}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="AB Sem 9 Mes" />
+						</f:facet>
+						<h:outputText value="#{hoja.abSem9Mes}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="AB Sem 12 Mes" />
+						</f:facet>
+						<h:outputText value="#{hoja.abSem12Mes}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="AB Sem 15 Mes" />
+						</f:facet>
+						<h:outputText value="#{hoja.abSem15Mes}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="AB Sem 18 Mes" />
+						</f:facet>
+						<h:outputText value="#{hoja.abSem18Mes}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="AB Sem 24 Mes" />
+						</f:facet>
+						<h:outputText value="#{hoja.abSem24Mes}" />
+					</p:column>
+				</p:dataTable>
+			</p:tab>
+		</p:tabView>
+		</p:panel>
+	</h:form>
+</body> 
+</html>

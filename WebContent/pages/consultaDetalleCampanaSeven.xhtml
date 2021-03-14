@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<body>
+	<h:form rendered="#{MBDetalleCampanaSeven.consulta}">
+		<p:dataTable id="multiCampana" var="campana"
+			value="#{MBDetalleCampanaSeven.campanaDataModel}" paginator="true"
+			rows="10" selection="#{MBDetalleCampanaSeven.selectedCampanas}">
+			<f:facet name="header">
+
+			</f:facet>
+			<p:column selectionMode="multiple" style="width:2%" />
+			<p:column headerText="Etiqueta" style="width:25%;">           	 		 		  
+         	 		 		 <span style="color:#{campana.etiqueta}">#{campana.etiqueta}</span>
+       					 </p:column>
+			<p:column headerText="Tipo Evento Promocional" style="width:25%">  
+          			 		 #{campana.tipo}  
+       					 </p:column>
+			<p:column headerText="Evento Promocional" style="width:24%">  
+          			  		#{campana.tblCampana.nombre}  
+       					 </p:column>
+			<p:column headerText="Periodo" style="width:24%">  
+         			  		 #{campana.periodo}  
+      					  </p:column>
+			<p:column headerText="Responsable" style="width:24%">  
+           				 #{campana.responsable}  
+       				 </p:column>
+			<p:column headerText="Año" style="width:24%">  
+        			    #{campana.year}  
+       				</p:column>
+		</p:dataTable>
+	</h:form>
+</body>
+</html>

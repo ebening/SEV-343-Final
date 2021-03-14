@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 18, 2016 6:51:26 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.CatActPred" table="CAT_ACT_PRED" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="ID" />
+            <generator class="identity" />
+        </id>
+        <property name="descripcion" type="string">
+            <column name="DESCRIPCION" />
+        </property>
+        <property name="nivelEscalable" type="java.lang.Integer">
+            <column name="NIVEL_ESCALABLE" />
+        </property>
+        <property name="orden" type="java.lang.Integer">
+            <column name="ORDEN" />
+        </property>
+        <many-to-one name="role" class="com.adinfi.seven.business.domain.CatRole" fetch="select">
+            <column name="ID_ROL" />
+        </many-to-one>
+        <set name="relFlujoActs" table="REL_FLUJO_ACT" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_ACT" not-null="true" />
+            </key>
+            <one-to-many class="com.adinfi.seven.business.domain.RelFlujoAct" />
+        </set>
+    </class>
+</hibernate-mapping>

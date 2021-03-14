@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head></h:head> 
+<h:body> 
+	<div style="width: 97%;float: left; background-color: #e6e6e6; height: 28px;  font-size:medium;
+						padding-top:5px; padding-left: 5px; color: #767575;">
+						<b><h:outputLabel value="Medios"></h:outputLabel></b>
+	</div>
+		
+	<div id="div_Ejecucion" style="background: White; font-size: 14px; color: gray;"><br></br>
+	<div id="div_seccionesMedios_LateralEjecucion">
+		<div id="div1Ejecucion">
+				<h:outputLabel value="&#187; Regreso a clases" style="padding-left: 13px; color: #2243E9; text-decoration: underline;"></h:outputLabel><br></br>
+				<div id="div2Ejecucion" style="padding-left: 15px;">
+					<div id="div2_1Ejecucion" style="padding-left: 15px;">
+						<h:outputLabel value="-Impresos" styleClass="colorLateralEjecucion"></h:outputLabel><br></br>
+						<div id="div3Ejecucion" style="padding-left: 35px;">
+							<h:outputLabel value="-Folleto" StyleClass="colorLateralEjecucion"></h:outputLabel><br></br>
+							<div id="div4Ejecucion" style="padding-left: 20px;">
+								<h:outputLabel value="-Hoja 1" style="color: #8E0606;" styleClass="colorLateralEjecucion"></h:outputLabel><br></br>
+								<div id="div5Ejecucion" style="padding-left: 40px;">
+									<h:outputLabel value="V.1" style="color: #8E0606;" styleClass="colorLateralEjecucion"></h:outputLabel><br></br>
+									<h:outputLabel value="V.2" styleClass="colorLateralEjecucion"></h:outputLabel><br></br>
+								</div>
+								
+								<h:outputLabel value="-Hoja 5" styleClass="colorLateralEjecucion"></h:outputLabel><br></br>
+								<h:outputLabel value="-Hoja 3" styleClass="colorLateralEjecucion"></h:outputLabel><br></br>
+															
+							</div>
+						</div>
+					</div>
+					
+					<div id="div2_2Ejecucion" style="padding-left: 15px;">
+						<h:outputLabel id="lbl_TelevisionEjecucion" action="medioTelevisionEjecucion()" value="-Televisión" styleClass="colorLateralEjecucion"></h:outputLabel><br></br>
+					</div>
+					
+				</div>
+		</div>
+		
+		<h:outputLabel id="lbl_Ejecucion1" value="En familia" style="padding-left: 8px; color:green; text-decoration: underline;"></h:outputLabel><br></br>
+		<h:outputLabel id="lbl_Ejecucion2" value="Noche de brujas" style="padding-left: 8px; color: #FB9106; text-decoration: underline;"></h:outputLabel><br></br>
+		<h:outputLabel id="lbl_Ejecucion3" value="Llegó la navidad" style="padding-left: 8px; color: #D2430F; text-decoration: underline;"></h:outputLabel><br></br>
+	
+	<div style="height: 10px;"></div>
+	</div>
+	<div id="divCumplimientosDeMedios" class="mantenerEscondida">
+		<div style="width: 97.5%;float: left; background-color: #e6e6e6; height: 28px;  font-size:small;
+						padding-top:5px; padding-left: 5px; color: #767575;">
+						<h:outputLabel value="Cumplimiento de medios" ></h:outputLabel><br></br>
+		</div>
+
+		<div id="div_content_cumplientosMedios">
+			<div style="padding-left: 5px;background: White; font-size: 14px; color: gray;"><br></br>
+				<h:outputLabel value="Contratación" ></h:outputLabel><br></br>
+				<p:inputText id="txtContratacionEjecucion" StyleClass="fuenteYColor borderTextbox" style="width: 65px; padding-right: 5px;" />
+				<p:commandButton id="btnBuscarContratacionEjecucion" styleClass="" value="Buscar" style="height: 25px;color: white;background: url(images/degradado_btn_2.png);float:right;"></p:commandButton>
+				<h:outputLabel value="Real" ></h:outputLabel><br></br>
+				<p:inputText id="txtRealEjecucion" styleClass="fuenteYColor borderTextbox" style="width: 65px; padding-right: 5px;"/>
+				<p:commandButton id="btnBuscarRealEjecucion" value="Buscar" styleClass="" style="height: 25px;color: white;background: url(images/degradado_btn_2.png);float:right;"></p:commandButton>
+				<div align="right" style="padding-top:10px; padding-right: 5px;">
+					<p:commandButton id="btnCompararEjecucion" styleClass="" value="Comparar" style=" color: white;height: 25px;background: url(images/degradado_btn_2.png);"></p:commandButton>
+				</div>			
+			</div>
+		</div>
+	</div>
+	</div>
+</h:body> 
+</html>

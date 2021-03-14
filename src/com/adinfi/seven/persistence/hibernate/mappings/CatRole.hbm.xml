@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 21, 2016 12:30:54 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.CatRole" table="CAT_ROLE" optimistic-lock="version">
+        <id name="idrole" type="int">
+            <column name="IDROLE" />
+            <generator class="identity" />
+        </id>
+        <property name="desc" type="string">
+            <column name="DESC" length="50" not-null="true" />
+        </property>
+        <set name="catUsuarioses" table="CAT_USUARIOS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="IDROLE" not-null="true" />
+            </key>
+            <one-to-many class="com.adinfi.seven.business.domain.CatUsuarios" />
+        </set>
+    </class>
+</hibernate-mapping>

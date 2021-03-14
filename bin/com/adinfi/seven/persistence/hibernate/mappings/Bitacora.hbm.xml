@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated 26/10/2013 09:27:47 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.Bitacora" table="BITACORA">
+        <id name="bitacoraId" type="int">
+            <column name="BITACORA_ID" />
+            <generator class="native" />
+        </id>
+        <property name="usuarioId" type="java.lang.Integer">
+            <column name="USUARIO_ID" />
+        </property>
+        <property name="ip" type="string">
+            <column name="IP" length="16" />
+        </property>
+        <property name="dao" type="string">
+            <column name="DAO" length="100" />
+        </property>
+        <property name="metodo" type="string">
+            <column name="METODO" length="100" />
+        </property>
+        <property name="fechaMov" type="timestamp">
+            <column name="FECHA_MOV" length="26" not-null="true" />
+        </property>
+        <set name="bitacoraParams" inverse="true">
+            <key>
+                <column name="BITACORA_ID" not-null="true" />
+            </key>
+            <one-to-many class="com.adinfi.seven.business.domain.BitacoraParam" />
+        </set>
+    </class>
+</hibernate-mapping>

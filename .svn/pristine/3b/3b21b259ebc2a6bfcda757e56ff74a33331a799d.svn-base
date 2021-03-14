@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+</h:head>
+<body>
+	<h:form id="edicion" rendered="#{MBSolicitudAutorizacion.detalle}"> 
+	<p:panel id="panel" header="New " style="margin-bottom:10px;">
+	<p:panelGrid id="grid" columns="2">
+			<f:facet name="header">
+				<h:outputLabel value="Editar" />
+			</f:facet>
+			<p:outputLabel value="Tipo Campaña: " />
+			<p:selectOneMenu id="tipoCampana" required="true" disabled="true" 
+			value="#{MBSolicitudAutorizacion.solicitudAutorizacionDTOPendiente.campanaDTO.tipo}">
+			<f:selectItem itemLabel="#{MBSolicitudAutorizacion.solicitudAutorizacionDTOPendiente.campanaDTO.tipo}" itemValue="1"/>
+			</p:selectOneMenu>
+			<p:outputLabel value="Titulo: " />
+			<p:row>
+				<p:panelGrid columns="3">
+					<p:inputText value="#{MBSolicitudAutorizacion.solicitudAutorizacionDTOPendiente.campanaDTO.tblCampana.nombre}" disabled="true" />
+					<p:outputLabel value="Etiqueta: " />
+					<p:selectOneMenu value="#{MBSolicitudAutorizacion.solicitudAutorizacionDTOPendiente.campanaDTO.etiqueta.codigo}" disabled="true" >
+					<f:selectItem itemLabel="#{MBSolicitudAutorizacion.solicitudAutorizacionDTOPendiente.campanaDTO.etiqueta.codigo}" itemValue="1" />
+					</p:selectOneMenu>					
+							
+				</p:panelGrid>
+			</p:row>
+			<p:row>
+			<p:outputLabel value="#{msg.periodo}" />
+			</p:row>
+			<p:row>							
+							<p:inputText disabled="true"
+							value="#{MBSolicitudAutorizacion.solicitudAutorizacionDTOPendiente.campanaDTO.periodo.fechaInicial}">
+							<f:convertDateTime pattern="dd/MMM/yyyy"  /></p:inputText> 
+							<p:spacer height="10" />
+							-						
+							<p:spacer height="10" />	
+							<p:inputText disabled="true"
+							 value="#{MBSolicitudAutorizacion.solicitudAutorizacionDTOPendiente.campanaDTO.periodo.fechaFinal}">							 
+							<f:convertDateTime pattern="dd/MMM/yyyy" />	</p:inputText>
+			</p:row>
+			<p:outputLabel value="Responsable: " />
+			<p:selectOneMenu id="responsable"
+				value="#{MBSolicitudAutorizacion.solicitudAutorizacionDTOPendiente.campanaDTO.responsable}" disabled="true">
+				<f:selectItem itemLabel="#{MBSolicitudAutorizacion.solicitudAutorizacionDTOPendiente.campanaDTO.responsable}" itemValue="1"/>
+			</p:selectOneMenu>
+			
+			<p:outputLabel value="Comentarios: " />
+			<p:inputTextarea
+				value="#{MBSolicitudAutorizacion.solicitudAutorizacionDTOPendiente.campanaDTO.tblCampana.comentarios}" disabled="true"/>
+			
+			<p:commandButton onclick="cd.show()" value="#{msg.misAutorizaciones}" update="itemId"
+	            	action="#{MBSolicitudAutorizacion.getAutorizacionesPrevias
+	            	(MBSolicitudAutorizacion.solicitudAutorizacionDTOPendiente.tblSolicitudAutorizacion)}"/>
+		</p:panelGrid>
+		</p:panel>	
+		<p:dialog header="#{msg.autorizaciones}" global="true"
+			showEffect="fade" hideEffect="explode" widgetVar="cd"
+			icon="ui-icon-trash" width="600"
+			height="300">
+			<form>
+				<!-- 		    <p:commandButton value="Si" styleClass="ui-confirmdialog-yes"
+		        icon="ui-icon-check" 			       
+		        onclick="cd.hide()"/>
+	
+		        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no"
+		        icon="ui-icon-close" onclick="cd.hide()"/> -->
+
+				<table>
+					<tr>
+						<td><h:outputLabel value="#{msg.campana}" /></td>
+						<td><h:outputText
+								value="#{MBSolicitudAutorizacion.solicitudAutorizacionDTOPendiente.tblSolicitudAutorizacion.tblCampana.nombre}"></h:outputText></td>
+					</tr>
+					<tr>
+						<td><h:outputLabel value="#{msg.periodo}" /></td>
+						<td><h:outputText
+								value="#{MBSolicitudAutorizacion.solicitudAutorizacionDTOPendiente.campanaDTO.periodo.fechaInicial}">
+								<f:convertDateTime pattern="dd/MMM/yyyy" />
+							</h:outputText> - <h:outputText
+								value="#{MBSolicitudAutorizacion.solicitudAutorizacionDTOPendiente.campanaDTO.periodo.fechaFinal}">
+								<f:convertDateTime pattern="dd/MMM/yyyy" />
+							</h:outputText></td>
+					</tr>
+				</table>
+				<br />
+
+				<p:dataTable id="itemId" var="item"
+					value="#{MBSolicitudAutorizacion.solicitudesAprobadas}"
+					rowIndexVar="rowIx" paginator="false" rows="5"
+					resizableColumns="true" styleClass="ui-datatable-hor-scroll">
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.idAutorizacion}" />
+						</f:facet>
+						<h:outputText
+							value="#{item.tblCampanaAutorizacion.id.idAutorizacion}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.autorizo}" />
+						</f:facet>
+						<h:outputText value="#{item.usuarioDTO.name}" />
+						<h:outputText value="&#160;" />
+						<h:outputText value="#{item.usuarioDTO.plastName}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.fechaAutorizacion}" />
+						</f:facet>
+						<h:outputText
+							value="#{item.tblCampanaAutorizacion.fechaAutorizacion}">
+							<f:convertDateTime pattern="dd/MM/yyyy" />							
+						</h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{msg.comentarios}" />
+						</f:facet>
+						<h:outputText value="#{item.tblCampanaAutorizacion.comentarios}" />
+					</p:column>
+				</p:dataTable>
+				<br />
+				<table>
+					<tr>
+						<td><h:outputLabel value="#{msg.comentarios}" /></td>
+						<td><p:inputText value="#{MBSolicitudAutorizacion.comentarios}"></p:inputText></td>
+					</tr>
+				</table>
+				<br />
+				<table>
+					<tr>
+						<td><p:commandButton value="#{msg.autorizar}" onclick="cd.hide()" update=":pgPrincipalLogin"
+								action="#{MBSolicitudAutorizacion.autorizar(MBSolicitudAutorizacion.solicitudAutorizacionDTOPendiente)}" /></td>
+						<td><p:commandButton value="#{msg.rechazar}" update=":pgPrincipalLogin"
+								action="#{MBSolicitudAutorizacion.rechazar(MBSolicitudAutorizacion.solicitudAutorizacionDTOPendiente)}" /></td>
+						<td><p:commandButton value="#{msg.cancelar}"
+								onclick="cd.hide()" /></td>
+					</tr>
+				</table>
+			</form>
+		</p:dialog>
+	</h:form>
+</body>
+</html>

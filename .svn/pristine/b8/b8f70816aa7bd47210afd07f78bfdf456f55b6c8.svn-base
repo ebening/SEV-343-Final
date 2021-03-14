@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<h:head></h:head>
+<body>
+	<ui:composition>
+		<ui:insert name="left">
+				<h:form id="frmMenuLogin">
+					<p:panelMenu >
+						<p:submenu style="font-size:12px" label="Ajax Menuitems">
+							<p:menuitem style="font-size:12px" value="Save" />
+							<p:menuitem style="font-size:12px" value="Update" />
+						</p:submenu>
+						<p:submenu style="font-size:12px" label="Non-Ajax Menuitem">
+							<p:menuitem value="Delete" />
+						</p:submenu>
+						<p:separator />
+						<p:submenu style="font-size:12px" label="Navigations">
+							<p:submenu label="Links">
+								<p:submenu style="font-size:12px" label="PrimeFaces">
+									<p:menuitem style="font-size:12px" value="Home" />
+									<p:menuitem style="font-size:12px" value="Docs" />
+									<p:menuitem style="font-size:12px" value="Download" />
+									<p:menuitem style="font-size:12px" value="Support" />
+								</p:submenu>
+							</p:submenu>
+							<p:menuitem style="font-size:12px" value="Mobile" />
+						</p:submenu>
+					</p:panelMenu>
+				</h:form>
+		</ui:insert>
+	</ui:composition>
+</body>
+</html>

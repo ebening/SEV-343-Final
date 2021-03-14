@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 29, 2014 11:31:30 AM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.RelCompSku" table="REL_COMP_SKU">
+        <id name="skuId" type="int">
+            <column name="SKU_ID" />
+        </id>
+        <many-to-one name="tblComponente" class="com.adinfi.seven.business.domain.TblComponente" fetch="select">
+            <column name="COMPONENTE_ID" not-null="true" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated 11/12/2013 11:06:00 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.TblFolletoTienda" table="TBL_FOLLETO_TIENDA">
+        <composite-id name="id" class="com.adinfi.seven.business.domain.TblFolletoTiendaId">
+            <key-property name="idFolleto" type="int">
+                <column name="ID_FOLLETO" />
+            </key-property>
+            <key-property name="idTienda" type="int">
+                <column name="ID_TIENDA" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="tblFolleto" class="com.adinfi.seven.business.domain.TblFolleto" update="false" insert="false" fetch="select">
+            <column name="ID_FOLLETO" not-null="true" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

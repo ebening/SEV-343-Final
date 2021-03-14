@@ -1,0 +1,96 @@
+
+#principal {
+    width: 990px;
+    min-height: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 3%;
+}
+
+.login_back {
+    background: url(#{resource[ 'images:fondo.png' ]}) repeat;
+}
+
+#div_Logo {
+    padding-right: 30px;
+    padding-top: 220px;
+    padding-bottom: 30px;
+    text-align: right;
+}
+
+#div_Info_Login {
+    height: 100px;
+    background-color: rgb(74,72,79);
+    /*    background-color: #CB3F3F;
+        padding-right: 30px;*/
+
+}
+
+.tbl_principal{
+    width: 100%;
+    height: 100%;
+    /*  border: 1px solid #ffffff;*/
+}
+
+#tbl_principal td{
+    width: 50%;
+    /*  border: 1px solid #ffffff;*/
+}
+
+
+#tbl_login td{
+    width: 100%;
+    /* border: 1px solid #ffffff;*/
+}
+
+.botonLogin {
+    background: url(#{resource[ 'images/botones:degradado_btn.png' ]}) 50% 50% repeat-x;
+    font-weight: bold;
+    font-size:12px;
+    height: 30px;
+    width: 100px;
+    border:1px solid silver;
+    color: #fff;
+}
+
+.botonLogin:hover {
+    background: url(#{resource[ 'images/botones:degradado_btn_black.png' ]}) 50% 50% repeat-x;
+}
+
+
+
+
+.text {
+    font-size: 15px;
+    font-family: Arial;
+}
+
+.label{
+    font-weight: bold;
+    color:#fff;
+}
+
+#tablaLogos{
+    width: 100%;
+    border: 1px solid black!important;
+}
+
+
+.buscar- {
+    display: inline-block;
+    background: url(#{resource[ 'images/botones:pdf.png' ]}) no-repeat;
+    width: 20px;
+    height: 20px;
+    background-size: 20px 20px;
+    background-position: center;
+    padding-left: 5px;
+    background-position: center;
+}
+
+.burcar-:hover {
+    background: url(#{resource[ 'images/botones:pdf_black.png' ]}) no-repeat;
+    background-size: 20px 20px;
+    background-position: center;
+    width: 20px;
+    height: 20px;
+}

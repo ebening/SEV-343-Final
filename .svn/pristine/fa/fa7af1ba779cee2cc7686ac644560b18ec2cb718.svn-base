@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 19, 2015 8:08:34 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.RelPrecioItemZona" table="REL_PRECIO_ITEM_ZONA" optimistic-lock="version">
+        <id name="idRpiz" type="int">
+            <column name="ID_RPIZ" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="catItem" class="com.adinfi.seven.business.domain.CatItem" fetch="select">
+            <column name="ID_ITEM" length="30" not-null="true" />
+        </many-to-one>
+        <many-to-one name="catZone" class="com.adinfi.seven.business.domain.CatZone" fetch="select">
+            <column name="ID_ZONE" not-null="true" />
+        </many-to-one>
+        <property name="precio" type="double">
+            <column name="PRECIO" precision="53" scale="0" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

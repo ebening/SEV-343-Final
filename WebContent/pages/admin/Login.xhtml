@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+    <h:outputStylesheet library="css" name="login.css"  />
+    <script>
+		function muestraLoader() {
+			loader.show();
+		}
+		function ocultaLoader() {
+			loader.hide();
+		}     
+        
+	</script>
+</h:head>
+<h:body>
+    <h:form  id="formLogin" >
+        <p:growl   id="messages"  life="3000" globalOnly="true" autoUpdate="true" closable="true"   />
+
+        <div id="principal">
+            <div id="div_Info_Login">
+                <table class="tbl_principal">
+                    <tr>
+                        <td>
+                            <table id="tbl_login" class="tbl_principal" >
+                                <c:if test="${param != null}"> 
+                                     <p:outputLabel value=""/>
+                                    <c:if test="${param.timeout != null}">
+                                     <tr>
+                                        <td height="20px" colspan="5" >
+                                            <p:outputLabel styleClass="text label" value="La Sesion de Usuario ha expirado." style="color:red;" />
+                                        </td>
+                                     </tr>
+                                    </c:if>
+                                    <c:if test="${param.newSession != null}">
+                                    <tr>
+                                        <td height="20px" colspan="5" >
+                                            <p:outputLabel styleClass="text label" value="Se detect&oacute; una nueva sesi&oacute;n:" style="color:red;" />
+                                            <p:outputLabel styleClass="text label" value="#{param.newSession}" style="color:red;" />
+                                        </td>
+                                     </tr>
+                                    </c:if>
+                                     <c:if test="${param.timeout == null and param.newSession == null}">
+                                     <tr>
+                                        <td height="20px" colspan="5" >
+                                        </td>
+                                    </tr>
+                                    </c:if>
+                                </c:if>
+
+                                <tr>
+
+                                    <td align="right" style="padding-left: 10px;">
+                                        <p:outputLabel for="userName" styleClass="text label"
+                                                       value="Usuario: " />
+                                    </td>
+
+                                    <td align="right" style="padding-left: 10px;">
+                                        <p:inputText id="userName" styleClass="text" value="#{MBCatUsuarios.loginID}"/>
+                                    </td>
+                                    <td align="right" style="padding-left: 20px; ">
+                                        <p:outputLabel for="password" styleClass="text label" value="Contraseña: " />
+                                    </td>
+
+                                    <td align="right" style="padding-left: 10px;">
+                                        <p:password id="password" styleClass="text" value="#{MBCatUsuarios.password}"/>
+                                    </td>
+
+                                    <td align="left" style="padding-right:100px; padding-left: 20px;">
+                                        <p:commandButton onclick="muestraLoader()" action="#{MBCatUsuarios.login()}"  value="Entrar" styleClass="botonLogin">
+                                           
+                                           <p:ajax onstart="muestraLoader();" oncomplete="ocultaLoader();"	event="click" listener="#{MBCatUsuarios.login()}" global="true"  />
+                                        </p:commandButton>
+                                        
+                                    </td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <td align="right" colspan="4">
+                                        <p:commandLink id="btn_RecoveryPassword" styleClass="text label" action="#{MBCatUsuarios.recoveryPassword()}" value="Recuperar contraseña"/>
+                                    </td>
+
+                                    <td >
+                                    </td>
+
+                                </tr>
+
+                            </table>
+                        </td>
+
+                        <td align="right">
+                            <h:graphicImage library="images" name="7-11-logo.png" style="height: 80px;"/>
+                        </td>
+                    </tr>
+                </table>
+
+
+
+
+            </div>
+            <div id="div_Logo" class="login_back">
+                <h:graphicImage id="logo_Login" library="images" name="Logo_Grande_Blanco.png" styleClass="logo_Login" style="height: 180px;"/>
+            </div>
+        </div>
+    </h:form>
+    
+	<p:dialog widgetVar="loader" modal="true" draggable="false" closable="false" resizable="false" showHeader="false" style="box-shadow: none !important; border:0 !important;">
+	    <p:graphicImage value="/resources/images/loading.svg"/>
+	</p:dialog>
+</h:body>
+</html>

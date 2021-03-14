@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	
+</h:head>
+<body>
+<h:form id="mainForm">
+        <h1 class="title">#{MBCatSubCategory.catalogNametitle}</h1>
+        <p:messages id="messages" autoUpdate="true" closable="true" />
+        <h:panelGrid id="panelCatSubCategory" columns="3">
+            
+            <h:outputLabel for="subCategoryId" value="&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;ID&#160;" /> 
+            <p:inputText id="subCategoryId"  value="#{MBCatSubCategory.catSubCategory.subCategoryId}" required="true" requiredMessage="Debe ingresar un id" > 
+                <p:ajax event="blur" update="subCategoryIdMsg" />
+            </p:inputText>
+            <p:message id="subCategoryIdMsg" for="subCategoryId" display="tooltip"/>
+            
+            <h:outputLabel for="code" value="CODIGO&#160;" /> 
+            <p:inputText id="code"  value="#{MBCatSubCategory.catSubCategory.code}" required="true" requiredMessage="Debe ingresar un codigo">
+                <p:ajax event="blur" update="codeMsg" />
+            </p:inputText>
+            <p:message id="codeMsg" for="code" display="tooltip"/>
+            
+            <h:outputLabel for="catCategory" value="CATEGORIA" /> 
+            <p:selectOneMenu id="catCategory"  value="#{MBCatSubCategory.catSubCategory.catCategory.categoryId}" required="true" requiredMessage="Debe seleccionar una categoria">
+                <f:selectItem itemLabel="Seleccione una categoria" itemValue="#{null}" />  
+                <f:selectItems value="#{MBCatSubCategory.catCategoryList}" var="item" itemLabel="#{item.code}" itemValue="#{item.categoryId}"/>
+                <p:ajax event="blur" update="catCategoryMsg" />
+            </p:selectOneMenu>
+            <p:message id="catCategoryMsg" for="catCategory" display="tooltip"/>
+            
+            <h:outputLabel for="esMercancia" value="ES MERCANCIA" />
+            <p:selectBooleanCheckbox id="esMercancia"  value="#{MBCatSubCategory.catSubCategory.esMercancia}" />
+            <p:message id="esMercanciaMsg" for="esMercancia" display="tooltip"/>
+            
+            <h:outputLabel for="catProveedor" value="PROVEEDOR" /> 
+            <p:selectOneMenu id="catProveedor"  value="#{MBCatSubCategory.catSubCategory.catProveedor.proveedorId}" required="true" requiredMessage="Debe seleccionar un proveedor">
+                <f:selectItem itemLabel="Seleccione un proveedor" itemValue="#{null}" />  
+                <f:selectItems value="#{MBCatSubCategory.catProveedorList}" var="item" itemLabel="#{item.code}" itemValue="#{item.proveedorId}"/>
+                <p:ajax event="blur" update="catProveedorMsg" />
+            </p:selectOneMenu>
+            <p:message id="catProveedorMsg" for="catProveedor" display="tooltip"/>
+            
+            <f:facet name="footer">
+                <h:panelGroup style="display:block; text-align:center">
+                    <p:commandButton value="Guardar" action="#{MBCatSubCategory.addCatSubCategory}" update=":mainForm"/>
+                    <p:commandButton value="Cancelar" style="margin-left: 5px;" action="#{MBCatSubCategory.reset}" update=":mainForm"/>
+                </h:panelGroup>
+            </f:facet>
+        </h:panelGrid>
+        
+	<br />
+	<br />
+        <p:dataTable id="itemId" var="item" value="#{MBCatSubCategory.catSubCategoryList}" paginator="true" rows="10" 
+	                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+	                 emptyMessage="Vacio" resizableColumns="true" styleClass="ui-datatable-hor-scroll">
+            
+            <p:column  style="width: 20%">
+                
+                <p:commandButton id="edit" action="#{MBCatSubCategory.setCatSubCategoryInfo(item)}" process="@this"
+                                update=":mainForm" icon="ui-icon-search" />
+                <p:tooltip for="edit" value="Actualizar" />	
+                
+                <p:tooltip for="delete" value="Eliminar" />			
+                <p:commandButton id="delete" onclick="cd.show()" icon="ui-icon-trash" process="@this"
+	            	action="#{MBCatSubCategory.setCatSubCategoryInfo(item)}"/>
+                
+                <p:confirmDialog message="¿Desea eliminar el registro seleccionado?" 
+                header="Confirmación" severity="alert"
+                showEffect="fade" hideEffect="explode" widgetVar="cd" icon="ui-icon-trash" appendToBody="true">
+                    
+                    <p:commandButton value="Si" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update=":mainForm" 
+                                     action="#{MBCatSubCategory.removeCatSubCategory()}" process="@this"  onclick="cd.hide()" />
+                    
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" process="@this"
+                                    icon="ui-icon-close" onclick="cd.hide()"/>
+                    
+                </p:confirmDialog>
+                
+            </p:column>
+            <p:column headerText="ID" resizable="true" >
+                <h:outputText value="#{item.subCategoryId}" />
+            </p:column>
+            <p:column headerText="CODIGO" resizable="true" >
+                <h:outputText value="#{item.code}" />
+            </p:column>
+            <p:column headerText="CATEGORIA" resizable="true" >
+                <h:outputText value="#{item.catCategory.categoryId}" />
+            </p:column>	
+            <p:column headerText="ES MERCANCIA" resizable="true" >
+                <h:outputText value="#{item.esMercancia}" />
+            </p:column>
+            <p:column headerText="PROVEEDOR" resizable="true" >
+                <h:outputText value="#{item.catProveedor.proveedorId}" />
+            </p:column>
+        </p:dataTable>
+        
+</h:form>
+</body>
+</html>

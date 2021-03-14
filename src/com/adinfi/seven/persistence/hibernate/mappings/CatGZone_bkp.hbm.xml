@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated 12/06/2015 05:14:40 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.CatGZone" table="CAT_G_ZONE">
+        <id name="idGrupoZona" type="int">
+            <column name="ID_GRUPO_ZONA" />
+            <generator class="assigned" />
+        </id>
+        <property name="code" type="string">
+            <column name="CODE" length="250" not-null="true" />
+        </property>
+<!--        <set name="catZones" table="CAT_ZONE" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_GRUPO_ZONA" not-null="true" />
+            </key>
+            <one-to-many class="com.adinfi.seven.business.domain.CatZone" />
+        </set> -->
+    </class>
+</hibernate-mapping>

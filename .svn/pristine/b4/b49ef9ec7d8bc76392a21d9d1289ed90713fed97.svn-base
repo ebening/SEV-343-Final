@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:c="http://java.sun.com/jstl/core">
+<h:head>
+
+<h:outputStylesheet library="css" name="adMaster.css" />
+	<script type="text/javascript">
+//<![CDATA[
+function salir(){
+	window.close();
+}
+//]]>
+</script>
+
+</h:head>
+
+<h:body>
+	<h:form id="dialog" enctype="multipart/form-data">
+	<f:metadata >
+	<f:viewParam name="hoja_id"
+				value="#{MBAgregarArticulosPopUp.hoja_id}" />
+	<f:viewParam name="idSegmento"
+				value="#{MBAgregarArticulosPopUp.idSegmento}" />
+	<f:viewParam name="segname"
+				value="#{MBAgregarArticulosPopUp.segName}" />
+</f:metadata>
+	<h:inputHidden id="hoja_id"  value="#{MBAgregarArticulosPopUp.hoja_id}" />
+		<h:panelGrid columns="1">
+			<p:graphicImage value="../resources/images/Logo_Admaster_35.png" />
+			<p:separator id="separator" />
+		</h:panelGrid>
+		<p:panel id="panel" header="Articulos" styleClass="panel-form">
+			<p:panelGrid style="width: 100%;" columns="1" styleClass="form-content">
+				<p:column>
+				<p:outputLabel id="busquedaSku" value="Buscar" />
+				<p:inputText id="sku" value="#{MBAgregarArticulosPopUp.sku}" />
+				<p:commandButton id="buscar" value="buscar" styleClass="common-button"
+					actionListener="#{MBAgregarArticulosPopUp.busquedaArticulos}"
+					ajax="true" update="imagenes">
+				</p:commandButton>
+				</p:column>
+				
+				<p:column>
+				<p:dataGrid
+					columns="#{MBAgregarArticulosPopUp.listImagenes.size()}" emptyMessage="Sin Imagenes para Mostrar"
+					id="imagenes" var="img"
+					value="#{MBAgregarArticulosPopUp.listImagenes}">
+					<p:column style="border:none">
+						<p:commandLink id="agregar"
+							actionListener="#{MBAgregarArticulosPopUp.agregarArticulos()}"
+							ajax="true"
+							update=":dialog:sku :dialog:imagenes :dialog:articulo2">
+							<f:param name="imagen" value="#{img.idImageArt}" />
+							<p:graphicImage width="80px"
+								value="../resources/images/fotos_articulos/#{img.tblImagenes.pathFile}" />
+						</p:commandLink>
+					</p:column>
+				</p:dataGrid>
+				</p:column>
+				
+				<p:column>
+				<p:dataTable style="width:25%; height:25%" id="articulo2" styleClass="grid-content" emptyMessage="Sin Datos"
+					var="articulo" value="#{MBAgregarArticulosPopUp.listaArticulos2}">
+					<p:column headerText="SKU" style="width:25%">
+						<h:outputText value="#{articulo.sku}" />
+					</p:column>
+					<p:column headerText="Descripción">
+						<h:outputText value="#{articulo.descripcion}" />
+					</p:column>
+					<p:column headerText="Imagen">
+						<center>
+							<p:graphicImage width="50px"
+								value="/resources/images/fotos_articulos/#{articulo.imagenPath}" />
+						</center>
+
+					</p:column>
+					<p:column>
+						<p:commandLink id="eliminar" style="text-decoration:none"
+							actionListener="#{MBAgregarArticulosPopUp.eliminar}" ajax="true"
+							update=":dialog:articulo2">
+							<f:attribute name="articulo" value="#{articulo}" />
+							<p:graphicImage width="30px"
+								value="../resources/images/actividades/eliminar25.png" />
+						</p:commandLink>
+					</p:column>
+				</p:dataTable>
+				</p:column>
+				
+				<f:facet name="footer">
+				<p:commandButton styleClass="common-button" value="Aceptar" ajax="true"
+						actionListener="#{MBAgregarArticulosPopUp.enviar}"
+						oncomplete="salir();" />
+				<p:commandButton styleClass="common-button" value="Cancelar" ajax="true" onclick="salir();" />
+				</f:facet>
+			</p:panelGrid>
+		</p:panel>
+	</h:form>
+</h:body>
+
+
+
+</html>

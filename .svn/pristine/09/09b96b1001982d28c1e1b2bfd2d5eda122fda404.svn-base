@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<style type="text/css" media="print">
+	  @page { size: landscape; }
+	</style>
+</h:head>
+<body onload="window.print(); window.close();">
+<h:form>
+	<h:panelGroup>
+		<p:dataTable id="dtDisenio" value="#{sessionScope.lArqPreciosPrint}" var="item" style="width: 1200px;" styleClass="grid-content">
+						<p:column style="white-space: normal;">
+							<f:facet name="header">
+								<p:outputLabel value="Programa"/>
+							</f:facet>
+							<p:outputLabel value="#{item.programa}"/>
+						</p:column>
+						<p:column style="white-space: normal;">
+							<f:facet name="header">
+								<p:outputLabel value="Mecánica"/>
+							</f:facet>
+							<p:outputLabel value="#{item.strMecanica}"/>
+						</p:column>
+						<p:column style="white-space: normal;">
+							<f:facet name="header">
+								<p:outputLabel value="Grupo Zona"/>
+							</f:facet>
+							<p:outputLabel value="#{item.gpoZona}"/>
+						</p:column>
+						<p:column style="white-space: normal;">
+							<f:facet name="header">
+								<p:outputLabel value="Zona"/>
+							</f:facet>
+							<p:outputLabel value="#{item.zona}"/>
+						</p:column>
+						<p:column style="white-space: normal;">
+							<f:facet name="header">
+								<p:outputLabel value="Señalamiento"/>
+							</f:facet>
+							<p:outputLabel value="#{item.senalamiento}"/>
+						</p:column>
+						<p:column style="white-space: normal;">
+							<f:facet name="header">
+								<p:outputLabel value="Categoría"/>
+							</f:facet>
+							<p:outputLabel value="#{item.categoria}"/>
+						</p:column>
+						<p:column style="white-space: normal;">
+							<f:facet name="header">
+								<p:outputLabel value="Grupo Zona"/>
+							</f:facet>
+							<p:outputLabel value="#{item.gpoZona}"/>
+						</p:column>
+						<p:column style="white-space: normal;">
+							<f:facet name="header">
+								<p:outputLabel value="C"/>
+							</f:facet>
+							<p:outputLabel value="#{item.numeroComponente}"/>
+						</p:column>
+						<p:column style="white-space: normal;">
+							<f:facet name="header">
+								<p:outputLabel value="Descripción"/>
+							</f:facet>
+							<p:outputLabel value="#{item.descripcion}"/>
+						</p:column>
+						<p:column style="white-space: normal;">
+							<f:facet name="header">
+								<p:outputLabel value="Precio Venta"/>
+							</f:facet>
+							<h:inputText value="#{item.preciosPromocionDTO.precioVenta}" size="10" readonly="true" styleClass="element-margin-top" style="text-align: right; border: 0px;">
+								<f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+							</h:inputText>
+						</p:column>
+						<p:column style="white-space: normal;">
+							<f:facet name="header">
+								<p:outputLabel value="Precio Promoción"/>
+							</f:facet>
+							<h:inputText value="#{item.preciosPromocionDTO.precio}" size="10" readonly="true" styleClass="element-margin-top" style="text-align: right; border: 0px;"
+										rendered="#{not empty item.preciosPromocionDTO and !item.editando}">
+								<f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+							</h:inputText>
+						</p:column>
+						<p:column style="white-space: normal;">
+							<f:facet name="header">
+								<p:outputLabel value="% Promoción"/>
+							</f:facet>
+							<h:inputText value="#{item.preciosPromocionDTO.porcentaje / 100}" size="10" readonly="true" styleClass="element-margin-top" style="text-align: right; border: 0px;">
+								<f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="##0.00 %" />
+							</h:inputText>
+						</p:column>
+						<p:column style="white-space: normal;">
+							<f:facet name="header">
+								<p:outputLabel value="Ahorro Máximo"/>
+							</f:facet>
+							<h:inputText value="#{item.ahorroMaximo}" size="10" readonly="true" styleClass="element-margin-top" style="text-align: right; border: 0px;">
+								<f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+							</h:inputText>
+						</p:column>
+						<p:column style="white-space: normal;">
+							<f:facet name="header">
+								<p:outputLabel value="Comentario 1"/>
+							</f:facet>
+							<p:outputLabel value="#{sessionScope.arqMecanica.comentario}"/>
+						</p:column>
+						<p:column style="white-space: normal;">
+							<f:facet name="header">
+								<p:outputLabel value="Comentario 2"/>
+							</f:facet>
+							<p:outputLabel value="#{item.preciosPromocionDTO.comentario}"/>
+						</p:column>
+						<p:column style="white-space: normal;">
+							<f:facet name="header">
+								<p:outputLabel value="Punto Equilibrio"/>
+							</f:facet>
+							<h:inputText value="#{item.puntoEquilibrio}" size="10" readonly="true" styleClass="element-margin-top" style="text-align: right; border: 0px;" rendered="#{not empty item.preciosPromocionDTO}">
+								<f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+							</h:inputText>
+						</p:column>
+						<p:column style="white-space: normal;">
+							<f:facet name="header">
+								<p:outputLabel value="Objetivo"/>
+							</f:facet>
+							<h:inputText value="#{item.preciosPromocionDTO.objetivo}" size="10" readonly="true" styleClass="element-margin-top" style="text-align: right; border: 0px;">
+								<f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+							</h:inputText>
+						</p:column>
+						<p:column style="white-space: normal;">
+							<f:facet name="header">
+								<p:outputLabel value="#"/>
+							</f:facet>
+							<p:outputLabel value="#{item.numero}" rendered="#{not empty item.preciosPromocionDTO}"/>
+						</p:column>
+						<p:column style="white-space: normal;" >
+							<f:facet name="header">
+								<p:outputLabel value="Estatus Precio"/>
+							</f:facet>
+							<p:outputLabel value="#{item.strEstatusRevision}"/>
+						</p:column>
+						<p:column style="white-space: normal;">
+							<f:facet name="header">
+								<p:outputLabel value="Estatus Diseño"/>
+							</f:facet>
+							<p:outputLabel value="#{item.strEstatusCaptura}"/>
+						</p:column>
+					</p:dataTable>
+	</h:panelGroup>
+</h:form>
+</body>
+</html>

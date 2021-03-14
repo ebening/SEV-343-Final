@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated 19/06/2015 12:30:21 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.CatPromo" table="CAT_PROMO">
+        <id name="idPromo" type="int">
+            <column name="ID_PROMO" />
+            <generator class="identity" />
+        </id>
+        
+        <many-to-one name="catTipoPromo" class="com.adinfi.seven.business.domain.CatTipoPromo" cascade="all" fetch="select">
+            <column name="ID_TIPO_PROMO" />
+        </many-to-one>
+        
+        <property name="nombre" type="string">
+            <column name="NOMBRE" length="300" />
+        </property>
+    </class>
+</hibernate-mapping>

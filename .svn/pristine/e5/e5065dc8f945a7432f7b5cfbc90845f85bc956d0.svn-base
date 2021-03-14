@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head></h:head> 
+<h:body>
+		<div id="divPrincipal_PlanDeTrabajo">
+			<div id="divHeader_PlanDeTrabajo">
+				<table id="tableHeader_PlanDeTrabajo">
+					<tr>
+						<td width="" id="tdButtons_PlanDeTrabajo">
+							<h:outputLink id="a_Excel_PlanDeTrabajo" styleClass="btnExcel"></h:outputLink>
+							<h:outputLink id="a_Pdf_PlanDeTrabajo" styleClass="btnPdf"></h:outputLink>
+							<h:outputLink id="a_Imprimir_PlanDeTrabajo" styleClass="btnImprimir"></h:outputLink>
+							<h:outputLink id="a_Correo_PlanDeTrabajo" styleClass="btnCorreo"></h:outputLink>
+							<h:outputLink id="a_Eliminar_PlanDeTrabajo" styleClass="btnEliminar"></h:outputLink>
+							<h:outputLink id="a_Agregar_PlanDeTrabajo" styleClass="btnAgregar" value="agregarNuevoMedio()"></h:outputLink>
+						</td>
+					</tr>
+				</table>
+			</div>
+			
+			
+			<div id="divContent_PlanDeTrabajo"  >
+				<p:dataTable id="dataTable" var="car" value="" >  
+					<p:column sortBy="" headerText="">
+						<h:outputLabel value="Campaña"></h:outputLabel>
+					</p:column>
+					<p:column sortBy="Campaña" headerText="Campaña">
+						<h:outputLabel value="Campaña"></h:outputLabel>
+					</p:column>
+					<p:column sortBy="Tarea" headerText="Tarea">
+						<h:outputLabel value="Campaña"></h:outputLabel>
+					</p:column>
+					<p:column sortBy="Medio" headerText="Medio">
+						<h:outputLabel value="Campaña"></h:outputLabel>
+					</p:column>
+					<p:column sortBy="Tipo" headerText="Tipo">
+						<h:outputLabel value="Campaña"></h:outputLabel>
+					</p:column>
+					<p:column sortBy="Titulo" headerText="Titulo">
+						<h:outputLabel value="Campaña"></h:outputLabel>
+					</p:column>
+					<p:column sortBy="Categoria" headerText="Categoria">
+						<h:outputLabel value="Campaña"></h:outputLabel>
+					</p:column>
+					<p:column sortBy="Responsable" headerText="Responsable">
+						<h:outputLabel value="Campaña"></h:outputLabel>
+					</p:column>
+					<p:column sortBy="Disenador" headerText="Disenador">
+						<h:outputLabel value="Campaña"></h:outputLabel>
+					</p:column>
+					<p:column sortBy="Actividad" headerText="Actividad">
+						<h:outputLabel value="Campaña"></h:outputLabel>
+					</p:column>
+					<p:column sortBy="" headerText="">
+						<h:outputLabel value="Campaña"></h:outputLabel>
+					</p:column>
+					
+				</p:dataTable>
+				
+				<!-- tablesorter -->
+				<!-- <table id="tableSorter_PlanDeTrabajo" class="tablesorter tblsorter_PlanDeTrabajo" cellpadding="0" cellspacing="0">
+					<thead>
+						<tr>
+							<th style="width: 0px; "></th>
+							<th style="text-align: left;"><h:outputLabel value="Campaña"></h:outputLabel></th>
+							<th style="text-align: left;"><h:outputLabel value="Tarea"></h:outputLabel></th>
+							<th style="text-align: left;"><h:outputLabel value="Medio"></h:outputLabel></th>
+							<th style="text-align: left;"><h:outputLabel value="Tipo"></h:outputLabel></th>
+							<th style="text-align: left;"><h:outputLabel value="Título"></h:outputLabel></th>
+							<th style="text-align: left;"><h:outputLabel value="Categoría"></h:outputLabel></th>
+							<th style="text-align: left;"><h:outputLabel value="Responsable"></h:outputLabel></th>
+							<th style="text-align: left;"><h:outputLabel value="Diseñador"></h:outputLabel></th>
+							<th style="width: 5px;text-align: left;"><h:outputLabel value="Actividad"></h:outputLabel></th>
+							<th></th>
+							</tr>
+					</thead>
+				
+					<tbody id="tbody_PlanDeTRabajo">
+						<tr class="Grid">		
+							<td><h:selectBooleanCheckbox value="false" id="chk1_PlanDeTraabjo" /></td>
+							<td><span class="camp_blue"><h:outputLabel value="Regreso a clases"></h:outputLabel></span></td>
+							<td><h:outputLabel value="Medio"></h:outputLabel></td>
+							<td><h:outputLabel value="Impreso"></h:outputLabel></td>
+							<td><h:outputLabel value="Folleto"></h:outputLabel></td>
+							<td><h:outputLabel value="Reunión"></h:outputLabel></td>
+							<td><h:outputLabel value="Botanas"></h:outputLabel></td>
+							<td><h:outputLabel value="Jorge Pérez"></h:outputLabel></td>
+							<td><h:outputLabel value="Diana Dávila"></h:outputLabel></td>
+							<td><center><h:graphicImage	value="images/extras/agregar_black25.png" id="btnAgregarActividad1_PlanDeTrabajo" styleClass="imgActividad_PlanDeTrabajo"/></center></td>
+							<td class="tdBtnVer_PlanDeTrabajo"><center><h:commandButton id="btnVer1_PlanDeTrabajo" value="Ver" styleClass="buttonVer_PlanDeTrabajo"/></center></td>
+						</tr>
+						
+						<tr class="Grid">		
+							<td><h:selectBooleanCheckbox value="false" id="chk2_PlanDeTrabajo" /></td>
+							<td><span class="camp_blue"><h:outputLabel value="Regreso a clases"></h:outputLabel></span></td>
+							<td><h:outputLabel value="Medio"></h:outputLabel></td>
+							<td><h:outputLabel value="Televisión"></h:outputLabel></td>
+							<td><h:outputLabel value="Spot"></h:outputLabel></td>
+							<td><h:outputLabel value="Jugos"></h:outputLabel></td>
+							<td><h:outputLabel value="Bebidas"></h:outputLabel></td>
+							<td><h:outputLabel value="Mariano Garza"></h:outputLabel></td>
+							<td><h:outputLabel value="Isabel López"></h:outputLabel></td>
+							<td><center><h:graphicImage	value="images/extras/agregar_black25.png" id="btnAgregarActividad2_PlanDeTrabajo" styleClass="imgActividad_PlanDeTrabajo"/></center></td>
+							<td class="tdBtnVer_PlanDeTrabajo"><center><h:commandButton id="btnVer2_PlanDeTrabajo" value="Ver" styleClass="buttonVer_PlanDeTrabajo"/></center></td>
+						</tr>
+						
+						<tr class="Grid">		
+							<td><h:selectBooleanCheckbox value="false" id="chk3_PlanDeTrabajo" /></td>
+							<td><span class="camp_blue"><h:outputLabel value="Regreso a clases"></h:outputLabel></span></td>
+							<td><h:outputLabel value="Medio"></h:outputLabel></td>
+							<td><h:outputLabel value="Impreso"></h:outputLabel></td>
+							<td><h:outputLabel value="Revista"></h:outputLabel></td>
+							<td><h:outputLabel value="Galletas Choco"></h:outputLabel></td>
+							<td><h:outputLabel value="Marca Propia"></h:outputLabel></td>
+							<td><h:outputLabel value="Margarita Lozano"></h:outputLabel></td>
+							<td><h:outputLabel value="Diana Dávila"></h:outputLabel></td>
+							<td><center><h:graphicImage	value="images/extras/agregar_black25.png" id="btnAgregarActividad3_PlanDeTrabajo" styleClass="imgActividad_PlanDeTrabajo"/></center></td>
+							<td class="tdBtnVer_PlanDeTrabajo"><center><h:commandButton id="btnVer3_PlanDeTrabajo" value="Ver" styleClass="buttonVer_PlanDeTrabajo"/></center></td>
+						 </tr>
+						
+					</tbody>
+			
+				</table>-->
+				<div style="padding-top: 5px" >
+					<table>
+						<tr>
+							<td class="fuenteYColor" style="text-align: center;">
+								<h:outputLabel value="Mostrar de:"></h:outputLabel>
+							<!-- </td>
+							<td style="">-->
+								<p:calendar id="copyStartDateCalendar" pattern="dd/MM/yyyy" mode="popup" showOn="button" size='10' style="height: 16px;padding-left:10px;">
+									<f:convertDateTime pattern="MM/yyyy" />
+								</p:calendar>
+								<!--  <h:inputText id="Calendario1_PlanDeTrabajo" styleClass="dateComp fuenteYColor borderTextbox" style="width:80px; height: 18px;padding-left: 5px;padding-top: 5px;" />
+								<h:graphicImage	value="images/extras/calendario.png" styleClass="imgCalendario_PlanDeTrabajo"/>-->
+							<!-- </td>-->
+							<!-- <td class="fuenteYColor" style="text-align:center;">-->
+								<h:outputLabel value="A:" style="padding-left: 10px;"></h:outputLabel>
+							<!-- </td>-->
+							<!-- <td class="fuenteYColor" style=""> -->
+								<p:calendar id="Calendar2" pattern="dd/MM/yyyy" mode="popup" showOn="button" size='10' style="height: 16px;padding-left: 10px;">
+									<f:convertDateTime pattern="MM/yyyy" />
+								</p:calendar>
+								<!-- <h:inputText id="Calendario2_PlanDeTrabajo" styleClass="dateComp fuenteYColor borderTextbox" style="width:80px; height: 18px; padding-top: 5px;padding-left: 5px;margin-left: 5px; "/>
+								<h:graphicImage	value="images/extras/calendario.png" styleClass="imgCalendario_PlanDeTrabajo"/>-->
+							</td>
+							<td style="text-align:center;" class="fuenteYColor">
+								<h:outputLabel value="Medios:"></h:outputLabel>
+							</td>
+							<td style="">
+								<p:selectOneMenu styleClass="fuenteYColor borderTextbox" id="selectMedios_PlanDeTrabajo" >
+									<f:selectItem itemValue="op1" itemLabel="Todos" selected="selected"></f:selectItem>
+									<f:selectItem itemValue="op2" itemLabel="Opcion2"></f:selectItem>
+									<f:selectItem itemValue="op3" itemLabel="Opcion3"></f:selectItem>		
+								</p:selectOneMenu>
+							</td>
+							<td class="tdBtnComparacion_PlanDeTrabajo"><p:commandButton id="btnComparacion_PlanDeTrabajo" value="Comparación" styleClass="ui-priority-primary" style="height: 30px;color: white;background: url(images/degradado_btn_2.png);"  /></td><!-- action="OpenDialogComparacionEnPlanDeTrabajoDeCampanas()" -->
+						</tr>
+					</table>			
+				</div>
+				<div id="divGrafica_PlanDeTrabajo">
+					<center>
+						<!-- <%@include file="graficas/overview.html"%> <!doctype html> html lang="en">-->
+						<!-- <ui:include src="graficas/overview.html" />-->
+						</center>
+				</div>
+			</div>
+					
+		</div>
+	
+</h:body>
+</html>

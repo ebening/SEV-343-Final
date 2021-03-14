@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated 10/01/2014 12:26:09 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.ViewTemplateUser" table="V_TEMPLATE_USER">
+        <id name="idTemplateUser" type="int">
+            <column name="ID_TEMPLATE_USER" />
+        </id>
+        <property name="templateId" type="int">
+            <column name="TEMPLATE_ID" not-null="true" />
+        </property>
+        <property name="templateName" type="string">
+            <column name="TEMPLATE_NAME" />
+        </property>
+        <property name="idUser" type="int">
+            <column name="ID_USER" not-null="true" />
+        </property>
+        <property name="usuario" type="string">
+            <column name="USUARIO" />
+        </property>
+        <property name="idCategory" type="int">
+            <column name="ID_CATEGORY" not-null="true" />
+        </property>
+        <property name="categoria" type="string">
+            <column name="CATEGORIA" />
+        </property>
+    </class>
+</hibernate-mapping>

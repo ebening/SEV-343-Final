@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+        >
+<h:form id="mainForm">
+    <h:panelGroup id="dynaFormGroup">
+        <h2 >#{AdministracionController.catalogoDinamico.catalogNametitle}</h2>
+        <pe:dynaForm id="dynaForm" value="#{AdministracionController.catalogoDinamico.model}" var="data">
+            <pe:dynaFormControl for="num" type="inputNumber">
+                <p:inputText id="num"   value="#{data.value}"  disabled="#{data.readOnly}">
+                    <pe:keyFilter for="num" mask="num" preventPaste="false"/>
+                </p:inputText>
+            </pe:dynaFormControl>
+            <pe:dynaFormControl type="porc" for="porc">
+                <pe:inputNumber id="porc" value="#{data.value}" decimalPlaces="4" disabled="#{data.readOnly}"/>
+            </pe:dynaFormControl>
+            <pe:dynaFormControl type="input" for="txt">
+                <p:inputText id="txt" value="#{data.value}" disabled="#{data.readOnly}"/>
+            </pe:dynaFormControl>
+            <pe:dynaFormControl type="calendar" for="cal" styleClass="calendar">
+                <p:calendar id="cal" value="#{data.value}" showOn="button" pattern="dd/MM/yyyy" readonlyInput="true" disabled="#{data.readOnly}"/>
+            </pe:dynaFormControl>
+            <pe:dynaFormControl type="combo" for="sel" styleClass="select">
+                <p:selectOneMenu id="sel" value="#{data.value}" disabled="#{data.readOnly}">
+                    <f:selectItem itemLabel="Seleccionar" itemValue="" />
+                    <f:selectItems value="#{data.selectValues}"/>
+                </p:selectOneMenu>
+            </pe:dynaFormControl>
+            <pe:dynaFormControl type="textarea" for="tarea">
+                <p:inputTextarea id="tarea" value="#{data.value}" autoResize="false" disabled="#{data.readOnly}"/>
+            </pe:dynaFormControl>
+            <pe:dynaFormControl type="radiobutton" for="radio" styleClass="select">
+                <p:selectOneRadio id="radio" value="#{data.value}" disabled="#{data.readOnly}">
+                    <f:selectItems value="#{data.selectValues}"/>
+                </p:selectOneRadio>
+            </pe:dynaFormControl>
+            <pe:dynaFormControl type="checkbox" for="checkbox">
+                <p:selectBooleanCheckbox value="#{data.value}" id="checkbox" disabled="#{data.readOnly}"/>
+            </pe:dynaFormControl>
+            <pe:dynaFormControl type="manycheckbox" for="manycheckbox" styleClass="select">
+                <p:selectManyCheckbox id="manycheckbox" value="#{data.selectedList}" disabled="#{data.readOnly}">
+                    <f:selectItems value="#{data.selectValues}"/>
+                </p:selectManyCheckbox>
+            </pe:dynaFormControl>
+            <pe:dynaFormControl type="manycombo" for="manyCombo" styleClass="select">
+                <p:selectCheckboxMenu id="manyCombo" label="" value="#{data.selectedList}" disabled="#{data.readOnly}">
+                    <f:selectItems value="#{data.selectValues}"/>
+                </p:selectCheckboxMenu>
+            </pe:dynaFormControl>
+            <f:facet name="buttonBar">
+                <p:commandButton value="Guardar" action="#{AdministracionController.catalogoDinamico.submitForm}" process="dynaForm" update=":mainForm" rendered="#{AdministracionController.catalogoDinamico.catalogChange}"/>
+                <p:commandButton value="Cancelar" style="margin-left: 5px;" action="#{AdministracionController.catalogoDinamico.resetValues()}" update=":mainForm" rendered="#{AdministracionController.catalogoDinamico.catalogChange}"/>
+            </f:facet>
+        </pe:dynaForm>
+    </h:panelGroup>
+    <br />
+    <br />
+    <h:form id="dataTableId">
+        <p:dataTable id="itemId" var="item" value="#{AdministracionController.catalogoDinamico.responseArray}"
+                     rowIndexVar="rowIx" paginator="true" rows="10"
+                     paginatorPosition="bottom"
+                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                     emptyMessage="Vacio" resizableColumns="true" styleClass="grid-content">
+            <p:column style="width: 20%">
+                <p:commandButton icon="ui-icon-search" title="Actualizar"
+                                 action="#{AdministracionController.catalogoDinamico.onSelect(rowIx)}" update=":mainForm"/>
+                <p:commandButton onclick="cd.show()" icon="ui-icon-trash"
+                                 action="#{AdministracionController.catalogoDinamico.setRowDelete(item)}"/>
+                <p:confirmDialog message="¿Desea eliminar el registro seleccionado?"
+                                 header="Confirmación" severity="alert"
+                                 global="true" showEffect="fade" hideEffect="explode" widgetVar="cd"
+                                 icon="ui-icon-trash" appendToBody="true">
+
+                        <p:commandButton value="Si" styleClass="ui-confirmdialog-yes"
+                                         icon="ui-icon-check" update=":mainForm" rendered="#{AdministracionController.catalogoDinamico.catalogChange}"
+                                         action="#{AdministracionController.catalogoDinamico.onDelete()}" process="@this"
+                                         onclick="cd.hide()"/>
+
+                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no"
+                                         icon="ui-icon-close" onclick="cd.hide()"/>
+
+                </p:confirmDialog>
+            </p:column>
+            <p:columns value="#{AdministracionController.catalogoDinamico.columns}" var="column"
+                       columnIndexVar="colIndex" resizable="true" sortBy="#{item.get(column.header)}">
+                <f:facet name="header">
+                    <h:outputText value="#{column.property}" />
+                </f:facet>
+                <h:outputText value="#{item.get(column.header)}" />
+            </p:columns>
+        </p:dataTable>
+    </h:form>
+</h:form>
+</ui:composition>

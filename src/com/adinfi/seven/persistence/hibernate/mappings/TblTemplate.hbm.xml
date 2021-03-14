@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated 10/01/2014 12:26:09 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.TblTemplate" table="TBL_TEMPLATE">
+        <id name="templateId" type="int">
+            <column name="TEMPLATE_ID" />
+            <generator class="native" />
+        </id>
+        <property name="templateName" type="string">
+            <column name="TEMPLATE_NAME" not-null="true" />
+        </property>
+        <property name="width" type="int">
+            <column name="WIDTH" not-null="true" />
+        </property>
+        <property name="height" type="int">
+            <column name="HEIGHT" not-null="true" />
+        </property>
+        <property name="status" type="string">
+            <column name="STATUS" />
+        </property>
+        <property name="fechaCreacion" type="date">
+            <column name="FECHA_CREACION" length="10" not-null="true" />
+        </property>
+        <property name="tipoLayout" type="string">
+            <column name="TIPO_LAYOUT" not-null="true" />
+        </property>
+        <property name="pathHead" type="string">
+            <column name="PATH_HEAD" length="50" />
+        </property>
+        <property name="pathFoot" type="string">
+            <column name="PATH_FOOT" length="50" />
+        </property>
+        <set name="tblTemplateUsers" cascade="delete" table="TBL_TEMPLATE_USER" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="TEMPLATE_ID" not-null="true" />
+            </key>
+            <one-to-many class="com.adinfi.seven.business.domain.TblTemplateUser" />
+        </set>
+        <bag name="tblTemplateSegments" inverse="true" cascade="all-delete-orphan"      order-by="segment_parent_id" >
+            <key>
+                <column name="TEMPLATE_ID"   />
+            </key>
+            <one-to-many class="com.adinfi.seven.business.domain.TblTemplateSegments"     />
+        </bag>
+    </class>
+</hibernate-mapping>

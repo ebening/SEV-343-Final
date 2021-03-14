@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated 16/10/2013 09:36:58 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.TblCadenaAutorizacionDet" table="TBL_CADENA_AUTORIZACION_DET">
+        <composite-id name="id" class="com.adinfi.seven.business.domain.TblCadenaAutorizacionDetId">
+            <key-property name="idCadenaAutorizacion" type="int">
+                <column name="ID_CADENA_AUTORIZACION" />
+            </key-property>
+            <key-property name="idOrden" type="int">
+                <column name="ID_ORDEN" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="tblCadenaAutorizacion" class="com.adinfi.seven.business.domain.TblCadenaAutorizacion" update="false" insert="false" fetch="select">
+            <column name="ID_CADENA_AUTORIZACION" not-null="true" />
+        </many-to-one>
+        <property name="idUsuario" type="int">
+            <column name="ID_USUARIO" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

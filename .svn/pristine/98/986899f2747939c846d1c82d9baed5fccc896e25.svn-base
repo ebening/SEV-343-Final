@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:c="http://java.sun.com/jstl/core">
+<h:head>
+	<f:facet name="first">
+		<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+		<title>#{company.company}</title>
+	</f:facet>
+	<h:outputScript library="js" name="principal.js" />
+	<h:outputScript library="js" name="localePrimefaces.js" />
+	<h:outputStylesheet library="css" name="actividades.css" />
+	<h:outputStylesheet library="css" name="home.css" />
+	<h:outputStylesheet library="css" name="FontAndColor.css" />
+	<h:outputStylesheet library="css" name="adMaster.buttons.css" />
+	<h:outputStylesheet library="css" name="DialogosModuloAnalisis.css" />
+	<h:outputStylesheet library="css" name="adMaster.css"/>
+</h:head>
+<h:body>
+	<p:layout fullPage="true" id="PanelGral">
+		<p:layoutUnit position="north" size="158" resizable="true" styleClass="bg-north"
+			closable="false" collapsible="false" id="header" style="border: 0px;">
+			<ui:insert name="header">
+				<ui:include src="commonHeader.xhtml" />
+			</ui:insert>
+			<ui:insert name="sections">
+				
+			</ui:insert>
+		</p:layoutUnit>
+		<ui:insert name="west">
+			<p:layoutUnit position="west" size="250" header="Opciones" styleClass="header-panel"
+				resizable="true" closable="false" collapsible="false" id="west">
+
+				<h:form id="frmMenuLogin">
+					<p:panelMenu>
+						<!-- style="width:200px" -->
+						<c:forEach var="currOpc" items="#{MBUsuarios.currentOpciones}">
+							<p:submenu label="#{currOpc.opcName}">
+								<c:forEach var="currOpcChild" items="#{currOpc.childsAsArray}">
+									<p:menuitem value="&nbsp;&nbsp;&nbsp;#{currOpcChild.opcName}"
+										action='#{MBNavigator.setCurrentPage(currOpcChild.url)}'
+										update=":pgPrincipalLogin">
+									</p:menuitem>
+								</c:forEach>
+							</p:submenu>
+						</c:forEach>
+					</p:panelMenu>
+				</h:form>
+			</p:layoutUnit>
+		</ui:insert>
+		<p:layoutUnit position="center" id="content" styleClass="bg-center">
+			<ui:insert name="content">
+				<ui:include src="commonContent.xhtml" />
+			</ui:insert>
+		</p:layoutUnit>
+		<p:layoutUnit position="south" size="50" resizable="false" styleClass="bg-footer"
+			closable="false" collapsible="false" id="footer" style="border: 0px;">
+			<ui:insert name="footer">
+				<ui:include src="commonFooter.xhtml" />
+			</ui:insert>
+		</p:layoutUnit>
+	</p:layout>
+</h:body>
+</html>

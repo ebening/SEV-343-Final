@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated 15/01/2014 11:03:38 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.TblArticulosHoja" table="TBL_ARTICULOS_HOJA">
+    
+        <id name="idArticulosHoja"  type="java.lang.Integer">
+            <column name="ID_ARTICULOS_HOJA" />
+            <generator class="identity"/>
+        </id>
+           
+        <property name="idFolleto" type="int">
+            <column name="ID_FOLLETO" />
+        </property>
+        
+        <many-to-one name="hoja" update="false"  class="com.adinfi.seven.business.domain.TblFolletoHojas"      >
+            <column name="ID_HOJA" not-null="true"      />
+        </many-to-one>        
+
+        <property name="idArticulo" type="string">
+            <column name="ID_ARTICULO" length="30" />
+        </property>
+                       
+        <many-to-one name="tblFolleto" class="com.adinfi.seven.business.domain.TblFolleto" update="false" insert="false" fetch="select">
+            <column name="ID_FOLLETO" not-null="true" />
+        </many-to-one>
+        <many-to-one name="tblImageArticulo" class="com.adinfi.seven.business.domain.TblImageArticulo" fetch="select">
+            <column name="ID_IMAGE_ART" not-null="true" />
+        </many-to-one>
+        <property name="segmentParentId" type="java.lang.Integer">
+            <column name="SEGMENT_PARENT_ID" />
+        </property> 
+        <property name="segmentId" type="java.lang.Integer">
+            <column name="SEGMENT_ID" />
+        </property>
+        <property name="precioPromocion" type="big_decimal">
+            <column name="PRECIO_PROMOCION" precision="15" />
+        </property>
+                      
+        <property name="plazos" type="string">
+            <column name="PLAZOS"/>
+        </property> 
+        
+        <property name="abSem6mes" type="big_decimal">
+            <column name="ABSEM_6MES"/>
+        </property>      
+        
+        <property name="abSem9mes" type="big_decimal">
+            <column name="ABSEM_9MES"/>
+        </property>   
+        
+        <property name="abSem12mes" type="big_decimal">
+            <column name="ABSEM_12MES"/>
+        </property>           
+        
+        <property name="abSem15mes" type="big_decimal">
+            <column name="ABSEM_15MES"/>
+        </property>    
+        
+        <property name="abSem18mes" type="big_decimal">
+            <column name="ABSEM_18MES"/>
+        </property>   
+        
+        <property name="abSem24mes" type="big_decimal">
+            <column name="ABSEM_24MES"/>
+        </property>           
+        
+        <property name="pronosticoVenta" type="java.lang.Integer">
+            <column name="PRONOSTICO_VENTA"/>
+        </property>
+                
+        <property name="segmentName" type="string">
+            <column name="SEG_NAME"/>
+        </property>        
+        
+        <property name="principal" type="string">
+            <column name="PRINCIPAL"/>
+        </property> 
+                   
+        <property name="imgWidth" type="java.lang.Integer">
+            <column name="IMG_WIDTH" />
+        </property>
+        
+        <property name="imgHeight" type="java.lang.Integer">
+            <column name="IMG_HEIGHT" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated 11/12/2013 11:06:00 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.TblPrensa" table="TBL_PRENSA">
+        <id name="idPrensa" type="int">
+            <column name="ID_PRENSA" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="tblCampana" class="com.adinfi.seven.business.domain.TblCampana" fetch="select">
+            <column name="ID_CAMPANA" not-null="true" />
+        </many-to-one>
+        <property name="fehcaInicio" type="date">
+            <column name="FEHCA_INICIO" length="10" />
+        </property>
+        <property name="fechaFin" type="date">
+            <column name="FECHA_FIN" length="10" />
+        </property>
+        <property name="espacios" type="java.lang.Integer">
+            <column name="ESPACIOS" />
+        </property>
+        <set name="tblArticulosEspacioses" inverse="true">
+            <key>
+                <column name="ID_PRENSA" not-null="true" />
+            </key>
+            <one-to-many class="com.adinfi.seven.business.domain.TblArticulosEspacios" />
+        </set>
+        <set name="tblPrensaTiendas" inverse="true">
+            <key>
+                <column name="ID_PRENSA" not-null="true" />
+            </key>
+            <one-to-many class="com.adinfi.seven.business.domain.TblPrensaTienda" />
+        </set>
+        <set name="tblPrensaEspacioses" inverse="true">
+            <key>
+                <column name="ID_PRENSA" not-null="true" />
+            </key>
+            <one-to-many class="com.adinfi.seven.business.domain.TblPrensaEspacios" />
+        </set>
+        <set name="tblPreciosPrensas" table="TBL_PRECIOS_PRENSA" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_PRENSA" not-null="true" />
+            </key>
+            <one-to-many class="com.adinfi.seven.business.domain.TblPreciosPrensa" />
+        </set>
+    </class>
+</hibernate-mapping>

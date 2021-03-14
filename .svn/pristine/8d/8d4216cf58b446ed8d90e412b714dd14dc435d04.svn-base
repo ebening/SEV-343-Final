@@ -1,0 +1,1468 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+		<h:panelGroup styleClass="panel-form">
+			<p:messages autoUpdate="true" closable="true"/>
+			<p:panelGrid id="gridDisenio" style="width: 100%; background: #c1c1c1; border: 1px solid #AFAFAF;" styleClass="form-content">
+				
+                <!-- fila 1 -->
+                <p:row>
+					<p:column>
+						<p:outputLabel value="Programa: " />
+					</p:column>
+					<p:column>
+						<p:selectOneMenu value="#{mbArquitectura.idProgPrec}">
+						<!--  	<f:selectItem itemLabel="Seleccione" itemValue="0"/> -->
+							<f:selectItems value="#{mbArquitectura.lCatProgramasPrec}" var="program"
+									itemLabel="#{program.nombre}" itemValue="#{program.idPrograma}" />	
+						</p:selectOneMenu>
+					</p:column>
+					<p:column>
+						<p:outputLabel value="Mecánica: " />
+					</p:column>
+					<p:column colspan="4">
+										
+						<p:selectOneMenu style="width: 300px" value="#{mbArquitectura.idMecanicaPrec}">
+						<!--  	<f:selectItem itemLabel="Seleccione" itemValue="-1"/> -->
+							<f:selectItems value="#{mbArquitectura.lMecanica}"/>
+						</p:selectOneMenu>
+						
+					</p:column>
+					<p:column colspan="2">
+						<div align="right">
+                            
+                            <p:commandLink id="expXlsDisenio" 
+                                styleClass="excel-button" 
+                                ajax="false" 
+                                title="Exportar a Excel">
+								<p:dataExporter type="xls" 
+                                    target=":frmPromocion:dtDisComboExport" 
+                                    fileName="Disenio" 
+                                    postProcessor="#{mbArquitectura.postProcessCategoryXLS}"/>
+							</p:commandLink>
+                            
+                            <!--
+							<h:commandLink id="printButton" styleClass="print-button" action="ArqDisenioPrint.xhtml" target="_blank" title="Imprimir">
+								<f:setPropertyActionListener value="#{mbArquitectura.lArqPreciosPrint}" target="#{sessionScope.lArqPreciosPrint}" />
+								<f:setPropertyActionListener value="#{mbArquitectura.arqMecanica}" target="#{sessionScope.arqMecanica}" />
+							</h:commandLink>
+                            -->
+                            
+						</div>
+					</p:column>
+				</p:row>
+				
+                <!-- fila 2-->
+                <p:row>
+					<p:column>
+						<p:outputLabel value="Categoría: " />
+					</p:column>
+					<p:column>
+						<p:selectOneMenu style="width: 95px" 
+                            value="#{mbArquitectura.idCatPrec}" 
+                            valueChangeListener="#{mbArquitectura.valueChangeCategoriaPrec}">
+						<f:selectItem itemLabel="Seleccione" itemValue="0"/>						
+						<f:selectItems value="#{mbArquitectura.lCatCategoriasPrec}" var="cat"
+									   itemLabel="#{cat.idCategory} #{cat.code}" itemValue="#{cat.idCategory}" />
+							<f:ajax render="gridDisenio" execute="@form"/>
+					    </p:selectOneMenu>
+						
+					</p:column>
+					<p:column>
+						<p:outputLabel value="Grupo Zonas: " />
+					</p:column>
+					<p:column>
+						<p:selectCheckboxMenu label="Grupos Zonas" 
+                            filter="true" filterText="Filter" 
+                            value="#{mbArquitectura.lGrupoZonasPrec}"
+					        filterMatchMode="startsWith" 
+                            styleClass="element-margin-top" 
+                            style="width: 95px; text-align: left" 
+					        valueChangeListener="#{mbArquitectura.valueChangeGrupoZonaPrec}">
+							    <f:selectItems value="#{mbArquitectura.mCatGruposZonaPrec}" 
+                                    var="catGZone"
+							        itemLabel="#{catGZone.idGrupoZona} #{catGZone.code}" 
+                                    itemValue="#{catGZone.idGrupoZona}" />
+							<f:ajax render="gridDisenio" execute="@form"/>
+						</p:selectCheckboxMenu>
+					</p:column>
+					<p:column>
+						<p:outputLabel value="Estatus Precio: " />
+					</p:column>
+					<p:column>
+						<p:selectOneMenu   style="width: 95px" value="#{mbArquitectura.idStatusPrecio}">
+							<f:selectItem  itemLabel="Seleccione" itemValue="0"/>
+							<f:selectItem itemLabel="Pendiente" itemValue="1"/>
+							<f:selectItem itemLabel="Autorizado" itemValue="2"/>
+							<f:selectItem itemLabel="Autorizado con Ajuste" itemValue="3"/>
+						</p:selectOneMenu>
+					</p:column>
+                    
+                    <!--
+					<p:column>
+						<p:outputLabel value="Señalamiento: " />
+					</p:column>
+					<p:column>
+                        <p:selectCheckboxMenu label="Seleccione" id="comboSenal">
+							<f:selectItems value="#{mbArquitectura.senalsDiseño}" var="senal">
+								<f:selectItem itemLabel="#{senal.nombre}" itemValue="#{senal.idSenal}" />
+							</f:selectItems>
+						</p:selectCheckboxMenu>
+					</p:column>
+                    -->
+                    
+					<p:column>
+						<p:commandButton value="Buscar" 
+                                         styleClass="common-button" 
+                                         ajax="true" onstart="muestraLoader();" oncomplete="ocultaLoader();" 
+                                         update="dtDisCombo dtDisComboExport"
+                                         action="#{mbArquitectura.buscarDisenio}"/>
+					</p:column>
+				</p:row>
+				
+                <!-- fila 3 -->
+                <p:row>
+                    
+					<p:column>
+						<p:outputLabel value="Zona: " />
+					</p:column>
+					<p:column>
+						<p:selectCheckboxMenu label="Zonas" filter="true" filterText="Filter" value="#{mbArquitectura.lZonasPrec}"
+					            					  filterMatchMode="startsWith" styleClass="element-margin-top" style="width: 95px; text-align: left">
+								<f:selectItems value="#{mbArquitectura.mCatZonasPrec}" var="zonaPrec"
+									itemLabel="#{zonaPrec.idZone} #{zonaPrec.code}" itemValue="#{zonaPrec.idZone}" />
+						</p:selectCheckboxMenu>
+					</p:column>
+					<p:column>
+						<p:outputLabel value="Estatus Diseño: " />
+					</p:column>
+					<p:column>
+                            <p:selectOneMenu valueChangeListener="#{mbArquitectura.testStatus}" 
+                                             style="width: 125px" value="#{mbArquitectura.idStatusDisenio}">
+							<f:selectItem itemLabel="Seleccione" itemValue="0"/>
+							<f:selectItem itemLabel="Pendiente" itemValue="1"/>
+							<f:selectItem itemLabel="En diseño" itemValue="2"/>
+							<f:selectItem itemLabel="Revisión" itemValue="3"/>
+							<f:selectItem itemLabel="Rechazado" itemValue="4"/>
+							<f:selectItem itemLabel="Aprobado" itemValue="5"/>
+							<f:selectItem itemLabel="Enviado a Impresión" itemValue="6"/>
+							<f:selectItem itemLabel="Cancelado" itemValue="7"/>
+                           <p:ajax listener="#{mbArquitectura.estatusDisenoChanged()}" />
+						</p:selectOneMenu>
+					</p:column>
+					
+                    <p:column>
+						<p:outputLabel value="Descripcion: " />
+					</p:column>
+					
+                    <p:column>
+                        <p:selectOneMenu valueChangeListener="#{mbArquitectura.testDescripcion}" 
+                                         style="width: 125px" value="#{mbArquitectura.valueDesignDescription}">
+                            <f:selectItem itemLabel="Seleccione" itemValue="Seleccione"/>
+							<f:selectItems 
+                                value="#{mbArquitectura.lDesginDescriptions}" var="description"
+                                itemLabel="#{description}" itemValue="#{description}" />
+                            <f:ajax listener="#{mbArquitectura.testDescripcion}"/>
+                        </p:selectOneMenu>
+					</p:column>
+                    
+				<!--	<p:column>
+						<p:commandButton rendered="false" value="Limpiar" styleClass="common-button" ajax="true" partialSubmit="true" update="ttDisenio dtDisenio" action="#{mbArquitectura.limpiarTreeTableDisenio}"/>
+					</p:column> -->
+					<p:column>
+						<p:commandButton id="bttnAdjuntar" value="Adjuntar Diseño" 
+                            styleClass="common-button" 
+                            onstart="muestraLoader();"
+                            oncomplete="ocultaLoader(); dlgAdjDiseno.show();"
+							action="#{mbArquitectura.adjDisenoInit}" 
+                            disabled="#{!mbArquitectura.programaActivo}" 
+                            update=":dialogoAdjuntarDiseno" />
+					</p:column>
+					<p:column>
+						<p:commandButton value="Terminar Actividades" onstart="muestraLoader();" oncomplete="ocultaLoader();" rendered="#{mbArquitectura.hasDesigns}"
+										 update="@this bttnAdjuntar" actionListener="#{mbArquitectura.closeActividadesDiseno}"
+										 styleClass="common-button" disabled="#{!mbArquitectura.programaActivo}" />
+					</p:column>
+				</p:row>
+			</p:panelGrid>
+        
+            <!-- opcion de exportar-->
+            <p:commandLink styleClass="expand-button" onclick="disenioPop.show()"/>
+                
+            <!--
+            <div style="height:550px; width:100%; overflow-x:scroll ; overflow-y: scroll; padding-bottom:10px;">
+                
+                <p:dataTable id="dtDisenio" value="#{mbArquitectura.lArqPreciosPrint}" 
+                             var="item" style="width: 1200px; display:none" styleClass="grid-content">
+
+                    <p:column style="white-space: normal;">
+                        <f:facet name="header">
+                            <p:outputLabel value="Programa"/>
+                        </f:facet>
+                        <p:outputLabel value="#{item.programa}"/>
+                    </p:column>
+
+                    <p:column style="white-space: normal;">
+                        <f:facet name="header">
+                            <p:outputLabel value="Mecánica"/>
+                        </f:facet>
+                        <p:outputLabel value="#{item.strMecanica}"/>
+                    </p:column>
+
+                    <p:column style="white-space: normal;">
+                        <f:facet name="header">
+                            <p:outputLabel value="Grupo Zona"/>
+                        </f:facet>
+                        <p:outputLabel value="#{item.gpoZona}"/>
+                    </p:column>
+
+                    <p:column style="white-space: normal;">
+                        <f:facet name="header">
+                            <p:outputLabel value="Zona"/>
+                        </f:facet>
+                        <p:outputLabel value="#{item.zona}"/>
+                    </p:column>
+
+                    <p:column style="white-space: normal;">
+                        <f:facet name="header">
+                            <p:outputLabel value="Señalamiento"/>
+                        </f:facet>
+                        <p:outputLabel value="#{item.senalamiento}"/>
+                    </p:column>
+
+                    <p:column style="white-space: normal;">
+                        <f:facet name="header">
+                            <p:outputLabel value="Categoría"/>
+                        </f:facet>
+                        <p:outputLabel value="#{item.categoria}"/>
+                    </p:column>
+
+                    <p:column style="white-space: normal;">
+                        <f:facet name="header">
+                            <p:outputLabel value="C"/>
+                        </f:facet>
+                        <p:outputLabel value="#{item.numeroComponente}"/>
+                    </p:column>
+                    <p:column style="white-space: normal;">
+                        <f:facet name="header">
+                            <p:outputLabel value="Descripción"/>
+                        </f:facet>
+                        <p:outputLabel value="#{item.descripcion}"/>
+                    </p:column>
+                    <p:column style="white-space: normal;">
+                        <f:facet name="header">
+                            <p:outputLabel value="Precio Venta"/>
+                        </f:facet>
+                        <h:inputText value="#{item.preciosPromocionDTO.precioVenta}" size="10" readonly="true" styleClass="element-margin-top" style="text-align: right; border: 0px;">
+                            <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+                        </h:inputText>
+                    </p:column>
+                    <p:column style="white-space: normal;">
+                        <f:facet name="header">
+                            <p:outputLabel value="Precio Promoción"/>
+                        </f:facet>
+                        <h:inputText value="#{item.preciosPromocionDTO.precio}" size="10" readonly="true" styleClass="element-margin-top" style="text-align: right; border: 0px;"
+                                    rendered="#{not empty item.preciosPromocionDTO and !item.editando}">
+                            <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+                        </h:inputText>
+                    </p:column>
+                    <p:column style="white-space: normal;">
+                        <f:facet name="header">
+                            <p:outputLabel value="% Promoción"/>
+                        </f:facet>
+                        <h:inputText value="#{item.preciosPromocionDTO.porcentaje / 100}" size="10" readonly="true" styleClass="element-margin-top" style="text-align: right; border: 0px;">
+                            <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="##0.00 %" />
+                        </h:inputText>
+                    </p:column>
+                    <p:column style="white-space: normal;">
+                        <f:facet name="header">
+                            <p:outputLabel value="Ahorro Máximo"/>
+                        </f:facet>
+                        <h:inputText value="#{item.ahorroMaximo}" size="10" readonly="true" styleClass="element-margin-top" style="text-align: right; border: 0px;">
+                            <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+                        </h:inputText>
+                    </p:column>
+                    <p:column style="white-space: normal;">
+                        <f:facet name="header">
+                            <p:outputLabel value="Comentario 1"/>
+                        </f:facet>
+                        <p:outputLabel value="#{mbArquitectura.arqMecanica.comentario}"/>
+                    </p:column>
+                    <p:column style="white-space: normal;">
+                        <f:facet name="header">
+                            <p:outputLabel value="Comentario 2"/>
+                        </f:facet>
+                        <p:outputLabel value="#{item.preciosPromocionDTO.comentario}"/>
+                    </p:column>
+
+                    <p:column style="white-space: normal;">
+                        <f:facet name="header">
+                            <p:outputLabel value="Objetivo"/>
+                        </f:facet>
+                        <h:inputText value="#{item.preciosPromocionDTO.objetivo}" size="10" readonly="true" styleClass="element-margin-top" style="text-align: right; border: 0px;">
+                            <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+                        </h:inputText>
+                    </p:column>
+
+                    <p:column style="white-space: normal;" >
+                        <f:facet name="header">
+                            <p:outputLabel value="Estatus Precio"/>
+                        </f:facet>
+                        <p:outputLabel value="#{item.strEstatusRevision}"/>
+                    </p:column>
+
+                    <p:column style="white-space: normal;">
+                        <f:facet name="header">
+                            <p:outputLabel value="Estatus Diseño"/>
+                        </f:facet>
+                        <p:outputLabel value="#{item.strEstatusCaptura}"/>
+                    </p:column>
+
+                </p:dataTable>
+            </div>
+            -->
+                                        
+            <!-- nueva tabla-->
+            <p:dataTable 
+                id="dtDisCombo" 
+                value="#{mbArquitectura.lArqCompPrecProm}" 
+                var="var" 
+                styleClass="grid-content"
+                scrollable="true" 
+                scrollHeight="275"
+                scrollRows="10"
+                >
+                            <!-- MECANICA-->
+                            <p:column style="white-space: normal;" width="100">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Mecánica"/>
+                                </f:facet>
+                                <p:outputLabel value="#{var.descMecanica}"/>
+                            </p:column>
+
+                            <!-- GRUPO ZONAS -->
+                            <p:column style="" width="200">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Grupo Zonas"/>
+                                </f:facet>
+                                <p:outputLabel value="#{var.gpoZona}"/>
+                            </p:column>
+
+                            <!-- ZONAS -->
+                            <p:column style="" width="200">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Zona"/>
+                                </f:facet>
+                                <p:outputLabel value="#{var.zona}"/>
+                            </p:column>
+
+                            <!-- NO ARTICULO -->
+                            <p:column style="white-space: normal;" width="50">
+                                <f:facet name="header">
+                                    <p:outputLabel value="No. Articulo"/>
+                                </f:facet>
+                                <p:outputLabel value="#{var.numeroComponente}"/>
+                            </p:column>
+
+                            <!-- DESCRIPCION -->
+                            <p:column style="" width="200">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Descripción"/>
+                                </f:facet>
+                                <p:outputLabel value="#{var.descripcion}"/>
+                            </p:column>
+
+                            <!-- SKU -->
+                            <p:column style="white-space: normal;" width="100" >
+                                <f:facet name="header">
+                                    <p:outputLabel value="SKU"/>
+                                </f:facet>
+                                <p:outputLabel value="#{var.sku}"/>
+                            </p:column>
+
+                            <!-- UPC -->
+                            <p:column style="white-space: normal;" width="100" >
+                                <f:facet name="header">
+                                    <p:outputLabel value="UPC"/>
+                                </f:facet>
+                                <p:outputLabel value="#{var.upc}"/>
+                            </p:column>
+
+                            <!-- CATEGORIA -->
+                            <p:column style="white-space: normal;" width="150" >
+                                <f:facet name="header">
+                                    <p:outputLabel value="Categoría"/>
+                                </f:facet>
+                                <p:outputLabel value="#{var.categoria}"/>
+                            </p:column>
+
+                            <!-- CANTIDAD (Nuevo campo) -->
+                            <p:column style="white-space: normal;" width="100">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Cantidad"/>
+                                </f:facet>
+                                <p:outputLabel value="#{var.cantidadProducto}"/>
+                            </p:column>
+
+                            <!-- PRECIO DE VENTA (CALCULADO COMO LA MODA DE TODOS LOS PRECIOS PARA EL ITEM) -->
+                            <p:column style="white-space: normal;" width="100" >
+                                <f:facet name="header">
+                                    <p:outputLabel value="Precio Venta"/>
+                                </f:facet>
+
+                                <h:inputText value="#{var.preciosPromocionDTO.precioVenta}" 
+                                                                 size="10" 
+                                                                 readonly="true" 
+                                                                 styleClass="element-margin-top" 
+                                                                 style="text-align: right; border: 0px;"
+                                                                 rendered="#{not mbArquitectura.esCombo}"
+                                                                 >
+                                    <f:convertNumber maxFractionDigits="2" 
+                                        groupingUsed="true" 
+                                        type="currency" 
+                                        pattern="$ ###,###,##0.00" />
+                                </h:inputText>
+
+                                <h:inputText value="#{var.preciosPromocionDTO.precioVentaCombo}" 
+                                                                 size="10" 
+                                                                 readonly="true" 
+                                                                 styleClass="element-margin-top" 
+                                                                 style="text-align: right; border: 0px;"
+                                                                 rendered="#{mbArquitectura.esCombo and var.esUltimoElementoDeCombo}">
+                                    <f:convertNumber maxFractionDigits="2" 
+                                        groupingUsed="true" 
+                                        type="currency" 
+                                        pattern="$ ###,###,##0.00" />
+                                </h:inputText>
+
+
+                            </p:column>
+
+                            <!-- PRECIO REGULAR NUEVO (Nuevo campo) -->
+                            <p:column style="white-space: normal;" width="100">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Precio Regular Nuevo"/>
+                                </f:facet>
+                                <h:inputText value="#{var.precioRegularNuevo}" 
+                                             size="10" readonly="true" 
+                                             styleClass="element-margin-top" 
+                                             style="text-align: right; border: 0px;"
+                                             rendered="#{var.precioRegularNuevo > 0 and not mbArquitectura.esCombo}"
+                                             >
+                                    <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+                                </h:inputText>
+                            </p:column>
+
+                            <!-- IMPUESTO (Nuevo campo) 
+                            <p:column style="white-space: normal;">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Impuesto"/>
+                                </f:facet>
+                                <h:inputText value="#{var.impuesto / 100}" 
+                                    size="10" 
+                                    readonly="true" 
+                                    styleClass="element-margin-top" 
+                                    style="text-align: right; border: 0px;"
+                                    rendered="#{not mbArquitectura.esCombo}"
+                                    >
+                                    <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="##0.00 %" />
+                                </h:inputText>
+                            </p:column>
+                            -->
+
+                            <!-- MARGEN REGULAR 
+                            <p:column style="white-space: normal;">
+                                <f:facet name="header">
+                                    <p:outputLabel value="$ Margen Regular"/>
+                                </f:facet>
+
+                                
+                                <h:inputText value="#{var.mgnRegular}" 
+                                             size="10" readonly="true" styleClass="element-margin-top" 
+                                             style="text-align: right; border: 0px;"
+                                             rendered="#{not mbArquitectura.esCombo}"
+                                             >
+                                    <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+                                </h:inputText>
+
+                                
+                                <h:inputText value="#{var.mgnRegularCombo}" 
+                                             size="10" readonly="true" styleClass="element-margin-top" 
+                                             style="text-align: right; border: 0px;"
+                                             rendered="#{mbArquitectura.esCombo and var.esUltimoElementoDeCombo}"
+                                             >
+                                    <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+                                </h:inputText>
+                            </p:column>
+                            -->
+
+                            <!-- PORCENTAJE MARGEN REGULAR 
+                            <p:column style="white-space: normal;">
+                                <f:facet name="header">
+                                    <p:outputLabel value="% Margen Regular"/>
+                                </f:facet>
+                                
+                                <h:inputText value="#{var.mgnRegularPorc / 100}" size="10" readonly="true" 
+                                             styleClass="element-margin-top" style="text-align: right; border: 0px;"
+                                             rendered="#{not mbArquitectura.esCombo}">
+                                    <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="##0.00 %" />
+                                </h:inputText>
+                                
+                                <h:inputText value="#{var.mgnRegularPorcCombo / 100}" 
+                                    size="10" readonly="true" styleClass="element-margin-top" 
+                                    style="text-align: right; border: 0px;"
+                                    rendered="#{mbArquitectura.esCombo and var.esUltimoElementoDeCombo}">
+                                    <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="##0.00 %" />
+                                </h:inputText>
+
+                            </p:column>
+                            -->
+
+                            <!-- PORCENTAJE RETENCION 
+                            <p:column style="white-space: normal;">
+                                <f:facet name="header">
+                                    <p:outputLabel value="% Retención"/>
+                                </f:facet>
+                                <h:inputText value="#{var.preciosPromocionDTO.porcentajeRetencion / 100}" 
+                                             size="10" 
+                                             readonly="true" 
+                                             styleClass="element-margin-top" 
+                                             style="text-align: right; border: 0px;"
+                                             rendered="#{var.tienePrecioPromocion and (not mbArquitectura.esCombo)}">
+                                    <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="##0.00 %" />
+                                </h:inputText>
+                                <h:inputText value="#{var.porcentajeRetencionCombo / 100}" 
+                                             size="10" 
+                                             readonly="true" 
+                                             styleClass="element-margin-top" 
+                                             style="text-align: right; border: 0px;"
+                                             rendered="#{var.tienePrecioPromocion and mbArquitectura.esCombo and var.esUltimoElementoDeCombo}">
+                                    <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="##0.00 %" />
+                                </h:inputText>
+                            </p:column>
+                            -->
+
+                            <!-- DISTRIBUCION REBAJA Y PORCENTAJE (Nuevos Campos)
+                            <p:column style="white-space: normal;">
+                                <f:facet name="header">
+                                    <p:outputLabel value="$ Distribucion Rebaja"/>
+                                </f:facet>
+                                <h:inputText value="#{var.distribucionRebaja}" 
+                                             size="10" readonly="true" styleClass="element-margin-top" 
+                                             style="text-align: right; border: 0px;"
+                                             rendered="#{var.tienePrecioPromocion and (not mbArquitectura.esCombo)}">
+                                    <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+                                </h:inputText>
+                                <h:inputText value="#{var.distribucionRebajaCombo}" 
+                                    size="10" readonly="true" 
+                                    styleClass="element-margin-top" 
+                                    style="text-align: right; border: 0px;"
+                                    rendered="#{var.tienePrecioPromocion and mbArquitectura.esCombo and compvarPrecioPromo.esUltimoElementoDeCombo}">
+                                    <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+                                </h:inputText>
+                            </p:column>
+                            -->
+
+                            <!--
+                            <p:column style="white-space: normal;">
+                                <f:facet name="header">
+                                    <p:outputLabel value="% Distribucion Rebaja"/>
+                                </f:facet>
+                                
+                                <h:inputText value="#{var.distribucionRebajaPorc / 100}" 
+                                             size="10" readonly="true" styleClass="element-margin-top" 
+                                             style="text-align: right; border: 0px;"
+                                             rendered="#{var.tienePrecioPromocion and (not mbArquitectura.esCombo)}">
+                                    <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="##0.00 %" />
+                                </h:inputText>
+                                
+                                <h:inputText value="#{var.distribucionRebajaPorcCombo / 100}" 
+                                             size="10" readonly="true" styleClass="element-margin-top " 
+                                             style="text-align: right; border: 0px;"
+                                             rendered="#{var.tienePrecioPromocion and mbArquitectura.esCombo and var.esUltimoElementoDeCombo}">
+                                    <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="##0.00 %" />
+                                </h:inputText>
+                            </p:column>
+                            -->
+
+                            <!-- PRECIO PROMOCION -->
+                            <p:column style="white-space: normal;" width="100">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Precio Promoción"/>
+                                </f:facet>
+                                <h:inputText value="#{var.preciosPromocionDTO.precioR}" 
+                                             size="10" 
+                                             readonly="true" 
+                                             styleClass="element-margin-top" 
+                                             style="text-align: right; border: 0px;"
+                                             rendered="#{var.tienePrecioPromocion and (not mbArquitectura.esCombo)}">
+                                    <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+                                </h:inputText>
+
+                                <h:inputText value="#{var.preciosPromocionDTO.precioRCombo}" 
+                                             size="10" 
+                                             readonly="true" 
+                                             styleClass="element-margin-top" 
+                                             style="text-align: right; border: 0px;"
+                                             rendered="#{var.tienePrecioPromocion and mbArquitectura.esCombo and var.esUltimoElementoDeCombo}">
+                                    <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+                                </h:inputText>
+
+                            </p:column>
+
+                            <!-- PORCENTAJE PROMOCION 
+                            <p:column style="white-space: normal;">
+                                <f:facet name="header">
+                                    <p:outputLabel value="% Desc. Promoción"/>
+                                </f:facet>
+                                <h:inputText value="#{var.preciosPromocionDTO.porcentaje / 100}" 
+                                             rendered="#{var.tienePrecioPromocion and (not mbArquitectura.esCombo)}" 
+                                             size="10" readonly="true" styleClass="element-margin-top" 
+                                             style="text-align: right; border: 0px;">
+                                    <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="##0.00 %" />
+                                </h:inputText>
+                                <h:inputText value="#{var.preciosPromocionDTO.porcentajeCombo / 100}" 
+                                             rendered="#{var.tienePrecioPromocion and mbArquitectura.esCombo and var.esUltimoElementoDeCombo}" 
+                                             size="10" readonly="true" 
+                                             styleClass="element-margin-top" style="text-align: right; border: 0px;">
+                                    <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="##0.00 %" />
+                                </h:inputText>
+
+                            </p:column>
+                            -->
+
+                            <!-- AHORRO FIJO -->
+                            <p:column style="white-space: normal;" width="100">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Ahorro Fijo"/>
+                                </f:facet>
+                                <h:inputText value="#{var.preciosPromocionDTO.ahorroFijo}" 
+                                             rendered="#{var.tienePrecioPromocion and (not mbArquitectura.esCombo)}" 
+                                             size="10" readonly="true" styleClass="element-margin-top" style="text-align: right; border: 0px;">
+                                    <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+                                </h:inputText>
+                                <h:inputText value="#{var.preciosPromocionDTO.ahorroFijoCombo}" 
+                                             rendered="#{var.tienePrecioPromocion and mbArquitectura.esCombo and var.esUltimoElementoDeCombo}" 
+                                             size="10" readonly="true" styleClass="element-margin-top" style="text-align: right; border: 0px;">
+                                    <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+                                </h:inputText>
+                            </p:column>
+
+                            <!-- AHORRO MAX -->
+                            <p:column style="white-space: normal;" width="100">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Ahorro Max"/>
+                                </f:facet>
+                                <h:inputText value="#{var.ahorroMaximo}" size="10" readonly="true" styleClass="element-margin-top" 
+                                             style="text-align: right; border: 0px;"
+                                             rendered="#{var.tienePrecioPromocion and (not mbArquitectura.esCombo)}">
+                                    <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+                                </h:inputText>
+                                <h:inputText value="#{var.ahorroMaximoCombo}" 
+                                             size="10" readonly="true" styleClass="element-margin-top" 
+                                             style="text-align: right; border: 0px;"
+                                             rendered="#{var.tienePrecioPromocion and mbArquitectura.esCombo and var.esUltimoElementoDeCombo}">
+                                    <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+                                </h:inputText>
+                            </p:column>
+
+                            <!-- RECUPERACION PROVEEDOR 
+                            <p:column style="white-space: normal;">
+                                <f:facet name="header">
+                                    <p:outputLabel value="$ Recuperación Proveedor"/>
+                                </f:facet>
+                                <h:inputText value="#{var.preciosPromocionDTO.recuperacion}" 
+                                             rendered="#{var.tienePrecioPromocion and (not mbArquitectura.esCombo)}" 
+                                             size="10" readonly="true" styleClass="element-margin-top" style="text-align: right; border: 0px;">
+                                    <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+                                </h:inputText>
+                                <h:inputText value="#{var.preciosPromocionDTO.recuperacionCombo}" 
+                                             rendered="#{var.tienePrecioPromocion and mbArquitectura.esCombo and var.esUltimoElementoDeCombo}" 
+                                             size="10" readonly="true" 
+                                             styleClass="element-margin-top" style="text-align: right; border: 0px;">
+                                    <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+                                </h:inputText>
+                            </p:column>
+                            -->
+
+                            <!-- RECUPERACION PROVEEDOR %
+                            <p:column style="white-space: normal;">
+                                <f:facet name="header">
+                                    <p:outputLabel value="% Recuperación Proveedor"/>
+                                </f:facet>
+                                <h:inputText value="#{var.preciosPromocionDTO.recuperacionPorcentaje / 100}" 
+                                             rendered="#{var.tienePrecioPromocion and (not mbArquitectura.esCombo)}" 
+                                             size="10" readonly="true" styleClass="element-margin-top" style="text-align: right; border: 0px;">
+                                    <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="##0.00 %" />
+                                </h:inputText>
+                                <h:inputText value="#{var.preciosPromocionDTO.recuperacionPorcentajeCombo / 100}" 
+                                             rendered="#{var.tienePrecioPromocion and mbArquitectura.esCombo and var.esUltimoElementoDeCombo}" 
+                                             size="10" readonly="true" styleClass="element-margin-top" style="text-align: right; border: 0px;">
+                                    <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="##0.00 %" />
+                                </h:inputText>
+                            </p:column>
+                            -->
+
+                            <!-- MARGEN PROMOCION 
+                            <p:column style="white-space: normal;">
+                                <f:facet name="header">
+                                    <p:outputLabel value="$ Margen Promoción"/>
+                                </f:facet>
+                                <h:inputText value="#{var.mgnPromocion}" size="10" readonly="true" 
+                                             styleClass="element-margin-top" 
+                                             style="text-align: right; border: 0px;"
+                                             rendered="#{var.tienePrecioPromocion and (not mbArquitectura.esCombo)}">
+                                    <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+                                </h:inputText>
+                                <h:inputText value="#{var.mgnPromocionCombo}" 
+                                             size="10" readonly="true" styleClass="element-margin-top" 
+                                             style="text-align: right; border: 0px;"
+                                             rendered="#{var.tienePrecioPromocion and mbArquitectura.esCombo and var.esUltimoElementoDeCombo}">
+                                    <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+                                </h:inputText>
+
+                            </p:column>
+                            -->
+
+                            <!-- PORCENTAJE MARGEN PROMOCION
+                            <p:column style="white-space: normal;">
+                                <f:facet name="header">
+                                    <p:outputLabel value="% Margen Promoción"/>
+                                </f:facet>
+                                <h:inputText value="#{var.mgnPromocionPorc / 100}" size="10" readonly="true" styleClass="element-margin-top" 
+                                             style="text-align: right; border: 0px;"
+                                             rendered="#{var.tienePrecioPromocion and (not mbArquitectura.esCombo)}">
+                                    <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="##0.00 %" />
+                                </h:inputText>
+                                <h:inputText value="#{var.mgnPromocionPorcCombo / 100}" size="10" readonly="true" 
+                                             styleClass="element-margin-top" 
+                                             style="text-align: right; border: 0px;"
+                                             rendered="#{var.tienePrecioPromocion and mbArquitectura.esCombo and var.esUltimoElementoDeCombo}">
+                                    <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="##0.00 %" />
+                                </h:inputText>
+
+                            </p:column>
+                            -->
+
+                            <!-- ELASTICIDAD (NUEVO) 
+                            <p:column style="white-space: normal;">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Elasticidad"/>
+                                </f:facet>
+                                <h:inputText value="#{var.preciosPromocionDTO.elasticidad}" 
+                                             size="10" 
+                                             readonly="true" 
+                                             styleClass="element-margin-top" 
+                                             style="text-align: right; border: 0px;"
+                                             rendered="#{(var.tienePrecioPromocion and not mbArquitectura.esCombo) or (mbArquitectura.esCombo and var.esUltimoElementoDeCombo)}">
+                                </h:inputText>
+                            </p:column>
+                            -->
+
+                            <!--
+                            <p:column style="white-space: normal;">
+                                <f:facet name="header">
+                                    <p:outputLabel value="% Crecimento Objetivo"/>
+                                </f:facet>
+                                <h:inputText value="#{var.ventaUPTD / 100}" 
+                                             rendered="#{var.tienePrecioPromocion and (not mbArquitectura.esCombo)}" 
+                                             size="10" readonly="true" styleClass="element-margin-top" 
+                                             style="text-align: right; border: 0px;">
+                                    <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="##0.00 %" />
+                                </h:inputText>
+                                <h:inputText value="#{var.ventaUPTDCombo / 100}" 
+                                             rendered="#{var.tienePrecioPromocion and mbArquitectura.esCombo and var.esUltimoElementoDeCombo}" 
+                                             size="10" readonly="true" styleClass="element-margin-top" style="text-align: right; border: 0px;">
+                                    <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="##0.00 %" />
+                                </h:inputText>
+
+                            </p:column>
+                            -->
+
+                            <p:column style="white-space: normal;" width="100">
+                                <f:facet name="header">
+                                    <p:outputLabel value="# Acuerdo 1"/>
+                                </f:facet>
+                                <p:outputLabel value="#{var.acuerdo1}" rendered="#{not mbArquitectura.esCombo}"/>
+                                <p:outputLabel value="#{var.acuerdo1}" rendered="#{mbArquitectura.esCombo and var.esUltimoElementoDeCombo}"/>
+                            </p:column>
+                            <p:column style="white-space: normal;" width="100">
+                                <f:facet name="header">
+                                    <p:outputLabel value="# Acuerdo 2"/>
+                                </f:facet>
+                                <p:outputLabel value="#{var.acuerdo2}" rendered="#{not mbArquitectura.esCombo}"/>
+                                <p:outputLabel value="#{var.acuerdo2}" rendered="#{mbArquitectura.esCombo and var.esUltimoElementoDeCombo}"/>
+                            </p:column>
+                            <p:column style="white-space: normal;" width="100">
+                                <f:facet name="header">
+                                    <p:outputLabel value="# Acuerdo 3"/>
+                                </f:facet>
+                                <p:outputLabel value="#{var.acuerdo3}" rendered="#{not mbArquitectura.esCombo}"/>
+                                <p:outputLabel value="#{var.acuerdo3}" rendered="#{mbArquitectura.esCombo and var.esUltimoElementoDeCombo}"/>
+                            </p:column>
+                            
+                            <!-- comentarios 1 -->
+                            <p:column headerText="Comentario 1" style="white-space: normal;" width="100">
+                                <p:outputLabel value="#{mbArquitectura.arqMecanica.comentario}" rendered="#{not mbArquitectura.esCombo}"/>
+                                <p:outputLabel value="#{mbArquitectura.arqMecanica.comentario}" rendered="#{mbArquitectura.esCombo and var.esUltimoElementoDeCombo}"/>
+                            </p:column>
+                            
+
+                            <!-- comentario 2 -->
+                            <p:column headerText="Comentario 2" style="white-space: normal;" width="100">
+                                <p:outputLabel value="#{var.preciosPromocionDTO.comentario}" rendered="#{not mbArquitectura.esCombo}"/>
+                                <p:outputLabel value="#{var.preciosPromocionDTO.comentario}" rendered="#{mbArquitectura.esCombo and var.esUltimoElementoDeCombo}"/>
+                            </p:column>
+                           
+                            
+                            <!-- estatus precios -->
+                            <p:column id="column20" style="white-space: normal;" width="50">
+                            
+                                <f:facet id="facetRevisionId" name="header">
+                                    <p:outputLabel id="estatusRevisionIdLabel" value="Estatus Precios"/>    
+                                </f:facet>
+
+                                <!-- estatus revision -->
+                                <h:panelGroup id="panelGroupSem1" 
+                                    rendered="#{not empty var.preciosPromocionDTO and !var.editando and not mbArquitectura.esCombo}">
+
+                                    <!-- imagen del circulo -->
+                                    <div align="center">
+                                        <div class="circulo" 
+                                             style="background-color: #{var.labelEstatusRevision}" 
+                                             title="#{var.strEstatusRevision}"/>
+                                    </div>
+
+                                </h:panelGroup>
+                                
+                                <h:panelGroup id="panelGroupSem2" 
+                                    rendered="#{not empty var.preciosPromocionDTO and !var.editando and mbArquitectura.esCombo and var.esUltimoElementoDeCombo}">
+
+                                    <!-- imagen del circulo -->
+                                    <div align="center">
+                                        <div class="circulo" 
+                                             style="background-color: #{var.labelEstatusRevision}" 
+                                             title="#{var.strEstatusRevision}"/>
+                                    </div>
+
+                                </h:panelGroup>
+
+                                <!-- estatus revision -->
+                                <p:selectOneMenu id="comboEstatusRevisionId" 
+                                        value="#{var.preciosPromocionDTO.estatusRevisionEdicion}" 
+                                        style="width: 125px" 
+                                        rendered="#{not empty var.preciosPromocionDTO and var.editando}">
+                                    <f:selectItem id="comboEstatusRevision1" itemLabel="Pendiente" itemValue="1"/>
+                                    <f:selectItem id="comboEstatusRevision2" itemLabel="Autorizado" itemValue="2"/>
+                                    <f:selectItem id="comboEstatusRevision3" itemLabel="Autorizado con Ajuste" itemValue="3"/>
+                                </p:selectOneMenu>
+
+                            </p:column>
+                            
+                            <!-- estatus disenio -->
+                            <p:column style="white-space: normal;" width="50">
+                                <f:facet id="facetDisId" name="header">
+                                    <p:outputLabel id="estatusDisIdLabel" value="Estatus Diseño"/>    
+                                </f:facet>
+                                <p:outputLabel value="#{var.strEstatusDisenio}" style="display:none;"/>
+                                <!-- individiual-->
+                                <h:panelGroup rendered="#{not mbArquitectura.esCombo}">
+                                    <div align="center">							
+                                        <h:panelGroup id="globalCombo" layout="block" style="background-color: #{mbArquitectura.labelDisenoGlobal}" styleClass="cuadrado"/>
+                                        <h:panelGroup id="circuloCombo" layout="block" style="background-color: #{var.labelEstatusDisenio}" title="#{var.strEstatusDisenio}" styleClass="circulo"/>
+                                    </div>
+                                </h:panelGroup>
+
+                                <!-- combo -->
+                                <h:panelGroup rendered="#{mbArquitectura.esCombo and var.esUltimoElementoDeCombo}">
+                                    <div align="center">							
+                                        <h:panelGroup id="globalInd" layout="block" style="background-color: #{mbArquitectura.labelDisenoGlobal}" styleClass="cuadrado"/>
+                                        <h:panelGroup id="circuloInd" layout="block" style="background-color: #{var.labelEstatusDisenio}" title="#{var.strEstatusDisenio}" styleClass="circulo"/>
+                                    </div>
+                                </h:panelGroup>
+
+                                <!-- opciones -->
+                                 <p:selectOneMenu value="#{var.preciosPromocionDTO.estatusDiseno}" style="width: 125px" rendered="#{var.editando}">
+                                    <f:selectItem itemLabel="Pendiente" itemValue="1"/>
+                                    <f:selectItem itemLabel="En diseño" itemValue="2"/>
+                                    <f:selectItem itemLabel="Revisión" itemValue="3"/>
+                                    <f:selectItem itemLabel="Rechazado" itemValue="4"/>
+                                    <f:selectItem itemLabel="Aprobado" itemValue="5"/>
+                                    <f:selectItem itemLabel="Enviado a Impresión" itemValue="6"/>
+                                    <f:selectItem itemLabel="Cancelado" itemValue="7"/>
+                                </p:selectOneMenu>
+                            </p:column>
+                            
+                            
+                            <!-- botonera original -->
+                            <p:column headerText="" style="white-space: normal;" width="50">
+                                
+                                <!-- individuales-->
+                                <p:commandLink styleClass="edit-in-grid-button" 
+                                    partialSubmit="true" ajax="true" update=":frmPromocion:dtDisCombo :frmPromocion:dtDisComboExport" 
+                                    rendered="#{!var.editando and not mbArquitectura.esCombo}"
+                                    disabled="#{!mbArquitectura.programaActivo}">
+                                        <f:setPropertyActionListener value="#{true}" target="#{item.editando}"/>
+                                </p:commandLink>
+                                
+                                <p:commandLink styleClass="save-in-grid-button" 
+                                    partialSubmit="true" ajax="true" update=":frmPromocion:dtDisCombo :frmPromocion:dtDisComboExport" 
+                                    rendered="#{var.editando and not mbArquitectura.esCombo}"
+                                    action="#{mbArquitectura.updateEstatusDiseno()}" disabled="#{!mbArquitectura.programaActivo}">
+                                        <f:setPropertyActionListener value="#{false}" target="#{item.editando}"/>
+                                        <f:setPropertyActionListener value="#{item}" target="#{mbArquitectura.arqComponenteSel}" />
+                                </p:commandLink>
+                                
+                                <!-- combos -->
+                                <p:commandLink styleClass="edit-in-grid-button" 
+                                    partialSubmit="true" ajax="true" update=":frmPromocion:dtDisCombo :frmPromocion:dtDisComboExport" 
+                                    rendered="#{!var.editando and mbArquitectura.esCombo and var.esUltimoElementoDeCombo}"
+                                    disabled="#{!mbArquitectura.programaActivo}">
+                                        <f:setPropertyActionListener value="#{true}" target="#{item.editando}"/>
+                                </p:commandLink>
+                                
+                                <p:commandLink styleClass="save-in-grid-button" 
+                                    partialSubmit="true" ajax="true" update=":frmPromocion:dtDisCombo :frmPromocion:dtDisComboExport" 
+                                    rendered="#{var.editando and mbArquitectura.esCombo and var.esUltimoElementoDeCombo}"
+                                    action="#{mbArquitectura.updateEstatusDiseno()}" disabled="#{!mbArquitectura.programaActivo}">
+                                        <f:setPropertyActionListener value="#{false}" target="#{item.editando}"/>
+                                        <f:setPropertyActionListener value="#{item}" target="#{mbArquitectura.arqComponenteSel}" />
+                                </p:commandLink>
+                                
+                            </p:column>
+                            
+                        </p:dataTable>
+            
+            <!-- tabla para exportar a excel-->
+            <p:dataTable 
+                id="dtDisComboExport" 
+                value="#{mbArquitectura.lArqCompPrecProm}" 
+                var="var" 
+                styleClass="grid-content"
+                style="display:none;"
+                >
+                            <!-- MECANICA-->
+                            <p:column style="white-space: normal;" width="100">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Mecánica"/>
+                                </f:facet>
+                                <p:outputLabel value="#{var.descMecanica}"/>
+                            </p:column>
+
+                            <!-- GRUPO ZONAS -->
+                            <p:column style="" width="200">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Grupo Zonas"/>
+                                </f:facet>
+                                <p:outputLabel value="#{var.gpoZona}"/>
+                            </p:column>
+
+                            <!-- ZONAS -->
+                            <p:column style="" width="200">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Zona"/>
+                                </f:facet>
+                                <p:outputLabel value="#{var.zona}"/>
+                            </p:column>
+
+                            <!-- NO ARTICULO -->
+                            <p:column style="white-space: normal;" width="50">
+                                <f:facet name="header">
+                                    <p:outputLabel value="No. Articulo"/>
+                                </f:facet>
+                                <p:outputLabel value="#{var.numeroComponente}"/>
+                            </p:column>
+
+                            <!-- DESCRIPCION -->
+                            <p:column style="" width="200">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Descripción"/>
+                                </f:facet>
+                                <p:outputLabel value="#{var.descripcion}"/>
+                            </p:column>
+
+                            <!-- SKU -->
+                            <p:column style="white-space: normal;" width="100" >
+                                <f:facet name="header">
+                                    <p:outputLabel value="SKU"/>
+                                </f:facet>
+                                <p:outputLabel value="#{var.sku}"/>
+                            </p:column>
+
+                            <!-- UPC -->
+                            <p:column style="white-space: normal;" width="100" >
+                                <f:facet name="header">
+                                    <p:outputLabel value="UPC"/>
+                                </f:facet>
+                                <p:outputLabel value="#{var.upc}"/>
+                            </p:column>
+
+                            <!-- CATEGORIA -->
+                            <p:column style="white-space: normal;" width="150" >
+                                <f:facet name="header">
+                                    <p:outputLabel value="Categoría"/>
+                                </f:facet>
+                                <p:outputLabel value="#{var.categoria}"/>
+                            </p:column>
+
+                            <!-- CANTIDAD (Nuevo campo) -->
+                            <p:column style="white-space: normal;" width="100">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Cantidad"/>
+                                </f:facet>
+                                <p:outputLabel value="#{var.cantidadProducto}"/>
+                            </p:column>
+
+                            <!-- PRECIO DE VENTA (CALCULADO COMO LA MODA DE TODOS LOS PRECIOS PARA EL ITEM) -->
+                            <p:column style="white-space: normal;" width="100" >
+                                <f:facet name="header">
+                                    <p:outputLabel value="Precio Venta"/>
+                                </f:facet>
+
+                                <h:inputText value="#{var.preciosPromocionDTO.precioVenta}" 
+                                                                 size="10" 
+                                                                 readonly="true" 
+                                                                 styleClass="element-margin-top" 
+                                                                 style="text-align: right; border: 0px;"
+                                                                 rendered="#{not mbArquitectura.esCombo}"
+                                                                 >
+                                    <f:convertNumber maxFractionDigits="2" 
+                                        groupingUsed="true" 
+                                        type="currency" 
+                                        pattern="$ ###,###,##0.00" />
+                                </h:inputText>
+
+                                <h:inputText value="#{var.preciosPromocionDTO.precioVentaCombo}" 
+                                                                 size="10" 
+                                                                 readonly="true" 
+                                                                 styleClass="element-margin-top" 
+                                                                 style="text-align: right; border: 0px;"
+                                                                 rendered="#{mbArquitectura.esCombo and var.esUltimoElementoDeCombo}">
+                                    <f:convertNumber maxFractionDigits="2" 
+                                        groupingUsed="true" 
+                                        type="currency" 
+                                        pattern="$ ###,###,##0.00" />
+                                </h:inputText>
+
+
+                            </p:column>
+
+                            <!-- PRECIO REGULAR NUEVO (Nuevo campo) -->
+                            <p:column style="white-space: normal;" width="100">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Precio Regular Nuevo"/>
+                                </f:facet>
+                                <h:inputText value="#{var.precioRegularNuevo}" 
+                                             size="10" readonly="true" 
+                                             styleClass="element-margin-top" 
+                                             style="text-align: right; border: 0px;"
+                                             rendered="#{var.precioRegularNuevo > 0 and not mbArquitectura.esCombo}"
+                                             >
+                                    <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+                                </h:inputText>
+                            </p:column>
+
+                            <!-- PRECIO PROMOCION -->
+                            <p:column style="white-space: normal;" width="100">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Precio Promoción"/>
+                                </f:facet>
+                                <h:inputText value="#{var.preciosPromocionDTO.precioR}" 
+                                             size="10" 
+                                             readonly="true" 
+                                             styleClass="element-margin-top" 
+                                             style="text-align: right; border: 0px;"
+                                             rendered="#{var.tienePrecioPromocion and (not mbArquitectura.esCombo)}">
+                                    <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+                                </h:inputText>
+
+                                <h:inputText value="#{var.preciosPromocionDTO.precioRCombo}" 
+                                             size="10" 
+                                             readonly="true" 
+                                             styleClass="element-margin-top" 
+                                             style="text-align: right; border: 0px;"
+                                             rendered="#{var.tienePrecioPromocion and mbArquitectura.esCombo and var.esUltimoElementoDeCombo}">
+                                    <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+                                </h:inputText>
+
+                            </p:column>
+
+                            <!-- AHORRO FIJO -->
+                            <p:column style="white-space: normal;" width="100">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Ahorro Fijo"/>
+                                </f:facet>
+                                <h:inputText value="#{var.preciosPromocionDTO.ahorroFijo}" 
+                                             rendered="#{var.tienePrecioPromocion and (not mbArquitectura.esCombo)}" 
+                                             size="10" readonly="true" styleClass="element-margin-top" style="text-align: right; border: 0px;">
+                                    <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+                                </h:inputText>
+                                <h:inputText value="#{var.preciosPromocionDTO.ahorroFijoCombo}" 
+                                             rendered="#{var.tienePrecioPromocion and mbArquitectura.esCombo and var.esUltimoElementoDeCombo}" 
+                                             size="10" readonly="true" styleClass="element-margin-top" style="text-align: right; border: 0px;">
+                                    <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+                                </h:inputText>
+                            </p:column>
+
+                            <!-- AHORRO MAX -->
+                            <p:column style="white-space: normal;" width="100">
+                                <f:facet name="header">
+                                    <p:outputLabel value="Ahorro Max"/>
+                                </f:facet>
+                                <h:inputText value="#{var.ahorroMaximo}" size="10" readonly="true" styleClass="element-margin-top" 
+                                             style="text-align: right; border: 0px;"
+                                             rendered="#{var.tienePrecioPromocion and (not mbArquitectura.esCombo)}">
+                                    <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+                                </h:inputText>
+                                <h:inputText value="#{var.ahorroMaximoCombo}" 
+                                             size="10" readonly="true" styleClass="element-margin-top" 
+                                             style="text-align: right; border: 0px;"
+                                             rendered="#{var.tienePrecioPromocion and mbArquitectura.esCombo and var.esUltimoElementoDeCombo}">
+                                    <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+                                </h:inputText>
+                            </p:column>
+                            
+
+                            <p:column style="white-space: normal;" width="100">
+                                <f:facet name="header">
+                                    <p:outputLabel value="# Acuerdo 1"/>
+                                </f:facet>
+                                <p:outputLabel value="#{var.acuerdo1}" rendered="#{not mbArquitectura.esCombo}"/>
+                                <p:outputLabel value="#{var.acuerdo1}" rendered="#{mbArquitectura.esCombo and var.esUltimoElementoDeCombo}"/>
+                            </p:column>
+                            <p:column style="white-space: normal;" width="100">
+                                <f:facet name="header">
+                                    <p:outputLabel value="# Acuerdo 2"/>
+                                </f:facet>
+                                <p:outputLabel value="#{var.acuerdo2}" rendered="#{not mbArquitectura.esCombo}"/>
+                                <p:outputLabel value="#{var.acuerdo2}" rendered="#{mbArquitectura.esCombo and var.esUltimoElementoDeCombo}"/>
+                            </p:column>
+                            <p:column style="white-space: normal;" width="100">
+                                <f:facet name="header">
+                                    <p:outputLabel value="# Acuerdo 3"/>
+                                </f:facet>
+                                <p:outputLabel value="#{var.acuerdo3}" rendered="#{not mbArquitectura.esCombo}"/>
+                                <p:outputLabel value="#{var.acuerdo3}" rendered="#{mbArquitectura.esCombo and var.esUltimoElementoDeCombo}"/>
+                            </p:column>
+                            
+                            <!-- comentarios 1 -->
+                            <p:column headerText="Comentario 1" style="white-space: normal;" width="100">
+                                <p:outputLabel value="#{mbArquitectura.arqMecanica.comentario}" rendered="#{not mbArquitectura.esCombo}"/>
+                                <p:outputLabel value="#{mbArquitectura.arqMecanica.comentario}" rendered="#{mbArquitectura.esCombo and var.esUltimoElementoDeCombo}"/>
+                            </p:column>
+                            
+
+                            <!-- comentario 2 -->
+                            <p:column headerText="Comentario 2" style="white-space: normal;" width="100">
+                                <p:outputLabel value="#{var.preciosPromocionDTO.comentario}" rendered="#{not mbArquitectura.esCombo}"/>
+                                <p:outputLabel value="#{var.preciosPromocionDTO.comentario}" rendered="#{mbArquitectura.esCombo and var.esUltimoElementoDeCombo}"/>
+                            </p:column>
+                           
+                            
+                            <!-- estatus precios -->
+                            <p:column id="column20" style="white-space: normal;" width="50">
+                            
+                                <f:facet id="facetRevisionIdExp" name="header">
+                                    <p:outputLabel id="estatusRevisionIdLabelExp" value="Estatus Precios"/>    
+                                </f:facet>
+                                
+                                <p:outputLabel value="#{var.strEstatusRevision}" rendered="#{not mbArquitectura.esCombo}"/>
+                                <p:outputLabel value="#{var.strEstatusRevision}" rendered="#{mbArquitectura.esCombo and var.esUltimoElementoDeCombo}"/>
+                                
+
+                            </p:column>
+                            
+                            <!-- estatus disenio -->
+                            <p:column style="white-space: normal;" width="50">
+                                
+                                <f:facet id="facetDisIdExp" name="header">
+                                    <p:outputLabel id="estatusDisIdLabelExp" value="Estatus Diseño"/>    
+                                </f:facet>
+                                
+                                <p:outputLabel value="#{var.strEstatusDisenio}" rendered="#{not mbArquitectura.esCombo}"/>
+                                <p:outputLabel value="#{var.strEstatusDisenio}" rendered="#{mbArquitectura.esCombo and var.esUltimoElementoDeCombo}"/>
+                                
+                            </p:column>
+                            
+                        </p:dataTable>
+            
+                                        
+    </h:panelGroup>
+                                                                    
+<!-- grid emergente -->
+<p:dialog modal="false" 
+    widgetVar="disenioPop" 
+    styleClass="common-dialog disable-scroll"
+    style="width:95%!Important; height:98%!Important; overflow: scroll;"
+    header="Dise&ntilde;o">
+
+    <p:treeTable id="ttDisenio2" value="#{mbArquitectura.raizDisenio}" var="item2"
+                 styleClass="grid-content gridTreeTable"
+                 widgetVar="designTreeTablePop"
+                 scrollable="true"
+                 resizableColumns="false"
+                 scrollHeight="100%"
+                 scrollWidth="100%">
+        <p:column headerText="" style="padding-right:130px; overflow: visible; width:300px;">
+            <p:outputLabel value="#{item2.programa}" rendered="true"/>
+            <p:outputLabel value="#{item2.descMecanica}" rendered="true"/>
+            <p:outputLabel value="#{item2.gpoZona}" rendered="true" />
+            <p:outputLabel value="#{item2.zona}" rendered="true" />
+        </p:column>
+        <p:column headerText="Señalamiento" style="white-space: normal; width: 80px;">
+            <p:outputLabel value="#{item2.senalamiento}" rendered="#{not empty item2.preciosPromocionDTO and !item2.editando}"/>
+        </p:column>
+                            <!--
+                            <p:column headerText="# Hoja" style="white-space: normal">
+                                    <p:outputLabel value="#{item2.hoja}" rendered="#{item2.hoja ne 0 and !item2.editando}"/>
+                            </p:column>
+                            -->
+                            <p:column headerText="Categoría" style="white-space: normal; width: 80px;">
+                                    <p:outputLabel value="#{item2.categoria}" rendered="#{not empty item2.preciosPromocionDTO and !item2.editando}"/>
+                            </p:column>
+                            <p:column style="padding-right:80px; overflow: visible; width:80px; white-space: normal;" headerText="Grupo Zona" >
+                                    <p:outputLabel value="#{item2.gpoZona}" rendered="#{not empty item2.preciosPromocionDTO}" />
+                            </p:column>
+                            <p:column headerText="C" style="white-space: normal;width:80px;">
+                                    <p:outputLabel value="#{item2.numeroComponente}" rendered="#{not empty item2.preciosPromocionDTO and item2.treeNivel ne 0 and item2.treeNivel ne 1 and item2.treeNivel ne 2 and item2.treeNivel ne 3}"/>
+                            </p:column>
+                            <p:column headerText="Descripción" style="white-space: normal;width:80px;">
+                                    <p:outputLabel value="#{item2.descripcion}"/>
+                            </p:column>
+                            <p:column headerText="Precio Venta" style="white-space: normal;width:80px;">
+                                    <h:inputText value="#{item2.preciosPromocionDTO.precioVenta}" rendered="#{not empty item2.preciosPromocionDTO}" size="10" readonly="true" styleClass="element-margin-top" style="text-align: right; border: 0px;">
+                                            <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+                                    </h:inputText>
+                            </p:column>
+                            <p:column headerText="Precio Promoción" style="white-space: normal;width:80px;">
+                                    <h:inputText value="#{item2.preciosPromocionDTO.precio}" size="10" readonly="true" styleClass="element-margin-top" style="text-align: right; border: 0px;"
+                                                            rendered="#{not empty item2.preciosPromocionDTO and !item2.editando and item2.treeNivel ne 0 and item2.treeNivel ne 1 and item2.treeNivel ne 2 and item2.treeNivel ne 3}">
+                                            <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+                                    </h:inputText>
+                            </p:column>
+                            <p:column headerText="% Promoción" style="white-space: normal;width:80px;">
+                                    <h:inputText value="#{item2.preciosPromocionDTO.porcentaje / 100}" rendered="#{not empty item2.preciosPromocionDTO and item2.treeNivel ne 0 and item2.treeNivel ne 1 and item2.treeNivel ne 2 and item2.treeNivel ne 3}" size="10" readonly="true" styleClass="element-margin-top" style="text-align: right; border: 0px;">
+                                            <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="##0.00 %" />
+                                    </h:inputText>
+                            </p:column>
+                            <p:column headerText="Ahorro Máximo" style="white-space: normal;width:80px;">
+                                    <h:inputText value="#{item2.ahorroMaximo}" rendered="#{not empty item2.preciosPromocionDTO and item2.treeNivel ne 0 and item2.treeNivel ne 1 and item2.treeNivel ne 2 and item2.treeNivel ne 3}" size="10" readonly="true" styleClass="element-margin-top" style="text-align: right; border: 0px;">
+                                            <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+                                    </h:inputText>
+                            </p:column>
+                            <p:column headerText="Comentario 1" style="white-space: normal;width:80px;">
+                                    <p:outputLabel value="#{mbArquitectura.arqMecanica.comentario}" rendered="#{not empty item2.preciosPromocionDTO}"/>
+                            </p:column>
+                            <p:column headerText="Comentario 2" style="white-space: normal;width:80px;">
+                                    <p:outputLabel value="#{item2.preciosPromocionDTO.comentario}"/>
+                            </p:column>
+                          <!--  <p:column headerText="Punto Equilibrio" style="white-space: normal;width:80px;">
+                                    <h:inputText value="#{item2.puntoEquilibrio}" size="10" readonly="true" styleClass="element-margin-top" style="text-align: right; border: 0px;" rendered="#{not empty item2.preciosPromocionDTO and item2.treeNivel ne 0 and item2.treeNivel ne 1 and item2.treeNivel ne 2 and item2.treeNivel ne 3}">
+                                            <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+                                    </h:inputText>
+                            </p:column> -->
+                            <p:column headerText="Objetivo" style="white-space: normal;width:80px;">
+                                    <h:inputText value="#{item2.preciosPromocionDTO.objetivo}" size="10" readonly="true" styleClass="element-margin-top" style="text-align: right; border: 0px;">
+                                            <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+                                    </h:inputText>
+                            </p:column>
+                           <!-- <p:column headerText="#" style="white-space: normal;width:80px;">
+                                    <p:outputLabel value="#{item2.numero}" rendered="#{not empty item2.preciosPromocionDTO and item2.treeNivel ne 0 and item2.treeNivel ne 1 and item2.treeNivel ne 2 and item2.treeNivel ne 3}"/>
+                            </p:column> -->
+                            <p:column headerText="Estatus Precio" style="white-space: normal;width:80px;" >
+                                    <h:panelGroup rendered="#{not empty item2.preciosPromocionDTO and !item2.editando}">
+                                            <div align="center">
+                                                    <div id="circuloEstatusPrecio" style="background-color: #{item2.labelEstatusPrecio}" title="#{item2.strEstatusPrecio}"/>
+                                            </div>
+                                    </h:panelGroup>
+                                    <!--  <p:selectOneMenu value="#{item2.idEstatusPrecio}" style="width: 125px" rendered="#{not empty item2.preciosPromocionDTO and item2.editando}">
+                                            <f:selectItem itemLabel="Pendiente" itemValue="1"/>
+                                            <f:selectItem itemLabel="Autorizado" itemValue="2"/>
+                                            <f:selectItem itemLabel="Autorizado con Ajuste" itemValue="3"/>
+                                    </p:selectOneMenu> -->
+                            </p:column>
+                            <p:column headerText="Estatus Diseño" style="white-space: normal;width:80px;">
+                                     <h:panelGroup rendered="#{not empty item2.preciosPromocionDTO and !item2.editando}">
+                                            <div align="center">
+
+                                                    <h:panelGroup id="global" layout="block" style="background-color: #{mbArquitectura.labelDisenoGlobal}" styleClass="cuadrado" rendered="#{not empty item2.preciosPromocionDTO and item2.treeNivel eq 0}"/>
+                                                    <h:panelGroup id="circulo" layout="block" style="background-color: #{item2.labelEstatusDisenio}" title="#{item2.strEstatusDisenio}" styleClass="circulo" rendered="#{not empty item2.preciosPromocionDTO and item2.treeNivel ne 0}"/>
+            <!-- 									 <div id="circulo" style="background-color: #{item2.labelEstatusDisenio}" title="#{item2.strEstatusDisenio}"/> -->
+
+            <!-- 									<div id="circulo" style="background-color: #{mbArquitectura.labelDisenoGlobal}" title="#{mbArquitectura.titleDiseñoGlobal}"/> -->
+                                            </div>
+                                    </h:panelGroup>
+                                     <p:selectOneMenu value="#{item2.preciosPromocionDTO.estatusDiseno}" style="width: 125px" rendered="#{not empty item2.preciosPromocionDTO and item2.editando}">
+                                            <f:selectItem itemLabel="Pendiente" itemValue="1"/>
+                                            <f:selectItem itemLabel="En diseño" itemValue="2"/>
+                                            <f:selectItem itemLabel="Revisión" itemValue="3"/>
+                                            <f:selectItem itemLabel="Rechazado" itemValue="4"/>
+                                            <f:selectItem itemLabel="Aprobado" itemValue="5"/>
+                                            <f:selectItem itemLabel="Enviado a Impresión" itemValue="6"/>
+                                            <f:selectItem itemLabel="Cancelado" itemValue="7"/>
+                                    </p:selectOneMenu>
+                            </p:column>
+                            <p:column headerText="" style="white-space: normal;width:50px;">
+                                    <p:commandLink styleClass="edit-in-grid-button" partialSubmit="true" ajax="true" update=":frmPromocion:ttDisenio2" 
+                                            rendered="#{not empty item2.preciosPromocionDTO and !item2.editando and item2.treeNivel ne 0}">
+                                            <f:setPropertyActionListener value="#{true}" target="#{item2.editando}"/>
+                                    </p:commandLink>
+                                    <p:commandLink styleClass="save-in-grid-button" partialSubmit="true" ajax="true" update=":frmPromocion:ttDisenio2" 
+                                                                                                                       rendered="#{not empty item2.preciosPromocionDTO and item2.editando and item2.treeNivel ne 0}" action="#{mbArquitectura.updateEstatusDiseno()}">
+                                            <f:setPropertyActionListener value="#{false}" target="#{item2.editando}"/>
+                                            <f:setPropertyActionListener value="#{item2}" target="#{mbArquitectura.arqComponenteSel}" />
+                                    </p:commandLink>
+                            </p:column>
+                    </p:treeTable>
+
+<!--
+            </div>
+        </p:column>
+    </p:row>
+</p:panelGrid>
+-->
+ </p:dialog>
+
+<p:dataTable id="dtDisenio2" value="#{mbArquitectura.lArqPreciosPrint}" var="item2" style="display:none" styleClass="grid-content">
+    <p:column style="white-space: normal;">
+        <f:facet name="header">
+            <p:outputLabel value="Programa"/>
+        </f:facet>
+        <p:outputLabel value="#{item2.programa}"/>
+    </p:column>
+    <p:column style="white-space: normal;">
+        <f:facet name="header">
+            <p:outputLabel value="Mecánica"/>
+        </f:facet>
+        <p:outputLabel value="#{item2.strMecanica}"/>
+    </p:column>
+    <p:column style="white-space: normal;">
+        <f:facet name="header">
+            <p:outputLabel value="Grupo Zona"/>
+        </f:facet>
+        <p:outputLabel value="#{item2.gpoZona}"/>
+    </p:column>
+    <p:column style="white-space: normal;">
+        <f:facet name="header">
+            <p:outputLabel value="Zona"/>
+        </f:facet>
+        <ui:repeat value="#{item2.lZonas}" var="zs">
+            <p:outputLabel value="#{zs}" />
+            <br/>
+        </ui:repeat>
+            <p:outputLabel value="#{item2.zona}"/>
+    </p:column>
+    <p:column style="white-space: normal;">
+        <f:facet name="header">
+            <p:outputLabel value="Señalamiento"/>
+        </f:facet>
+        <p:outputLabel value="#{item2.senalamiento}"/>
+    </p:column>
+    <p:column style="white-space: normal;">
+        <f:facet name="header">
+            <p:outputLabel value="Categoría"/>
+        </f:facet>
+        <p:outputLabel value="#{item2.categoria}"/>
+    </p:column>
+    <p:column style="white-space: normal;">
+        <f:facet name="header">
+            <p:outputLabel value="Grupo Zona"/>
+        </f:facet>
+        <p:outputLabel value="#{item2.gpoZona}"/>
+    </p:column>
+    <p:column style="white-space: normal;">
+        <f:facet name="header">
+            <p:outputLabel value="C"/>
+        </f:facet>
+        <p:outputLabel value="#{item2.numeroComponente}"/>
+    </p:column>
+    <p:column style="white-space: normal;">
+        <f:facet name="header">
+            <p:outputLabel value="Descripción"/>
+        </f:facet>
+        <p:outputLabel value="#{item2.descripcion}"/>
+    </p:column>
+    <p:column style="white-space: normal;">
+        <f:facet name="header">
+            <p:outputLabel value="Precio Venta"/>
+        </f:facet>
+        <h:inputText value="#{item2.preciosPromocionDTO.precioVenta}" size="10" readonly="true" styleClass="element-margin-top" style="text-align: right; border: 0px;">
+            <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+        </h:inputText>
+    </p:column>
+    <p:column style="white-space: normal;">
+        <f:facet name="header">
+            <p:outputLabel value="Precio Promoción"/>
+        </f:facet>
+        <h:inputText value="#{item2.preciosPromocionDTO.precio}" size="10" readonly="true" styleClass="element-margin-top" style="text-align: right; border: 0px;"
+                     rendered="#{not empty item2.preciosPromocionDTO and !item2.editando}">
+            <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+        </h:inputText>
+    </p:column>
+    <p:column style="white-space: normal;">
+        <f:facet name="header">
+            <p:outputLabel value="% Promoción"/>
+        </f:facet>
+        <h:inputText value="#{item2.preciosPromocionDTO.porcentaje / 100}" size="10" readonly="true" styleClass="element-margin-top" style="text-align: right; border: 0px;">
+            <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="##0.00 %" />
+        </h:inputText>
+    </p:column>
+    <p:column style="white-space: normal;">
+        <f:facet name="header">
+            <p:outputLabel value="Ahorro Máximo"/>
+        </f:facet>
+        <h:inputText value="#{item2.ahorroMaximo}" size="10" readonly="true" styleClass="element-margin-top" style="text-align: right; border: 0px;">
+            <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+        </h:inputText>
+    </p:column>
+    <p:column style="white-space: normal;">
+        <f:facet name="header">
+            <p:outputLabel value="Comentario 1"/>
+        </f:facet>
+        <p:outputLabel value="#{mbArquitectura.arqMecanica.comentario}"/>
+    </p:column>
+    <p:column style="white-space: normal;">
+        <f:facet name="header">
+            <p:outputLabel value="Comentario 2"/>
+        </f:facet>
+        <p:outputLabel value="#{item2.preciosPromocionDTO.comentario}"/>
+    </p:column>
+      <p:column style="white-space: normal;">
+              <f:facet name="header">
+                      <p:outputLabel value="Punto Equilibrio"/>
+              </f:facet>
+              <h:inputText value="#{item2.puntoEquilibrio}" size="10" readonly="true" styleClass="element-margin-top" style="text-align: right; border: 0px;" rendered="#{not empty item2.preciosPromocionDTO}">
+                      <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+              </h:inputText>
+      </p:column>
+    <p:column style="white-space: normal;">
+        <f:facet name="header">
+            <p:outputLabel value="Objetivo"/>
+        </f:facet>
+        <h:inputText value="#{item2.preciosPromocionDTO.objetivo}" size="10" readonly="true" styleClass="element-margin-top" style="text-align: right; border: 0px;">
+            <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$ ###,###,##0.00" />
+        </h:inputText>
+    </p:column>
+    <p:column style="white-space: normal;">
+        <f:facet name="header">
+            <p:outputLabel value="#"/>
+        </f:facet>
+        <p:outputLabel value="#{item2.numero}" rendered="#{not empty item2.preciosPromocionDTO}"/>
+    </p:column>
+    <p:column style="white-space: normal;" >
+        <f:facet name="header">
+            <p:outputLabel value="Estatus Precio"/>
+        </f:facet>
+        <p:outputLabel value="#{item2.strEstatusRevision}"/>
+    </p:column>
+    <p:column style="white-space: normal;">
+        <f:facet name="header">
+            <p:outputLabel value="Estatus Diseño"/>
+        </f:facet>
+        <p:outputLabel value="#{item2.strEstatusDisenio}"/>
+    </p:column>
+</p:dataTable>
+</ui:composition>

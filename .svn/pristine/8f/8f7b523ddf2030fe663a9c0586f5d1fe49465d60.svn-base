@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+	<link type="text/css" rel="stylesheet" href="css/FontAndColor.css" />
+	<link type="text/css" rel="stylesheet" href="css/adMaster.buttons.css" />
+	<link type="text/css" rel="stylesheet" href="css/ModuloArquitectura.css" />
+	<script type="text/javascript" src="js/Home.js"></script>
+	<script type="text/javascript" src="js/Arquitectura.js"></script>
+</h:head> 
+<h:body> 
+		<div id="menulateral" style="float:left; width: 16%!important;">
+			<ui:include src="MenuLateralArquitectura.xhtml" />
+		</div>
+
+		<div id="DivPrincipalMaterialPopFrizo">
+			<div id="DivHeaderMaterialPopFrizo">
+				<table style="width: 100%;">
+					<tr>
+						<td style="padding-bottom: 3px;"><h:outputLabel value="Familia:"></h:outputLabel></td>
+						<td style="padding-top: 8px;">
+							<p:selectOneMenu id="selectListaMaterialPopFrizo">
+								<f:selectItem itemValue="0" itemLabel="--Seleccione--"/>
+								<f:selectItem itemValue="1" itemLabel="Option1"/>
+							</p:selectOneMenu>
+						</td>
+						<td>
+						<p:commandButton id="buttonVerPronosticoMaterialPopFrizo" value="Ver Pron&oacute;stico" style="height: 30px;color: white;background: url(images/degradado_btn_2.png);"></p:commandButton>
+						</td>
+						<td style="padding-bottom: 3px;"><h:outputLabel value="SKU:"></h:outputLabel></td>
+						<td style="padding-top: 8px;">
+							<p:selectOneMenu id="selectSKU_MaterialPopFrizo">
+								<f:selectItem itemValue="0" itemLabel="--Seleccione--"/>
+								<f:selectItem itemValue="1" itemLabel="Option1"/>
+							</p:selectOneMenu>
+						</td>
+						<td>
+							<h:inputText id="txtBuxcar_Frizo" styleClass="fuenteYColor borderTextbox" style="height: 18px; width:180px; padding-top: 6px;"/>
+						</td>
+					</tr>
+				</table>
+				
+			</div>
+		
+			<div style="float: left;">
+				<div id="divTableDragg_Frizo">
+					<table cellspacing="5" id="tableDragg_Frizo" style="background: Gray;">
+						<tr>
+							<td id="id1"><div><h:graphicImage value="images/ejecucion/laptop.png" styleClass="imgArticulo_ArquitecturaImpresoFolleto dragg ui-state-default"/></div></td>
+							<td id="id2"><div><h:graphicImage value="images/ejecucion/agenda.png" styleClass="imgArticulo_ArquitecturaImpresoFolleto dragg ui-state-default"/></div></td>
+							<td id="id3"><div><h:graphicImage value="images/ejecucion/mouse.png" styleClass="imgArticulo_ArquitecturaImpresoFolleto dragg ui-state-default"/></div></td>
+						</tr>
+						<tr>
+							<td id="id4"><div><h:graphicImage value="images/ejecucion/telefono.png" styleClass="imgArticulo_ArquitecturaImpresoFolleto dragg ui-state-default"/></div></td>
+							<td id="id5"><div><h:graphicImage value="images/ejecucion/silla.png" styleClass="imgArticulo_ArquitecturaImpresoFolleto dragg ui-state-default"/></div></td>
+							<td id="id6"><div><h:graphicImage value="images/ejecucion/escritorio.png" styleClass="imgArticulo_ArquitecturaImpresoFolleto dragg ui-state-default"/></div></td>
+						</tr>
+						<tr>
+							<td id="id7"><div><h:graphicImage value="images/ejecucion/computo.png" styleClass="imgArticulo_ArquitecturaImpresoFolleto dragg ui-state-default"/></div></td>
+							<td id="id8"><div><h:graphicImage value="images/ejecucion/pizarron.png" styleClass="imgArticulo_ArquitecturaImpresoFolleto dragg ui-state-default"/></div></td>
+							<td id="id9"><div><h:graphicImage value="images/ejecucion/cajaFuerte.png" styleClass="imgArticulo_ArquitecturaImpresoFolleto dragg ui-state-default"/></div></td>
+						</tr>
+						<tr>
+							<td id="id10"><div><h:graphicImage value="images/ejecucion/telefono.png" styleClass="imgArticulo_ArquitecturaImpresoFolleto dragg ui-state-default"/></div></td>
+							<td id="id11"><div><h:graphicImage value="images/ejecucion/silla.png" styleClass="imgArticulo_ArquitecturaImpresoFolleto dragg ui-state-default"/></div></td>
+							<td id="id12"><div><h:graphicImage value="images/ejecucion/escritorio.png" styleClass="imgArticulo_ArquitecturaImpresoFolleto dragg"/></div></td>
+						</tr>
+						<tr>
+							<td id="id13"><div><h:graphicImage value="images/ejecucion/telefono.png" styleClass="imgArticulo_ArquitecturaImpresoFolleto dragg ui-state-default"/></div></td>
+							<td id="id14"><div><h:graphicImage value="images/ejecucion/silla.png" styleClass="imgArticulo_ArquitecturaImpresoFolleto dragg ui-state-default"/></div></td>
+							<td id="id15"><div><h:graphicImage value="images/ejecucion/escritorio.png" styleClass="imgArticulo_ArquitecturaImpresoFolleto dragg"/></div></td>
+						</tr>
+					</table>
+					<div style="width: 200px; height: 20px;">
+						<p:commandLink value="Previous" style="padding-left: 5px;"></p:commandLink>
+						<p:commandLink value="1" style="padding-left: 5px;"></p:commandLink>
+						<p:commandLink value="2" style="padding-left: 5px;"></p:commandLink>
+						<p:commandLink value="3" style="padding-left: 5px;"></p:commandLink>
+					</div>
+				</div>
+			</div>
+		
+			<div id="divCuerpo_Frizo">
+			
+				<div id="divButtonsHeader_Frizo">
+					<h:outputLink styleClass="a_agregar_ImpresoFolleto" id="a_agregar_ImpresoFolleto" style="float:left;"></h:outputLink>
+					<h:outputLink styleClass="a_guardar_ImpresoFolleto" id="a_guardar_ImpresoFolleto" style="float:left;"></h:outputLink>
+					<h:outputLink styleClass="a_qr_ImpresoFolleto" id="a_qr_ImpresoFolleto" style="float:left;"></h:outputLink>
+					<span style="color: DimGray; text-decoration: underline;padding-left: 30px;"><h:outputLabel value="Generar Versiones"></h:outputLabel></span>
+					<span style="color: DimGray; text-decoration: underline;padding-left: 30px;"><h:outputLabel value="Generar Copia"></h:outputLabel></span>
+					<span style="color: DimGray; text-decoration: underline;padding-left: 30px;"><h:outputLabel value="Cerrar Hoja"></h:outputLabel></span>
+				</div>
+			
+				<div style="height: 260px;padding-top: 100px;float:left;">
+					<center>
+						<table style="height: 150px; border: 1px solid #e6e6e6; width: 550px; background: Gray;" >
+							<tr>
+								<td style="background: #e6e6e6;border-left: 20px solid Gray; border-right: 20px solid Gray;text-align: center;"> <span style="color: Gray;"><h:outputLabel value="Arrastra imagen para colocar"></h:outputLabel></span></td>
+							</tr>
+						</table>
+					</center>
+				</div>
+				
+			</div>
+			
+		</div>
+</h:body> 
+</html>

@@ -1,0 +1,193 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+        >
+<h:head>
+
+</h:head>
+<h:body>
+    <ui:composition template="template/common/commonLayout.xhtml">
+        <ui:define name="west">
+            <p:layoutUnit position="west" size="250"
+                          resizable="true" closable="false" collapsible="false" id="west">
+                <h:form id="frmMenuLogin">
+                    <p:panelMenu>
+                        <!-- style="width:200px" -->
+                        <p:submenu label="#{msg.Catalogos}">
+                           <!-- <p:submenu label="#{msg.JerarquiaOrganizacional}">
+                            
+                              <p:menuitem value="Grupo Zonas"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            action="#{menuBean.setPagina('catalogos/grupoZona')}"
+                                            update=":pgPrincipal"/>
+                                            
+                                <p:menuitem value="Zonas"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            action="#{menuBean.setPagina('catalogos/zona')}"
+                                            update=":pgPrincipal"/>
+                                            
+                                <p:menuitem value="Tiendas"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            action="#{menuBean.setPagina('catalogos/store')}"
+                                            update=":pgPrincipal"/>
+          
+                            </p:submenu>
+                            <p:submenu label="#{msg.JerarquiaMercancia}">
+                               
+                                                           
+                                <p:menuitem value="Departamentos" 
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            action="#{menuBean.setPagina('catalogos/depto')}" 
+                                            update=":pgPrincipal"/>
+                                            
+                                <p:menuitem value="Categorías"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            action="#{menuBean.setPagina('catalogos/category')}"
+                                            update=":pgPrincipal"/>
+                                            
+                                <p:menuitem value="Subcategorías"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            action="#{menuBean.setPagina('catalogos/subCategory')}"
+                                            update=":pgPrincipal"/>
+                                            
+                                <p:menuitem value="Proveedores"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            action="#{menuBean.setPagina('catalogos/proveedor')}"
+                                            update=":pgPrincipal"/>     
+                                                                                        
+                                 <p:menuitem value="Artículos"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            action="#{menuBean.setPagina('catalogos/item')}"
+                                            update=":pgPrincipal"/>
+                       
+                              
+                            </p:submenu> -->
+                            
+                            <p:submenu label="#{msg.ABC}">
+                                 
+                                <!-- usuarios -->
+                                <p:menuitem value="#{msg.Usuarios}"
+                                			onstart="muestraLoader();" 
+                                   
+                                     onsuccess="ocultaLoader();"
+                                            actionListener="#{menuBean.setPagina('catalogos/catUsuarios')}"
+                                         
+                                            update=":pgPrincipal"/> 
+
+                                <!-- flujo act -->
+                                 <p:menuitem value="Flujo Actividades"
+                                     onstart="muestraLoader();" 
+                                   
+                                     onsuccess="ocultaLoader();"
+                                     actionListener="#{menuBean.setPagina('catalogos/catFlujosAct')}"
+                                     update=":pgPrincipal"/>
+                                            
+                                 <p:menuitem value="#{msg.Periodos}"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            actionListener="#{menuBean.goCatalog('CAT_PERIOD','PERIODOS')}"
+                                            update=":pgPrincipal"/>  
+                                
+                                <!-- programas -->
+                                <p:menuitem value="Programas"
+                                            onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            action="#{menuBean.setPagina('catalogos/catPrograma')}"
+                                            update=":pgPrincipal"/>                                          
+      
+                                <!-- promocion -->
+                                  <p:menuitem value="Promoción"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+								            actionListener="#{menuBean.setPagina('catalogos/catPromo')}"
+                                            update=":pgPrincipal"/> 
+                                            
+                                <!-- tipo promocion-->        
+                                  <p:menuitem value="Tipo Promoción"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+								            actionListener="#{menuBean.setPagina('catalogos/catTipoPromo')}"
+                                            update=":pgPrincipal"/>     
+                                            
+                                  <!-- senal-->
+                                  <p:menuitem value="Señalamientos"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            action="#{menuBean.setPagina('catalogos/catSenal')}"
+                                            update=":pgPrincipal"/>
+
+
+                                  <p:menuitem value="Espacio Promocional"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            action="#{menuBean.setPagina('prueba')}"
+                                            actionListener="#{menuBean.goCatalog('CAT_ESP_PROMO','ESPACIO PROMOCIONAL')}"
+                                            update=":pgPrincipal"/>                                           
+                               
+                            </p:submenu>
+                            
+                            
+                        <!--    <p:submenu label="Configuración">
+                              
+                              <p:menuitem value="#{msg.Actividades}"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            actionListener="#{menuBean.goCatalog('CAT_ACTIVITY','ACTIVIDADES')}"
+                                            update=":pgPrincipal"/>
+                                            
+                              <p:menuitem value="Catalogo Etiquetas"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            actionListener="#{menuBean.goCatalog('CAT_ETIQ','ETIQUETAS')}"
+                                            update=":pgPrincipal"/> 
+                                            
+                               <p:menuitem value="#{msg.Notificacionesdeactividades}"
+                           				   onstart="muestraLoader();"
+							               onsuccess="ocultaLoader();"
+                                           actionListener="#{menuBean.goCatalog('CAT_FREC_NOTIF','NOTIFICACIONES DE ACTIVIDADES')}"
+                                           update=":pgPrincipal"/> 
+                                        
+                               <p:menuitem value="Notificaciones/Correos"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            actionListener="#{menuBean.goCatalog('CAT_TEM_NOTF','NOTIFICACIONES DE CORREOS')}"
+                                            update=":pgPrincipal"/>
+                                            
+                               <p:menuitem value="Template de Notificaciones"
+                                			onstart="muestraLoader();"
+								            onsuccess="ocultaLoader();"
+                                            actionListener="#{menuBean.goCatalog('CAT_TEM_NOTF','TEMPLATE DE NOTIFICACIONES')}"
+                                            update=":pgPrincipal"/>
+                                            
+                                                                  
+                            </p:submenu> -->
+                            
+                            
+                            
+                       </p:submenu>
+                   </p:panelMenu>
+                </h:form>
+            </p:layoutUnit>
+        </ui:define>
+        <ui:define name="content">
+            <h:panelGroup id="pgPrincipal">
+                <ui:include src="#{menuBean.pagina}.xhtml" />
+            </h:panelGroup>
+        </ui:define>
+    </ui:composition>
+</h:body>
+
+
+</html>

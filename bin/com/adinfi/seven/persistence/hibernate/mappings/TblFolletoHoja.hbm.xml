@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated 20/12/2013 07:11:27 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.TblFolletoHoja" table="TBL_FOLLETO_HOJAS">
+    
+        <id name="idHoja"  type="java.lang.Integer">
+            <column name="ID_HOJA" />
+            <generator class="sequence">
+				<param name="sequence">CAT_REG_VALUES_SEQ</param>
+			</generator>
+        </id>
+        
+        <property name="idFolleto" type="int">
+            <column name="ID_FOLLETO" />            
+        </property>
+        
+        <property name="idTemplate"  type="java.lang.Integer">
+            <column name="TEMPLATE_ID" />            
+        </property>        
+        
+        <property name="idCategory"  type="java.lang.Integer">
+            <column name="ID_CATEGORY" />            
+        </property>  
+       
+        
+		<set name="articulos"  fetch="join"   cascade="all"    >
+            <key>
+                <column name="ID_HOJA" not-null="true" />
+            </key>
+            <one-to-many class="com.adinfi.seven.business.domain.TblArticulosHoja"     />
+        </set>        
+        
+         
+        
+       </class>
+</hibernate-mapping>
+

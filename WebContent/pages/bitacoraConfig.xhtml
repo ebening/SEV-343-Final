@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:c="http://java.sun.com/jstl/core">
+	<h:form id="pgBitacora">
+		<p:messages autoUpdate="true" closable="true" />
+		<p:commandLink action="#{MBBitacora.saveTipos}"
+				update=":pgBitacora" title="Guardar">
+			<h:graphicImage library="images/menu_nueva_actividad" name="guardar.png" width="30" height="30"/>
+		</p:commandLink>
+		<p:panel header="Niveles de LOG">
+			<p:selectManyCheckbox id="checkLevels" value="#{MBBitacora.listTipos}">
+				<f:selectItems itemValue="#{item.id}"
+					itemLabel="#{item.value}"
+					value="#{MBBitacora.listLevels}"
+					var="item"/>
+			</p:selectManyCheckbox>
+		</p:panel>
+	</h:form>
+</html>

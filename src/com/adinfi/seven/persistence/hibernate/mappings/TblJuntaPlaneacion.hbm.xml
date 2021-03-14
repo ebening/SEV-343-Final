@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated 17/12/2013 09:48:18 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.TblJuntaPlaneacion" table="TBL_JUNTA_PLANEACION">
+        <id name="idJunta" type="int">
+            <column name="ID_JUNTA" />
+            <generator class="native" />
+        </id>
+        <property name="idResponsable" type="int">
+            <column name="ID_RESP" />
+        </property>
+        <property name="idEstatus" type="int">
+            <column name="ID_ESTATUS" not-null="true"/>
+        </property>
+        <property name="fecha" type="java.util.Date">
+            <column name="FECHA" />
+        </property>
+        <property name="horaInicio" type="java.util.Date">
+            <column name="HORA_INICIO" />
+        </property>
+        <property name="horaFin" type="java.util.Date">
+            <column name="HORA_FIN" />
+        </property>
+        <property name="lugar" type="java.lang.String">
+            <column name="LUGAR" />
+        </property>
+        <property name="temasTratar" type="java.lang.String">
+            <column name="TEMAS_TRATAR" />
+        </property>
+        <property name="comentarios" type="java.lang.String">
+            <column name="COMENTARIOS" />
+        </property>
+        <set name="tblArchivos" inverse="true">
+            <key>
+                <column name="ID_JUNTA" not-null="true" />
+            </key>
+            <one-to-many class="com.adinfi.seven.business.domain.TblJuntaArchivos"/>
+        </set>
+        <set name="tblParticipantes" inverse="true">
+            <key>
+                <column name="ID_JUNTA" not-null="true" />
+            </key>
+            <one-to-many class="com.adinfi.seven.business.domain.TblJuntaParticipantes" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+        >
+<h:head></h:head>
+<body>
+<h:form id="mainForm">
+    <h:panelGroup id="dynaFormGroup" styleClass="panel-form" >
+		<h1 class="title">#{MBPrueba.catalogNametitle}</h1>
+    	
+        <p:messages id="messages" autoUpdate="true" closable="true" />
+        
+        <pe:dynaForm id="dynaForm" value="#{MBPrueba.model}" var="data">
+
+            <!-- input number-->
+            <pe:dynaFormControl for="num" type="inputNumber">
+                <p:inputText id="num"   value="#{data.value}"  disabled="#{data.readOnly}" style="#{data.errorClass}">
+                    <pe:keyFilter for="num" mask="num" preventPaste="false"/>
+                </p:inputText>
+            </pe:dynaFormControl>
+
+            <pe:dynaFormControl type="porc" for="porc">
+                <pe:inputNumber id="porc" value="#{data.value}"  disabled="#{data.readOnly}" style="#{data.errorClass}"/>
+            </pe:dynaFormControl>
+
+            <pe:dynaFormControl type="input" for="txt">
+                <p:inputText id="txt" value="#{data.value}" disabled="#{data.readOnly}" style="#{data.errorClass}" maxlength="#{data.length}">
+                </p:inputText>
+            </pe:dynaFormControl>
+
+            <pe:dynaFormControl type="calendar" for="cal" styleClass="calendar">
+                <p:calendar id="cal" value="#{data.value}" showOn="button" pattern="dd/MM/yyyy" readonlyInput="true" disabled="#{data.readOnly}" 
+                            style="#{data.errorClass}"
+                            />
+            </pe:dynaFormControl>
+
+            <pe:dynaFormControl type="combo" for="sel" styleClass="select">
+            <p:selectOneMenu id="sel" value="#{data.value}" disabled="#{data.readOnly}" style="#{data.errorClass}">
+	            <f:selectItem itemLabel="Seleccionar" itemValue="" />
+	            <f:selectItems value="#{data.selectValues}"/>
+	        </p:selectOneMenu>
+                
+	    </pe:dynaFormControl>
+
+        <pe:dynaFormControl type="textarea" for="tarea">
+            <p:inputTextarea id="tarea" value="#{data.value}" autoResize="false" disabled="#{data.readOnly}" style="#{data.errorClass}"/>
+	    </pe:dynaFormControl>
+
+        <pe:dynaFormControl type="radiobutton" for="radio" styleClass="select">
+            <p:selectOneRadio id="radio" value="#{data.value}" disabled="#{data.readOnly}" style="#{data.errorClass}">
+                <f:selectItems value="#{data.selectValues}"/>
+            </p:selectOneRadio>
+        </pe:dynaFormControl>
+
+        <pe:dynaFormControl type="checkbox" for="checkbox">
+            <p:selectBooleanCheckbox value="#{data.value}" id="checkbox" disabled="#{data.readOnly}" style="#{data.errorClass}"/>
+        </pe:dynaFormControl>
+
+        <pe:dynaFormControl type="manycheckbox" for="manycheckbox" styleClass="select">
+            <p:selectManyCheckbox id="manycheckbox" label="" value="#{data.selectedList}" disabled="#{data.readOnly}" style="#{data.errorClass}">
+                <f:selectItems value="#{data.selectValues}"/>
+            </p:selectManyCheckbox>
+	    </pe:dynaFormControl>
+
+        <pe:dynaFormControl type="manycombo" for="manyCombo" styleClass="select">
+            <p:selectCheckboxMenu id="manyCombo" label="" value="#{data.selectedList}" disabled="#{data.readOnly}" style="#{data.errorClass}">
+                <f:selectItems value="#{data.selectValues}"/>
+            </p:selectCheckboxMenu>
+	    </pe:dynaFormControl>
+
+        <f:facet name="buttonBar">
+            <p:commandButton value="Guardar" action="#{MBPrueba.submitForm}" process="dynaForm" update=":mainForm" rendered="#{MBPrueba.catalogChange}"/>
+	        <p:commandButton value="Cancelar" style="margin-left: 5px;" action="#{MBPrueba.resetValues()}" update=":mainForm" rendered="#{MBPrueba.catalogChange}"/>
+	    </f:facet>
+
+	</pe:dynaForm>
+
+    </h:panelGroup>
+	<br />
+	<br />
+	<h:form id="dataTableId">
+        <p:dataTable id="itemId" var="item" value="#{MBPrueba.responseArray}" rowIndexVar="rowIx" paginator="true"
+                     rows="10"
+	                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+	                 emptyMessage="Vacio" resizableColumns="true" styleClass="ui-datatable-hor-scroll"
+	                 >
+	            <p:column style="width: 70px!Important;">
+	            	<p:commandButton icon="ui-icon-pencil" title="Editar" action="#{MBPrueba.onSelect(rowIx)}" update=":mainForm"/>
+	            	<p:commandButton onclick="cd.show()" icon="ui-icon-trash" action="#{MBPrueba.setRowDelete(item)}"/>
+
+	            	<p:confirmDialog message="Desea eliminar el registro seleccionado ?"
+		            	header="Confirmacion" severity="alert" styleClass="common-dialog"
+		            	showEffect="fade" hideEffect="explode" widgetVar="cd" appendToBody="true">
+
+                            <p:commandButton value="Si" styleClass="ui-confirmdialog-yes"
+					        icon="ui-icon-check" update=":mainForm" rendered="#{MBPrueba.catalogChange}"
+					        action="#{MBPrueba.onDelete()}" process="@this"
+					        onclick="cd.hide()"/>
+
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no"
+					        icon="ui-icon-close" onclick="cd.hide()"/>
+
+                        </p:confirmDialog>
+	            </p:column>
+		    	<p:columns value="#{MBPrueba.columns}" 
+                    var="column"
+		    		columnIndexVar="colIndex" 
+                    resizable="true" 
+                    sortBy="#{item.get(column.header)}"
+                    style="white-space: pre-wrap;word-break: break-all;">
+		    		<f:facet name="header">
+		    			<h:outputText value="#{column.property}" />
+		    		</f:facet>
+					<h:outputText value="#{item.get(column.header)}" />
+			</p:columns>
+	    </p:dataTable>
+    </h:form>
+    <!--h:outputStylesheet id="dynaFormCSS">
+        /* note: trick with colspan is needed for IE8 */
+        .pe-dynaform-cell input,
+        .pe-dynaform-cell textarea,
+        .pe-dynaform-cell[colspan="1"] input,
+        .pe-dynaform-cell[colspan="1"] textarea {
+            width: 150px;
+        }
+
+        /* note: trick with colspan is needed for IE8 */
+        .pe-dynaform-cell.calendar input,
+        .pe-dynaform-cell[colspan="1"].calendar input {
+            width: 120px;
+        }
+
+        .pe-dynaform-cell.select .ui-selectonemenu {
+            width: 157px !important;
+        }
+
+        .pe-dynaform-cell.select .ui-selectonemenu .ui-selectonemenu-label {
+            width: 130px !important;
+        }
+
+        .ui-datatable-hor-scroll .ui-datatable-tablewrapper,.scrolling-div .ui-datatable-tablewrapper{
+         overflow: auto;
+         width: 100%;
+         padding-bottom: 5px;
+        }
+    </h:outputStylesheet-->
+
+</h:form>
+</body>
+</html>

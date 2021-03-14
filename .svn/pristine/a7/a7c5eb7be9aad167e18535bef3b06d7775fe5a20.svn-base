@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated 13/01/2014 05:28:18 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.TblReporteInventario" table="TBL_REPORTE_INVENTARIO" >
+        <id name="id" type="int">
+            <column name="ID" />
+            <generator class="assigned" />
+        </id>
+        <property name="codeArt" type="string">
+            <column name="CODE_ART" length="30" not-null="true" />
+        </property>
+        <property name="distrito" type="string">
+            <column name="DISTRITO" length="50" />
+        </property>
+        <property name="zona" type="string">
+            <column name="ZONA" length="50" />
+        </property>
+        <property name="idSucursal" type="java.lang.Integer">
+            <column name="ID_SUCURSAL" />
+        </property>
+        <property name="sucursal" type="string">
+            <column name="SUCURSAL" length="50" />
+        </property>
+        <property name="categoria" type="string">
+            <column name="CATEGORIA" length="50" />
+        </property>
+        <property name="subcategoria" type="string">
+            <column name="SUBCATEGORIA" length="50" />
+        </property>
+        <property name="invTienda" type="java.lang.Integer">
+            <column name="INV_TIENDA" />
+        </property>
+        <property name="invCedis" type="java.lang.Integer">
+            <column name="INV_CEDIS" />
+        </property>
+        <property name="invTransito" type="java.lang.Integer">
+            <column name="INV_TRANSITO" />
+        </property>
+    </class>
+</hibernate-mapping>

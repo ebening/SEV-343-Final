@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:c="http://java.sun.com/jstl/core">
+<head>
+<style type="text/css">
+.ui-menu-child
+{
+font-weight:bold;color:#000000;letter-spacing:1pt;word-spacing:-1pt;font-size:12px;text-align:left;font-family:tahoma, verdana, arial, sans-serif;line-height:1;margin:0px;padding:0px;
+}
+
+
+
+
+
+</style>
+</head>	
+	
+<h:body>
+	<ui:composition template="template/common/commonLayout.xhtml">
+		<f:metadata>
+   			<f:viewParam name="id_op" value="#{MBCatUsuarios.opcionTraspaso}" >
+   			</f:viewParam>
+		</f:metadata>
+		<ui:define name="west">
+			<p:layoutUnit  position="west" size="200"  styleClass="header-panel" 
+				resizable="true" closable="false" collapsible="false" id="west" >
+				<h:form id="frmMenuLogin" >
+					<p:panelMenu>
+						<!-- style="width:200px" -->
+						<c:if  test="#{MBCatUsuarios.currentOpciones!=null}" >
+						<c:forEach var="currOpc" items="#{MBCatUsuarios.currentOpciones}">
+							<p:submenu style="font-size:12px" label="#{currOpc.opcName}">
+							    <c:if  test="#{currOpc.childsAsArray!=null}" >
+								<c:forEach var="currOpcChild" items="#{currOpc.childsAsArray}">
+								    <c:choose>
+										    <c:when  test="#{currOpcChild.childsAsArray == null}" >
+												<p:menuitem style="font-size:12px"  styleClass="ui-menu-child"  value="&nbsp;&nbsp;&nbsp;#{currOpcChild.opcName}"
+													actionListener='#{MBNavigator.setCurrentPage(currOpcChild.url)}'
+													update=":pgPrincipalLogin">
+												</p:menuitem>
+											</c:when>
+										    <c:otherwise  test="#{currOpcChild.childsAsArray!=null}" >
+												<p:submenu label="#{currOpcChild.opcName}">
+												      <c:forEach var="currOpcSubChild" items="#{currOpcChild.childsAsArray}">
+												         <c:choose>
+												            <c:when test="#{currOpcSubChild.childsAsArray==null}"  > 
+	                                                            <p:menuitem style="font-size:12px" styleClass="ui-menu-child"  value="&nbsp;&nbsp;&nbsp;#{currOpcSubChild.opcName}"
+														             actionListener='#{MBNavigator.setCurrentPage(currOpcSubChild.url)}'
+														             update=":pgPrincipalLogin">
+													            </p:menuitem>												
+												            </c:when>
+												            <c:otherwise  test="#{currOpcSubChild.childsAsArray!=null}"  >
+												               <p:submenu style="font-size:12px" label="#{currOpcSubChild.opcName}">
+												                    <c:forEach var="currOpcSubSubChild" items="#{currOpcSubChild.childsAsArray}">
+												                    
+												                    	 <p:menuitem style="font-size:12px" styleClass="ui-menu-child"  value="&nbsp;&nbsp;&nbsp;#{currOpcSubSubChild.opcName}"
+														                     actionListener='#{MBNavigator.setCurrentPage(currOpcSubSubChild.url)}'
+														             update=":pgPrincipalLogin">
+													                     </p:menuitem>												
+												                    
+												                    </c:forEach>
+												               </p:submenu>
+												            </c:otherwise>
+												            
+												            
+												         </c:choose>
+												
+													 </c:forEach> 
+												</p:submenu>
+											</c:otherwise>											
+									</c:choose>
+								</c:forEach>
+								</c:if>
+							</p:submenu>
+						</c:forEach>
+						</c:if>
+					</p:panelMenu>
+				</h:form>
+			</p:layoutUnit>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

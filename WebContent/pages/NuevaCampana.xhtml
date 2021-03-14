@@ -1,0 +1,249 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+	<link type="text/css" rel="stylesheet"  href="css/Planeacion.css" />
+</h:head> 
+<h:body> 
+	<!-- <h:form> -->
+		<div id="NuevaCampaña" 
+	 style="border: 1px solid silver; 
+			height: 435px;
+			background-color: white;
+			padding: 5px;" >
+	
+	<div id="bordeGris_nuevaCampaña" style="border: 1px solid Silver;">
+	
+	<div id="div_nuevaCamapañaTablas" >
+			<table id="newcamp_table" class="back_Color" style="width:100%;" >
+					<tr>
+						<td align="justify" style="padding-left: 13px;" class="fuenteYColor"><h:outputLabel value="Título:"></h:outputLabel>
+						</td>
+						<td colspan="5">
+							<p:inputText id="txtTituloNuevaCampaña" style="border: 1px solid silver; width: 380px;" styleClass="borderTextbox fuenteYColor"/>
+						</td>
+						<td style="font-size:14px; text-align:right; width:170px;" class="fuenteYColor">
+							<h:outputLabel value="Etiqueta:"></h:outputLabel>
+						</td>
+						<td> 			
+							<p:selectOneMenu id="select_EtiquetaNvaCampaña">  
+						        <f:selectItem itemValue="op1"
+										itemLabel="Option 1" selected="selected"></f:selectItem>
+			 		            <f:selectItem itemValue="op2" itemLabel="Option 2"></f:selectItem>
+			 		        </p:selectOneMenu>
+	                   </td>
+					</tr>
+				<!-- 	<tr>
+						<td colspan="8" style="height: 6px;"></td>	
+					</tr>
+				 -->	
+					<tr>
+						<td align="justify" style="padding-right: 55px; text-align: center;font-size:14px;" class="fuenteYColor">
+							<h:outputLabel value="Vigencia:"></h:outputLabel></td>	
+						<td class="fuenteYColor">
+							<h:outputLabel value="Inicio: "></h:outputLabel>
+						</td>
+						<td>
+							<p:calendar id="copyStartDateCalendar" pattern="dd/MM/yyyy" mode="popup" showOn="button" size='10' style="height: 16px;">
+								<f:convertDateTime pattern="MM/yyyy" />
+							</p:calendar>
+							<!-- <p:inputText id="calendario_inicio_Campana" styleClass="dateComp fuenteYColor borderTextbox"/>
+							<h:graphicImage id="btnCalendario"	value="images/extras/calendario.png" styleClass="btnCalendario" /> -->
+						</td>
+						<td class="fuenteYColor">
+							<h:outputLabel value="Fin:"></h:outputLabel>
+						</td>
+						<td> 
+							<p:calendar id="calendarFin" pattern="dd/MM/yyyy" mode="popup" showOn="button" size='10' style="height: 16px;">
+								<f:convertDateTime pattern="MM/yyyy" />
+							</p:calendar> 
+							<!-- <p:inputText id="calendario_fin_Campana" styleClass="dateComp fuenteYColor borderTextbox"/>	
+							<h:graphicImage id="btnCalendario"	value="images/extras/calendario.png" styleClass="btnCalendario" /> -->
+						</td>
+						<td></td>
+						<td class="fuenteYColor" style="text-align:right;">
+							<h:outputLabel value="NSE:"></h:outputLabel>
+						</td>
+						<td> 
+							<p:selectOneMenu id="select_NSENvaCampaña" styleClass="fuenteYColor">  
+			              		<f:selectItem itemValue="op1" itemLabel="Option 1" selected="selected"></f:selectItem>
+			                  	<f:selectItem itemValue="op2" itemLabel="Option 2"></f:selectItem>
+			                </p:selectOneMenu>
+	                   </td>
+					</tr>
+					
+					<tr>
+						<td colspan="8"></td>	
+					</tr>
+			</table>
+			<table id="newcamp_table2" class="back_Color" style="width:100%;"><!--  height: 362px; -->		
+					<tr>
+						<td style="vertical-align: top; padding-left: 12px;  width: 105px" class="fuenteYColor">
+							<h:outputLabel value="Demográficos:"></h:outputLabel>
+						</td>
+						<td>
+							<h:selectBooleanCheckbox value="false" id="Cbx_mujeresNuevaCampana" />
+						</td>
+						<td class="fuenteYColor" width="160px;">
+							 <h:outputLabel value="Mujeres"></h:outputLabel>
+						</td>
+	
+						<td style="padding-left:70px; text-align:right; padding-right: 15px;" class="fuenteYColor">
+						<h:outputLabel value="De"></h:outputLabel>
+						</td>
+						<td align="center" width="160px;">
+							<p:inputText id="edadMinimaMujeres" styleClass="fuenteYColor borderTextbox" style="width: 120px;"/>
+						</td>
+						<td class="fuenteYColor" style="text-align: center; padding-right: 15px; width: 50px"><h:outputLabel value="a"></h:outputLabel></td>
+						<td>
+							<p:inputText id="edadMaximaMujeres" styleClass="fuenteYColor borderTextbox" style="width: 120px;"/>
+						</td>
+						
+						<td style="padding-right: 15px;" class="fuenteYColor"><h:outputLabel value="años"></h:outputLabel>
+						</td>
+					</tr>
+					<tr>
+						<td>
+						</td>
+						<td>
+							<h:selectBooleanCheckbox value="false" id="Cbx_hombresNuevaCampana" />
+						</td>
+						<td class="fuenteYColor">
+							<h:outputLabel value="Hombres"></h:outputLabel>
+						</td>
+						<td style="padding-left:70px; text-align:right; padding-right: 15px;" class="fuenteYColor"><h:outputLabel value="De"></h:outputLabel>
+						</td>
+						<td align="center">
+							<p:inputText id="edadMinimaHombres" styleClass="fuenteYColor borderTextbox" style="width: 120px;"/>
+						</td>
+						<td class="fuenteYColor" style="text-align: center; padding-right: 15px;"><h:outputLabel value="a"></h:outputLabel></td>
+						<td>
+							<p:inputText id="edadMaximaHombres" styleClass="fuenteYColor borderTextbox" style="width: 120px;" align="right"/>
+						</td>
+						<td style="padding-right: 15px;" class="fuenteYColor"><h:outputLabel value="años"></h:outputLabel>
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							&nbsp;
+						</td>
+						<td>
+							<h:selectBooleanCheckbox id="cbx_AdolescentesNuevaCampana" value="false"/></td>
+						<td class="fuenteYColor">
+							<h:outputLabel value="Adolescentes"></h:outputLabel>
+						</td>
+						<td style="padding-left:70px; text-align:right; padding-right: 15px;" class="fuenteYColor"><h:outputLabel value="De"></h:outputLabel>
+						</td>
+						<td align="center">
+							<p:inputText id="edadMinimaAdolescentes" styleClass="fuenteYColor borderTextbox" style="width: 120px;"/>
+						</td>
+						<td class="fuenteYColor" style="text-align: center; padding-right: 15px;"><h:outputLabel value="a"></h:outputLabel></td>
+						<td>
+							<p:inputText id="edadMaximaAdolescentes" styleClass="fuenteYColor borderTextbox" style="width: 120px;" align="right"/>
+						</td>
+						<td style="padding-right: 15px;" class="fuenteYColor"><h:outputLabel value="años"></h:outputLabel>
+						</td>
+						
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td>
+							<h:selectBooleanCheckbox id="cbx_NinosNuevaCampana" value="false"/>
+						</td>
+						<td class="fuenteYColor">
+							<h:outputLabel value="Niños"></h:outputLabel>
+						</td> 
+						<td style="padding-left:70px; text-align:right; padding-right: 15px;" class="fuenteYColor"><h:outputLabel value="De"></h:outputLabel>
+						</td>
+						<td align="center">
+							<p:inputText id="edadMinimaNinos" styleClass="fuenteYColor borderTextbox" style="width: 120px;"/>
+						</td>
+						<td class="fuenteYColor" style="text-align: center; padding-right: 15px;"><h:outputLabel value="a"></h:outputLabel></td>
+						<td>
+							<p:inputText id="edadMaximaNinos" styleClass="fuenteYColor borderTextbox" style="width: 120px;" align="right"/>
+						</td>
+						<td style="padding-right: 15px;" class="fuenteYColor"><h:outputLabel value="años"></h:outputLabel>
+						</td>
+					</tr>
+					<tr>
+						<td>&nbsp;
+						</td>
+						<td>
+							<h:selectBooleanCheckbox id="cbx_NinasNuevaCampana" value="false"/> 
+						</td>
+						<td class="fuenteYColor">
+							<h:outputLabel value="Niñas"></h:outputLabel>
+						</td>
+						<td style="padding-left:70px; text-align:right; padding-right: 15px;" class="fuenteYColor"><h:outputLabel value="De"></h:outputLabel>
+						</td>
+						<td align="center">
+							<p:inputText id="edadMinimaNinas" styleClass="fuenteYColor borderTextbox" style="width: 120px;"/>
+						</td>
+						<td class="fuenteYColor" style="text-align: center; padding-right: 15px;"><h:outputLabel value="a"></h:outputLabel></td>
+						<td>
+							<p:inputText id="edadMaximaNinas" styleClass="fuenteYColor borderTextbox" style="width: 120px;" align="right"/>
+						</td>
+						<td style="padding-right: 15px;" class="fuenteYColor"><h:outputLabel value="años"></h:outputLabel>
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>
+							<h:selectBooleanCheckbox id="cbx_OtroNuevaCampana" value="false"/> 
+						</td>
+						<td class="fuenteYColor">
+							<h:outputLabel value="Otro: "></h:outputLabel> <p:inputText id="txt_otro_Campana" style="width: 110px;height: 16px;" styleClass="borderTextbox fuenteYColor"/>
+						</td>
+						<td style="padding-left:70px; text-align:right; padding-right: 15px;" class="fuenteYColor"><h:outputLabel value="De"></h:outputLabel>
+						</td>
+						<td align="center">
+							<p:inputText id="edadMinimaOtro" styleClass="fuenteYColor borderTextbox" style="width: 120px;"/>
+						</td>
+						<td class="fuenteYColor" style="text-align: center; padding-right: 15px;"><h:outputLabel value="a"></h:outputLabel></td>
+						<td>
+							<p:inputText id="edadMaximaOtro" styleClass="fuenteYColor borderTextbox" style="width: 120px;"/>
+						</td>
+						<td style="padding-right: 15px;" colspan="1" class="fuenteYColor" ><h:outputLabel value="años"></h:outputLabel>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="8"></td>	
+					</tr>	
+					<tr>
+						<td></td>
+						<td colspan="7" align="left">
+							
+							<p:commandButton id="btnUbicacionGeografica" style="height: 30px;color: white;background: url(images/degradado_btn_2.png);" value="Ubicación Geográfica" styleClass="ui-priority-primary" action="OpenDialogNuevaCampanaUbicacionGeografica()"/>							
+						</td>
+					</tr>
+					
+					<tr>
+					    <td style="padding-left: 15px;" class="fuenteYColor"><h:outputLabel value="Comentarios:"></h:outputLabel>
+					    </td>
+					    <td colspan="6">
+					    	<p:inputTextarea id="txt_comentarioNuevaCampana" rows="3" cols="100" styleClass="fuenteYColor borderTextbox" autoResize="false"/>
+					    </td>
+					</tr>
+					<tr>
+						<td align="right" colspan="7" style="padding-top: 5px;">
+							<p:commandButton id="btnGuardarNuevaCampana" style="height: 30px;color: white;background: url(images/degradado_btn_2.png);" value="Guardar" action="GuardarNuevaCampana()" styleClass="ui-priority-primary"/>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		
+		<!-- 
+		<div style="width: 15%; float: right; background: SILVER; height: 23px; margin-right: 10px; vertical-align: middle;">
+			Comentarios recientes
+		</div>	
+	-->
+		</div>
+	<!-- </h:form>-->
+</h:body> 
+</html>

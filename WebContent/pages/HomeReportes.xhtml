@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	
+</h:head>
+<h:body>
+	<ui:composition template="template/common/commonLayout.xhtml">
+		<ui:define name="west">
+			<p:layoutUnit position="west" size="250" 
+				resizable="true" closable="false" collapsible="false" id="west">
+				<h:form id="frmMenuLogin">
+					<h:form>
+						<p:tree value="#{reporteController.raiz}" style="border: none; font-weight:bold; font-size:12px;
+						overflow:none;"
+							dynamic="true" selectionMode="single"
+							selection="#{reporteController.selectedNode}" var="node"
+							id="tree">
+							<p:ajax event="select"
+								listener="#{reporteController.onNodeSelect}"
+								update=":pgPrincipalLogin" />
+							<p:ajax event="expand"
+								listener="#{reporteController.onNodeExpand}" />
+							<p:ajax event="collapse"
+								listener="#{reporteController.onNodeCollapse}" />
+							<p:ajax event="unselect"
+								listener="#{reporteController.onNodeUnselect}" />
+							<p:treeNode id="treeNode" expandedIcon="ui-icon-folder-open"
+								collapsedIcon="ui-icon-folder-collapsed">
+								<h:outputText style="font-weight:bold; font-size:12px" value="#{node}" id="lblNode" escape="false" />
+							</p:treeNode>
+						</p:tree>
+					</h:form>
+				</h:form>
+			</p:layoutUnit>
+		</ui:define>
+		<ui:define name="content">
+			<h:panelGroup id="pgPrincipalLogin">
+				<p:messages id="growl" showDetail="true" autoUpdate="true"
+					closable="true" />
+				<ui:include src="/pages/ReporteArticulos2.xhtml" />
+				<ui:include src="/pages/ReporteArticuloSinFotoDescripcion2.xhtml" />
+				<ui:include src="/pages/ReporteVentas.xhtml" />
+				<ui:include src="/pages/ReporteInventario.xhtml" />
+			</h:panelGroup>
+		</ui:define>
+	</ui:composition>
+</h:body>
+
+
+
+</html>

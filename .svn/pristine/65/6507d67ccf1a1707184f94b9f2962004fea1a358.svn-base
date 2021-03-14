@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated 11/12/2013 06:32:28 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.TblListaSeleccionSku" table="TBL_LISTA_SELECCION_SKU">
+        <id name="id" type="int">
+            <column name="ID" />
+            <generator class="native" />
+        </id>
+        <property name="idLista" type="int">
+            <column name="ID_LISTA" not-null="true" />
+        </property>
+        <property name="idItem" type="string">
+            <column name="ID_ITEM" length="30" not-null="true" />
+        </property>
+        <property name="idDepartamento" type="int">
+            <column name="ID_DEPTO" not-null="true" />
+        </property>
+        <property name="idCategoria" type="int">
+            <column name="ID_CATEGORIA" not-null="true" />
+        </property>
+        <property name="idSubcategoria" type="int">
+            <column name="ID_SUBCATEGORIA" not-null="true" />
+        </property>
+        <property name="ventasHistoricas" type="big_decimal">
+            <column name="VENTAS_HISTORICAS" precision="15" scale="2" />
+        </property>
+        <property name="margenContribucion" type="big_decimal">
+            <column name="MARGEN_CONTRIBUCION" precision="15" scale="2" />
+        </property>
+        <property name="existencia" type="big_decimal">
+            <column name="EXISTENCIA" precision="15"  scale="2"/>
+        </property>
+        <property name="articuloNuevo" type="string">
+            <column name="ARTICULO_NUEVO" length="1" />
+        </property>
+        <property name="fechaUpromo" type="timestamp">
+            <column name="FECHA_UPROMO" length="26" />
+        </property>
+        <property name="tipoUpromo" type="string">
+            <column name="TIPO_UPROMO" length="100" />
+        </property>
+        <property name="precioUpromo" type="big_decimal">
+            <column name="PRECIO_UPROMO" precision="15" scale="2" />
+        </property>
+        <property name="tipoPromoAanterior" type="string">
+            <column name="TIPO_PROMO_AANTERIOR" length="100" />
+        </property>
+        <property name="precioPromoAanterior" type="big_decimal">
+            <column name="PRECIO_PROMO_AANTERIOR" precision="15" scale="2" />
+        </property>
+        <property name="precioPromo" type="big_decimal">
+            <column name="PRECIO_PROMO" precision="15" />
+        </property>
+        <property name="tipoPromo" type="string">
+            <column name="TIPO_PROMO" length="100" />
+        </property>
+        <property name="tipoPublicidad" type="string">
+            <column name="TIPO_PUBLICIDAD" length="300" />
+        </property>
+    </class>
+</hibernate-mapping>

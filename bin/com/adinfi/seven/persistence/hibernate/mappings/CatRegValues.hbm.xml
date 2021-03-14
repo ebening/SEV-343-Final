@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated 19/08/2013 10:38:15 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.CatRegValues" table="CAT_REG_VALUES">
+        <id name="catRegValId" type="int">
+            <column name="CAT_REG_VAL_ID" />
+            <generator class="sequence">
+				<param name="sequence">CAT_REG_VALUES_SEQ</param>
+			</generator>
+        </id>
+        <many-to-one name="catAttrs" class="com.adinfi.seven.business.domain.CatAttrs" fetch="join">
+            <column name="CAT_ATTRIB_ID" not-null="true" />
+        </many-to-one>
+        <property name="updateDate" type="timestamp">
+            <column name="UPDATE_DATE" length="26" />
+        </property>
+        <property name="value" type="string">
+            <column name="VALUE" length="512" />
+        </property>
+        <many-to-one name="catRegId" class="com.adinfi.seven.business.domain.CatRegs" fetch="join">
+            <column name="CAT_REG_ID" not-null="true" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

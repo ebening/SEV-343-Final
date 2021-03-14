@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+<link rel="stylesheet" href="css/PlaneacionNuevaCampana.css" type="text/css"/>
+</h:head>
+<h:body>
+	<h:form>
+		<div id="PlaneacionNuevaCampanaDivPrincipal" >
+			<div id="PlaneacionNuevaCampanaDivHeader">
+				<table id="PlaneacionNuevaCampanaTableHeader">
+					<tr>
+						<td>
+							<div>
+								<h:outputLink styleClass="agregarActividad botonHeaderLeft" onclick="nva_Campaña()"></h:outputLink>
+								<h:outputLink styleClass="editarActividad botonHeaderLeft"></h:outputLink>
+								<h:outputLink styleClass="eliminarActividad botonHeaderLeft"></h:outputLink>					
+							</div>
+						</td>
+				
+						<td width="10%"></td>
+						
+						<td class="fuenteYColor" style="padding-bottom: 2px;"><h:outputLabel value="Anio:"/> </td>
+				
+						<td style="padding-top: 8px; padding-left: 10px;">
+							<p:selectOneMenu id="SelectAnio" effect="fold" styleClass="fuenteYColor borderTextbox" style="width: 100px;font-family: Calibri; font-size: 14px;">
+								<f:selectItem itemValue="" itemLabel="Todos" selected="selected"></f:selectItem>
+								<f:selectItem itemValue="1" itemLabel="Opcion2"></f:selectItem>
+								<f:selectItem itemValue="2" itemLabel="Opcion3"></f:selectItem>		
+							</p:selectOneMenu>
+						</td>
+						
+						<td style="padding-left: 20px;padding-bottom: 2px;" class="fuenteYColor">
+							<h:outputLabel value="Mes:"/>
+						</td>
+					
+						<td style="padding-top: 8px;padding-left: 10px;">
+							<p:selectOneMenu id="SelectMes" effect="fold" styleClass="fuenteYColor borderTextbox" style="width: 100px;font-family: Calibri; font-size: 14px;">
+								<f:selectItem itemValue="" itemLabel="Todos"></f:selectItem>
+								<f:selectItem itemValue="1" itemLabel="Opcion2"></f:selectItem>
+								<f:selectItem itemValue="2" itemLabel="Opcion3"></f:selectItem>		
+							</p:selectOneMenu>
+						</td>
+						
+				 		<td width="0%"></td>
+				 
+						<td style="text-align:right">
+							<div>
+								<h:outputLink styleClass="excelActividad botonHeaderRight"></h:outputLink>
+								<h:outputLink styleClass="pdfActividad botonHeaderRight"></h:outputLink>
+								<h:outputLink styleClass="imprimirActividad botonHeaderRight"></h:outputLink>
+							</div>	 	
+						</td>
+						<td style="text-align: center; padding-right: 8px;">				
+							<h:inputText id="txt_Buscar" styleClass="search fuenteYColor borderTextbox" style="height: 18px; width: 200px;padding-top: 8px;"/>
+						</td>
+					</tr>
+				</table>
+			</div>
+	
+			<!-- <div id="scroll" style="margin-top:5px;height: 350px; 
+									padding-left: 15px; padding-bottom: 10px; 
+									padding-right: 2px; padding-top: 4px; 
+									overflow:auto;"
+									class="scroll">		 -->	
+	<h:form>
+				 <p:dataTable id="dataTable" rows="3">
+				  	<p:column  headerText=""></p:column>
+				 	<p:column sortBy="Campana" headerText="Campana">
+				 		<h:outputLabel value="Regreso a clases" />
+				 		<!-- <h:outputLabel value="En familia" /> -->
+				 	</p:column> 
+			        <p:column sortBy="Objetivo" headerText="Objetivo">
+			        	<h:outputLabel value="Ventas" />
+			        	<!-- <h:outputLabel value="Tickets" /> -->
+			        </p:column>
+			        <p:column sortBy="Inicio" headerText="Inicio">
+			        	<h:outputLabel value="01-01-2012" />
+			        	<!-- <h:outputLabel value="02-01-2012" /> -->
+			        </p:column>
+			        <p:column sortBy="Fin" headerText="Fin">
+			        	<h:outputLabel value="20-01-2012" />
+			        	<!-- <h:outputLabel value="21-01-2012" /> -->
+			        </p:column>
+			        <p:column sortBy="Crecimiento" headerText="Crecimiento">
+			        	<h:outputLabel value="20 %" />
+			        	<!-- <h:outputLabel value="15 %" /> -->
+			        </p:column>
+			        <p:column sortBy="Presupuesto (MN)" headerText="Presupuesto (MN)">
+			        	<h:outputLabel value="$ 1,500,000.00" />
+			        	<!-- <h:outputLabel value="$ 3,200,000.00" /> -->
+			        </p:column>
+			        <p:column sortBy="Audiencia Meta" headerText="Audiencia Meta">
+			        	<h:outputLabel value="Mujeres de 28 a 35 años" />
+			        	<!-- <h:outputLabel value="Hombres y mujeres de 28 a 35 años" /> -->
+			        </p:column>
+			        <p:column sortBy="Etiqueta" headerText="Etiqueta"></p:column>
+			        <p:column>
+			        	<h:outputLabel value="Mujeres de 28 a 35 años" />
+			        	<!-- <h:outputLabel value="Hombres y mujeres de 28 a 35 años" /> -->
+			        </p:column>
+				 </p:dataTable>
+	</h:form>
+				
+			</div>
+		<!-- </div>-->
+	</h:form>
+</h:body>
+</html>

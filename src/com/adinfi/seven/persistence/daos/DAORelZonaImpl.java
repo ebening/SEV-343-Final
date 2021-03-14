@@ -1,0 +1,37 @@
+package com.adinfi.seven.persistence.daos;
+
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import com.adinfi.seven.business.domain.RelZona;
+
+public class DAORelZonaImpl extends AbstractDaoImpl<RelZona> implements DAORelZona {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Override
+	public void deleteByMecanicaId(int mecanicaId) {
+		this.getSession().createQuery("delete from RelZona a where a.tblMecanica.mecanicaId= "+ mecanicaId).executeUpdate();
+	}
+	
+	@Override
+	public void save(List<RelZona> list){
+		Session session = getSessionFactory().openSession();
+		Transaction tx = session.beginTransaction();
+		Integer i = 0;
+		for (RelZona o : list) {
+			session.save(o);
+			i++;
+		    if ( i % 50 == 0 ) {
+		    	this.getSession().flush();
+		    	this.getSession().clear();
+		    }
+		}
+		tx.commit();
+		session.close();
+	}
+}

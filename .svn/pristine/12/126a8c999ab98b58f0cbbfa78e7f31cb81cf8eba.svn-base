@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+<style type="text/css">
+.companyHeaderGrid tr, .companyHeaderGrid td {
+    border: none;
+}
+.unresizable {
+    resize: none;
+}
+
+.ui-custompanelgrid, .ui-custompanelgrid tr, .ui-custompanelgrid td {
+/* background-color: blue !important; */
+  background: linear-gradient(top, black, white);
+    border: none;
+}
+
+</style>
+</h:head>
+<h:body>
+	<h:form>
+
+		<table>
+			<tr>
+				<td>
+				<p:commandButton value="Nueva" action="#{MBCampana.altaCampana()}" /> 
+				<p:commandButton value="#Modificar" action="#{MBCampana.modificarCampana()}" /> 
+				<p:commandButton value="Eliminar" action="#{MBCampana.getSelectedCategorias()}" />
+				</td>
+			</tr>
+		</table>
+		<br />
+
+    <p:dataTable id="multiSolicitudes" var="item" value="#{MBCampana.campanaDTODataModel}"
+     paginator="true" rows="10" selection="#{MBCampana.selectedCampanaList}"
+      emptyMessage="#{msg.tblAutorizacionesVacia}">
+    
+    <!--   <f:facet name="header">
+           Mis Autorizaciones Pendientes
+        </f:facet> -->
+        
+          <p:column selectionMode="multiple" style="width:2%" />
+  		<!-- <p:column selectionMode="single" style="width:2%" /> -->  
+        
+        	<p:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.etiquetaEnc}" />
+					</f:facet>
+					<h:outputText value="#{item.etiquetaDTO.codigo}" />
+			</p:column>		
+    		<!-- <p:column sortBy="#{item.tblCampana.idCampana}">
+					<f:facet name="header">
+						<h:outputText value="#{msg.idAutorizacion}" />
+					</f:facet>
+					<h:outputText value="#{item.tblCampana.idCampana}" />
+				</p:column>		 -->	
+
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Tipo Evento Promocional" />
+					</f:facet>
+					<h:outputText value="#{item.tipoDTO.codigo}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.campanaEnc}" />
+					</f:facet>
+					<h:outputText value="#{item.tblCampana.nombre}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.periodoEnc}" />
+					</f:facet>
+					<h:outputText value="#{item.periodoDTO.fechaInicio}">
+						 <f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+					<h:outputText value=" al "/>
+					<h:outputText value="#{item.periodoDTO.fechaFin}">
+						 <f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.responsableEnc}" />						
+					</f:facet>
+					<h:outputText value="#{item.usuarioDTO.namepLmL}"/>
+				</p:column>
+				
+				<p:column sortBy="#{item.periodoDTO.fechaFin}">
+					<f:facet name="header">
+						<h:outputText value="#{msg.Anio}" />						
+					</f:facet>
+					<h:outputText value="#{item.periodoDTO.fechaFin}">
+					 <f:convertDateTime pattern="yyyy" />
+					</h:outputText>
+				</p:column>
+				
+			<!-- <p:column style="width: 20%">
+			<f:facet name="header">
+						<h:outputText value="#{msg.verDetalle}" />
+			</f:facet>
+			<p:commandButton value="#{msg.misAutorizaciones}"
+					action="#{MBSolicitudAutorizacion.getCampanaDescripcion(item)}" />
+			</p:column> -->
+				
+			<!-- <f:facet name="footer">
+            <p:commandButton id="multiViewButton" value="View" icon="ui-icon-search"
+                             update=":form:displayMulti" oncomplete="multiSolicitudDialog.show()"/>
+        	</f:facet> -->								
+			</p:dataTable>		   	
+	</h:form>
+</h:body>
+</html>

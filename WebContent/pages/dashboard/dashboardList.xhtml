@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <div id="contenedor" style="margin: 0px; padding: 0px; width: 100%">
+       <!-- <div align="right" style="float: right; width: 80px;">
+            <p:commandLink ajax="false">
+                <p:dataExporter type="xls" target="tableDashBoard" fileName="actividades" />
+                <h:graphicImage library="images/extras" name="excel.png" width="25" height="25"/>
+            </p:commandLink>
+            <p:spacer width="10"/>
+            <p:commandLink ajax="false">
+                <p:dataExporter type="pdf" target="tableDashBoard" fileName="actividadesPdf"/>
+                <h:graphicImage library="images/extras" name="pdf.png" width="25" height="25"/>
+            </p:commandLink>
+        </div> -->
+        <div align="center" style="float: left;width: 80%">
+            <h:panelGrid columns="3" border="0" width="100%">
+                <h:panelGrid columns="2" border="0">
+                    <p:outputLabel value="Periodo Promocional:" for="txtPeriodoProm" />
+                    <p:inputText id="txtPeriodoProm" value="#{MBActividad.periodoFilter}" />
+
+
+                    <p:outputLabel value="Evento" for="comboEvento" />
+                    <p:selectOneMenu id="comboEvento" value="#{MBActividad.tipoCampanaSelected}">
+                        <f:selectItem itemValue="" itemLabel="Todos" />
+                        <f:selectItems value="#{MBActividad.tipoCampanaDTOs}" var="mt">
+                            <f:selectItem itemValue="#{mt.id}" itemLabel="#{mt.codigo}" />
+                        </f:selectItems>
+                    </p:selectOneMenu>
+                    <p:outputLabel value="Estatus" for="comboEstatus" />
+                    <p:selectOneMenu id="comboEstatus" label="Selecciona" value="#{MBActividad.estatusSelected}">
+                        <f:selectItem itemLabel="Todos" itemValue="" />
+                        <f:selectItem itemLabel="Abierto" itemValue="1" />
+                        <f:selectItem itemLabel="Cerrado" itemValue="3" />
+                    </p:selectOneMenu>
+                </h:panelGrid>
+                <p:panelGrid columns="4">
+                    <p:outputLabel value="A&ntilde;o" for="comboAno" />
+                    <p:selectOneMenu id="comboAno" value="#{MBActividad.anoSelected}" >
+                        <f:selectItems value="#{MBActividad.anos}" var="a">
+                            <f:selectItem itemValue="#{a}" itemLabel="#{a}" />
+                        </f:selectItems>
+                        <p:ajax event="change" listener="#{MBActividad.onAnoSelect}" update="comboPeriodo fechaInicioCalendar fechaFinCalendar tableDashBoard" />
+                    </p:selectOneMenu>
+                    <p:outputLabel value="Periodo" for="comboPeriodo" />
+                    <p:selectOneMenu id="comboPeriodo" label="Selecciona..." style="column-span: 2" value="#{MBActividad.periodoSelected}">
+                        <f:selectItem itemValue="" itemLabel="Por Fechas..." />
+                        <f:selectItems value="#{MBActividad.periodos}" var="p">
+                            <f:selectItem itemLabel="#{p.shortDescription}" itemValue="#{p.id}" />
+                        </f:selectItems>
+                        <p:ajax event="change" listener="#{MBActividad.onPeriodoSelect}" update="fechaFinCalendar fechaInicioCalendar" />
+                    </p:selectOneMenu>
+                    <p:outputLabel value="Fecha Inicio:"/>
+                    <p:calendar id="fechaInicioCalendar" value="#{MBActividad.startDate}" pattern="dd/MM/yyyy" yearRange="c-1:c+1"
+                                readonlyInput="true" locale="es" showOn="button" size="10" disabled="#{MBActividad.disabledDates}">
+                        <p:ajax event="dateSelect" update="fechaFinCalendar" />
+                    </p:calendar>
+                    <p:outputLabel value="Fecha Fin:"/>
+                    <p:calendar id="fechaFinCalendar" value="#{MBActividad.endDate}" pattern="dd/MM/yyyy" mindate="#{MBActividad.startDate}" yearRange="c-1:c+1"
+                                readonlyInput="true" locale="es" showOn="button" size="10" disabled="#{MBActividad.disabledDates}"/>
+                </p:panelGrid>
+                <p:commandButton id="btnFilter" value="Buscar" update="tableDashBoard" styleClass="common-button"
+                                 actionListener="#{MBActividad.filterEventosList}" />
+            </h:panelGrid>
+        </div>
+
+        <div id="tableDiv" style="float: left">
+            <p:dataTable id="tableDashBoard" rows="10" paginator="true" value="#{MBActividad.dashboardList}" paginatorPosition="bottom"
+                         var="act" rowKey="#{act.tblCampana.idCampana}" selection="#{MBActividad.dashboardItemSelected}"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         emptyMessage="Vacio" resizableColumns="true" styleClass="grid-content">
+
+                <p:column style="width: 32px; text-align: center">
+                    <p:commandButton icon="ui-icon-search" title="Detalle" actionListener="#{MBActividad.onEventoSelected(act)}" update=":formDashPrincipal" />
+                </p:column>
+                <p:column headerText="" style="width: 32px; font-size: 12px !important;" exportable="false">
+                    <div id="circulo" style="background-color: #{act.tblCampana.catEtiquetas.codigo}" />
+                </p:column>
+                <p:column headerText="Evento">
+                    <p:outputLabel value="#{act.tipoCampanaDTO.codigo}" />
+                </p:column>
+                <p:column headerText="Periodo Promocional">
+                    <p:outputLabel value="#{act.tblCampana.nombre}" />
+                </p:column>
+                <p:column headerText="Periodo">
+                    <p:outputLabel value="#{act.periodoStr}" />
+                </p:column>
+                <p:column style="width: 5%;text-align: center" >
+                    <f:facet name="header">
+                        <h:outputText value="A&ntilde;o" style=" font-size: 12px !important;" />
+                    </f:facet>
+                    <p:outputLabel value="#{MBActividad.getYearByDate(act.tblCampana.fechaInicio)}" />
+                </p:column>
+                <p:column headerText="Estatus" style="width: 50px">
+                   <!-- <h:graphicImage library="images/extras" name=""
+                   width="15" height="15" title=""/> -->
+                    <p:outputLabel value="#{act.tblCampana.catEstatus.nombre}" />
+                </p:column>
+
+            </p:dataTable>
+        </div>
+    </div>
+</ui:composition>

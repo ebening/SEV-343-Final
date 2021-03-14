@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<body>
+	<h:form id="edicionCategorias" rendered="#{MBDetalleCampanaSeven.edicionCategorias}">
+		<p:panelGrid id="gridCat" columns="2">
+			<f:facet name="header">
+				<h:outputLabel value="Editar" />
+			</f:facet>
+			<p:outputLabel value="Tipo Campaña: " />
+			<p:selectOneMenu id="tipoCampanaCat" required="true" disabled="true"
+				value="#{MBDetalleCampanaSeven.currentCat.tipo}">
+				<f:selectItems value="#{MBDetalleCampanaSeven.tipoCampanas}" />
+			</p:selectOneMenu>
+			<p:outputLabel value="Titulo: " />
+			<p:row>
+				<p:panelGrid columns="3">
+					<p:inputText value="#{MBDetalleCampanaSeven.currentCat.tblCampana.nombre}" disabled="true" />
+					<p:outputLabel value="Etiqueta: " />
+					<p:selectOneMenu required="true" id="etiquetaCat" disabled="true"
+						value="#{MBDetalleCampanaSeven.currentCat.etiqueta}">
+						<f:selectItems value="#{MBDetalleCampanaSeven.etiquetas}" />
+					</p:selectOneMenu>
+				</p:panelGrid>
+			</p:row>
+			<p:row>
+				<p:outputLabel value="Vigencia: " />
+			</p:row>
+			<p:row>
+				<p:outputLabel value="Fecha Incial: " />
+				<p:calendar
+					value="#{MBDetalleCampanaSeven.currentCat.tblCampana.fechaInicio}" disabled="true"
+					id="fechaInicialCat" showOn="button" />
+				<p:spacer height="30" />
+				<p:outputLabel value="Fecha Final: " />
+				<p:calendar value="#{MBDetalleCampanaSeven.currentCat.tblCampana.fechaFin}" disabled="true"
+					id="fechaFinalCat" showOn="button" required="true" />
+				<p:dialog header="Selected Dates" widgetVar="dialog"
+					showEffect="fade" hideEffect="fade">
+					<h:panelGrid id="displayCat" columns="2" cellpadding="5">
+						<h:outputText value="Inline Date:" />
+						<h:outputText value="#{MBDetalleCampanaSeven.date1}" id="inlineDateCat">
+							<f:convertDateTime pattern="d/M/yyyy" />
+						</h:outputText>
+						<h:outputText value="Popup Date:" />
+						<h:outputText value="#{MBDetalleCampanaSeven.date1}" id="popupDateCat">
+							<f:convertDateTime pattern="d/M/yyyy" />
+						</h:outputText>
+						<h:outputText value="Popup Button Date: " />
+						<h:outputText value="#{MBDetalleCampanaSeven.date1}"
+							id="popupButtonDateCat">
+							<f:convertDateTime pattern="d/M/yyyy" />
+						</h:outputText>
+					</h:panelGrid>
+				</p:dialog>
+			</p:row>
+
+			<p:outputLabel value="Responsable: " />
+			<p:selectOneMenu id="responsableCat" disabled="true"
+				value="#{MBDetalleCampanaSeven.currentCat.responsable}">
+				<f:selectItems value="#{MBDetalleCampanaSeven.responsables}" />
+			</p:selectOneMenu>
+			<p:outputLabel value="Comentarios: " />
+			<p:inputTextarea disabled="true"
+				value="#{MBDetalleCampanaSeven.currentCat.tblCampana.comentarios}" />
+				
+				<p:commandButton value="#{msg.misAutorizaciones}" 
+				oncomplete="w_medioEditarCat.show(); return false;"/>
+				
+		</p:panelGrid>					
+		
+	</h:form>
+		<p:dialog id="medioEditarCat" header="Categorias" modal="true"
+					appendToBody="true" widgetVar="w_medioEditarCat" dynamic="true">
+			<h:form>
+					<p:panelGrid style="border:none;" columns="1">														
+					
+					<p:selectManyCheckbox id="gridCategoriasCat" layout="pageDirection" 
+					value="#{MBDetalleCampanaSeven.selectedCategories}">
+						<f:selectItems value="#{MBDetalleCampanaSeven.categorias}" />								
+					</p:selectManyCheckbox>
+										    		
+				<p:commandButton value="Guardar" ajax="true" oncomplete="w_medioEditarCat.hide();"
+						action="#{MBDetalleCampanaSeven.editCampanas}"/>
+									
+				</p:panelGrid>
+		</h:form>
+		</p:dialog>
+</body>
+</html>

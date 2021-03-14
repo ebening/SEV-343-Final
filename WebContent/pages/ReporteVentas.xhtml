@@ -1,0 +1,290 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:head>
+		<h:outputStylesheet library="css" name="ReportesStyle.css" />
+	</h:head>
+
+	<h:form id="ventas" rendered="#{reporteController.reporteVenta}">
+
+		<p:ajaxStatus onstart="openLoading()" oncomplete="closeLoading()" />
+
+		<div>
+			<!-- Zona del titulo -->
+			<span> <h:outputLabel style="color:#98020E;font-weight:bold; font-size:12px;"
+					value="Reporte de Ventas" />
+			</span>
+
+
+
+			<!-- Ubicacion de Los botones -->
+			<div class="botonesUbicacion">
+				<div class="botonesUbicacion">
+					<h:panelGrid  id="exportar" columns="2">
+									<!-- id="exportar" en el panelGroup -->
+						<h:panelGroup  styleClass="botonesUbicacion">
+							<p:commandLink ajax="false"
+								rendered="#{reporteController.reporteVentaSKU}"
+								styleClass="excel-button">
+								<p:dataExporter type="xls" target="reporte"
+									fileName="ReporteVenta" />
+							</p:commandLink>
+
+							<p:commandLink
+								actionListener="#{reporteController.createPDFVenta}"
+								ajax="false" rendered="#{reporteController.reporteVentaSKU}"
+								styleClass="pdf-button">
+							</p:commandLink>
+
+							<p:commandLink ajax="false"
+								rendered="#{reporteController.reporteVentaFiltro}"
+								styleClass="excel-button">
+								<p:dataExporter type="xls" target="reporteFiltro"
+									fileName="ReporteVenta-#{reporteController.opcionTotalizar}" />
+							</p:commandLink>
+
+							<p:commandLink
+								actionListener="#{reporteController.createPDFVentaFiltro}"
+								ajax="false" rendered="#{reporteController.reporteVentaFiltro}"
+								styleClass="pdf-button">
+							</p:commandLink>
+						</h:panelGroup>
+
+					</h:panelGrid>
+				</div>
+				<div>
+					<p:commandButton value="Generar Reporte" id="generarReporte"
+						style="font-size:10px; width:130px;" ajax="true"
+						update="info,exportar"
+						actionListener="#{reporteController.generarReporteVenta}"
+						styleClass="common-button" />
+				</div>
+			</div>
+			<!-- Fin de la zona de Botones -->
+			<!-- Fin de la zona del Titulo -->
+		</div>
+
+		<div>
+			<!-- Zona del pequeño formulario -->
+			<table>
+				<tr>
+					<td><p:outputLabel value="Tipo Medio :"
+							style="font-weight:bold; font-size:12px;" styleClass="leyenda" /></td>
+
+					<td><p:selectOneMenu id="tipoMedio" style="font-size:12px; width:150px;"
+							value="#{reporteController.tipo}" styleClass="comboSmall">
+							<f:selectItems value="#{reporteController.tipos}" var="tipo"
+								itemValue="#{tipo.value}" itemLabel="#{tipo.label}" />
+						</p:selectOneMenu></td>
+					<td width="50px"></td>
+					<td><p:outputLabel value="Publicidad :"
+							style="font-weight:bold; font-size:12px;" styleClass="leyenda" /></td>
+					<td><p:selectOneMenu style="font-size:12px; width:150px;">
+										<f:selectItem itemLabel="#{msg.Todas}" itemValue="0" />  
+		                				<f:selectItems  value="#{reporteController.mecanicasMap}" />
+									</p:selectOneMenu></td>
+					<td width="50px"></td>
+					<td><p:outputLabel value="Folio :"
+							style="font-weight:bold; font-size:12px;" styleClass="leyenda" /></td>
+					<td><p:inputText id="folioVenta"
+							style="font-size:12px; width:100px;"
+							value="#{reporteController.folio}" required="true"
+							requiredMessage="#{msg.mensajeFolioRequerido}"
+							styleClass="inputTextSmall">
+							<f:validateLength minimum="1" />
+						</p:inputText></td>
+				</tr>
+			</table>
+		</div>
+		<!-- Fin de la Zona del pequeño formulario -->
+		<h:panelGroup id="info">
+			<h:panelGroup id="info2" rendered="#{!reporteController.reporteHide}">
+				<table id="infoReporte">
+
+					<tr>
+
+						<td><p:outputLabel style="font-weight:bold; font-size:12px;"
+								styleClass="leyenda" value="Campaña :" /></td>
+						<td><p:outputLabel styleClass="leyenda_info"
+								value="#{reporteController.cabecera.nombreCampania}" /></td>
+						<td width="50px"></td>
+						<td><p:outputLabel style="font-weight:bold; font-size:12px;"
+								styleClass="leyenda" value="Vigencia :" /></td>
+						<td><p:outputLabel styleClass="leyenda_info"
+								value="#{reporteController.cabecera.vigencia}" /></td>
+
+					</tr>
+
+				</table>
+
+				<h:panelGrid columns="5">
+					<h:outputText styleClass="leyenda"
+						style="font-weight:bold; font-size:12px;" value="Totalizar por: " />
+					<p:selectOneRadio style="font-size:12px;" id="options"
+						value="#{reporteController.opcionTotalizar}">
+						<f:selectItem itemLabel="#{msg.sku}" itemValue="SKU" />
+						<f:selectItem itemLabel="#{msg.distrito}" itemValue="Distrito" />
+						<f:selectItem itemLabel="#{msg.zona}" itemValue="Zona" />
+						<f:selectItem itemLabel="#{msg.sucursal}" itemValue="Sucursal" />
+
+						<p:ajax change="change"
+							listener="#{reporteController.radioButtonChangeVenta}"
+							update="info,exportar" />
+					</p:selectOneRadio>
+				</h:panelGrid>
+
+				<p:dataTable id="reporte" var="detalle"
+					value="#{reporteController.infoReporteVentaSku}"
+					paginatorPosition="bottom" style="font-size:10px;"
+					emptyMessage="#{msg.tblProductosVacia}"
+					rendered="#{reporteController.reporteVentaSKU}" paginator="true"
+					rows="30" sortMode="multiple">
+
+					<p:column sortBy="#{detalle.distrito}">
+						<f:facet name="header">
+							<p:outputLabel style="font-weight:bold; font-size:12px;" value="#{msg.distrito}" />
+						</f:facet>
+						<p:outputLabel value="#{detalle.distrito}"
+							styleClass="text_table_reporte" />
+					</p:column>
+
+					<p:column sortBy="#{detalle.zonaNombre}">
+						<f:facet name="header">
+							<p:outputLabel style="font-weight:bold; font-size:12px;"  value="#{msg.zona}" />
+						</f:facet>
+						<p:outputLabel value="#{detalle.zonaNombre}"
+							 />
+					</p:column>
+
+					<p:column sortBy="#{detalle.sucursal}">
+						<f:facet name="header">
+							<p:outputLabel style="font-weight:bold; font-size:12px;" value="#{msg.sucursal}" />
+						</f:facet>
+						<p:outputLabel value="#{detalle.sucursal}"
+							 />
+					</p:column>
+
+
+					<p:column sortBy="#{detalle.sku}" style="width:10%">
+						<f:facet name="header">
+							<p:outputLabel style="font-weight:bold; font-size:12px;" value="#{msg.sku}" />
+						</f:facet>
+						<p:outputLabel value="#{detalle.sku}"
+							styleClass="text_table_reporte" />
+					</p:column>
+
+					<p:column sortBy="#{detalle.descripcion}" style="width:35%">
+						<f:facet name="header">
+							<p:outputLabel style="font-weight:bold; font-size:12px;"
+								value="#{msg.descripcionSKU}" />
+						</f:facet>
+						<p:outputLabel value="#{detalle.descripcion}"
+							styleClass="text_table_reporte" />
+					</p:column>
+
+					<p:column sortBy="#{detalle.categoria}">
+						<f:facet name="header">
+							<p:outputLabel style="font-weight:bold; font-size:12px;" value="#{msg.Categoria}" />
+						</f:facet>
+						<p:outputLabel value="#{detalle.categoria}"
+							styleClass="text_table_reporte" />
+					</p:column>
+
+					<p:column sortBy="#{detalle.subcategoria}">
+						<f:facet name="header">
+							<p:outputLabel style="font-weight:bold; font-size:12px;" value="#{msg.SubCategoria}" />
+						</f:facet>
+						<p:outputLabel value="#{detalle.subcategoria}"
+							 />
+					</p:column>
+
+					<p:column sortBy="#{detalle.ventaUnidadesFormato}" style="width: 100px; text-align: right;"
+						>
+						<f:facet name="header">
+							<p:outputLabel style="font-weight:bold; font-size:12px;" value="#{msg.ventaUnidades}" />
+						</f:facet>
+							<p:outputLabel value="#{detalle.ventaUnidadesFormato}"
+							 />
+					</p:column>
+
+					<p:column sortBy="#{detalle.ventaPesosFormato}" style="width: 100px; text-align: right;"
+						>
+						<f:facet name="header">
+							<p:outputLabel style="font-weight:bold; font-size:12px;" value="#{msg.ventaPesos}" />
+						</f:facet>
+							<p:outputLabel value="$ #{detalle.ventaPesosFormato}"
+							 />
+					</p:column>
+
+					<p:columnGroup type="footer">
+						<p:row>
+							<p:column style="font-weight:bold;" colspan="7" footerText="#{msg.total}:" />
+
+							<p:column 
+								footerText="#{reporteController.totalVUSku}" />
+
+							<p:column 
+								footerText="$ #{reporteController.totalVPSku}" />
+						</p:row>
+					</p:columnGroup>
+
+
+
+				</p:dataTable>
+
+
+				<p:dataTable id="reporteFiltro" var="detalle"
+					value="#{reporteController.infoReporteVentaFiltro}"
+					paginatorPosition="bottom" style="font-size:10px;"
+					emptyMessage="#{msg.tblProductosVacia}"
+					rendered="#{reporteController.reporteVentaFiltro}" paginator="true"
+					rows="30">
+
+					<p:column sortBy="#{detalle.filtro}">
+						<f:facet name="header">
+							<p:outputLabel  style="font-weight:bold; font-size:12px;"
+								value="#{reporteController.opcionTotalizar}" />
+						</f:facet>
+						<p:outputLabel value="#{detalle.filtro}" />
+					</p:column>
+
+					<p:column sortBy="#{detalle.ventaUnidadesFormato}">
+						<f:facet name="header">
+							<p:outputLabel style="font-weight:bold; font-size:12px;" value="#{msg.ventaUnidades}" />
+						</f:facet>
+						<p:outputLabel value="#{detalle.ventaUnidadesFormato}"
+							/>
+					</p:column>
+
+					<p:column sortBy="#{detalle.ventaPesosFormato}">
+						<f:facet name="header">
+							<p:outputLabel style="font-weight:bold; font-size:12px;" value="#{msg.ventaPesos}" />
+						</f:facet>
+						<p:outputLabel value="$ #{detalle.ventaPesosFormato}" />
+					</p:column>
+
+					<p:columnGroup type="footer">
+						<p:row>
+							<p:column style="font-weight:bold;"  colspan="1" footerText="Total:" />
+
+							<p:column 
+								footerText="#{reporteController.totalVUFiltro}" />
+
+							<p:column 
+								footerText="$#{reporteController.totalVPFiltro}" />
+						</p:row>
+					</p:columnGroup>
+
+
+
+				</p:dataTable>
+
+			</h:panelGroup>
+		</h:panelGroup>
+
+	</h:form>
+</ui:composition>

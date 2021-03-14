@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	
+</h:head>
+<body>
+<h:form id="mainForm">
+
+	<h1 class="title">#{MBCatStore.catalogNametitle}</h1>
+    <p:messages id="messages" autoUpdate="true" closable="true" />
+	<h:panelGrid id="panelStore" columns="3">
+
+		 <h:outputLabel for="idStore" value="&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;ID&#160;" /> 
+				 <p:inputText id="idStore"  value="#{MBCatStore.catStore.idStore}">				 
+				</p:inputText>
+		<br />
+		<h:outputLabel for="code" value="CODIGO&#160;" /> 
+				 <p:inputText id="code"  value="#{MBCatStore.catStore.code}">
+				</p:inputText>
+		<br />
+		<h:outputLabel for="catZona" value="&#160;ID ZONA&#160;" /> 
+            <p:selectOneMenu id="catZona"  value="#{MBCatStore.catZone.idZone}">
+                <f:selectItem itemLabel="Seleccione un grupo" itemValue="#{null}" />  
+                <f:selectItems value="#{MBCatStore.catZoneList}" var="item" itemLabel="#{item.idZone}" itemValue="#{item.idZone}"/>
+       	</p:selectOneMenu>
+				
+	<f:facet name="footer">
+	 <h:panelGroup style="display:block; text-align:center">
+	<p:commandButton value="Guardar" action="#{MBCatStore.addCatStore}" update=":mainForm"/>
+	<p:commandButton value="Cancelar" style="margin-left: 5px;" action="#{MBCatStore.reset}" update=":mainForm"/>	
+	</h:panelGroup>
+	</f:facet>
+				
+	      </h:panelGrid>
+	<br />
+				
+	<br />
+	<br />
+        <p:dataTable id="dataTableStore" var="item" value="#{MBCatStore.catStoreList}" paginator="true" rows="10"
+	                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+	                 emptyMessage="Vacio" resizableColumns="true" styleClass="ui-datatable-hor-scroll">
+	            <p:column  style="width: 20%">
+	            		
+					<p:commandButton id="edit" action="#{MBCatStore.setCatStoreInfo(item)}" 
+							update=":mainForm" icon="ui-icon-search" />
+					
+					<p:commandButton id="delete" process="@this"
+						  action="#{MBCatStore.setCatStoreInfo(item)}"									  
+						  onclick="deleteConfirmation.show()" icon="ui-icon-trash"/>						
+					
+					<p:confirmDialog message="¿Desea eliminar el registro seleccionado?" 
+	                header="Confirmación" severity="alert"
+	                showEffect="fade" hideEffect="explode" 
+	                widgetVar="deleteConfirmation" icon="ui-icon-trash" appendToBody="true">
+	                    
+	                <p:commandButton value="Si" styleClass="ui-confirmdialog-yes"
+	                  icon="ui-icon-check"
+	                  update=":mainForm" 
+	                  action="#{MBCatStore.removeCatStore}"
+	                  process="@this" 
+	                  onclick="deleteConfirmation.hide()" />
+	
+					<p:commandButton value="No"  styleClass="ui-confirmdialog-no"
+                    action="#{MBCatStore.reset}" 
+                    process="@this" 
+                    update=":mainForm"
+                    onclick="deleteConfirmation.hide()"/>
+	                </p:confirmDialog>
+						            		            
+			</p:column>
+	            
+	       <p:column headerText="ID" resizable="true" sortBy="#{item.idStore}">
+					<h:outputText value="#{item.idStore}" />
+		   </p:column>
+
+			<p:column headerText="CODE" resizable="true" sortBy="#{item.code}">
+					<h:outputText value="#{item.code}" />
+			</p:column>
+			
+			<p:column headerText="ZONA" resizable="true" sortBy="#{item.catZone.idZone}">
+					<h:outputText value="#{item.catZone.idZone}" />
+			</p:column>
+				
+	    </p:dataTable>
+	    
+	</h:form>
+</body>
+</html>

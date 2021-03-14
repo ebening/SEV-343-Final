@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated 31-ago-2015 21:53:45 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.RelItemStore" table="REL_ITEM_STORE" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="ID" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="catItem" class="com.adinfi.seven.business.domain.CatItem" fetch="select">
+            <column name="ID_ITEM" length="30" />
+        </many-to-one>
+        <many-to-one name="catStore" class="com.adinfi.seven.business.domain.CatStore" fetch="select">
+            <column name="ID_STORE" />
+        </many-to-one>
+        <property name="precioAtual" type="big_decimal">
+            <column name="PRECIO_ATUAL" precision="10" />
+        </property>
+        <property name="margen" type="string">
+            <column name="MARGEN" length="20" />
+        </property>
+        <property name="existencia" type="big_decimal">
+            <column name="EXISTENCIA" precision="12" />
+        </property>
+        <property name="porcMargen" type="big_decimal">
+            <column name="PORC_MARGEN" precision="10" />
+        </property>
+        <property name="impuesto" type="big_decimal">
+            <column name="IMPUESTO" precision="10" />
+        </property>
+    </class>
+</hibernate-mapping>

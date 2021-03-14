@@ -1,0 +1,270 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+
+<link type="text/css" rel="stylesheet"  href="css/Planeacion.css" />
+<link type="text/css" rel="stylesheet"  href="css/DialogosModuloActividades.css" />
+
+
+</h:head>
+<h:body>
+	<ui:composition template="template/common/commonLayout.xhtml">
+		<ui:define name="west">
+		<link type="text/css" rel="stylesheet"  href="../resources/css/menu_vertical.css" />
+		<script type="text/javascript" src="../resources/js/menu_jquery.js"></script>
+		<script type="text/javascript" src="../resources/js/localePrimefaces.js"></script>
+			<p:layoutUnit position="west" size="250" header="&nbsp;" styleClass="header-panel" 
+				resizable="true" closable="false" collapsible="false" id="west">
+				<h:form id="frmMenuLogin">
+					<div id='cssmenu' class="area-content">
+						<ul>
+							<li>
+								<div>
+									<p:commandLink value="Ver Todos" action="#{MBJuntaPlaneacion.filterGrid}" ajax="true" update=":frmJP">
+										<f:setPropertyActionListener target="#{MBJuntaPlaneacion.anioFiltro}" value="0"/>
+										<f:setPropertyActionListener target="#{MBJuntaPlaneacion.mesFiltro}" value="-1"/>
+									</p:commandLink>
+								</div>
+						   </li>
+						   <ui:repeat var="anios" value="#{MBJuntaPlaneacion.estrMenu}">
+						   <li class='has-sub'>
+						   	  	<div>
+						   	  		<span style="display: inline-block; cursor: default;">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+									<p:commandLink value="#{anios.anio}" style="display: inline-block;" action="#{MBJuntaPlaneacion.filterGrid}" ajax="true" update=":frmJP">
+										<f:setPropertyActionListener target="#{MBJuntaPlaneacion.anioFiltro}" value="#{anios.anio}"/>
+										<f:setPropertyActionListener target="#{MBJuntaPlaneacion.mesFiltro}" value="-1"/>
+									</p:commandLink>
+						  		</div>
+							    <ul>
+							    	<ui:repeat var="meses" value="#{anios.meses}">
+								       	<li>
+								       		<p:commandLink value="#{meses.sMes}" action="#{MBJuntaPlaneacion.filterGrid}" ajax="true" update=":frmJP">
+								       			<f:setPropertyActionListener target="#{MBJuntaPlaneacion.anioFiltro}" value="#{anios.anio}"/>
+												<f:setPropertyActionListener target="#{MBJuntaPlaneacion.mesFiltro}" value="#{meses.iMes}"/>
+								       		</p:commandLink>
+								       	</li>
+							       	</ui:repeat>
+							    </ul>
+							</li>
+							</ui:repeat>
+						</ul>
+					</div>
+				</h:form>
+			</p:layoutUnit>
+		</ui:define>
+		<ui:define name="content">
+			<h:form id="frmJP">
+				<h:panelGroup>
+					<p:messages id="messageLayaout" autoUpdate="true" closable="true" severity="info,error"/>
+					<h:panelGroup rendered="#{empty MBJuntaPlaneacion.mostrarForm or !MBJuntaPlaneacion.mostrarForm}">
+						<p:dataTable id="junta" var="junta" value="#{MBJuntaPlaneacion.juntaPlaneacionDM}" paginator="false" rowKey="#{junta.idJunta}"
+							styleClass="grid-content" selection="#{MBJuntaPlaneacion.juntaPlaneacionSelecteds}" emptyMessage="No se encontraron juntas">  
+			  
+					        <f:facet name="header"> 
+					        	<div align="left">
+						            <p:commandLink ajax="true" update=":frmJP" action="#{MBJuntaPlaneacion.add}" styleClass="create-button"/>
+
+						            <p:commandLink ajax="true" update=":frmJP" action="#{MBJuntaPlaneacion.edit}" styleClass="edit-button"/>
+						            	
+						            <p:commandLink ajax="true" action="#{MBJuntaPlaneacion.preDelete}" styleClass="delete-button">
+						            	<p:confirmDialog header="Confirmación" message="¿Desea eliminar los registros seleccionados?" severity="alert" widgetVar="confElimJunta" 
+						            					appendToBody="true" styleClass="common-dialog">
+						            		
+							            		<p:commandButton value="Aceptar" ajax="true" onclick="confElimJunta.hide(); setTimeout(&quot;document.getElementById('frmJP:junta:btnElimJunta').click();&quot;, 500)"/>
+							            		<p:commandButton value="Cancelar" ajax="true" onclick="confElimJunta.hide();"/>
+						            		
+						            	</p:confirmDialog>
+						            </p:commandLink>
+						            <p:commandButton id="btnElimJunta" icon="ui-icon-trash" ajax="true" action="#{MBJuntaPlaneacion.delete}" 
+						            				 style="visibility:hidden" update=":frmJP :frmMenuLogin" oncomplete="habilitarMenu();" /> 
+					            </div>
+					        </f:facet>  
+					  
+					        <p:column selectionMode="multiple" style="width:2%" />  
+					  
+					        <p:column headerText="Convoca" style="width:30%" >  
+					            <p:commandLink value="#{junta.nombreResponsable}" ajax="true" update=":frmJP" action="#{MBJuntaPlaneacion.show}">
+					            	<f:setPropertyActionListener target="#{MBJuntaPlaneacion.blockField}" value="true" />
+					            	<f:setPropertyActionListener target="#{MBJuntaPlaneacion.juntaPlaneacionSelected}" value="#{junta}"/>
+					            </p:commandLink>
+					        </p:column>  
+					  
+					        <p:column headerText="Fecha" style="width:20%" >  
+					            <h:inputText value="#{junta.fecha}" readonly="true" style="border: 0px;" size="10" styleClass="cell-content">
+			                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+			                    </h:inputText>
+					        </p:column>  
+					  
+					        <p:column headerText="Hora Inicio" style="width:10%" >  
+					            <h:inputText value="#{junta.horaInicio}" readonly="true" style="border: 0px;" size="5" styleClass="cell-content">
+			                        <f:convertDateTime pattern="HH:mm"/>
+			                    </h:inputText> 
+					        </p:column>  
+					  
+					        <p:column headerText="Hora Fin" style="width:10%">  
+					            <h:inputText value="#{junta.horaFin}" readonly="true" style="border: 0px;" size="5" styleClass="cell-content">
+			                        <f:convertDateTime pattern="HH:mm"/>
+			                    </h:inputText>  
+					        </p:column>  
+					  
+					   		<p:column headerText="Lugar" style="width:28%">  
+					            #{junta.lugar}  
+					        </p:column>  
+					    </p:dataTable>
+					</h:panelGroup>
+					<h:panelGroup rendered="#{MBJuntaPlaneacion.mostrarForm}">
+						<p:panel header="#{MBJuntaPlaneacion.juntaNueva ? 'Nueva Junta' : MBJuntaPlaneacion.blockField ? 'Consulta de Junta' : 'Modificar Junta'} de Planeaci&oacute;n Anual"
+						 styleClass="panel-form">
+							<p:panelGrid style="width: 100%" styleClass="form-content">
+								<p:row>
+									<p:column colspan="4">
+								            <p:commandLink ajax="true" action="#{MBJuntaPlaneacion.save()}" update=":frmJP :frmMenuLogin" oncomplete="habilitarMenu();" 
+								            	disabled="#{MBJuntaPlaneacion.blockField}" styleClass="save-button"/>
+								            <p:commandLink ajax="true" update=":frmJP" action="#{MBJuntaPlaneacion.sendMail}" 
+								            	disabled="#{MBJuntaPlaneacion.blockField}" styleClass="periodicity-button"/>
+								            <p:commandLink ajax="true" update=":frmJP" action="#{MBJuntaPlaneacion.close}" styleClass="exit-button"/>
+					            	</p:column>
+					            </p:row>
+								<p:row>
+									<p:column>
+										<p:outputLabel>
+											Convoca a la junta:
+										</p:outputLabel>
+									</p:column>
+									<p:column>
+										<p:selectOneMenu value="#{MBJuntaPlaneacion.juntaPlaneacionSelected.idResponsable}" disabled="#{MBJuntaPlaneacion.blockField}">
+											<f:selectItem itemLabel="Seleccionar" itemValue="0"/>
+											<f:selectItems value="#{MBJuntaPlaneacion.lUsuarios}" var="usu" itemLabel="#{usu.name} #{usu.plastName}" itemValue="#{usu.userId}"/>
+										</p:selectOneMenu>
+									</p:column>
+									<p:column>
+										<p:outputLabel>
+											Estatus:
+										</p:outputLabel>
+									</p:column>
+									<p:column>
+										<p:outputLabel>
+											#{MBJuntaPlaneacion.juntaPlaneacionSelected.estatus}
+										</p:outputLabel>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<p:outputLabel>
+											Fecha:
+										</p:outputLabel>
+									</p:column>
+									<p:column>
+										<p:calendar locale="es" id="popupButtonCal" mindate="#{MBJuntaPlaneacion.minDate}" showOn="button" value="#{MBJuntaPlaneacion.juntaPlaneacionSelected.fecha}" 
+										disabled="#{MBJuntaPlaneacion.blockField}" widgetVar="cal"/>
+									</p:column>
+									<p:column>
+										<p:outputLabel>
+											Lugar:
+										</p:outputLabel>
+									</p:column>
+									<p:column>
+										<p:inputText value="#{MBJuntaPlaneacion.juntaPlaneacionSelected.lugar}" readonly="#{MBJuntaPlaneacion.blockField}" maxlength="100"/>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<p:outputLabel>
+											Hora Inicio:
+										</p:outputLabel>
+									</p:column>
+									<p:column>
+										<p:calendar locale="es" pattern="HH:mm" timeOnly="true" value="#{MBJuntaPlaneacion.juntaPlaneacionSelected.horaInicio}" disabled="#{MBJuntaPlaneacion.blockField}" />
+									</p:column>
+									<p:column>
+										<p:outputLabel>
+											Hora Fin:
+										</p:outputLabel>
+									</p:column>
+									<p:column>
+										<p:calendar locale="es" pattern="HH:mm" timeOnly="true" value="#{MBJuntaPlaneacion.juntaPlaneacionSelected.horaFin}" disabled="#{MBJuntaPlaneacion.blockField}"/>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<p:outputLabel>
+											Temas a tratar:
+										</p:outputLabel>
+									</p:column>
+									<p:column colspan="3">
+										<p:inputTextarea rows="3" cols="73" value="#{MBJuntaPlaneacion.juntaPlaneacionSelected.temasTratar}" 
+										readonly="#{MBJuntaPlaneacion.blockField}" maxlength="1024">
+										</p:inputTextarea>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<p:outputLabel>
+											Comentarios:
+										</p:outputLabel>
+									</p:column>
+									<p:column colspan="3">
+										<p:inputTextarea rows="3" cols="73" value="#{MBJuntaPlaneacion.juntaPlaneacionSelected.comentarios}" 
+										readonly="#{MBJuntaPlaneacion.blockField}" maxlength="1024">
+										</p:inputTextarea>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<p:outputLabel style="vertical-align: top">
+											Archivos:
+										</p:outputLabel>
+									</p:column>
+									<p:column colspan="3">
+										<p:fileUpload mode="advanced" cancelLabel="Cancelar" uploadLabel="Adjuntar archivo(s)" label="Cargar archivo" 
+											dragDropSupport="false" auto="false" sizeLimit="10485760" fileUploadListener="#{MBJuntaPlaneacion.upload}"
+            								multiple="true" update="listaArchivos" invalidFileMessage="Tipo de archivo inválido" 
+            								invalidSizeMessage="El(los) docuemnto(s) excenden el tamaño máximo permitido" rendered="#{!MBJuntaPlaneacion.blockField}"/>
+            							<h:panelGroup id="listaArchivos">
+											<p:dataList value="#{MBJuntaPlaneacion.archivosAdjuntos}" var="archivo" itemType="disc">
+												<h:commandLink value="#{archivo.name}" action="#{MBJuntaPlaneacion.downloadFile}" >
+													<f:setPropertyActionListener target="#{MBJuntaPlaneacion.fileDownload}" value="#{archivo}" />
+												</h:commandLink>
+												
+											</p:dataList>
+										</h:panelGroup>
+									</p:column>
+								</p:row>
+								
+								<p:row>
+									<p:column colspan="4">
+										<div align="left">
+								            <p:commandButton value="#{MBJuntaPlaneacion.blockField ? 'Ver' : 'Seleccionar'} participantes" styleClass="common-button"
+								            action="#{MBJuntaPlaneacion.agregarParticipantes}" onclick="dParti.show()" ajax="true" update="pgParticipantes"/>
+							            </div>
+					            	</p:column>
+					            </p:row>
+							</p:panelGrid>
+						</p:panel>
+					</h:panelGroup>
+			    </h:panelGroup>
+			    <p:dialog widgetVar="dParti" header="Seleccionar participantes" styleClass="common-dialog">
+			    	<h:panelGroup id="pgParticipantes">
+			    		<p:dataTable id="participantes" var="usu" value="#{MBJuntaPlaneacion.usuariosDM}" paginator="true" rows="10"  rowKey="#{usu.userId}" 
+			                 selection="#{MBJuntaPlaneacion.usuarioInvitados}" emptyMessage="No se encontraron usuarios" style="width: 400px" styleClass="grid-content">
+			                 <p:column selectionMode="multiple" style="width:2%" disabledSelection="#{MBJuntaPlaneacion.blockField}"/>
+			                 <p:column width="98%" headerText="Usuario">
+			                 	#{usu.name} #{usu.plastName}
+			                 </p:column> 
+			                 <f:facet name="footer"> 
+						        	<div align="center">
+							            <p:commandButton value="Cerrar" onclick="dParti.hide();" styleClass="common-button"/>
+						            </div>
+						        </f:facet>
+			            </p:dataTable>
+		            </h:panelGroup>
+			    </p:dialog>
+		    </h:form>  
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

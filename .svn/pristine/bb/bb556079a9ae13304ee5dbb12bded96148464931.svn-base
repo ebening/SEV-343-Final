@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head></h:head> 
+<h:body> 
+	<div id="divPrincipal_ImpresoFolleto" style="width: 100%; height: 475px;background: Silver;border:1px solid Silver;">
+		<div id="divMainArriba_ImpresoFolleto" class="divMainArriba_ImpresoFolleto">
+			<div id="divHeaderParteArriba_ImpresoFolleto" style="padding-top: 5px;padding-left: 10px;background: #e6e6e6; width: 94%; height: 25px; color: white;">
+				<span style="color: Gray; font-size: 12pt;"><h:outputLabel value="Medios"></h:outputLabel></span>
+			</div>
+			<div id="divContentParteArriba_ImpresoFolleto" style="background: white; height: 180px; width: 100%">
+				<div id="divMenu_MenuArquitecturaTelevision" style="height: 400px;">
+					<div style="text-align: left;padding-top: 10px;padding-left: 15px;">
+						<h:outputLabel value="Ver Todos" style="text-decoration: underline;color: DimGray;"></h:outputLabel>
+						<p></p>
+						<div id="div1">
+							<h:outputLabel value="&#187; Regreso a clases" style="color: blue;"></h:outputLabel>
+						</div>
+						<div id="div2" style="padding-left: 20px; display: none;">
+								<span style="color: DimGray;text-decoration: underline;cursor: pointer;"><h:outputLabel value="Impresos"/></span><br></br>
+								<span style="color: DimGray;text-decoration: underline;cursor: pointer;"><h:outputLabel value="MaterialPop"/></span><br></br>
+								<div id="div9" style="padding-left: 25px; display: none;">
+									<h:outputLink  value="Frizo" style="cursor: pointer;color: DimGray;text-decoration: underline;" /><br></br>
+								</div>
+								<span style="color: Red; text-decoration: underline;"><h:outputLink  value="Televisi&oacute;n" style="cursor: pointer;"/></span><br></br>
+						</div>
+						
+						
+						<div id="div3">
+							<h:outputLabel value="&#187; En familia" style="color: green;"/>
+						</div>
+						<div id="div4" style="padding-left: 20px; display: none;">
+								<span style="color: DimGray;text-decoration: underline;"><h:outputLabel value="Impresos"/></span><br></br>
+								<span style="color: Red; text-decoration: underline;"><h:outputLabel value="Televisi&oacute;n"/></span><br></br>
+							</div>
+						<div id="div5">
+							<h:outputLabel value="&#187; Noche de brujas" style="color: orange;"/>
+						
+						</div>
+						<div id="div6" style="padding-left: 20px; display: none;">
+								<span style="color: DimGray;text-decoration: underline;"><h:outputLabel value="Impresos"/></span><br></br>
+								<span style="color: Red; text-decoration: underline;"><h:outputLabel value="Televisi&oacute;n"/></span><br></br>
+							</div>
+						<div id="div7">
+							<h:outputLabel value="&#187; Lleg&oacute; la navidad" style="color: red;"/>
+						</div>
+						<div id="div8" style="padding-left: 20px; display: none;">
+								<span style="color: DimGray;text-decoration: underline;"><h:outputLabel value="Impresos"/></span><br></br>
+								<span style="color: Red; text-decoration: underline;"><h:outputLabel value="Televisi&oacute;n"/></span><br></br>
+						</div>
+				</div>
+			</div>
+			
+			</div>
+		</div>
+		<div id="divParteAbajo_ImpresoFolleto" style="background: white; height: 264px; width: 100%;">
+			<div id="divHeaderParteAbajo_ImpresoFolleto" style="padding-top: 5px;padding-left: 10px;background: #e6e6e6; width: 94%; height: 25px;color: white;">
+				<span style="color: Gray; font-size: 12pt;"><h:outputLabel value="Templates"/></span>
+			</div>
+			<div id="divContentParteAbajo_ImpresoFolleto">
+			</div>
+		</div>
+	</div>
+</h:body> 
+</html>

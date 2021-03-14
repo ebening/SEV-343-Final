@@ -1,0 +1,168 @@
+package com.adinfi.seven.persistence.daos;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+
+import com.adinfi.seven.business.domain.CatSenal;
+import com.adinfi.seven.business.domain.RelDisenoSenal;
+import org.hibernate.*;
+
+import com.adinfi.seven.business.domain.TblCampana;
+import com.adinfi.seven.business.domain.TblDisenos;
+import org.hibernate.criterion.*;
+
+public class DAOTblDisenosImpl extends AbstractDaoImpl<TblDisenos> implements DAOTblDisenos {
+
+	@Override
+	public boolean deleteByMecanicaId(int idmecanica) {
+        Session session = getHibernateTemplate().getSessionFactory().getCurrentSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            Query query = session.createQuery("DELETE FROM TblDisenos WHERE tblMecanica.mecanicaId = " + idmecanica);
+            int r = query.executeUpdate();
+            tx.commit();
+            return r >= 0;
+        }catch (HibernateException ex){
+            if (tx != null){
+                tx.rollback();
+            }
+            System.out.println(ex);
+            return false;
+        }
+    }
+
+	@Override
+	public List<TblDisenos> getDisenos(Integer programaId, Integer mecanicaId, List<String> grupoZonaId,
+									   List<String> zonaId, List<CatSenal> senals, List<String> storeId, Integer estatusPrecio,
+									   Integer estatusDiseno) throws Exception {
+
+        Session session = getHibernateTemplate().getSessionFactory().getCurrentSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            Criteria criteria = getCriteriaDefault(session);
+            criteria.add(Restrictions.eq("a.programaId", programaId));
+            criteria.add(Restrictions.eq("a.tblMecanica.mecanicaId", mecanicaId));
+
+            Disjunction zonaRestrictions = Restrictions.disjunction();
+            Conjunction senalConjunction = Restrictions.conjunction();
+
+            if (!grupoZonaId.isEmpty()) {
+                zonaRestrictions.add(Restrictions.in("gz.grupoId", convertListStringtoInt(grupoZonaId)));
+            }
+
+            if (!zonaId.isEmpty()) {
+                zonaRestrictions.add(Restrictions.in("z.zonaId", convertListStringtoInt(zonaId)));
+            }
+
+            if (!storeId.isEmpty()) {
+                zonaRestrictions.add(Restrictions.in("s.storeId", convertListStringtoInt(storeId)));
+            }
+
+            if (senals != null && !senals.isEmpty()) {
+
+                senalConjunction.add(Restrictions.in("senals.catSenal", senals));
+            }
+
+
+            Criterion complete = Restrictions.conjunction().add(zonaRestrictions).add(senalConjunction);
+
+            criteria.add(complete);
+            List<TblDisenos> designs = criteria.list();
+            tx.commit();
+            return designs;
+        } catch (HibernateException ex) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            System.out.println(ex);
+            return new ArrayList<>();
+        }
+    }
+
+    private Criteria getCriteriaDefault(Session session){
+        Criteria criteria = session.createCriteria(TblDisenos.class, "a");
+        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+        criteria.createAlias("a.grupoZonaLst", "gz", Criteria.LEFT_JOIN);
+        criteria.createAlias("a.zonaLst", "z", Criteria.LEFT_JOIN);
+        criteria.createAlias("a.storeLst", "s", Criteria.LEFT_JOIN);
+        criteria.createAlias("a.relDisenoSenals", "senals", Criteria.LEFT_JOIN);
+        criteria.createAlias("senals.catSenal","catSenals", Criteria.LEFT_JOIN);
+        criteria.createAlias("a.tblMecanica", "mecanica", Criteria.LEFT_JOIN);
+        return criteria;
+	}
+
+	private List<Integer> convertListStringtoInt(List<String> stringList){
+		List<Integer> integerList = new ArrayList<>();
+		for (String s : stringList){
+			integerList.add(Integer.valueOf(s));
+		}
+		return integerList;
+	}
+
+	private void armarQuery(String condicion, List<String> valor, StringBuilder query, String comparacion) {
+		if (valor != null) {
+			for (String item : valor) {
+				armarQuery(condicion, Integer.valueOf(item), query, comparacion);
+			}
+		}
+	}
+
+	private void armarQuery(String condicion, Integer valor, StringBuilder query) {
+		armarQuery(condicion, valor, query, "AND");
+	}
+
+	private void armarQuery(String condicion, Integer valor, StringBuilder query, String comparacion) {
+		if (valor != null && valor.intValue() > 0) {
+			if (query.indexOf("WHERE") > 0) {
+				query.append(" AND ");
+			} else {
+				query.append(" WHERE ");
+			}
+			query.append('(');
+			query.append(condicion);
+			query.append(valor);
+			query.append(')');
+		}
+	}
+
+	@Override
+	public List<TblDisenos> getDiseno(Integer mecanicaID) throws Exception {
+
+        Session session = getHibernateTemplate().getSessionFactory().getCurrentSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            Criteria criteria = getCriteriaDefault(session);
+            criteria.add(Restrictions.eq("a.tblMecanica.mecanicaId", mecanicaID));
+            List<TblDisenos> designs = criteria.list();
+            tx.commit();
+            return designs;
+        } catch (HibernateException ex) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            System.out.println(ex);
+            return new ArrayList<>();
+        }
+
+     /*   Iterator<TblDisenos> tblDisenosG = getHibernateTemplate().iterate("from TblDisenos disenosG where disenosG.tblMecanica.mecanicaId = ? ",
+        new Object[] { mecanicaID });
+		List<TblDisenos> lstdisenosG = new ArrayList<>();
+		lstdisenosG.add(toInitializedInstance(tblDisenosG));
+		return lstdisenosG; */
+	}
+
+	@Override
+	public boolean updateStatusDisenoByMecanica(Integer idMecanica, Integer idStatus){
+	Query query = this.getSession().createQuery("UPDATE  TblDisenos tls set tls.preciosAuth = :idStatus  where tls.tblMecanica.mecanicaId = :idMecanica");
+	query.setParameter("idStatus", idStatus);
+	query.setParameter("idMecanica", idMecanica);
+	query.executeUpdate();
+	return true;
+	}
+
+}

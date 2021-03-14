@@ -1,0 +1,218 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:ui="http://java.sun.com/jsf/facelets">
+	<h:form rendered="#{campanaControllerSeven.consulta}" id="frmCampana">
+		<h:panelGroup rendered="#{campanaControllerSeven.section eq 'campanias'}">
+		<p:dataTable id="multiCamp" var="campana" styleClass="grid-content seven-camp-panel" widgetVar="varCamp"
+			emptyMessage="No se encontraron Eventos Promocionales" paginatorPosition="bottom"
+			value="#{campanaControllerSeven.campanaDataModel}" 
+            paginator="true" 
+            rowKey="#{campana.tblCampana.idCampana}"
+			rows="10" 
+            selection="#{campanaControllerSeven.selectedCampanas}" 
+            style="table-layout: fixed;"
+            lazy="true" 
+        >
+            <f:facet name="header">
+				<table width="100%" border="0" cellpadding="0" cellspacing="0" style="border: none">
+					<tr>
+						<td align="left" width="50%" style="border: none">
+							<p:commandLink id="alta" global="true"
+								actionListener="#{campanaControllerSeven.createViewCampanas}"
+								update=":pgPrincipalLogin :edicion" ajax="true" styleClass="create-button" title="Nuevo">
+
+							</p:commandLink>
+
+							<p:commandLink id="actualizar" global="true"
+								actionListener="#{campanaControllerSeven.updateViewCampanas}"
+								update=":pgPrincipalLogin :edicion" ajax="true" styleClass="edit-button" title="Editar"/>
+
+							<p:commandLink ajax="true" action="#{campanaControllerSeven.preDeleteCampanas}" styleClass="delete-button" title="Eliminar">
+				            	<p:confirmDialog header="Confirmación" message="¿Desea eliminar los registros seleccionados?" severity="alert"
+				            					 widgetVar="confEliCamp" appendToBody="true" styleClass="common-dialog">
+
+				            		<p:commandButton styleClass="common-button" value="Aceptar" ajax="true" onclick="confEliCamp.hide(); setTimeout(&quot;document.getElementById('frmCampana:multiCamp:btnElimCamp').click();&quot;, 500)"/>
+				            		<p:commandButton styleClass="common-button" value="Cancelar" ajax="true" onclick="confEliCamp.hide();"/>
+
+				            	</p:confirmDialog>
+				            </p:commandLink>
+				            <p:commandButton id="btnElimCamp" icon="ui-icon-trash" ajax="true" action="#{campanaControllerSeven.deleteCampanas}"
+				            				 style="visibility:hidden" update=":pgPrincipalLogin :frmMenuLogin" global="true"/>
+				        </td>
+                        <td align="right" width="50%" style="border: none">
+                        	<p:outputPanel>
+	                            <!--    <h:outputText style="font-size:10px" value="Buscar:" />   -->
+	                            <p:inputText id="globalFilter" onkeypress="return triggerFilter(varCamp, event);" label="Buscar" />
+	                            <p:watermark for="globalFilter" value="Buscar" />
+                            </p:outputPanel><h:outputText value="&#160;" /><h:outputText value="&#160;" />
+                            
+                            <!--
+                            <h:commandLink styleClass="print-button" title="Imprimir"  action="printCampanasCategorias.xhtml" target="_blank">
+                            	<f:setPropertyActionListener target="#{sessionScope.lCampanas}" value="#{campanaControllerSeven.campanaDataModelFiltered != null and not empty campanaControllerSeven.campanaDataModelFiltered ? campanaControllerSeven.campanaDataModelFiltered : campanaControllerSeven.lCampDTO}"/>
+                                <f:setPropertyActionListener target="#{sessionScope.seccion}" value="campanias"/>
+                            </h:commandLink>
+                            -->
+                            
+                            <h:commandLink styleClass="pdf-button" title="Exportar a PDF">
+                            	<p:dataExporter type="pdf" target="multiCamp" fileName="PeriodoPromocional" encoding="iso-8859-1"/>
+                            </h:commandLink>
+                            <h:commandLink styleClass="excel-button" title="Exportar a Excel">
+                            	<p:dataExporter type="xls" target="multiCamp" fileName="PeriodoPromocional" encoding="iso-8859-1"/>
+                            </h:commandLink>
+					  </td>
+					</tr>
+				</table>
+			</f:facet>
+
+			<p:ajax event="rowSelectCheckbox" update="multiCamp" />
+			<p:ajax event="rowUnselectCheckbox" update="multiCamp" />
+			<p:ajax event="rowSelect" update="multiCamp" />
+			<p:ajax event="rowUnselect" update="multiCamp" />
+			<p:column selectionMode="multiple" style="width:40px;" exportable="false"/>
+			
+            <p:column headerText="Etiqueta"  style="width:60px;  font-size: 12px !important;" exportable="false">
+					<div id="circulo" style="background-color: #{campana.etiqueta.codigo}" />
+			</p:column>
+			
+            <p:column style="width: 200px!important;" filterBy="#{campana.tipo.codigo}" filterStyle="display:none" exportable="true">
+				<f:facet name="header">
+					<h:outputText value="Evento" style=" font-size: 12px !important;" />
+				</f:facet>
+				<h:outputText value=" #{campana.tipo.codigo} " style=" font-size: 12px !important;" />
+			</p:column>
+			
+            <p:column 
+                style="font-size: 12px!important; width:300px!important;" filterBy="#{campana.tblCampana.nombre}" filterStyle="display:none" >
+				<f:facet name="header">
+					<h:outputText value="Periodo Promocional" />
+				</f:facet>
+ 				<h:outputText value="#{campana.tblCampana.nombre}" 
+                              style="font-size: 12px !important; color:#{campana.etiqueta.codigo}; text-overflow: ellipsis; width:300px!important;"/>
+			</p:column>
+			
+            <p:column style="font-size: 12px !important; width: 350px!important;" filterBy="#{campana.periodo}"  filterStyle="display:none" >
+				<f:facet name="header">
+					<h:outputText value="Periodo" style=" font-size: 12px !important;"/>
+				</f:facet>
+				<h:outputText value="#{campana.periodo.shortDescription}  " style=" font-size: 12px !important;"/>
+			</p:column>
+			
+            <p:column filterBy="#{campana.year}" filterStyle="display:none" >
+				<f:facet name="header">
+					<h:outputText value="Año" style=" font-size: 12px !important;" />
+				</f:facet>
+				<h:outputText value="#{campana.year}  " style=" font-size: 12px !important;" />
+			</p:column>
+            
+		</p:dataTable>
+		</h:panelGroup>
+		<h:panelGroup rendered="#{campanaControllerSeven.section eq 'categorias' and campanaControllerSeven.campTreeSelect}">
+		<p:dataTable id="multiProg" var="prog" emptyMessage="#{msg.emptyPrograms}" value="#{campanaControllerSeven.lCampanaProgramaDTO}" 
+					paginator="true" rows="10" selection="#{campanaControllerSeven.selCampanaProgramaDTO}" rowKey="#{prog.idPrograma}"
+					styleClass="grid-content grid-with-overflow" scrollable="true"
+                    style="table-layout: fixed;">
+			<f:facet name="header">
+				<table width="100%" border="0" cellpadding="0" cellspacing="0" style="border: none">
+					<tr>
+						<td align="left" width="50%" style="border: none">
+							<p:commandLink id="actualizarLink" styleClass="edit-button"
+								actionListener="#{campanaControllerSeven.updateViewCat}"
+                                                                update=":pgPrincipalLogin" ajax="true" title="Editar">
+							</p:commandLink>				
+
+                                                    <p:commandLink ajax="true" action="#{campanaControllerSeven.preDeleteProgramas}" title="Eliminar" styleClass="delete-button">
+				            	<p:confirmDialog header="Confirmación" message="¿Desea eliminar los registros seleccionados?" severity="alert" 
+				            			widgetVar="confEliProg" appendToBody="true" styleClass="common-dialog">
+				            		
+				            		<p:commandButton styleClass="common-button" value="Aceptar" ajax="true" onclick="confEliProg.hide(); setTimeout(&quot;document.getElementById('frmCampana:multiProg:btnElimProg').click();&quot;, 500)"/>
+				            		<p:commandButton styleClass="common-button" value="Cancelar" ajax="true" onclick="confEliProg.hide();"/>
+				            		
+				            	</p:confirmDialog>
+				            </p:commandLink>
+				            <p:commandButton id="btnElimProg" icon="ui-icon-trash" ajax="true" action="#{campanaControllerSeven.deleteProgramas}"
+				            				 style="visibility:hidden" update=":pgPrincipalLogin :frmMenuLogin"/>
+						</td>
+						<td align="right" width="50%" style="border: none">
+							<h:commandLink styleClass="print-button" action="printCampanasCategorias.xhtml" target="_blank">  
+								<f:setPropertyActionListener target="#{sessionScope.lProgramas}" value="#{campanaControllerSeven.lCampanaProgramaDTO}"/>
+								<f:setPropertyActionListener target="#{sessionScope.seccion}" value="categorias"/>
+					        </h:commandLink>
+					  
+					        <h:commandLink styleClass="pdf-button">  
+					            <p:dataExporter type="pdf" target="multiProg" fileName="programas" encoding="iso-8859-1"/>  
+					        </h:commandLink>  
+					          
+					        <h:commandLink styleClass="excel-button">  
+					            <p:dataExporter type="xls" target="multiProg" fileName="programas" encoding="iso-8859-1"/>  
+					        </h:commandLink>  
+					        <!--
+							<p:commandButton action="#{campanaControllerSeven.generateActivities}" ajax="true" value="Generar Actividades" 
+								update=":pgPrincipalLogin" styleClass="common-button"/>
+							-->
+						</td>
+					</tr>
+				</table>
+			</f:facet>
+			<p:ajax event="rowSelectCheckbox" update="multiProg" />
+			<p:ajax event="rowUnselectCheckbox" update="multiProg" />
+			<p:ajax event="rowSelect" update="multiProg" />
+			<p:ajax event="rowUnselect" update="multiProg" />
+			<p:column selectionMode="multiple" style="width:8px" exportable="false"/>
+			<p:column width="200px" style="overflow: auto;">
+				<f:facet name="header">
+					<h:outputText value="#{msg.campanaEnc}"  style=" font-size: 12px !important;"/>
+				</f:facet>
+				<h:outputLabel value=" #{prog.descCampana} " style=" font-size: 12px !important;"/>
+			</p:column>
+			<p:column width="120px">
+				<f:facet name="header">
+					<h:outputText value="Programa" style=" font-size: 12px !important;"/>
+				</f:facet>
+				<h:outputLabel value="#{prog.descripcion}" style=" font-size: 12px !important;"/>
+			</p:column>
+			<p:column width="225px">
+				<f:facet name="header">
+					<h:outputText value="#{msg.Categoria}" style=" font-size: 12px !important;"/>
+				</f:facet>
+				<h:outputLabel value="#{prog.strCatgerias}" style=" font-size: 12px !important;"/>
+			</p:column>
+			<p:column width="120px">
+				<f:facet name="header">
+					<h:outputText value="Grupo Zona(s)" style=" font-size: 12px !important;"/>
+				</f:facet>
+				<h:outputLabel value=" #{prog.grupoZonaStr} " style=" font-size: 12px !important;" />
+			</p:column>
+			<p:column width="200px">
+				<f:facet name="header">
+					<h:outputText value="Zona(s)" style=" font-size: 12px !important;" />
+				</f:facet>
+				<p:dataList value="#{prog.zonaLst}" var="zones" type="unordered" paginatorTemplate="{PreviousPageLink} {NextPageLink}"
+							itemType="none" paginator="true" rows="10" styleClass="paginated">
+					<h:outputText value="#{zones.str}" />
+				</p:dataList>
+				<!--	<ui:repeat value="#{prog.zonas}" var="zones">
+                        <h:outputText value="#{zones}" />
+                        <br/>
+                    </ui:repeat>
+                     <h:outputLabel value=" #{prog.zonaStr} " style=" font-size: 12px !important;"/> -->
+			</p:column>
+			<p:column width="200px">
+				<f:facet name="header">
+					<h:outputText value="Tienda(s)" style=" font-size: 12px !important;"/>
+				</f:facet>
+				<p:dataList value="#{prog.storeLst}" var="ts" type="unordered" paginatorTemplate="{PreviousPageLink} {NextPageLink}"
+							itemType="none" paginator="true" rows="10" styleClass="pagination">
+					<h:outputText value="#{ts.str}" />
+				</p:dataList>
+				<!--	<ui:repeat value="#{prog.tiendas}" var="ts">
+                        <h:outputText value="#{ts}" />
+                        <br/>
+                    </ui:repeat>
+                    <h:outputLabel value=" #{prog.storeStr} " style=" font-size: 12px !important;"/> -->
+			</p:column>
+		</p:dataTable>
+		</h:panelGroup>
+	</h:form>
+</ui:composition>

@@ -1,0 +1,778 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+	<!-- Configuracion para el manejo de transacciones con inyeccion automatica 
+		en los daos -->
+	<!-- asi como valores opcionales (tipo de propagacion, isolation, throws, 
+		...) -->
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	<tx:advice id="txAdviceService" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method rollback-for="Throwable" name="get*"
+				propagation="REQUIRED" read-only="true" isolation="DEFAULT" />
+			<tx:method rollback-for="Throwable" name="cargar*"
+				propagation="REQUIRED" read-only="true" isolation="DEFAULT" />
+			<tx:method rollback-for="Throwable" name="verify*"
+				propagation="REQUIRED" read-only="true" isolation="DEFAULT" />
+			<tx:method rollback-for="Throwable" name="load*"
+				propagation="REQUIRED" isolation="DEFAULT" read-only="true" />
+			<tx:method rollback-for="Throwable" name="check*"
+				propagation="REQUIRED" isolation="DEFAULT" read-only="true" />
+			<tx:method name="loadAllObjectsCacheables" propagation="REQUIRED"
+				read-only="true" isolation="DEFAULT" />
+			<tx:method rollback-for="Throwable" name="*" propagation="REQUIRED"
+				read-only="false" isolation="DEFAULT" />
+		</tx:attributes>
+	</tx:advice>
+
+
+
+	<!-- ******************************************************************* -->
+	<!-- Declaración de servicios -->
+	<!-- ******************************************************************* -->
+
+	<!-- Bean configuration -->
+	<bean id="businesslogicbean" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces">
+			<value>com.adinfi.seven.business.services.ServiceDynamicCatalogs
+			</value>
+		</property>
+		<property name="target">
+			<ref local="serviceDynamicCatalogs" />
+		</property>
+		<property name="interceptorNames">
+			<list>
+				<value>theTracingBeforeAdvisor</value>
+			</list>
+		</property>
+	</bean>
+	<!-- Advisor pointcut definition for before advice -->
+	<bean id="theTracingBeforeAdvisor"
+		class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+		<property name="advice">
+			<ref local="theTracingBeforeAdvice" />
+		</property>
+		<property name="pattern">
+			<value>.*DAO*.*</value>
+		</property>
+	</bean>
+	<!-- Bean Classes -->
+	<bean id="theTracingBeforeAdvice" class="com.adinfi.seven.bitacora.RegistroBitacora">
+		<property name="serviceBitacora">
+			<ref bean="serviceBitacora" />
+		</property>
+	</bean>
+
+
+	<!-- Definición para el servicio para Estado -->
+
+	<bean name="serviceRelItemLista" class="com.adinfi.seven.business.services.ServiceRelItemListaImpl">
+		<property name="daoRelItemLista">
+			<ref bean="daoRelItemLista" />
+		</property>
+	</bean>
+
+	<bean name="serviceRelDisenoSenal" class="com.adinfi.seven.business.services.ServiceRelDisenoSenalImpl">
+		<property name="daoRelDisenoSenal">
+			<ref bean="daoRelDisenoSenal" />
+		</property>
+	</bean>
+
+	<bean name="serviceCatEtiquetas" class="com.adinfi.seven.business.services.ServiceCatEtiquetasImpl">
+		<property name="daoCatEtiquetas">
+			<ref bean="daoCatEtiquetas" />
+		</property>
+	</bean>
+
+	<bean name="serviceCatEstatus" class="com.adinfi.seven.business.services.ServiceCatEstatusImpl">
+		<property name="daoCatEstatus">
+			<ref bean="daoCatEstatus" />
+		</property>
+	</bean>
+
+	<bean name="serviceTblActividad" class="com.adinfi.seven.business.services.ServiceTblActividadesImpl">
+		<property name="daoTblActividad">
+			<ref bean="daoTblActividad" />
+		</property>
+		<property name="daoFlujoAct">
+			<ref bean="daoFlujoAct" />
+		</property>
+		<property name="daoCatActPred">
+			<ref bean="daoCatActPred" />
+		</property>
+		<property name="daoCatEstatus">
+			<ref bean="daoCatEstatus" />
+		</property>
+	</bean>
+
+	<bean name="serviceCatActPred" class="com.adinfi.seven.business.services.ServiceCatActPredImpl">
+		<property name="daoCatActPred">
+			<ref bean="daoCatActPred" />
+		</property>
+	</bean>
+	
+	<bean name="serviceUsuarios" class="com.adinfi.seven.business.services.ServiceUsuariosImpl">
+		<property name="daoUsuarios">
+			<ref bean="daoUsuarios" />
+		</property>
+        <property name="daoUserConnection">
+			<ref bean="daoUserConnection" />
+		</property>
+	</bean>
+	
+	<bean name="serviceCatRole" class="com.adinfi.seven.business.services.ServiceCatRoleImpl" >
+		<property name="daoRole">
+			<ref bean="daoCatRole" />
+		</property>
+	</bean>
+	
+	<bean name="serviceDynamicCatalogs" id="serviceDynamicCatalogs"
+		class="com.adinfi.seven.business.services.ServiceDynamicCatalogsImpl">
+		<property name="daoCatalogs">
+			<ref bean="daoCatalogs" />
+		</property>
+		<property name="daoCatalogos">
+			<ref bean="daoCatalogos" />
+		</property>
+		<property name="daoCatViewControls">
+			<ref bean="daoCatViewControls" />
+		</property>
+		<property name="daoAttribs">
+			<ref bean="daoAttribs" />
+		</property>
+		<property name="daoCatAttrs">
+			<ref bean="daoCatAttrs" />
+		</property>
+		<property name="daoCatRegs">
+			<ref bean="daoCatRegs" />
+		</property>
+		<property name="daoCatRegValues">
+			<ref bean="daoCatRegValues" />
+		</property>
+	</bean>
+	<bean name="serviceCampana" class="com.adinfi.seven.business.services.ServiceCampanaImpl">
+		<property name="daoCampanas">
+			<ref bean="daoCampanas" />
+		</property>
+		<property name="daoCampanaMedio">
+			<ref bean="daoCampanaMedio" />
+		</property>
+		<property name="daoVerTodas">
+			<ref bean="daoVerTodas" />
+		</property>
+		<property name="daoCampaniaTreeRegs">
+			<ref bean="daoCampaniaTreeRegs" />
+		</property>
+		<property name="daoCampanaActividades">
+			<ref bean="daoCampanaActividades" />
+		</property>
+		<property name="daoDelegacionActividades">
+			<ref bean="daoDelegacionActividades" />
+		</property>
+		<property name="daoCampanaCategorias">
+			<ref bean="daoCampanaCategorias" />
+		</property>
+		<property name="daoCampanaCategoriasPlaza">
+			<ref bean="daoCampanaCategoriasPlaza"/>
+		</property>
+		<property name="daoCampanaProgramas">
+			<ref bean="daoCampanaProgramas"/>
+		</property>
+		<property name="daoCampanaProgramasPlazas">
+			<ref bean="daoCampanaProgramasPlazas"/>
+		</property>
+		<property name="daoCampanaProgramasCategorias">
+			<ref bean="daoCampanaProgramasCategorias"/>
+		</property>
+		<property name="daoPrensa">
+			<ref bean="daoPrensa" />
+		</property>
+		<property name="daoFolleto">
+			<ref bean="daoFolleto" />
+		</property>
+		<property name="daoFolletoTienda">
+			<ref bean="daoFolletoTienda" />
+		</property>
+		<property name="daoFolletoSistemaVenta">
+			<ref bean="daoFolletoSistemaVenta"/>
+		</property>
+		<property name="daoPrensaSistemaVenta">
+			<ref bean="daoPrensaSistemaVenta"/>
+		</property>
+		<property name="daoFolletoHojas">
+			<ref bean="daoFolletoHojas"/>
+		</property>
+		<property name="daoPrensaTienda">
+			<ref bean="daoPrensaTienda" />
+		</property>
+		<property name="daoPrensaEspacios">
+			<ref bean="daoPrensaEspacios" />
+		</property>
+		<property name="daoPrecioPrensa">
+			<ref bean="daoPrecioPrensa" />
+		</property>
+		<property name="daoPrecioPrensaDet">
+			<ref bean="daoPrecioPrensaDet" />
+		</property>
+		<property name="daoPrecioFolleto">
+			<ref bean="daoPrecioFolleto" />
+		</property>
+		<property name="daoPrecioFolletoDet">
+			<ref bean="daoPrecioFolletoDet" />
+		</property>
+		<property name="daoCampanaAutorizacion">
+			<ref bean="daoCampanaAutorizacion" />
+		</property>
+		<property name="daoFolletoZona">
+			<ref bean="daoFolletoZona" />
+		</property>
+		<property name="daoRelGrupoZonaCampana">
+			<ref bean="daoRelGrupoZonaCampana" />
+		</property>
+		<property name="daoRelZonaCampana">
+			<ref bean="daoRelZonaCampana" />
+		</property>
+		<property name="daoRelStoreCampana">
+			<ref bean="daoRelStoreCampana" />
+		</property>
+		<property name="daoTblMecanica">
+			<ref bean="daoTblMecanica" />
+		</property>
+		<property name="daoCatEstatus">
+			<ref bean="daoCatEstatus" />
+		</property>
+	</bean>
+	<bean name="serviceFolleto" class="com.adinfi.seven.business.services.ServiceFolletoImpl">
+		<property name="daoFolleto">
+			<ref bean="daoFolleto" />
+		</property>
+		<property name="daoPrecioFolleto">
+			<ref bean="daoPrecioFolleto" />
+		</property>
+		<property name="daoFolletoTienda">
+			<ref bean="daoFolletoTienda" />
+		</property>		
+        <property name="daoFolletoHojas">
+			<ref bean="daoFolletoHojas" />
+		</property>			
+		<property name="daoFolletoSistemaVenta">
+			<ref bean="daoFolletoSistemaVenta" />
+		</property>
+		<property name="daoArticulosHoja">
+			<ref bean="daoArticulosHoja" />
+		</property>
+	</bean>
+	<bean name="servicePrensa" class="com.adinfi.seven.business.services.ServicePrensaImpl">
+		<property name="daoPrensa">
+			<ref bean="daoPrensa" />
+		</property>
+		<property name="daoPrensaTienda">
+			<ref bean="daoPrensaTienda" />
+		</property>
+		<property name="daoPrensaEspacios">
+			<ref bean="daoPrensaEspacios" />
+		</property>
+	</bean>
+	<bean name="serviceSolicitudAutorizacion"
+		class="com.adinfi.seven.business.services.ServiceSolicitudAutorizacionImpl">
+		<property name="daoSolicitudAutorizacion">
+			<ref bean="daoSolicitudAutorizacion" />
+		</property>
+		<property name="daoCampanaAutorizacion">
+			<ref bean="daoCampanaAutorizacion" />
+		</property>
+	</bean>
+	<bean name="serviceCadenaAutorizacion"
+		class="com.adinfi.seven.business.services.ServiceCadenaAutorizacionImpl">
+		<property name="daoCadenaAutorizacion">
+			<ref bean="daoCadenaAutorizacion" />
+		</property>
+		<property name="daoCadenaAutorizacionDet">
+			<ref bean="daoCadenaAutorizacionDet" />
+		</property>
+	</bean>
+	<bean name="serviceCatGZone"
+		class="com.adinfi.seven.business.services.ServiceCatGZoneImpl">
+		<property name="daoCatGZone">
+			<ref bean="daoCatGZone" />
+		</property>
+	</bean>
+	<bean name="serviceCatZone"
+		class="com.adinfi.seven.business.services.ServiceCatZoneImpl">
+		<property name="daoCatZone">
+			<ref bean="daoCatZone"/>
+		</property>
+	</bean>
+	
+	<bean name="serviceCatTipoZona"
+		class="com.adinfi.seven.business.services.ServiceCatTipoZonaImpl">
+		<property name="daoCatTipoZona">
+			<ref bean="daoCatTipoZona"/>
+		</property>
+	</bean>
+	
+	<bean name="serviceCatStore"
+		class="com.adinfi.seven.business.services.ServiceCatStoreImpl">
+		<property name="daoCatStore">
+			<ref bean="daoCatStore"/>
+		</property>
+	</bean>
+	
+	<bean name="serviceCatPrograma" class="com.adinfi.seven.business.services.ServiceCatProgramaImpl">
+		<property name="daoCatPrograma">
+			<ref bean="daoCatPrograma"/>
+		</property>
+		<property name="daoRelZonaCampana">
+			<ref bean="daoRelZonaCampana" />
+		</property>
+	</bean>
+	
+	
+     <bean name="serviceCatTipoPromo"
+		class="com.adinfi.seven.business.services.ServiceCatTipoPromoImpl">
+		<property name="daoCatTipoPromo">
+			<ref bean="daoCatTipoPromo"/>
+		</property>
+        <property name="daoCatPromo">
+            <ref bean="daoCatPromo" />
+        </property>
+
+	</bean>
+	
+	   <bean name="serviceCatPromo"
+		class="com.adinfi.seven.business.services.ServiceCatPromoImpl">
+		<property name="daoCatPromo">
+			<ref bean="daoCatPromo"/>
+		</property>
+	</bean>
+		
+	
+	<bean name="serviceCatSenal"
+		class="com.adinfi.seven.business.services.ServiceCatSenalImpl">
+		<property name="daoCatSenal">
+			<ref bean="daoCatSenal"/>
+		</property>
+	</bean>
+	
+	<bean id="job" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="com.adinfi.seven.scheduler.NotificationJob" />
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="serviceCampana" value-ref="serviceCampana" />
+				<entry key="serviceDynamicCatalogs" value-ref="serviceDynamicCatalogs" />
+			</map>
+		</property>
+	</bean>
+	<bean id="trigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="job" />
+		<property name="cronExpression" value="* 1 * * * ?" />
+	</bean>
+	<bean id="finishJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="com.adinfi.seven.scheduler.FinishActivityJob" />
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="serviceCampana" value-ref="serviceCampana" />
+				<entry key="serviceDynamicCatalogs" value-ref="serviceDynamicCatalogs" />
+			</map>
+		</property>
+	</bean>
+	<bean id="finishTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="finishJob" />
+		<property name="cronExpression" value="* * 1 * * ?" />
+	</bean>
+	<bean id="alertasDashboard" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="com.adinfi.seven.scheduler.ActividadesJob" />
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="serviceTblActividades" value-ref="serviceTblActividad" />
+                <entry key="serviceUsuarios" value-ref="serviceUsuarios" />
+                <entry key="serviceCatEstatus" value-ref="serviceCatEstatus" />
+                <entry key="serviceCampana" value-ref="serviceCampana" />
+			</map>
+		</property>
+	</bean>
+	<bean id="alertasTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="alertasDashboard" />
+		<property name="cronExpression" value="0 0 1 * * ?" />
+	</bean>
+
+	<bean id="schedulerFactory"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+                <!--
+				<ref local="trigger" />
+				<ref local="finishTrigger" />
+                -->
+			</list>
+		</property>
+	</bean>
+	<bean name="serviceMenuAndRoles"
+		class="com.adinfi.seven.business.services.admin.ServiceMenuAndRolesImpl">
+		<property name="daoRolOpcion">
+			<ref bean="daoRolOpcion" />
+		</property>
+	</bean>
+	<bean name="serviceBitacora"
+		class="com.adinfi.seven.business.services.ServiceBitacoraImpl">
+		<property name="daoBitacora">
+			<ref bean="daoBitacora" />
+		</property>
+		<property name="daoBitacoraParam">
+			<ref bean="daoBitacoraParam" />
+		</property>
+		<property name="daoBitacoraTipo">
+			<ref bean="daoBitacoraTipo" />
+		</property>
+		<property name="daoBitacoraMetodo">
+			<ref bean="daoBitacoraMetodo" />
+		</property>
+	</bean>
+	<bean name="serviceAnalisis"
+		class="com.adinfi.seven.business.services.ServiceAnalisisImpl">
+		<property name="daoListaSeleccion">
+			<ref bean="daoListaSeleccion" />
+		</property>
+		<property name="daoListaSeleccionSKU">
+			<ref bean="daoListaSeleccionSKU" />
+		</property>
+		<property name="daoVentasItem">
+			<ref bean="daoVentasItem" />
+		</property>
+		<property name="daoExistenciaItemTienda">
+			<ref bean="daoExistenciaItemTienda" />
+		</property>
+		<property name="daoCatalogs">
+			<ref bean="daoCatalogs" />
+		</property>
+	</bean>
+	<bean name="serviceJuntaPlaneacion"
+		class="com.adinfi.seven.business.services.ServiceJuntaPlaneacionImpl">
+		<property name="daoJuntaPlaneacion">
+			<ref bean="daoJuntaPlaneacion"/>
+		</property>
+		<property name="daoJuntaArchivos">
+			<ref bean="daoJuntaArchivos"/>
+		</property>
+		<property name="daoJuntaParticipantes">
+			<ref bean="daoJuntaParticipantes"/>
+		</property>
+	</bean>
+	<bean name="serviceArquitectura" class="com.adinfi.seven.business.services.ServiceArquitecturaImpl">
+		<property name="daoArqMarcaLogo">
+			<ref bean="daoArqMarcaLogo" />
+		</property>
+		<property name="daoArqTemplate">
+			<ref bean="daoArqTemplate" />
+		</property>
+		<property name="daoArqTemplateUser">
+			<ref bean="daoArqTemplateUser" />
+		</property>
+		<property name="daoVTemplateUser">
+			<ref bean="daoVTemplateUser" />
+		</property>
+		<property name="daoImageArticulo">
+			<ref bean="daoImageArticulo" />
+		</property>
+		<property name="daoImagen">
+			<ref bean="daoImagen" />
+		</property>
+		<property name="daoTemplateSegment">
+			<ref bean="daoTemplateSegment" />
+		</property>
+		<property name="daoComentarioArticulo">
+			<ref bean="daoComentarioArticulo" />
+		</property>
+		<property name="daoArchivoArticulo">
+			<ref bean="daoArchivoArticulo" />
+		</property>
+
+	</bean>
+	<bean name="servicePrecioFolleto" class="com.adinfi.seven.business.services.ServicePrecioFolletoImpl">
+		<property name="daoFolleto">
+			<ref bean="daoFolleto" />
+		</property>		
+		<property name="daoPrecioFolleto">
+			<ref bean="daoPrecioFolleto" />
+		</property>
+		<property name="daoPrecioFolletoDet">
+			<ref bean="daoPrecioFolletoDet" />
+		</property>
+	</bean>
+        
+        <bean name="servicePrecioZone" class="com.adinfi.seven.business.services.ServiceRelPrecioItemZoneImpl">
+            <property name="daoRelPrecioZone">
+                <ref bean="daoRelItemPrecioZona" />
+            </property>
+        </bean>
+        
+        <bean name="servicePrecioGZone" class="com.adinfi.seven.business.services.ServiceRelPrecioItemGZoneImpl">
+            <property name="daoPrecioItemGZone">
+                <ref bean="daoRelItemPrecioGZona" />
+            </property>
+        </bean> 
+	
+	<bean name="servicePrecioPrensa" class="com.adinfi.seven.business.services.ServicePrecioPrensaImpl">
+		<property name="daoPrensa">
+			<ref bean="daoPrensa" />
+		</property>		
+		<property name="daoPrecioPrensa">
+			<ref bean="daoPrecioPrensa" />
+		</property>
+		<property name="daoPrecioPrensaDet">
+			<ref bean="daoPrecioPrensaDet" />
+		</property>
+	</bean>
+	
+	
+	<bean name="serviceReporte" class="com.adinfi.seven.business.services.ServiceReporteImpl">
+		<property name="daoArticulosEspacio">
+			<ref bean="daoArticulosEspacio" />
+		</property>		
+		<property name="daoArticulosHoja">
+			<ref bean="daoArticulosHoja" />
+		</property>
+		<property name="daoReporteVentas">
+			<ref bean="daoReporteVentas" />
+		</property>
+		<property name="daoFolletoTienda">
+			<ref bean="daoFolletoTienda" />
+		</property>
+		<property name="daoPrensaTienda">
+			<ref bean="daoPrensaTienda" />
+		</property>
+		<property name="daoFolleto">
+			<ref bean="daoFolleto"/>
+		</property>
+		<property name="daoPrensa">
+			<ref bean="daoPrensa"/>
+		</property>
+		<property name="daoFolletoSistemaVenta">
+			<ref bean="daoFolletoSistemaVenta"/>
+		</property>
+		<property name="daoPrensaSistemaVenta">
+			<ref bean="daoPrensaSistemaVenta"/>
+		</property>
+		<property name="daoImageArticulo">
+			<ref bean="daoImageArticulo"/>
+		</property>
+		<property name="daoReporteInventario">
+			<ref bean="daoReporteInventario"/>
+		</property>
+	</bean>
+	
+	<bean name="serviceTemplates" class="com.adinfi.seven.business.services.ServiceTemplatesImpl" >
+		<property name="daoTemplate">
+			<ref bean="daoTemplate" />
+		</property>		
+		
+		<property name="daoArqTemplateUser">
+			<ref bean="daoArqTemplateUser" />
+		</property>
+	</bean>	
+	
+	<bean name="serviceArticles" class="com.adinfi.seven.business.services.ServiceArticlesImpl" >
+		<property name="daoImageArticulo">
+			<ref bean="daoImageArticulo" />
+		</property>				  
+	</bean>	
+	
+	<bean name="treeCampanaUtil" class="com.adinfi.seven.presentation.views.util.TreeCampanaUtil" >
+		<property name="serviceCampana">
+			<ref bean="serviceCampana" />
+		</property>		
+		<property name="serviceDynamicCatalogs">
+			<ref bean="serviceDynamicCatalogs" />
+		</property>		
+		<property name="serviceFolleto">
+			<ref bean="serviceFolleto" />
+		</property>
+		<property name="serviceEjecucion">
+			<ref bean="serviceEjecucion" />
+		</property>						  
+	</bean>	
+	
+	<bean name="serviceEjecucion" class="com.adinfi.seven.business.services.ServiceEjecucionImpl" >
+		<property name="daoArticulosHoja">
+			<ref bean="daoArticulosHoja" />
+		</property>		
+		<property name="daoDisenoPromoCm">
+			<ref bean="daoDisenoPromoCm" />
+		</property>
+		
+		<property name="daoFolletoHojas">
+			<ref bean="daoFolletoHojas" />
+		</property>			
+	</bean>				
+	
+	<bean name="xmlUti" class="com.adinfi.seven.presentation.views.util.XMLUtil " >
+		<property name="serviceArquitectura">
+			<ref bean="serviceArquitectura" />
+		</property>		
+	</bean>
+
+	<bean name="serviceArquitecturaSeven" class="com.adinfi.seven.business.services.ServiceArquitecturaSevenImpl">
+		<property name="daoCampanas">
+			<ref bean="daoCampanas" />
+		</property>
+		<property name="daoTblComponente">
+			<ref bean="daoTblComponente" />
+		</property>
+		<property name="daoTblMecanica">
+			<ref bean="daoTblMecanica" />
+		</property>
+		<property name="daoTblPrograma">
+			<ref bean="daoTblPrograma" />
+		</property>
+		<property name="daoTblCategoria">
+			<ref bean="daoTblCategoria" />
+		</property>
+		<property name="daoRelGrupoZona">
+			<ref bean="daoRelGrupoZona" />
+		</property>
+		<property name="daoRelZona">
+			<ref bean="daoRelZona" />
+		</property>
+		<property name="daoRelStore">
+			<ref bean="daoRelStore" />
+		</property>
+		<property name="daoTblSenalamientos">
+			<ref bean="daoTblSenalamientos" />
+		</property>
+		<property name="daoRelCompSku">
+			<ref bean="daoRelCompSku" />
+		</property>
+		<property name="daoRelCompUpc">
+			<ref bean="daoRelCompUpc" />
+		</property>		
+		<property name="serviceDynamicCatalogs">
+			<ref bean="serviceDynamicCatalogs" />
+		</property>
+		<property name="daoCampanaProgramasCategorias">
+			<ref bean="daoCampanaProgramasCategorias"/>
+		</property>
+		<property name="daoCampanaProgramas">
+			<ref bean="daoCampanaProgramas"/>
+		</property>
+		<property name="daoTblConfMecanica">
+			<ref bean="daoTblConfMecanica"/>
+		</property>
+		<property name="daoTblPreciosPromocion">
+			<ref bean="daoTblPreciosPromocion"/>
+		</property>
+		<property name="daoTblDisenos">
+			<ref bean="daoTblDisenos"/>
+		</property>
+
+		<property name="serviceCatGZone">
+			<ref bean="serviceCatGZone" />
+		</property>
+		<property name="serviceCatZone">
+			<ref bean="serviceCatZone" />
+		</property>
+		<property name="serviceCatStore">
+			<ref bean="serviceCatStore" />
+		</property>
+
+		<property name="serviceCatPrograma">
+			<ref bean="serviceCatPrograma" />
+		</property>
+		<property name="serviceCatSenal">
+			<ref bean="serviceCatSenal" />
+		</property>
+		<property name="daoTblActividad">
+			<ref bean="daoTblActividad" />
+		</property>
+        
+        <property name="daoTblComponenteZonaPrecio">
+            <ref bean="daoTblComponenteZonaPrecio" />
+        </property>
+        
+	</bean>
+        
+        
+        <bean name="serviceCatDepto" class="com.adinfi.seven.business.services.ServiceCatDeptoImpl" >
+            <property name="daoCatDepto">
+                <ref bean="daoCatDepto" />
+            </property>
+	</bean>
+        
+        <bean name="serviceCatCategory" class="com.adinfi.seven.business.services.ServiceCatCategoryImpl" >
+            <property name="daoCatCategory">
+                <ref bean="daoCatCategory" />
+            </property>
+	</bean>
+        
+        <bean name="serviceCatProveedor" class="com.adinfi.seven.business.services.ServiceCatProveedorImpl" >
+            <property name="daoCatProveedor">
+                <ref bean="daoCatProveedor" />
+            </property>
+	</bean>
+        
+        <bean name="serviceCatSubCategory" class="com.adinfi.seven.business.services.ServiceCatSubCategoryImpl" >
+            <property name="daoCatSubCategory">
+                <ref bean="daoCatSubCategory" />
+            </property>
+	</bean>
+        
+        <bean name="serviceRelItemStore" class="com.adinfi.seven.business.services.ServiceRelItemStoreImpl">
+            <property name="daoRelItemStore">
+                <ref bean="daoRelItemStore" />
+            </property>
+        </bean>
+	
+        <bean name="serviceRelItemStoreProveedor" class="com.adinfi.seven.business.services.ServiceRelItemStoreProveedorImpl" >
+            <property name="daoRelItemStoreProveedor">
+                <ref bean="daoRelItemStoreProveedor" />
+            </property>
+        </bean>
+	
+	<bean name="serviceCatItem" class="com.adinfi.seven.business.services.ServiceCatItemImpl" >
+            <property name="daoCatItem">
+                <ref bean="daoCatItem" />
+            </property>
+	</bean>
+	
+		<bean name="serviceCatLista" class="com.adinfi.seven.business.services.ServiceCatListaImpl" >
+            <property name="daoCatLista">
+                <ref bean="daoCatLista" />
+            </property>
+	</bean>
+	
+	<bean name="serviceCatListDet" class="com.adinfi.seven.business.services.ServiceCatListDetImpl" >
+            <property name="daoCatListDet">
+                <ref bean="daoCatListDet" />
+            </property>
+	</bean>
+	
+	<bean name="serviceRelUsuariosCategorias"
+		class="com.adinfi.seven.business.services.ServiceRelUsuariosCategoriasImpl">
+		<property name="daoRelUsuariosCategorias">
+			<ref bean="daoRelUsuariosCategorias"/>
+		</property>
+	</bean>
+        
+        <bean name="serviceRelItemPrecioZone" class="com.adinfi.seven.business.services.ServiceRelPrecioItemZoneImpl">
+            <property name="daoRelPrecioZone">
+                <ref bean="daoRelItemPrecioZona" />
+            </property>
+        </bean>
+        
+        <bean name="serviceRelItemPrecioGZone" class="com.adinfi.seven.business.services.ServiceRelPrecioItemGZoneImpl">
+            <property name="daoPrecioItemGZone">
+                <ref bean="daoRelItemPrecioGZona" />
+            </property>
+        </bean>
+        
+         <bean id="SessionTimeOutFilter" class="com.adinfi.web.context.SessionFilter" >
+             <property name="serviceUsuarios">
+                <ref bean="serviceUsuarios" />
+            </property>
+        </bean>
+</beans>

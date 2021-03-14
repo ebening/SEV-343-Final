@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+    <h:body>
+
+	<ui:composition template="../template/common/commonLayout.xhtml">
+		<ui:define name="sections">
+			<h:form id="frmSubMenu">
+				<p:commandLink value="Arquitectura" style="text-decoration: none;">
+				</p:commandLink>
+			</h:form>
+		</ui:define>
+		<ui:define name="west">
+			<p:layoutUnit position="west" size="250" header="&nbsp;"
+				styleClass="header-panel" resizable="true" closable="false"
+				collapsible="false" id="west">
+				<h:form id="frmMenuLogin">
+					<p:tree value="#{mbArquitectura.raiz}" style="border: none;"
+						dynamic="true" 
+                        selectionMode="single" 
+                        cache="false"
+						selection="#{mbArquitectura.selectedNode}" 
+                        var="node" 
+                        id="tree">
+                        
+						<p:ajax 
+                            onstart="muestraLoader(); cleanPriceTreeTable();" 
+                            oncomplete="removeDuplicatedIds(); validaIdsMain();"
+							event="select" 
+                            listener="#{mbArquitectura.onNodeSelect}"
+							global="true"
+                            update=":frmPromocion :panelDialogos" />
+                        
+                        <p:ajax onstart="muestraLoader(); cleanPriceTreeTable();" 
+                            oncomplete="ocultaLoader(); removeDuplicatedIds();"
+							event="unselect" 
+                            listener="#{mbArquitectura.onNodeUnselect}"
+							global="true"
+                            update=":frmPromocion :panelDialogos" />
+						
+                        <p:ajax onstart="muestraLoader();" oncomplete="ocultaLoader();"
+							event="expand" 
+                            listener="#{mbArquitectura.nodeExpand}"
+							global="true"
+                            update=":frmPromocion :panelDialogos" />
+                        
+                        <p:ajax onstart="muestraLoader();" oncomplete="ocultaLoader();"
+							event="collapse" 
+                            listener="#{mbArquitectura.nodeCollapse}"
+							global="true"
+                            update=":frmPromocion :panelDialogos" />
+                        
+                        <p:treeNode id="treeNode">
+                             <b><h:outputText value="#{node}" id="lblNode" style="color: #{node.label}" /></b>
+						</p:treeNode>
+					</p:tree>
+				</h:form>
+			</p:layoutUnit>
+		</ui:define>
+            <ui:define name="content" id="content">
+			<h:form id="frmPromocion" style="font-size: x-small">
+				<h:panelGroup rendered="#{mbArquitectura.agregarPromocion}">
+					<ui:include src="/pages/ArqSeven/ArqPromocion.xhtml" />
+				</h:panelGroup>
+				<h:panelGroup rendered="#{mbArquitectura.precioPromocion}">
+					<ui:include src="/pages/ArqSeven/ArqPrecioPromocion.xhtml" />
+				</h:panelGroup>
+				<h:panelGroup rendered="#{mbArquitectura.precio}">
+					<ui:include src="/pages/ArqSeven/ArqPrecio.xhtml" />
+				</h:panelGroup>
+				<h:panelGroup rendered="#{mbArquitectura.disenio}">
+					<ui:include src="/pages/ArqSeven/ArqDisenio.xhtml" />
+				</h:panelGroup>
+				<h:panelGroup rendered="#{mbArquitectura.estrategia}">
+					<ui:include src="/pages/ArqSeven/ArqEstrategiaSeven.xhtml" />
+				</h:panelGroup>
+			</h:form>
+		</ui:define>
+		<ui:define name="dialogos">
+			<h:panelGroup id="panelDialogos">
+				<h:panelGroup rendered="#{mbArquitectura.disenio}">
+					<ui:include src="/pages/ArqSeven/ArqDialogoAdjuntar.xhtml" />
+				</h:panelGroup>
+				<h:panelGroup rendered="#{mbArquitectura.precio}">
+					<ui:include src="/pages/ArqSeven/ArqDialogoVerDiseno.xhtml" />
+				</h:panelGroup>
+			</h:panelGroup>
+		</ui:define>
+	</ui:composition>
+    </h:body>
+    <script>
+        $(document).ready(function(){
+           $("frmPromocion:ttPrecio").find(".ui-treetable-toggler").hide(); 
+        });
+    </script>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jstl/core">
+<h:head>
+</h:head>
+<h:body>
+	<ui:composition template="/pages/common/template.xhtml">
+		<ui:define name="left">
+			<!-- 	<ui:include src="/pages/ReporteCriterios.xhtml" />-->
+			<ui:include src="CriteriosBusquedaReporte.xhtml" />
+		</ui:define>
+		<ui:define name="centro">
+			<!-- <ui:include src="/pages/ReporteResultados.xhtml" /> -->
+
+			<h:panelGrid id="content">
+				<ui:include src="ResultadoReporteSolicitud.xhtml" />
+			</h:panelGrid>
+
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

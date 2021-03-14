@@ -1,0 +1,28 @@
+@CHARSET "ISO-8859-1";
+
+.btnBack{
+	background: url(../images/extras/atras.png) 0 0 no-repeat;
+	height:48px; width:48px;
+	display:block;
+}
+
+.btnSiguiente{
+	background: url(../images/extras/siguiente.png) 0 0 no-repeat;
+	height:48px; width:48px;
+	display:block;
+}
+
+.imgAtributos{
+	height:30px;
+	width:30px;
+	cursor:pointer;
+	cursor:hand;
+}
+.btnUbicacion{
+	background-color:#EE3B3B; 
+	color: White; 
+	height: 35px; 
+	width: 18%;
+	cursor:pointer;
+	cursor:hand;
+}

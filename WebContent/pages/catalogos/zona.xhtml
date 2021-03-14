@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	
+</h:head>
+<body>
+<h:form id="mainForm">
+		<h1 class="title">#{MBCatZone.catalogNametitle}</h1>
+
+		<p:messages id="messages" autoUpdate="true" closable="true" />
+	    <h:panelGrid id="panelZona" columns="3">
+
+		 <h:outputLabel for="idZona" value="&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;ID&#160;" /> 
+				 <p:inputText id="idZona"  value="#{MBCatZone.catZone.idZone}">
+				</p:inputText>
+		 <br />
+		<h:outputLabel for="code" value="&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;CODIGO&#160;" /> 
+				 <p:inputText id="code"  value="#{MBCatZone.catZone.code}">
+				</p:inputText>
+		<br />
+		<h:outputLabel for="descripcion" value="&#160;&#160;&#160;&#160;DESCRIPCIÓN&#160;" /> 
+				 <p:inputText id="descripcion"  value="#{MBCatZone.catZone.descrip}">
+				</p:inputText>
+		<br />
+		<h:outputLabel for="catGZona" value="&#160;ID GRUPO ZONA&#160;" /> 
+            <p:selectOneMenu id="catGZona"  value="#{MBCatZone.catGZone.idGrupoZona}"
+            style="width:150px;" >
+                <f:selectItem itemLabel="Seleccionar" itemValue="#{null}" />  
+                <f:selectItems value="#{MBCatZone.catGZoneList}" var="item" itemLabel="#{item.idGrupoZona}" itemValue="#{item.idGrupoZona}"/>
+        	</p:selectOneMenu>
+
+		<br />
+			<h:outputLabel for="catTZona" value="&#160;&#160;&#160;&#160;ID TIPO ZONA&#160;" />
+            <p:selectOneMenu id="catTZona"  value="#{MBCatZone.catTipoZona.idTipoZona}"
+            style="width:150px;" >
+                <f:selectItem itemLabel="Seleccionar" itemValue="#{null}" />  
+                <f:selectItems value="#{MBCatZone.catTipoZonaList}" var="item" itemLabel="#{item.idTipoZona}" itemValue="#{item.idTipoZona}"/>
+        	</p:selectOneMenu>
+		
+	 <f:facet name="footer">
+	 <h:panelGroup style="display:block; text-align:right">
+				<p:commandButton value="Guardar" action="#{MBCatZone.addCatZone}" update=":mainForm"/>
+				
+	            <p:commandButton value="Cancelar" style="margin-left: 5px;" action="#{MBCatZone.reset}" update=":mainForm"/>	
+	</h:panelGroup>
+	</f:facet>
+	      </h:panelGrid>
+	<br />
+	<br />
+        <p:dataTable id="dataTableZone" var="item" value="#{MBCatZone.catZoneList}" paginator="true" rows="10"
+	                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+	                 emptyMessage="Vacio" resizableColumns="true" styleClass="ui-datatable-hor-scroll">
+	            <p:column  style="width: 20%">
+	            												
+					<p:commandButton id="edit" action="#{MBCatZone.setCatZoneInfo(item)}" process="@this"
+                            update=":mainForm" icon="ui-icon-search" />
+					
+					<p:commandButton id="delete" onclick="cd.show()" icon="ui-icon-trash" process="@this"
+	            	action="#{MBCatZone.setCatZoneInfo(item)}"/>
+					
+					<p:confirmDialog message="¿Desea eliminar el registro seleccionado?" 
+	                header="Confirmación" severity="alert"
+	                showEffect="fade" hideEffect="explode" widgetVar="cd" icon="ui-icon-trash" appendToBody="true">
+	                    
+	                <p:commandButton value="Si" styleClass="ui-confirmdialog-yes"
+	                  icon="ui-icon-check"
+	                  update=":mainForm" 
+	                  action="#{MBCatZone.removeCatZone}"
+	                  process="@this" 
+	                  onclick="cd.hide()" />
+	
+					<p:commandButton value="No"  styleClass="ui-confirmdialog-no"
+                    action="#{MBCatZone.reset}" 
+                    process="@this" 
+                    update=":mainForm"
+                    onclick="cd.hide()"/>
+	                </p:confirmDialog>													
+						            		            
+			</p:column>
+	            
+	       <p:column headerText="ID" resizable="true" sortBy="#{item.idZone}">
+					<h:outputText value="#{item.idZone}" />
+			</p:column>
+
+			<p:column headerText="CODIGO" resizable="true" sortBy="#{item.code}">
+					<h:outputText value="#{item.code}" />
+			</p:column>
+			 
+			<p:column headerText="DESCRIPCIÓN" resizable="true" sortBy="#{item.descrip}">
+					<h:outputText value="#{item.descrip}" />
+			</p:column>
+				
+			<p:column headerText="ID GRUPO ZONA" resizable="true" sortBy="#{item.catGZone.idGrupoZona}">
+					<h:outputText value="#{item.catGZone.idGrupoZona}" />
+			</p:column>
+			
+			<p:column headerText="ID TIPO" resizable="true" sortBy="#{item.catTipoZona.idTipoZona}">
+					<h:outputText value="#{item.catTipoZona.idTipoZona}" />
+			</p:column>
+		
+	    </p:dataTable>
+	    		
+	</h:form>
+</body>
+</html>

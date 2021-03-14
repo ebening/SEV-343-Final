@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated 24/12/2013 10:24:06 AM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.TblMarcaLogo" table="TBL_MARCA_LOGO">
+        <id name="idMarca" type="int">
+            <column name="ID_MARCA" />
+            <generator class="native" />
+        </id>
+        <property name="nombreMarca" type="string">
+            <column name="NOMBRE_MARCA" not-null="true" />
+        </property>
+        <set name="tblMarcaLogoDets" cascade="save-update, delete" table="TBL_MARCA_LOGO_DET" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_MARCA" not-null="true" />
+            </key>
+            <one-to-many class="com.adinfi.seven.business.domain.TblMarcaLogoDet" />
+        </set>
+    </class>
+</hibernate-mapping>

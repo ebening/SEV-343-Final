@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+<style type="text/css">
+.companyHeaderGrid tr, .companyHeaderGrid td {
+    border: none;
+}
+</style>
+
+</h:head>
+<h:body>
+	<h:form id="form1">		
+		<p:outputPanel id="grids">
+   		<p:panelGrid styleClass="companyHeaderGrid" id="cadenaAut" columns="3" cellspacing="10" columnClasses="formLabel, formField" width="100%" rendered="#{MBCadenaAutorizacion.displayCrear}">
+
+				
+				<h:outputLabel value="Nombre *" />
+				<p:inputText value="#{MBCadenaAutorizacion.nombreCadena}" disabled="#{MBCadenaAutorizacion.disable}"/>
+				
+			<p:commandButton id="crearCadena" actionListener="#{MBCadenaAutorizacion.crearCadenaAutorizacion}" 
+			value="#{msg.crearCadena}" update="form1" disabled="#{MBCadenaAutorizacion.disable}">
+						<f:setPropertyActionListener value="true" target="#{MBCadenaAutorizacion.disable}" />
+			</p:commandButton>
+
+				<p:selectOneMenu value="#{MBCadenaAutorizacion.selectedIdUser}">
+					<f:selectItem itemValue="#{null}" itemLabel="Seleccione Usuario" />
+					<f:selectItems var="usuario" itemLabel="#{usuario.name}"
+						itemValue="#{usuario.userId}" value="#{MBCadenaAutorizacion.usuariosList}" />
+				</p:selectOneMenu>
+
+			<p:commandButton id="crearCadenaDet" actionListener="#{MBCadenaAutorizacion.agregarCadenaAutDetInicio}"
+			 value="#{msg.agregarUsuario}" update="singleCadAutDet" disabled="#{!(MBCadenaAutorizacion.disable)}">
+<!-- 						<f:setPropertyActionListener value="false" target="#{MBCadenaAutorizacion.disable}" /> -->
+			</p:commandButton>
+
+			</p:panelGrid>
+      <p:panelGrid id="cadenaAutDet" columns="2" cellspacing="10" columnClasses="formLabel, formField" width="100%" rendered="#{MBCadenaAutorizacion.displayAgregar}">			
+			
+			<h:outputLabel value="Nombre Cadena Autorización: *" />
+            <p:inputText disabled="#{MBCadenaAutorizacion.disableNombreCadenaAut}"
+            value="#{MBCadenaAutorizacion.selectedCadenaAutorizacion.tblCadenaAutorizacion.nombreCadena}"/>
+    		
+			<p:selectOneMenu value="#{MBCadenaAutorizacion.selectedIdUser}">
+						<f:selectItem itemValue="#{null}" itemLabel="Seleccione Usuario" />
+						<f:selectItems var="usuario" itemLabel="#{usuario.name}"
+						itemValue="#{usuario.userId}" value="#{MBCadenaAutorizacion.usuariosList}"/>
+			</p:selectOneMenu>
+
+			 <p:commandButton id="Agregar2"  value="#{msg.agregarUsuario}" 
+				 action="#{MBCadenaAutorizacion.agregarCadenaDet()}" update="singleCadAutDet" />  
+
+      </p:panelGrid>
+    </p:outputPanel> 		
+
+		<p:panel style="border:none">
+	    <p:dataTable id="singleCadAutDet" var="cadAutDet" value="#{MBCadenaAutorizacion.cadenaAutorizacionDetDTODataModel}" 
+	   		 paginator="false" rows="10" selection="#{MBCadenaAutorizacion.selectedCadenaAutorizacionDetDTO}"
+	   		 sortBy="#{cadAutDet.tblCadenaAutorizacionDet.id.idOrden}"
+	   		 emptyMessage="No hay registros">
+	        
+			 <p:column selectionMode="single" style="width:2%" />
+	
+			 <p:column styleClass="display: none" headerText="idCadenaAutorizacion" style="width:25%">	          
+	     	 <h:outputLabel value=" #{cadAutDet.tblCadenaAutorizacionDet.id.idCadenaAutorizacion}" /> 
+	        </p:column>
+	        
+	        <!-- <p:column headerText="idCadenaAutorizacion" style="width:25%">	          
+	        <h:outputLabel value=" #{cadAutDet.tblCadenaAutorizacion.nombreCadena}" />
+	        </p:column> -->
+	
+	        <p:column headerText="Orden" style="width:25%">
+	        <h:outputLabel value="#{cadAutDet.tblCadenaAutorizacionDet.id.idOrden}" />  
+	        </p:column>
+	        
+	         <p:column headerText="Usuario" style="width:25%">
+	        <h:outputLabel value="#{cadAutDet.tblCadenaAutorizacionDet.idUsuario}" />  
+	        </p:column>
+	
+	    </p:dataTable>
+	    
+	    <br />
+		<br />
+					
+		    <table><tr>
+            <td>                                                                     
+             <p:commandButton id="eliminarDet"  value="#{msg.eliminarCadena}" 
+				 action="#{MBCadenaAutorizacion.eliminarCadenaDet()}" update="singleCadAutDet" />  
+    		</td>  		
+		    </tr></table>   	
+    	</p:panel>    								
+        </h:form> 
+        </h:body>
+</html>

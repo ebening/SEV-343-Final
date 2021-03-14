@@ -1,0 +1,154 @@
+@CHARSET "ISO-8859-1";
+/***************************************/
+/*		ventana 	Ejecución 		   */
+/***************************************/
+.btnPdfEjecucion{
+	background: url(../images/extras/pdf25_black.png) 0 0 no-repeat;
+	height:32px; width:32px;
+	display:block;
+}
+.btnPdfEjecucion:hover{
+	background: url(../images/extras/pdf25.png) 0 0 no-repeat;
+	height:32px; width:32px;
+	cursor:pointer;
+	cursor:hand;
+}
+
+.btnImprimirEjecucion{
+	background: url(../images/extras/imprimir25_black.png) 0 0 no-repeat;
+	height:32px; width:32px;
+	display:block;
+}
+
+.btnImprimirEjecucion:hover{
+	background: url(../images/extras/imprimir25.png) 0 0 no-repeat;
+	height:32px; width:32px;
+	cursor:pointer;
+	cursor:hand;
+}
+.btnCorreoEjecucion{
+	background: url(../images/actividades/correo_black25.png) 0 0 no-repeat;
+	display:block;
+	height:32px; width:32px; display: block;
+}
+
+.btnCorreoEjecucion:hover{
+	background: url(../images/actividades/correo25.png) 0 0 no-repeat;
+	height:32px; width:32px;
+	cursor : pointer;
+	cursor:hand;
+}
+
+.A_DesignEjecucion{
+	background: url(../images/ejecucion/InDesign_black.png) 0 0 no-repeat;
+	display:block;
+	height: 60px;
+	width: 60px;
+	
+}
+.A_DesignEjecucion:hover{
+	background: url(../images/ejecucion/InDesign.png) 0 0 no-repeat;
+	height:60px; width:60px;
+	cursor:hand;
+}
+
+.A_PhotoshopEjecucion{
+	background: url(../images/ejecucion/Photoshop_black.png) 0 0 no-repeat;
+	height: 60px;
+	width: 60px;
+}
+.A_PhotoshopEjecucion:hover{
+	background: url(../images/ejecucion/Photoshop.png) 0 0 no-repeat;
+	height: 60px;
+	width: 60px;
+}
+
+.A_IlustradorEjecucion{
+	background: url(../images/ejecucion/Ilustrador_black.png) 0 0 no-repeat;
+	height: 60px;
+	width: 60px;
+}
+.A_IlustradorEjecucion:hover{
+	background: url(../images/ejecucion/Ilustrador.png) 0 0 no-repeat;
+	height: 60px;
+	width: 60px;
+}
+
+.tbl_imagenes_Ejecucion{
+	display:block;
+	height: 83px;
+	width: 70px;
+}
+
+
+
+
+.a_agendaEjecucion{
+	background: url(../images/ejecucion/agenda.png) 0 0 no-repeat;
+	display:block;
+	height: 123px;
+	width: 100px;
+}
+
+#div_menuLateralEjecucion{
+	height: 470px; 
+	float: left; 
+	width: 19%; 
+	border: 1px solid silver; 
+	background: white;	
+	padding-left: 0px;
+}
+
+#div_seccionesMedios_LateralEjecucion{
+	/*height: 290px;*/
+}
+
+#div_content_Ejecucion{
+	height: 470px;
+	width: 80%;
+	float: right;
+	border: 1px solid silver; 
+	background: white;
+}
+
+#div_EditoresEjecucion{
+	height: 430px; 
+	width: 8%;  
+	float: right; 
+	background: white;
+}
+
+#div_content_moduloEjecucion{
+	height: 430px; 
+	width:59%; 
+	padding-left: 150px; 
+	background: white;
+}
+
+#tbl_imagenesEjecucion{
+	background: silver;	
+}
+
+.mantenerEscondida{
+	visibility: hidden;
+}
+.mantenerVisibile{
+	visibility: visible;
+}
+
+#txtFiltroEjecucion{
+	background-image: url(../images/extras/buscar24.png);
+	background-repeat: no-repeat;
+	height: 24px; 
+	width:180px;
+	padding-left : 30px;
+	padding-top:4px;
+	border: 0.5px solid silver;
+}
+
+
+/********************************/
+/*		ventana Television		*/
+/********************************/
+
+

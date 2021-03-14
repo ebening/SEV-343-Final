@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+	<h:form id="frmSchedule"  style="font-size: 0.8em">
+		<h:commandLink>
+			<p:printer target="dtActivityGridPrint" />
+			<p:graphicImage library="images/extras" name="imprimir.png" width="25" height="25"/>
+		</h:commandLink>
+		<h:commandLink>  
+		    <p:dataExporter type="pdf" target="dtActivityGridPrint" fileName="actividadesPdf"/>
+		    <h:graphicImage library="images" name="extras/pdf.png" width="25" height="25"/>
+		</h:commandLink>
+		<p:dialog widgetVar="editScheduleActivity" styleClass="common-dialog" >
+			<p:panelGrid id="editScheduleActivityDetails" cellpadding="5" style="border:none">
+				<f:facet name="header">Actividad</f:facet>
+				<p:row>
+					<p:column>
+						<p:commandLink 
+							action="#{MBActividad.saveActivity}"
+							update="scheduleActivitiesPrincipal,dtActivityGridPrint"
+							oncomplete="validationEditSchedule(xhr, status, args)">
+							<script type="text/javascript">
+							    function validationEditSchedule(xhr, status, args){
+								    if(args.rangoValido){
+										document.getElementById("frmSchedule:fechaRealInicioS").setAttribute("style", "color:#000000;");
+										document.getElementById("frmSchedule:fechaRealFinS").setAttribute("style", "color:#000000;");
+										editScheduleActivity.hide();
+							    	}else{
+							    		document.getElementById("frmSchedule:fechaRealInicioS").setAttribute("style", "color:#FF0000;");
+							    		document.getElementById("frmSchedule:fechaRealFinS").setAttribute("style", "color:#FF0000;");
+								    }
+							    }
+							</script>
+							<h:graphicImage library="images" name="menu_nueva_actividad/guardar.png" width="30" height="30"/>
+						</p:commandLink>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+		        	</p:column>
+		        </p:row>
+				<p:row>
+					<p:column>
+						<p:outputLabel value="Evento:"/>
+					</p:column>
+					<p:column>
+						<p:outputLabel value="#{MBActividad.eventoSelected.nombre}"/>
+					</p:column>
+		            <p:column>
+						<p:outputLabel value="Duracion:"/>
+					</p:column>
+					<p:column>
+						<p:outputLabel value=""/>
+					</p:column>
+		        </p:row>
+		        <p:row>
+		            <p:column>
+						<p:outputLabel value="Nombre de la actividad:"/>
+					</p:column>
+					<p:column>
+						<p:outputLabel value="#{MBActividad.actividadMecanicaSelected.descripcion}"/>
+					</p:column>
+		            <p:column>
+						<h:outputLabel value="Estatus"/>
+					</p:column>
+					<p:column>
+						<p:selectOneMenu value="#{MBActividad.estatusSelected}">
+							<f:selectItems value="#{MBActividad.estatusList}"
+							var="itemEstatus"
+							itemLabel="#{itemEstatus.nombre}"
+							itemValue="#{itemEstatus.idestatus}"/>
+						</p:selectOneMenu>
+					</p:column>
+		        </p:row>
+		        <p:row>
+		            <p:column>
+						<p:outputLabel value="Responsable:"/>
+					</p:column>
+					<p:column>
+						<h:outputText value="#{MBActividad.actividadMecanicaSelected.catUsuariosByIdresponsable.nombre}" />
+			    		<p:spacer/>
+						<h:outputText value="#{MBActividad.actividadMecanicaSelected.catUsuariosByIdresponsable.plastName}" />
+					</p:column>
+		            
+		            <p:column>
+						<p:outputLabel value="Inicio Vigencia:"/>
+					</p:column>
+					<p:column>
+						<p:calendar value="#{MBActividad.actividadMecanicaSelected.vigenciaInicio}" disabled="true" pattern="dd/MM/yyyy" readonlyInput="true" locale="es"/>
+		            </p:column>
+		            <p:column>
+						<p:outputLabel value="Fin Vigencia:"/>
+					</p:column>
+		            <p:column>
+		            	<p:calendar value="#{MBActividad.actividadMecanicaSelected.vigenciaFinal}" disabled="true" pattern="dd/MM/yyyy" readonlyInput="true" locale="es"/>
+		            </p:column>
+		        </p:row>
+		        <p:row>
+		            <p:column>
+						<p:outputLabel value="Rol:"/>
+					</p:column>
+					<p:column>
+						<p:outputLabel value="#{MBActividad.actividadMecanicaSelected.catUsuariosByIdresponsable.catRole.desc}"/>
+					</p:column>
+		            
+		            <p:column>
+						<p:outputLabel value="Inicio Real" id="fechaRealInicioS"/>
+					</p:column>
+					<p:column>
+						<p:calendar value="#{MBActividad.actividadMecanicaSelected.vigenciaInicio}" pattern="dd/MM/yyyy" readonlyInput="true" locale="es" showOn="button"/>
+		            </p:column>
+		            <p:column>
+						<p:outputLabel value="Fin Real" id="fechaRealFinS"/>
+					</p:column>
+		            <p:column>
+		            	<p:calendar value="#{MBActividad.actividadMecanicaSelected.fechaFin}" pattern="dd/MM/yyyy" readonlyInput="true" locale="es" showOn="button"/>
+		            </p:column>
+		        </p:row>
+		        <p:row>
+		        	<p:column>
+		        		<p:outputLabel value="% Completado"/>
+		        	</p:column>
+		        	<p:column>
+		        		<h:inputText id="numberSchedule" value="#{MBActividad.actividadMecanicaSelected.avance}"/>
+						<p:slider for="numberSchedule" minValue="0" maxValue="100"/>
+		        	</p:column>
+		        </p:row>
+			</p:panelGrid>
+		</p:dialog>
+		<p:schedule id="scheduleActivitiesPrincipal" widgetVar="scheduleActivitiesW"
+			value="#{MBActividad.scheduleActivities}" locale="es" >
+			<p:ajax event="eventSelect" listener="#{MBActividad.onEventSelect}"
+				update="editScheduleActivityDetails" oncomplete="editScheduleActivity.show()" />
+		</p:schedule>
+		<div style="visibility:hidden">
+        <p:dataTable id="dtActivityGridPrint" var="item" rowIndexVar="rowIx"  
+                emptyMessage="Vacio" styleClass="ui-datatable-hor-scroll"
+                value="#{MBActividad.actividadsMecanicasTable}" selection="#{MBActividad.actividadesSelected}"
+                widgetVar="dtActivityGridWV" >
+                <p:column>
+                	<f:facet name="header">
+		    			<h:outputText value="Actividad" />
+		    		</f:facet>
+					<h:outputText value="#{item.descripcion}" />
+                </p:column>
+                <p:column>
+                	<f:facet name="header">
+		    			<h:outputText value="Estatus" />
+		    		</f:facet>
+					<h:outputText value="#{item.catEstatus.nombre}" />
+                </p:column>
+                <p:column>
+                	<f:facet name="header">
+		    			<h:outputText value="Vencimiento" />
+		    		</f:facet>
+					<p:calendar value="#{item.vigenciaFinal}" pattern="dd/MM/yyyy"
+						readonlyInput="true" locale="es" disabled="true"/>
+                </p:column>
+                <p:column>
+                	<f:facet name="header">
+		    			<h:outputText value="Fecha Cierre" />
+		    		</f:facet>
+					<p:calendar value="#{item.fechaFin}" pattern="dd/MM/yyyy"
+						readonlyInput="true" locale="es" disabled="true"/>
+                </p:column>
+                <p:column>
+                	<f:facet name="header">
+		    			<h:outputText value="Mecanica" />
+		    		</f:facet>
+					<h:outputText value="#{item.tblMecanica.nombreMecanica}" style="color: #{item.codigoColor}"/>
+                </p:column>
+                <p:column>
+                	<f:facet name="header">
+		    			<h:outputText value="Responsable" />
+		    		</f:facet>
+		    		<h:outputText value="#{item.catUsuariosByIdresponsable.nombre}" />
+                </p:column>
+                <p:column width="20" exportable="false">
+                	<f:facet name="header"/>
+					<h:graphicImage library="images" name="extras/#{item.semaforo}" width="15" height="15" value="#{item.semaforo}"/>
+                </p:column>
+        </p:dataTable>
+        </div>
+	</h:form>
+</html>

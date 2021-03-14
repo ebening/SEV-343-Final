@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated 27/12/2013 12:47:19 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.TblCampana" table="TBL_CAMPANA">
+        <id name="idCampana" type="long">
+            <column name="ID_CAMPANA" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="catEtiquetas" class="com.adinfi.seven.business.domain.CatEtiquetas" fetch="select">
+            <column name="ID_ETIQUETA" not-null="true" />
+        </many-to-one>
+        <many-to-one name="catFlujoAct" class="com.adinfi.seven.business.domain.CatFlujoAct" fetch="select" lazy="proxy">
+            <column name="ID_FLUJO" />
+        </many-to-one>
+        <many-to-one name="catEstatus" class="com.adinfi.seven.business.domain.CatEstatus" fetch="select">
+            <column name="ID_ESTATUS" />
+        </many-to-one>
+        <property name="idResponsable" type="int"> 
+            <column name="ID_RESPONSABLE"/>
+        </property>
+        <property name="idTipoCampana" type="int">
+            <column name="ID_TIPO_CAMPANA" not-null="true" />
+        </property>
+        <property name="nombre" type="string">
+            <column name="NOMBRE" length="200" not-null="true" />
+        </property>
+        <property name="idPeriodo" type="java.lang.Integer">
+            <column name="ID_PERIODO" />
+        </property>
+        <property name="idTipoEvento" type="int">
+            <column name="ID_TIPO_EVENTO" />
+        </property>
+        <property name="fechaInicio" type="timestamp">
+            <column name="FECHA_INICIO" length="26" not-null="true" />
+        </property>
+        <property name="fechaFin" type="timestamp">
+            <column name="FECHA_FIN" length="26" not-null="true" />
+        </property>
+        <property name="idUsuarioCreacion" type="int">
+            <column name="ID_USUARIO_CREACION" not-null="true" />
+        </property>
+        <property name="fechaCreacion" type="timestamp">
+            <column name="FECHA_CREACION" length="26" not-null="true" />
+        </property>
+        <property name="fechaModificacion" type="timestamp">
+            <column name="FECHA_MODIFICACION" length="26" />
+        </property>
+        <property name="idUsuarioModificacion" type="java.lang.Integer">
+            <column name="ID_USUARIO_MODIFICACION" />
+        </property>
+        <property name="comentarios" type="string">
+            <column name="COMENTARIOS" length="250" />
+        </property>
+        <property name="totalMec" type="java.lang.Integer">
+            <column name="TOTAL_MEC" not-null="true" />
+        </property>
+        <set name="tblCampanaActividadeses" inverse="true">
+            <key>
+                <column name="ID_CAMPANA" not-null="true" />
+            </key>
+            <one-to-many class="com.adinfi.seven.business.domain.TblCampanaActividades" />
+        </set>
+        <set name="tblPrensas" inverse="true">
+            <key>
+                <column name="ID_CAMPANA" not-null="true" />
+            </key>
+            <one-to-many class="com.adinfi.seven.business.domain.TblPrensa" />
+        </set>
+        <set name="tblCampanaCategoriases" cascade="all" inverse="true">
+            <key>
+                <column name="ID_CAMPANA" not-null="true" />
+            </key>
+            <one-to-many class="com.adinfi.seven.business.domain.TblCampanaCategorias" />
+        </set>
+        <set name="tblFolletos" inverse="true">
+            <key>
+                <column name="ID_CAMPANA" />
+            </key>
+            <one-to-many class="com.adinfi.seven.business.domain.TblFolleto" />
+        </set>
+        <set name="tblSolicitudAutorizacions" cascade="all" inverse="true">
+            <key>
+                <column name="ID_CAMPANA" not-null="true" />
+            </key>
+            <one-to-many class="com.adinfi.seven.business.domain.TblSolicitudAutorizacion" />
+        </set>
+        <set name="tblCampanaMedios"  cascade="all" inverse="true">
+            <key>
+                <column name="ID_CAMPANA" not-null="true" />
+            </key>
+            <one-to-many class="com.adinfi.seven.business.domain.TblCampanaMedio" />
+        </set>
+        <set name="tblCampanaProgramas" cascade="all" inverse="true">
+            <key>
+                <column name="ID_CAMPANA" not-null="true" />
+            </key>
+            <one-to-many class="com.adinfi.seven.business.domain.TblCampanaProgramas" />
+        </set>
+        <set name="mecanicas" table="TBL_MECANICA" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_CAM_PRO_CATEG" not-null="true" />
+            </key>
+            <one-to-many class="com.adinfi.seven.business.domain.TblMecanica" />
+        </set>
+    </class>
+</hibernate-mapping>

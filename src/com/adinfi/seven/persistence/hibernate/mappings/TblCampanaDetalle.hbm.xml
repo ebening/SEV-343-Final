@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated 16/10/2013 09:36:58 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.TblCampanaDetalle" table="TBL_CAMPANA_DETALLE">
+        <composite-id name="id" class="com.adinfi.seven.business.domain.TblCampanaDetalleId">
+            <key-property name="idCampana" type="long">
+                <column name="ID_CAMPANA" />
+            </key-property>
+            <key-property name="idPrograma" type="int">
+                <column name="ID_PROGRAMA" />
+            </key-property>
+        </composite-id>
+        <property name="idCategoria" type="int">
+            <column name="ID_CATEGORIA" not-null="true" />
+        </property>
+        <property name="ingresoCategoria" type="big_decimal">
+            <column name="INGRESO_CATEGORIA" precision="14" not-null="true" />
+        </property>
+        <property name="idDivision" type="int">
+            <column name="ID_DIVISION" not-null="true" />
+        </property>
+        <property name="idPlaza" type="int">
+            <column name="ID_PLAZA" not-null="true" />
+        </property>
+        <property name="idFormato" type="int">
+            <column name="ID_FORMATO" not-null="true" />
+        </property>
+        <property name="idMercado" type="int">
+            <column name="ID_MERCADO" not-null="true" />
+        </property>
+        <property name="idCampo" type="int">
+            <column name="ID_CAMPO" not-null="true" />
+        </property>
+        <property name="idTienda" type="int">
+            <column name="ID_TIENDA" not-null="true" />
+        </property>
+        <property name="esCompartido" type="short">
+            <column name="ES_COMPARTIDO" not-null="true" />
+        </property>
+        <property name="usuarioCreacion" type="string">
+            <column name="USUARIO_CREACION" length="16" not-null="true" />
+        </property>
+        <property name="fechaCreacion" type="timestamp">
+            <column name="FECHA_CREACION" length="26" not-null="true" />
+        </property>
+        <property name="usuarioModificacion" type="string">
+            <column name="USUARIO_MODIFICACION" length="16" />
+        </property>
+        <property name="fechaModificacion" type="timestamp">
+            <column name="FECHA_MODIFICACION" length="26" />
+        </property>
+    </class>
+</hibernate-mapping>

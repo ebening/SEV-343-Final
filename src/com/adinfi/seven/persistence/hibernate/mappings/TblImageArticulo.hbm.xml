@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated 4/02/2014 05:03:33 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.TblImageArticulo" table="TBL_IMAGE_ARTICULO">
+        <id name="idImageArt" type="int">
+            <column name="ID_IMAGE_ART" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="tblImagenes" class="com.adinfi.seven.business.domain.TblImagenes"  lazy="false"  fetch="join">
+            <column name="ID_IMAGE" not-null="true" />
+        </many-to-one>
+        <property name="pathDesc" type="string">
+            <column name="PATH_DESC" />
+        </property>
+        <property name="idArticulo" type="string">
+            <column name="ID_ARTICULO" length="30" not-null="true" />
+        </property>
+        <property name="item" type="string">
+            <column name="ITEM" />
+        </property>
+    </class>
+</hibernate-mapping>

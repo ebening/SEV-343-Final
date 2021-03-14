@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<h:outputStylesheet library="css" name="ModuloCampanaStyle.css" />
+</h:head>
+<body>
+	<h:form rendered="#{campanaController.consulta}" style="font-size: 12px">
+		
+	
+	
+	
+		
+			<table width="100%" border="0" cellpadding="0" cellspacing="0">
+					
+					<tr>
+						<td align="left" width="50%" style="border: none">
+							<p:commandLink id="alta" styleClass="create-button"
+								actionListener="#{campanaController.createViewCampanas}"
+								update=":pgPrincipalLogin" ajax="true"/>
+							<p:commandLink id="actualizar" styleClass="edit-button"
+								actionListener="#{campanaController.updateViewCampanas}"
+								update=":pgPrincipalLogin" ajax="true"/>
+							<p:commandLink id="eliminar" styleClass="delete-button"
+								actionListener="#{campanaController.deleteCampanas}"
+								update=":pgPrincipalLogin :frmMenuLogin" ajax="true"/></td>
+						
+						<td align="right" width="50%" style="border: none">
+						
+						
+						<table>
+						
+						<tr>
+						
+						<td><h:commandLink styleClass="print-button">
+								<p:printer target="multiCampana" />
+							</h:commandLink></td>
+						<td><h:commandLink styleClass="pdf-button">  
+					            <p:dataExporter type="pdf" target="multiCampana" fileName="campañas" encoding="iso-8859-1"/>  
+					        </h:commandLink>  </td>
+						<td> <h:commandLink styleClass="excel-button">  
+					            <p:dataExporter type="xls" target="multiCampana" fileName="campañas" encoding="iso-8859-1"/>  
+					        </h:commandLink>  </td>
+						<td><p:inputText id="globalFilter" onkeyup="varCampana.filter()" styleClass="busqueda" style="font-size:10px;"/>  
+				                <p:watermark for="globalFilter" value="Buscar" /></td>
+						</tr>
+						
+						</table>    
+				          
+						</td>
+					</tr>
+				</table>
+		
+		<p:dataTable id="multiCampana" var="campana" 
+			widgetVar="varCampana"
+			style="font-size:12px;"
+			rowKey="#{campana.tblCampana.idCampana}" 
+			paginator="true" styleClass="grid-content"
+			emptyMessage="No se encontraron Campañas"
+			value="#{campanaController.campanaDataModel}" 
+			selection="#{campanaController.selectedCampanas}"
+			filteredValue="#{campanaController.campanaDataModelFiltered}"
+			paginatorPosition="bottom" dblClickSelect="true">		
+
+			<p:ajax event="rowDblselect" listener="#{campanaController.updateViewCampanas}"
+					update=":pgPrincipalLogin" global="false" />
+					
+			<p:column selectionMode="multiple" style="width:5px" />
+			<p:column style="width:5px;" exportable="false">
+				<div id="circulo" style="background-color: #{campana.etiqueta}" />
+			</p:column>
+			<p:column style="width:25%" filterBy="#{campana.tipo.codigo}" filterStyle="display:none">
+				<f:facet name="header">
+					<h:outputText value="Tipo Evento Promocional" />
+				</f:facet>
+				<h:outputLabel value=" #{campana.tipo.codigo} " />
+			</p:column>
+			<p:column style="width:29%" filterBy="#{campana.tblCampana.nombre}" filterStyle="display:none">
+				<f:facet name="header">
+					<h:outputText value="Evento Promocional" />
+				</f:facet>
+				<h:outputLabel value="#{campana.tblCampana.nombre}" style="color:#{campana.etiqueta}"/>
+			</p:column>
+			<p:column style="width:24%" filterBy="#{campana.periodo.periodoStr}" filterStyle="display:none">
+				<f:facet name="header">
+					<h:outputText value="Periodo" />
+				</f:facet>
+				<h:outputLabel value="#{campana.periodo.periodoStr}" />
+			</p:column>
+			<p:column style="width:39%" filterBy="#{campana.responsable.fullName}" filterStyle="display:none">
+				<f:facet name="header">
+					<h:outputText value="Responsable" />
+				</f:facet>
+				<h:outputLabel value="#{campana.responsable.fullName}" />
+			</p:column>
+			<p:column style="width:24%" filterBy="#{campana.year}" filterStyle="display:none">
+				<f:facet name="header">
+					<h:outputText value="Año" />
+				</f:facet>
+				<h:outputLabel value="#{campana.year}" />
+			</p:column>
+		</p:dataTable>
+	</h:form>
+</body>
+</html>

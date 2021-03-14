@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated 28/10/2013 10:01:59 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.TblCadenaAutorizacion" table="TBL_CADENA_AUTORIZACION">
+        <id name="idCadenaAutorizacion" type="int">
+            <column name="ID_CADENA_AUTORIZACION" />
+            <generator class="native" />
+        </id>
+        <property name="nombreCadena" type="string">
+            <column name="NOMBRE_CADENA" length="50" not-null="true" />
+        </property>
+        <set name="tblSolicitudAutorizacions" inverse="true">
+            <key>
+                <column name="ID_CADENA_AUTORIZACION" />
+            </key>
+            <one-to-many class="com.adinfi.seven.business.domain.TblSolicitudAutorizacion" />
+        </set>
+        <set name="tblCampanaAutorizacions" inverse="true">
+            <key>
+                <column name="ID_CADENA_AUTORIZACION" />
+            </key>
+            <one-to-many class="com.adinfi.seven.business.domain.TblCampanaAutorizacion" />
+        </set>
+        <set name="tblCadenaAutorizacionDets" inverse="true">
+            <key>
+                <column name="ID_CADENA_AUTORIZACION" not-null="true" />
+            </key>
+            <one-to-many class="com.adinfi.seven.business.domain.TblCadenaAutorizacionDet" />
+        </set>
+    </class>
+</hibernate-mapping>

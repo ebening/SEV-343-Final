@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated 28/10/2013 10:01:59 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.TblCampanaAutorizacion" table="TBL_CAMPANA_AUTORIZACION">
+        <composite-id name="id" class="com.adinfi.seven.business.domain.TblCampanaAutorizacionId">
+            <key-property name="idAutorizacion" type="long">
+                <column name="ID_AUTORIZACION" />
+            </key-property>
+            <key-property name="idOrden" type="int">
+                <column name="ID_ORDEN" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="tblCadenaAutorizacion" class="com.adinfi.seven.business.domain.TblCadenaAutorizacion" fetch="select">
+            <column name="ID_CADENA_AUTORIZACION" />
+        </many-to-one>
+        <many-to-one name="tblSolicitudAutorizacion" class="com.adinfi.seven.business.domain.TblSolicitudAutorizacion" update="false" insert="false" fetch="select">
+            <column name="ID_AUTORIZACION" not-null="true" />
+        </many-to-one>
+        <property name="idCampana" type="long">
+            <column name="ID_CAMPANA" not-null="true" />
+        </property>
+        <property name="idEstatusAutorizacion" type="java.lang.Integer">
+            <column name="ID_ESTATUS_AUTORIZACION" />
+        </property>
+        <property name="idUsuario" type="java.lang.Integer">
+            <column name="ID_USUARIO" />
+        </property>
+        <property name="fechaAutorizacion" type="timestamp">
+            <column name="FECHA_AUTORIZACION" length="26" />
+        </property>
+        <property name="comentarios" type="string">
+            <column name="COMENTARIOS" length="200" />
+        </property>
+        <property name="accion" type="string">
+            <column name="ACCION" length="50" />
+        </property>
+        <property name="usuarioCreacion" type="string">
+            <column name="USUARIO_CREACION" length="16" not-null="true" />
+        </property>
+        <property name="fechaCreacion" type="timestamp">
+            <column name="FECHA_CREACION" length="26" not-null="true" />
+        </property>
+        <property name="usuarioModificacion" type="java.lang.Integer">
+            <column name="USUARIO_MODIFICACION" />
+        </property>
+        <property name="fechaModificacion" type="timestamp">
+            <column name="FECHA_MODIFICACION" length="26" />
+        </property>
+    </class>
+</hibernate-mapping>

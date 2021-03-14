@@ -1,0 +1,310 @@
+@CHARSET "ISO-8859-1";
+
+.semRojo .fc-event-title{
+   color: #FF0000 !important;
+   background: #FFFFFF !important;
+	border:0px;
+	border-style:none;
+}
+.semVerde .fc-event-title{
+   color: #00FF00 !important;
+   background: #FFFFFF !important;
+	border:0px;
+	border-style:none;
+ }
+.semNegro .fc-event-title{
+   color: #000000 !important;
+   background: #FFFFFF !important;
+	border:0px;
+	border-style:none;
+ }
+.semAmarilo .fc-event-title {
+   color: #FFFF00 !important;
+   background: #FFFFFF !important;
+	border:0px;
+	border-style:none;
+ }
+ 
+ .semRojo .fc-event-skin {
+   color: #FF0000 !important;
+   background: #FFFFFF !important;
+	border:0px;
+	border-style:none;
+}
+.semVerde .fc-event-skin {
+   color: #00FF00 !important;
+   background: #FFFFFF !important;
+	border:0px;
+	border-style:none;
+ }
+.semNegro .fc-event-skin{
+   color: #000000 !important;
+   background: #FFFFFF !important;
+	border:0px;
+	border-style:none;
+ }
+.semAmarilo .fc-event-skin {
+   color: #FFFF00 !important;
+   background: #FFFFFF !important;
+	border:0px;
+	border-style:none;
+ }
+
+/****************************************/
+/*	Pantalla Base Modulo Actividades	*/
+/****************************************/
+
+#divPrincipal_ModuloActividades{
+	width: 100%;
+}
+
+#divMenu_ModuloActividades{
+	float: left; 
+	height: 470px; 
+	width: 15%;
+}
+
+#divPantalla_ModuloActividades{
+	float: right; 
+	height: 475px;  
+	width: 84%; 
+	overflow-y: auto;
+}
+
+
+/******************************************/
+/*	Pantalla Actividades - Mis Actividades*/
+/******************************************/
+
+
+#divBase_MisActividades{
+	background: white;  
+	margin-right: 5px; 
+	margin-bottom: 0px;
+	margin-top: 0px; 
+	padding: 2px; 
+	height: 469px;
+	border: 1px solid silver;
+	width: 99%;
+}
+
+#divHeader_MisActividades{
+	padding-left: 10px;
+}
+
+
+#tableHeader_MisActividades{
+	width: 98%; 
+	height: 32px;
+}
+
+#divScroll_MisActividades{
+	height: 415px; 
+	margin-top: 5px;
+	padding-left: 5px;
+	width: 100%; 
+	/*visibility: hidden;*/
+}
+
+#tableSorter_MisActividades{
+	/*height: 799px; 
+	width: 931px;*/
+	height: 100%;
+	width: 100%; 
+	margin-top:5px;
+	margin-bottom:25px;
+}
+
+#tableSorter_MisActividades thead{
+	/*background-color: Gray;
+	color: White;*/
+}
+
+#tableSorter_MisActividades th{
+	/*border: 1px solid DimGray;*/
+	padding-left: 8px;
+	text-align: left;
+}
+
+#tableSorter_MisActividades td{
+	/*border: 1px solid Silver;
+	border-top-width: 0px;*/
+	padding-left: 4px;
+	height: 25px;
+	/*padding-right: 4px;*/
+}
+
+.ui-panelgrid tr, .ui-panelgrid td {
+border:0 !important;
+}
+
+.camp_red{
+	color: Red;
+}
+
+.camp_blue{
+	color: Blue;
+}
+
+.camp_green{
+	color: Green;
+}
+
+.camp_orange{
+	color: Orange;
+}
+
+#txtBuscar_MisActividades{
+	background-image:
+    url(#{resource['images/extras:buscar24.png']});
+	background-repeat: no-repeat;
+	width:100px;
+	height:24px;
+	padding-left : 30px;
+	padding-top:4px;
+	border: 0.5px solid silver;
+}
+
+
+
+ 
+
+/*********************/
+/*Botones del HEader */
+/*********************/
+
+.agregarActividad{
+background: url(../images/actividades/nueva_black25.png) 0 0 no-repeat;
+height:32px; width:32px; display: block;
+}
+
+.agregarActividad:hover{
+background: url(../images/actividades/nueva.png) 0 0 no-repeat;
+height:32px; width:32px;
+cursor : pointer;
+cursor:hand;
+}
+
+.editarActividad{
+background: url(../images/pantalla_inicio/editar_black25.png) 0 0 no-repeat;
+height:32px; width:32px;
+display: block;
+}
+
+.editarActividad:hover{
+background: url(../images/pantalla_inicio/editar25.png) 0 0 no-repeat;
+height:32px; width:32px;
+cursor:pointer;
+cursor:hand;
+}
+
+.eliminarActividad{
+background: url(../images/actividades/eliminar_black_25.png) 0 0 no-repeat;
+height: 32px; width:32px;
+display: block;
+}
+
+.eliminarActividad:hover{
+background: url(../images/actividades/eliminar25.png) 0 0 no-repeat;
+height:32px; width:32px;
+cursor: pointer;
+cursor:hand;
+}
+
+.marcarActividad{
+background: url(../images/pantalla_inicio/marcar_como_completada_black25.png) 0 0 no-repeat;
+height:32px; width:32px;
+display:block;
+}
+.marcarActividad:hover{
+background: url(../images/pantalla_inicio/marcar_como_completada25.png) 0 0 no-repeat;
+height:32px; width:32px;
+cursor:pointer;
+cursor:hand;
+}
+
+.imprimirActividad{
+background: url(../images/extras/imprimir25_black.png) 0 0 no-repeat;
+height:32px; width:32px;
+display:block;
+}
+
+.imprimirActividad:hover{
+background: url(../images/extras/imprimir25.png) 0 0 no-repeat;
+height:32px; width:32px;
+cursor:pointer;
+cursor:hand;
+}
+
+.pdfActividad{
+background: url(../images/extras/pdf25_black.png) 0 0 no-repeat;
+height:32px; width:32px;
+display:block;
+}
+
+.event-close .fc-event-skin {
+    background: red;
+}
+
+.menu-opcion{
+    background: gray;
+    height:32px;
+}
+
+.pdfActividad:hover{
+background: url(../images/extras/pdf25.png) 0 0 no-repeat;
+height:32px; width:32px;
+cursor:pointer;
+cursor:hand;
+}
+
+.excelActividad{
+background: url(../images/extras/excel25_black.png) 0 0 no-repeat;
+height:32px; width:32px;
+display:block;
+}
+
+.excelActividad:hover{
+background: url(../images/extras/excel25.png) 0 0 no-repeat;
+height:32px; width:32px;
+cursor:pointer;
+cursor:hand;	
+
+}
+
+/***************************************/
+/*           BOTONES                   */
+/*************************************/
+
+.botonHeaderLeft{
+	float: left;
+}
+
+.botonHeaderRight{
+	float: right;
+}
+
+
+/***************************************/
+/*             VENTANA ????            */
+/***************************************/
+
+
+/**************************/
+/*Menu Lateral Actividades */
+/**************************/
+
+#id_menu_actividades{
+	min-height: 50px;
+}
+
+#id_menu_actividades:hover{
+	/*background:url(../jquery/themes/base/images/ui-bg_glass_75_dadada_1x400.png);
+	*/
+	background:url(../images/ui-bg_highlight-soft_100_c0c0c0_1x100.png);
+}
+
+#id_menu_actividades img{
+	
+	vertical-align: middle;
+}

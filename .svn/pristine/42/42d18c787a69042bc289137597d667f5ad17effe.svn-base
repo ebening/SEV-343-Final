@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-lazy="false">
+    <class  mutable="false" name="com.adinfi.seven.business.domain.CampaniaTreeRegs" 
+          table="V_CAMPANA_TREE_REGS"> 
+        <id name="id" type="int">
+            <column name="ID_Campana" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="NOMBRE"/>
+        </property>
+        <property name="tipoCampania" type="string">
+            <column name="TIPO" />
+        </property>
+        <property name="anio" type="java.lang.Integer">
+            <column name="ANIO" />
+        </property>  
+        <property name="idTipoCampania" type="java.lang.Integer">
+            <column name="ID_TIPO_CAMPANA" />
+        </property>  
+    </class>
+  
+  
+</hibernate-mapping>

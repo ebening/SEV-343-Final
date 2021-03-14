@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>SCENSY 2.0</display-name>
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:/com/adinfi/seven/business/spring/applicationContext.xml</param-value>
+  </context-param>
+  <context-param>
+    <param-name>dir_config</param-name>
+    <!--param-value>/adinfi/admaster/config/</param-value-->
+    <param-value>/lws/adinfi/admaster/config/</param-value>
+  </context-param>
+  <context-param>
+    <param-name>facelets.LIBRARIES</param-name>
+    <param-value>/WEB-INF/tags/scensy.taglib.xml</param-value>
+  </context-param>
+  <context-param>
+    <param-name>javax.faces.PROJECT_STAGE</param-name>
+    <param-value>Development</param-value>
+  </context-param>
+  <context-param>
+    <param-name>javax.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
+    <param-value>true</param-value>
+  </context-param>
+  <context-param>
+    <param-name>primefaces.THEME</param-name>
+    <param-value>smoothness</param-value>
+  </context-param>
+  <filter>
+    <filter-name>openSessionInViewFilter</filter-name>
+    <filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
+    <init-param>
+      <param-name>flushMode</param-name>
+      <param-value>AUTO</param-value>
+    </init-param>
+  </filter>
+  <filter>
+    <filter-name>PrimeFaces FileUpload Filter</filter-name>
+    <filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
+  </filter>
+  
+  <!-- filtro de gestion de sesion -->
+  <filter>
+    <filter-name>SessionTimeOutFilter</filter-name>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>PrimeFaces FileUpload Filter</filter-name>
+    <servlet-name>Faces Servlet</servlet-name>
+  </filter-mapping>
+  
+  <filter-mapping>
+    <filter-name>openSessionInViewFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  
+  <listener>
+    <listener-class>com.adinfi.web.context.InitAdInfi</listener-class>
+  </listener>
+  
+  <servlet>
+    <servlet-name>Faces Servlet</servlet-name>
+    <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  
+  <servlet>
+    <display-name>InicioRedirectMenuServlet</display-name>
+    <servlet-name>InicioRedirectMenuServlet</servlet-name>
+    <servlet-class>gob.yuc.sep.prof.scensy.presentation.views.InicioRedirectMenuServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>servletFolletos</servlet-name>
+    <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>servletTemplate</servlet-name>
+    <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>Faces Servlet</servlet-name>
+    <url-pattern>/faces/*</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>Faces Servlet</servlet-name>
+    <url-pattern>*.xhtml</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>InicioRedirectMenuServlet</servlet-name>
+    <url-pattern>/InicioRedirectMenuServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>servletFolletos</servlet-name>
+    <url-pattern>/servlets/servletFolletos</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>servletTemplate</servlet-name>
+    <url-pattern>/servlets/servletTemplate</url-pattern>
+  </servlet-mapping>   
+  
+  <filter-mapping>
+    <filter-name>SessionTimeOutFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <filter-mapping>
+    <filter-name>SessionTimeOutFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <!-- timeout de la sesion -->
+  <session-config>
+    <session-timeout>10</session-timeout>
+  </session-config>
+  
+  <welcome-file-list>
+    <welcome-file>faces/pages/admin/Login.xhtml</welcome-file>
+  </welcome-file-list>
+  <error-page>
+    <exception-type>org.springframework.security.userdetails.UsernameNotFoundException</exception-type>
+    <location>/logout.jsp</location>
+  </error-page>
+  <error-page>
+    <exception-type>java.lang.Throwable</exception-type>
+    <location>/pages/redirectError.jsp</location>
+  </error-page>
+</web-app>

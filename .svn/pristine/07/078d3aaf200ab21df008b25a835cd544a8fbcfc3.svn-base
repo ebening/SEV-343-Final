@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<h:outputStylesheet library="css" name="ModuloCampanaStyle.css" />
+</h:head>
+<body>
+	<h:form rendered="#{campanaController.prensa}"   id="altaPrensafrm" style="font-size: 0.8em">
+		<p:panelGrid id="prensaHeader" >
+			 <f:facet name="header">Prensa</f:facet>
+			<p:row>
+				<p:column>
+					<p:outputLabel value="Campaña:" />
+					<p:outputLabel
+						value="#{campanaController.current.tblCampana.nombre}"
+						disabled="true" />
+				</p:column>
+				<p:column>
+					<p:outputLabel value="Fecha Inicio :" />
+					<p:calendar value="#{campanaController.current.tblCampana.fechaInicio}"
+							disabled="true" pattern="dd/MM/yyyy" readonlyInput="true" locale="es"/>
+				</p:column>
+				<p:column>
+					<p:outputLabel value="Fecha Fin :" />
+					<p:calendar value="#{campanaController.current.tblCampana.fechaFin}"
+							disabled="true" pattern="dd/MM/yyyy" readonlyInput="true" locale="es"/>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<p:outputLabel value="No. Espacios :" />
+					<p:selectOneMenu
+							value="#{campanaController.espacioHoja}">
+							<p:ajax event="change"
+								listener="#{campanaController.EspacioHojaEvent}"
+								update="folletoDtIdP" />
+							<f:selectItem itemLabel=" - - - " itemValue="0" />
+							<f:selectItems value="#{campanaController.espaciosHojas}" />
+					</p:selectOneMenu>
+				</p:column>
+				<p:column>
+					<p:outputLabel value="Sucursal :" />
+					<p:selectManyMenu id="scrollSucursalP" showCheckbox="true"
+							style="width:150px;height:90px"
+							value="#{campanaController.sucursal}">
+							<f:selectItems value="#{campanaController.sucursalesLst}"
+							var="item" itemLabel="#{item.value}" itemValue="#{item.id}"/>
+					</p:selectManyMenu>
+				</p:column>
+				<p:column>
+					<p:outputLabel value="Sistema de Ventas :" />
+					<p:selectManyMenu
+							id="scrollVentasP" showCheckbox="true"
+							style="width:150px;height:90px"
+							value="#{campanaController.sistemaVentasLst}">
+							<f:selectItems value="#{campanaController.sistemaVentas}"
+								var="itemVentas" itemLabel="#{itemVentas.value}"
+								itemValue="#{itemVentas.id}"/>
+					</p:selectManyMenu>
+				</p:column>
+			</p:row>
+		</p:panelGrid>
+		<p:dataTable id="folletoDtIdP" value="#{campanaController.createFolleto}" var="folleto" widgetVar="folletoDtWv"
+			editable="true" editMode="cell" rowIndexVar="folletoIndex">
+			<p:column width="10%">  
+	            <p:outputLabel value="Espacio #{folletoIndex+1}"/>
+	        </p:column>
+			<p:column headerText="Categoria" width="20%">  
+	            <p:cellEditor>
+	                <f:facet name="output"><h:outputText value="#{folleto.category.codigo}"/></f:facet>  
+	                <f:facet name="input">
+	                    <p:selectOneMenu value="#{folleto.category}"
+	                    	valueChangeListener="#{campanaController.categoriaEvent}" style="width:100%">
+	                        <f:selectItems value="#{campanaController.categorias}"/>
+	                        <f:param id="index" name="index" value="#{folletoIndex}"/>
+	                        <p:ajax event="change" update="folletoDtIdP"/> 
+	                    </p:selectOneMenu>
+	                </f:facet>
+	            </p:cellEditor>  
+	        </p:column>
+	        <p:column headerText="Responsable">
+	            <p:outputLabel value="#{campanaController.current.responsable}"/>
+	        </p:column>
+	        <p:column headerText="SubCategoria" width="20%">  
+	            <p:cellEditor>
+	                <f:facet name="output"><h:outputText value="#{folleto.subcategory.code}"/></f:facet>  
+	                <f:facet name="input">
+	                    <p:selectOneMenu value="#{folleto.subcategory}" style="width:100%">
+	                        <f:selectItems value="#{folleto.subcategoryLst}"/>
+	                        <p:ajax event="change" update="folletoDtIdP"/> 
+	                    </p:selectOneMenu>
+	                </f:facet>
+	            </p:cellEditor>  
+	        </p:column>
+	        <p:column headerText="Diseñador">
+	            <p:outputLabel value="#{folleto.designer}"/>
+	        </p:column>
+	        <p:column headerText="Comprador" width="20%">  
+	            <p:cellEditor>
+	                <f:facet name="output"><h:outputText value="#{folleto.hostedBuyer.name}"/></f:facet>  
+	                <f:facet name="input">
+	                    <p:selectOneMenu value="#{folleto.hostedBuyer}" style="width:100%">
+	                        <f:selectItems value="#{campanaController.compradorLst}"/>
+	                        <p:ajax event="change" update="folletoDtIdP"/> 
+	                    </p:selectOneMenu>
+	                </f:facet>
+	            </p:cellEditor>  
+	        </p:column>
+		</p:dataTable>
+		<p:commandButton value="Finalizar" action="#{campanaController.submitPrensa}" update=":pgPrincipalLogin"/>
+	</h:form>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+	<h:form id="frmActivityDetail" style="font-size: 0.8em">
+		<p:panelGrid id="editActivityDetailsW" cellpadding="5">
+			<f:facet name="header">Actividad</f:facet>
+			<p:row>
+				<p:column>
+					<p:outputLabel value="Campaña:"/>
+				</p:column>
+				<p:column>
+					<p:outputLabel value="#{MBActivity.activity.tblCampana.nombre}"/>
+				</p:column>
+	            <p:column>
+					<p:outputLabel value="Duracion:"/>
+				</p:column>
+				<p:column>
+					<p:outputLabel value="#{MBActivity.duration}"/>
+				</p:column>
+	        </p:row>
+	        <p:row>
+	            <p:column>
+					<p:outputLabel value="Nombre de la actividad:"/>
+				</p:column>
+				<p:column>
+					<p:outputLabel value="#{MBActivity.activity.nombreActividad}"/>
+				</p:column>
+	            <p:column>
+					<h:outputLabel value="Estatus"/>
+				</p:column>
+				<p:column>
+					<p:selectOneMenu value="#{MBActivity.activity.estatus}" disabled="true">
+						<f:selectItems value="#{MBActivity.listEstatusCombo}"
+						var="itemEstatus"
+						itemLabel="#{itemEstatus.value}"
+						itemValue="#{itemEstatus.id}"/>
+					</p:selectOneMenu>
+				</p:column>
+	        </p:row>
+	        <p:row>
+	            <p:column>
+					<p:outputLabel value="Responsable:"/>
+				</p:column>
+				<p:column>
+					<h:outputText value="#{MBActivity.activityDTO.usuarioByIdUsuarioResp.firstName}" />
+		    		<p:spacer/>
+					<h:outputText value="#{MBActivity.activityDTO.usuarioByIdUsuarioResp.plastName}" />
+				</p:column>
+	            
+	            <p:column>
+					<p:outputLabel value="Inicio Vigencia:"/>
+				</p:column>
+				<p:column>
+					<p:calendar value="#{MBActivity.activity.fechaInicio}" disabled="true" pattern="dd/MM/yyyy" readonlyInput="true" locale="es"/>
+	            </p:column>
+	            <p:column>
+					<p:outputLabel value="Fin Vigencia:"/>
+				</p:column>
+	            <p:column>
+	            	<p:calendar value="#{MBActivity.activity.fechaFin}" disabled="true" pattern="dd/MM/yyyy" readonlyInput="true" locale="es"/>
+	            </p:column>
+	        </p:row>
+	        <p:row>
+	            <p:column>
+					<p:outputLabel value="Rol:"/>
+				</p:column>
+				<p:column>
+					<p:outputLabel value="#{MBActivity.activityDTO.perfilName}"/>
+				</p:column>
+	            
+	            <p:column>
+					<p:outputLabel value="Inicio Real"/>
+				</p:column>
+				<p:column>
+					<p:calendar value="#{MBActivity.activity.fechaInicioReal}" pattern="dd/MM/yyyy" readonlyInput="true" locale="es" showOn="button" disabled="true" />
+	            </p:column>
+	            <p:column>
+					<p:outputLabel value="Fin Real"/>
+				</p:column>
+	            <p:column>
+	            	<p:calendar value="#{MBActivity.activity.fechaFinReal}" pattern="dd/MM/yyyy" readonlyInput="true" locale="es" showOn="button" disabled="true" />
+	            </p:column>
+	        </p:row>
+	        <p:row>
+	        	<p:column>
+	        		<p:outputLabel value="% Completado"/>
+	        	</p:column>
+	        	<p:column>
+	        		<h:inputText value="#{MBActivity.activity.porcentajeCompletado}" readonly="true"/>
+	        	</p:column>
+	        </p:row>
+		</p:panelGrid>
+	</h:form>
+</html>

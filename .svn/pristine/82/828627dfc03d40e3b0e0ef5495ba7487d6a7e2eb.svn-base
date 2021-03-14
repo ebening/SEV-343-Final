@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated 13-mar-2014 17:17:22 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.TblDisenoPromoCm" table="TBL_DISENO_PROMO_CM">
+        <id name="id" type="long">
+            <column name="ID" />
+           <generator class="native" />
+        </id>
+        <property name="pid" type="string">
+            <column name="PID" length="600" not-null="true" />
+        </property>
+        <property name="idCampana" type="long">
+            <column name="ID_CAMPANA" not-null="true" />
+        </property>
+        <property name="idPrograma" type="int">
+            <column name="ID_PROGRAMA" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

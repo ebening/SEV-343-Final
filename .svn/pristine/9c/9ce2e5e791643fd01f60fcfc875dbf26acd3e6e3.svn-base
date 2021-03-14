@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:c="http://java.sun.com/jstl/core">
+<h:head>
+</h:head>	
+<body>
+	<ui:composition>
+		<h:form>
+			<div id="Main_Header_Divx">
+				<div id="title_div">
+					<h:panelGrid columns="1" cellpadding="4" style="width: 100%;">
+						<p:column style="width: auto;">
+							<h:graphicImage
+								value="../../resources/images/Logo_Header_Blanco_30px.png"
+								style="height:30px;" id="LOGOAD" />
+						</p:column>
+					</h:panelGrid>
+				</div>
+			</div>
+			<div id="principal_menu_div">
+
+				<table style="width: 100%;" cellpadding="0" cellspacing="0">
+					<tr>
+						<th>
+							<table id="tbl_menu_principal" cellpadding="0" cellspacing="0">
+								<tr>
+
+									<c:forEach var="currOpc1" items="#{MBUsuarios.opciones}">
+										<td id="td_menu_home" title="#{currOpc1.opcName}"><c:if
+												test="#{currOpc1.url !=null and currOpc1.url.length()>0}">
+												<a href="#{currOpc1.url}"
+													onclick="#{MBUsuarios.setCurrentOpcionesView(currOpc1.childsAsArray)}">
+													<h:graphicImage
+														value="../../resources/images/#{currOpc1.fileImage}" />
+												</a>
+											</c:if> <c:if
+												test="#{currOpc1.url ==null or currOpc1.url.length()==0}">
+												<p:commandLink
+													action="#{MBUsuarios.setCurrentOpcionesView(currOpc1.childsAsArray)}"
+													update=":frmMenuLogin,:frmMenHor">
+													<h:graphicImage
+														value="../../resources/images/#{currOpc1.fileImage}" />
+												</p:commandLink>&nbsp;
+											</c:if></td>
+									</c:forEach>
+
+								</tr>
+							</table>
+						</th>
+					</tr>
+					
+				
+				</table>
+			</div>
+		</h:form>
+		
+		
+		
+	<!--  menu horinzontal -->
+					 <h:form id="frmMenHor"  > 
+					 
+					<table width='100%' class="bg-subtitle">
+					<tr>
+					<td>&nbsp;</td>
+					<td>
+					    
+					     <table>
+					          <tr>
+					          <c:if test="#{MBUsuarios.opcionesMenVer!=null }" >
+					          <c:forEach  items="#{MBUsuarios.opcionesMenVer}"  var="item"   >
+					             <td  style='font-size:10px;font-face:Tahoma;color:#ffffff;font-weight:normal;'   >
+                                                <p:commandLink  
+													action="#{MBUsuarios.test( )}"
+													update=":frmMenuLogin">	
+													 <h:outputText value="#{item.opcName}" />	
+													  <f:param name="id" value="#{item.opcId}" />
+													  <f:param name="url" value="#{item.url}" />											 
+												</p:commandLink>	
+								</td>		
+								<td width='5' ></td>						         
+					           	
+					          </c:forEach>
+					          </c:if>
+					        
+					           
+					          
+					         
+					          </tr>
+					     					     					    
+					     </table>
+					    
+					    </td>
+					</tr>	
+					</table>				
+					 
+					 </h:form>		
+	</ui:composition>
+</body>
+</html>
+
+

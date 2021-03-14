@@ -1,0 +1,361 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+    <script type="text/javascript">
+		function setIdRow(event){
+			var btnId="";
+			btnId= $(this).attr('id')+''; 
+			$('#idRow').val(btnId+'2');
+		}
+	</script>
+	<h:form id="editarProgramas">
+	<input type="hidden" id="idRow" value=""/>	
+        <p:panel header="#{campanaControllerSeven.tituloEditarProg ? 'Nuevo' : 'Editar'} Periodo Promocional" styleClass="panel-form seven-camp-panel">
+		<p:panelGrid id="grid" style="width: 100%" styleClass="form-content">
+			<p:row>
+				<p:column colspan="4">
+					<div align="right">
+                    	
+                        <h:commandLink styleClass="excel-button" title="Exportar a Excel">  
+							<p:dataExporter type="xls" target=":editarProgramas:dtProg" fileName="programas" encoding="iso-8859-1" postProcessor="#{campanaControllerSeven.postProcessCategoryXLS}" />  
+                    	</h:commandLink>
+					
+                        <p:commandLink onclick="muestraLoader();" oncomplete="ocultaLoader();" ajax="true" action="#{campanaControllerSeven.createCampanas}" styleClass="save-button" title="Guardar" update=":pgPrincipalLogin :frmMenuLogin"/>
+					
+                    </div>
+                    
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column colspan="4">
+					<h:panelGroup>
+						<p:panelGrid id="pgPrg" style="background: none">
+							<p:row>
+								<p:column>
+									<p:outputLabel value="Programa:"/>
+								</p:column>
+								<p:column>
+									<p:selectOneMenu value="#{campanaControllerSeven.currentProgramaDTO.idPrograma}" styleClass="element-margin-top" style="text-align: left">  
+										<f:selectItems value="#{campanaControllerSeven.programas}"  var="programa"   
+											itemLabel="#{programa.code}"  
+											itemValue="#{programa.id}" />  
+									</p:selectOneMenu>
+								</p:column>
+								<p:column>
+									<p:outputLabel value="Categoria:"/>
+								</p:column>
+								<p:column>
+									
+                                    <p:selectCheckboxMenu value="#{campanaControllerSeven.currentProgramaDTO.categoriaSelect}" 
+                                        label="Categorias" filter="true"
+                                        filterMatchMode="contains" 
+                                        styleClass="element-margin-top" 
+                                        style="text-align: left">  
+										<f:selectItems value="#{campanaControllerSeven.mCategories}" var="cat"
+    												itemLabel="#{cat.idCategory} #{cat.code}" itemValue="#{cat.idCategory}" />
+									</p:selectCheckboxMenu>
+                                    
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column>
+									<p:outputLabel value="Grupo Zona:"/>
+								</p:column>
+								<p:column>
+									<p:selectCheckboxMenu
+									 id="cmbGpoZona"
+									 value="#{campanaControllerSeven.currentProgramaDTO.grupoZonas}" 
+									 label="Grupos Zonas" 
+									 filter="true" 
+									 filterMatchMode="contains"
+									 styleClass="element-margin-top" 
+									 style="text-align: left;width: 200px"
+									 valueChangeListener="#{campanaControllerSeven.valueChangeAdjDisenoGrupoZona}">
+									   <f:selectItems 
+									      value="#{campanaControllerSeven.mGruposZone}" 
+									      var="gZone"
+    									  itemLabel="#{gZone.idGrupoZona} #{gZone.code}"
+    									  itemValue="#{gZone.idGrupoZona}" />	
+                                       
+                                       <p:ajax event="toggleSelect"  
+                                            process="@this" 
+                                            partialSubmit="true"
+                                            onstart="muestraLoader();" 
+                                            oncomplete="ocultaLoader();"
+                                            update="crearEventoZonasAdj crearEventoTiendas"
+                                        />
+                                       
+                                       <p:ajax update="crearEventoZonasAdj crearEventoTiendas" event="change" />
+
+									</p:selectCheckboxMenu>
+								</p:column>
+								<p:column>
+									<p:outputLabel value="Zona:"/>
+                            </p:column>
+								<p:column>
+									<p:selectCheckboxMenu 
+									value="#{campanaControllerSeven.currentProgramaDTO.zonas}" 
+									label="Zonas  " 
+									filter="true" 
+									filterMatchMode="contains"
+									styleClass="element-margin-top" 
+									style="text-align: left"
+									valueChangeListener="#{campanaControllerSeven.valueChangeAdjDisenoZona}"
+									id="crearEventoZonasAdj" 
+									filterFunction="false">
+										<f:selectItems value="#{campanaControllerSeven.mZones}" 
+										  var="zone" itemLabel="#{zone.idZone} #{zone.code}" itemValue="#{zone.idZone}" />	
+                                        
+                                        <p:ajax event="toggleSelect"  
+                                            process="@this" 
+                                            partialSubmit="true"
+                                            update="crearEventoTiendas"
+                                            onstart="muestraLoader();" 
+                                            oncomplete="ocultaLoader();"
+                                            />
+                                        
+                                        <p:ajax update="crearEventoTiendas" event="change" />
+                                        
+									</p:selectCheckboxMenu>
+								</p:column>
+								<p:column>
+									<p:outputLabel value="Tiendas:"/>
+								</p:column>
+								<p:column>
+									
+                                    <p:selectCheckboxMenu value="#{campanaControllerSeven.currentProgramaDTO.tiendas}" 
+                                        label="Tiendas" filter="true"
+                                        filterMatchMode="contains" 
+                                        styleClass="element-margin-top" 
+                                        style="text-align: left"
+                                        id="crearEventoTiendas">
+										<f:selectItems value="#{campanaControllerSeven.mStores}" var="store"
+    												itemLabel="#{store.idStore} #{store.code}" itemValue="#{store.idStore}" />
+									</p:selectCheckboxMenu>
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column>
+									<p:outputLabel value="Ingreso R11 Pop Ppto:"/>
+								</p:column>
+								<p:column>
+									<h:inputText value="#{campanaControllerSeven.currentProgramaDTO.ingreso}" size="12" styleClass="element-margin-top" style="text-align: right">
+										<f:convertNumber currencySymbol="$" pattern="###,###,##0.00"/>
+									</h:inputText> 
+								</p:column>
+                                
+								<p:column colspan="3">
+                                    <p:selectOneRadio onchange="#{campanaControllerSeven.testRadio()}" value="#{campanaControllerSeven.currentProgramaDTO.sencillo}" style="background: none">  
+										<f:selectItem itemLabel="Sencillo"   itemValue="0" />  
+										<f:selectItem itemLabel="Compartido" itemValue="1" />  
+									</p:selectOneRadio>
+								</p:column>
+                                
+								<p:column>
+									<p:commandLink onclick="muestraLoader();" oncomplete="ocultaLoader();" styleClass="add-in-grid-button" action="#{campanaControllerSeven.addProgram}" 
+												   rendered="#{!viewScope.editingProg}" ajax="true" update="treePrgs pgPrg" title="Agregar evento" />
+									<p:commandLink onclick="muestraLoader();" oncomplete="ocultaLoader();" styleClass="save-button" action="#{campanaControllerSeven.saveProgram}" 
+												   rendered="#{viewScope.editingProg}" ajax="true" update="treePrgs pgPrg" title="Guardar">
+										<f:setPropertyActionListener target="#{viewScope.editingProg}" value="#{false}" />
+									</p:commandLink>
+								</p:column>
+                                
+							</p:row>
+						</p:panelGrid>
+					</h:panelGroup>
+					
+					<h:panelGroup>
+						<p:dataTable id="dtProg" var="prog" emptyMessage="#{msg.emptyPrograms}" value="#{campanaControllerSeven.lCampanaProgramaDTO}" 
+									rowKey="#{prog.idPrograma}" style="display: none">
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Programa" />
+								</f:facet>
+								<p:outputLabel value="#{prog.descripcion}"/>
+							</p:column>
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Categorias" />
+								</f:facet>
+								<p:outputLabel value="#{prog.strCatgerias}"/>
+							</p:column>
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Grupo Zona" />
+								</f:facet>
+								<h:outputLabel value=" #{prog.grupoZonaStr} " />
+							</p:column>
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Zona" />
+								</f:facet>
+								<h:outputLabel value=" #{prog.zonaStr} " />
+							</p:column>
+						<!--	<p:column>
+								<f:facet name="header">
+									<h:outputText value="Tienda" />
+								</f:facet>
+								<h:outputLabel value=" #{prog.storeStr} " />
+							</p:column> -->
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Ingreso" />
+								</f:facet>
+								<h:inputText value="#{prog.ingreso}" size="18" readonly="true" styleClass="element-margin-top" style="text-align: right; border: 0px;" rendered="#{prog.ingreso > 0}">
+									<f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$###,###,##0.00" />
+								</h:inputText>
+							</p:column>
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Sencillo/Compartido" />
+								</f:facet>
+								<p:outputLabel value="#{prog.strEsSencillo}"/>
+							</p:column>
+                        
+                            <p:column style="width: 200px">
+                                    <f:facet name="header">
+                                            <h:outputText value="Evento" />
+                                    </f:facet>
+                                    <p:outputLabel value="#{campanaControllerSeven.current.tipo.codigo}"/>
+                            </p:column>
+                            <p:column style="width: 300px">
+                                    <f:facet name="header">
+                                            <h:outputText value="Periodo Promocional" />
+                                    </f:facet>
+                                    <p:outputLabel value="#{campanaControllerSeven.current.tblCampana.nombre}"/>
+                            </p:column>
+                        
+                            <p:column style="width: 300px">
+                                    <f:facet name="header">
+                                            <h:outputText value="Vigencia" />
+                                    </f:facet>
+                                    <p:outputLabel value="#{campanaControllerSeven.current.periodo.periodoStr}"/>
+                            </p:column>
+                        
+						</p:dataTable>
+					</h:panelGroup>
+				</p:column>
+			</p:row>	
+		</p:panelGrid>
+                    <h:panelGroup>
+                        <p:dataTable id="treePrgs" widgetVar="treePrgs" resizableColumns="false" value="#{campanaControllerSeven.programasTableList}" var="item" 
+                                     styleClass="grid-content" scrollable="true" style="width: 100%">
+                                <f:facet name="header">
+                                        <div align="right">
+
+                                        </div>
+                                </f:facet> 
+                                <p:column headerText="Programa" style="width: 100px" >
+                                    <!--    <f:facet name="header">
+                                                <h:outputText value="Programa" />
+                                        </f:facet> -->
+                                        <h:outputText value="#{item.strPrograma}" />
+                                        
+                                </p:column>
+                                <p:column style="width: 150px">
+                                        <f:facet name="header">
+                                                <h:outputText value="Categoria" />
+                                        </f:facet>
+                                    <ui:repeat var="categos" value="#{item.categos}">
+                                        <h:outputText value="#{categos}" />
+                                        <br />
+                                    </ui:repeat>
+                                </p:column>
+                                <p:column style="width: 280px">
+                                        <f:facet name="header">
+                                                <h:outputText value="Grupo Zona" />
+                                        </f:facet>
+                                        <h:outputLabel value=" #{item.grupoZonasStr} " />
+                                </p:column >
+                                <p:column style="width: 185px" >
+                                        <f:facet name="header">
+                                                <h:outputText value="Zona" />
+                                        </f:facet>
+                                    
+                                    <ui:repeat var="z" value="#{item.zonas}">
+                                        <h:outputText value="#{z}" />
+                                        <br />
+                                    </ui:repeat>
+                                </p:column>
+                            <!--    <p:column style="width: 185px">
+                                        <f:facet name="header">
+                                                <h:outputText value="Tienda" />
+                                        </f:facet>
+                                       <h:outputText value=" #{item.tiendasStr} " style="white-space: pre-wrap" />
+                                    
+                                    <ui:repeat var="t" value="#{item.tiendas}">
+                                        <h:outputText value="#{t}" />
+                                        <br />
+                                    </ui:repeat>
+                                    
+                                </p:column> -->
+                                <p:column style="width: 150px">
+                                        <f:facet name="header">
+                                                <h:outputText value="Ingreso" />
+                                        </f:facet>
+                                        <h:inputText value="#{item.ingreso}" readonly="true" styleClass="element-margin-top" style="text-align: center; width: 95%" required="true">
+                                                <f:convertNumber maxFractionDigits="2" groupingUsed="true" type="currency" pattern="$###,###,##0.00" />
+                                        </h:inputText>
+                                </p:column>
+                                <p:column style="width: 120px">
+                                        <f:facet name="header">
+                                                <h:outputText value="Sencillo/Compartido" />
+                                        </f:facet>
+                                        <p:outputLabel value="#{item.strEsSencillo}"/>
+                                </p:column>
+                                <p:column style="width: 200px">
+                                        <f:facet name="header">
+                                                <h:outputText value="Evento" />
+                                        </f:facet>
+                                        <p:outputLabel value="#{campanaControllerSeven.current.tipo.codigo}"/>
+                                </p:column>
+                                <p:column style="width: 300px">
+                                        <f:facet name="header">
+                                                <h:outputText value="Periodo Promocional" />
+                                        </f:facet>
+                                        <p:outputLabel value="#{campanaControllerSeven.current.tblCampana.nombre}"/>
+                                </p:column>
+                                
+                                <p:column style="width: 300px">
+                                        <f:facet name="header">
+                                                <h:outputText value="Vigencia" />
+                                        </f:facet>
+                                        <p:outputLabel value="#{campanaControllerSeven.current.periodo.toString()}"/>
+                                </p:column>
+                                <p:column style="width: 15px">
+                                        <f:facet name="header">
+                                                <h:outputText value="" />
+                                        </f:facet>
+                                        <p:commandLink styleClass="edit-in-grid-button" action="#{campanaControllerSeven.editProgram}" title="Editar" update=":editarProgramas:pgPrg" rendered="#{item.ingreso > 0}">
+                                                <f:setPropertyActionListener target="#{campanaControllerSeven.selProgramaDTO}" value="#{item}" /> 
+                                                <f:setPropertyActionListener target="#{viewScope.editingProg}" value="#{true}" />
+                                        </p:commandLink>
+                                </p:column>
+                                <p:column style="width: 15px">
+                                        <f:facet name="header">
+                                                <h:outputText value="" />
+                                        </f:facet>
+                                        <p:commandLink id="btnElimProg" ajax="true" action="#{campanaControllerSeven.preRemoveProgram()}" onclick="setIdRow.call(this,event);" styleClass="delete-in-grid-button" title="Eliminar" rendered="#{item.ingreso > 0}"/>
+										<p:confirmDialog header="Confirmación" message="¿Desea eliminar el registro seleccionado?" severity="alert"
+							            					 widgetVar="confEliProg" appendToBody="true" styleClass="common-dialog"> 
+							            		<p:commandButton styleClass="common-button" value="Aceptar" ajax="true" onclick="confEliProg.hide(); setTimeout(&quot;document.getElementById($('#idRow').val()).click();&quot;, 500)"/>
+							            		<p:commandButton styleClass="common-button" value="Cancelar" ajax="true" onclick="confEliProg.hide();"/>
+							            </p:confirmDialog>
+										
+										<p:commandButton onclick="muestraLoader();" oncomplete="ocultaLoader();" style="display:none" id="btnElimProg2" styleClass="common-button" value="Aceptar" ajax="true" action="#{campanaControllerSeven.removeProgramRow()}" update="treePrgs">
+							            	<f:setPropertyActionListener target="#{campanaControllerSeven.selProgramaDTO}" value="#{item}" />
+							            </p:commandButton>
+                                </p:column>
+                                <p:column style="width: 15px">
+                                    <f:facet name="header">
+                                        <h:outputText value="" />
+                                    </f:facet>
+                                    <div id="circulo" style="background-color: #{campanaControllerSeven.current.etiqueta.codigo}; inline-box-align: last" /> 
+                                 </p:column>
+                        </p:dataTable>
+                </h:panelGroup>
+		</p:panel>		
+	</h:form>
+</ui:composition>

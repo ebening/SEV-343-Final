@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<body>
+	<script type="text/javascript" src="../resources/js/localePrimefaces.js"></script>
+	<h:form id="alta" rendered="#{campanaController.alta}" style="font-size: 0.8em">
+		<p:panel header="Descripción" styleClass="panel-form" style="width: 100%;border:none;">
+			<p:panelGrid id="grid">
+				<f:facet name="header">
+					<h:outputLabel value="Alta" />
+				</f:facet>
+				<p:row>
+					<p:column>
+						<p:outputLabel value="Tipo Campaña: *" />
+					</p:column>
+					<p:column>
+						<p:selectOneMenu value="#{campanaController.current.tipo}">
+							<f:selectItems value="#{campanaController.tipoCampanas}" />
+						</p:selectOneMenu>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:outputLabel value="Titulo: *" />
+					</p:column>
+					<p:column>
+						<p:inputText value="#{campanaController.current.tblCampana.nombre}" size="80"/>
+					</p:column>
+					<p:column>
+						<p:outputLabel value="Etiqueta:" style="color:#{campanaController.current.etiqueta.codigo}"/>
+					</p:column>
+					<p:column>
+						<p:selectOneMenu value="#{campanaController.current.etiqueta}"
+							var="etiqueta" id="etiquetaCamId"
+							style="background-color: #{campanaController.current.etiqueta.codigo};color:transparent;">
+							<f:selectItems id="circulo" value="#{campanaController.etiquetas}" />
+							<p:column>
+								<div id="circulo" style="background-color: #{etiqueta.codigo}" />
+							</p:column>
+							<p:ajax event="change" update="etiquetaCamId"/>
+						</p:selectOneMenu>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:outputLabel value="Vigencia: " />
+					</p:column>
+					<p:column>
+						<p:outputLabel value="Fecha Incial: *" />
+						<p:calendar id="fechaInicial" size="10"
+							value="#{campanaController.current.tblCampana.fechaInicio}"
+							showOn="button" pattern="dd/MM/yyyy" readonlyInput="true"
+							locale="es" />
+						<p:spacer height="30" />
+						<p:outputLabel value="Fecha Final: *" />
+						<p:calendar id="fechaFinal" size="10"
+							value="#{campanaController.current.tblCampana.fechaFin}"
+							showOn="button" pattern="dd/MM/yyyy" readonlyInput="true"
+							locale="es" />
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:outputLabel value="Responsable: *" />
+					</p:column>
+					<p:column>
+						<p:selectOneMenu value="#{campanaController.current.responsable}">
+							<f:selectItems value="#{campanaController.responsables}" />
+						</p:selectOneMenu>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:outputLabel value="Comentarios: " />
+					</p:column>
+					<p:column colspan="3">
+						<p:inputTextarea
+							value="#{campanaController.current.tblCampana.comentarios}"  maxlength="250" cols="73"/>
+					</p:column>
+				</p:row>
+				<p:row>
+					<div align="right">
+						<p:column>
+							<p:commandButton value="Grabar" styleClass="common-button"
+								actionListener="#{campanaController.saveCampana}"
+								update=":pgPrincipalLogin :frmMenuLogin" />
+						</p:column>
+						<p:column>
+							<p:commandButton value="Cancelar" styleClass="common-button"
+								action="#{campanaController.showConsulta()}"
+								update=":pgPrincipalLogin :frmMenuLogin" />
+						</p:column>
+					</div>
+				</p:row>
+			</p:panelGrid>
+			
+		</p:panel>
+	</h:form>
+</body>
+</html>

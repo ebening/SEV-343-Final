@@ -1,0 +1,77 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+	<h:form id="principal">
+	<br />
+	<br />
+		<p:panel style="border:none">
+			<h:form>
+		
+            <f:facet name="header">  
+                <p:messages />  
+            </f:facet>  
+            <table><tr>
+            <td>    		 
+		    <p:commandButton id="nuevo" value="#{msg.crearCadena}" 
+				style="float:left;"
+				action="#{MBCadenaAutorizacion.getCadenaDescripcionDetallePage}" update="singleCadAut" />	       
+  			</td>
+            <td>    		 
+		         <p:commandButton id="modifi" value="#{msg.crearCadena}" 
+				style="float:left;"
+				action="#{MBCadenaAutorizacion.getCadenaDescripcionDetallePage}" update="singleCadAut" />	       
+  			</td>
+    		<td>    		 
+		         <p:commandButton id="elimini" value="#{msg.crearCadena}" 
+				style="float:left;"
+				action="#{MBCadenaAutorizacion.crearCadenaAutorizacion}" update="singleCadAut" />	       
+  			</td>
+		    </tr></table>   
+		                        							
+
+    <br />
+    <br />
+    
+		<p:panel style="border:none">
+	    <p:dataTable id="singleCadAut" var="cadAut" value="#{MBCadenaAutorizacion.cadenaAutorizacionDTODataModel}" 
+	   		 paginator="false" rows="10" selection="#{MBCadenaAutorizacion.selectedCadenaAutorizacion}">
+	        
+			 <p:column selectionMode="single" style="width:2%" />
+	
+	        <p:column headerText="Model" style="width:25%">	          
+	        <h:outputLabel value=" #{cadAut.tblCadenaAutorizacion.idCadenaAutorizacion}" />  
+	        </p:column>
+	
+	        <p:column headerText="Year" style="width:25%">
+	        <h:outputLabel value="#{cadAut.tblCadenaAutorizacion.nombreCadena}" />  
+	        </p:column>
+	
+	    </p:dataTable>
+	    
+	    <br />
+		<br />
+					
+		    <table><tr>
+            <td>                                                                     
+             <p:commandButton id="eliminar"  value="#{msg.eliminarCadena}" 
+				 action="#{MBCadenaAutorizacion.eliminarCadena}" update="singleCadAut" />  
+    		</td>
+  			<td>
+  			  <p:commandButton id="modificar" value="descripcion" 
+					action="#{MBCadenaAutorizacion.getDescripcionCadena}" />
+  			</td>
+		    </tr></table>   	
+    	</p:panel>
+    	
+					
+					
+        </h:form> 
+    </p:panel>
+	</h:form>
+</html>

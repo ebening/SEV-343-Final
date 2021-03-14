@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 29, 2014 11:31:30 AM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.TblPreciosPromocion" table="TBL_PRECIOS_PROMOCION">
+    	<composite-id name="id" class="com.adinfi.seven.business.domain.TblPreciosPromocionId">
+	        <key-property name="zonaId" type="int">
+                <column name="ZONA_ID" />
+            </key-property>
+            <key-property name="componenteId" type="int">
+                <column name="COMPONENTE_ID" />
+            </key-property>
+	        <key-property name="mecanicaId" type="int">
+	            <column name="MECANICA_ID" not-null="true" />
+	        </key-property>
+        </composite-id>
+        <property name="precio" type="java.lang.Double">
+            <column name="PRECIO"/>
+        </property>
+        <property name="porcentaje" type="java.lang.Double">
+            <column name="PORCENTAJE"/>
+        </property>
+        <property name="ahorroFijo" type="java.lang.Double">
+            <column name="AHORRO_FIJO"/>
+        </property>
+        <property name="recuperacion" type="java.lang.Double">
+            <column name="RECUPERACION"/>
+        </property>
+        <property name="recuperacionPorcentaje" type="java.lang.Double">
+            <column name="RECUPERACION_PORCENTAJE"/>
+        </property>
+        <property name="objetivo" type="string">
+            <column name="OBJETIVO"/>
+        </property>
+        <property name="comentario" type="string">
+            <column name="COMENTARIO"/>
+        </property>
+        <property name="nombre" type="string">
+            <column name="NOMBRE"/>
+        </property>
+        <property name="promoId" type="int">
+            <column name="PROMO_ID"/>
+        </property>
+        <property name="estatusRevision" type="int">
+            <column name="ESTATUS_REVISION"/>
+        </property>
+        <property name="estatusCaptura" type="int">
+            <column name="ESTATUS_CAPTURA"/>
+        </property>
+        <property name="precioVenta" type="java.lang.Double">
+            <column name="PRECIO_VENTA"/>
+        </property>
+        <property name="estatusDiseno" type="java.lang.Integer">
+            <column name="ESTATUS_DISENO"/>
+        </property>
+        
+        <!-- NUEVAS COLUMNAS -->
+        <property name="iva" type="java.lang.Double">
+            <column name="IVA"/>
+        </property>
+        <property name="impuesto" type="java.lang.Double">
+            <column name="IMPUESTO"/>
+        </property>
+        <property name="precioRegularNuevo" type="java.lang.Double">
+            <column name="PRECIO_REGULAR_NUEVO"/>
+        </property>
+        
+        <!--DISTRIBUCION DE REBAJA-->
+        <property name="distribucionRebaja" type="java.lang.Double">
+            <column name="DISTRIBUCION_REBAJA"/>
+        </property>
+        <property name="distribucionRebajaPor" type="java.lang.Double">
+            <column name="DISTRIBUCION_REBAJA_POR"/>
+        </property>
+        
+        <!-- nuevos valores -->
+        <property name="porcentajeDescuento" type="java.lang.Double">
+            <column name="PORCENTAJE_DESCUENTO"/>
+        </property>
+        
+        <property name="porcentajeRetencion" type="java.lang.Double">
+            <column name="PORCENTAJE_RETENCION"/>
+        </property>
+        
+        <property name="elasticidad" type="java.lang.Double">
+            <column name="ELASTICIDAD"/>
+        </property>
+        
+    </class>
+</hibernate-mapping>

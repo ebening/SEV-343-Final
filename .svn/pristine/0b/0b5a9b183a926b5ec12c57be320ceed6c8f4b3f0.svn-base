@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.CatEtiquetas" table="CAT_ETIQUETAS" optimistic-lock="version">
+        <id name="idetiqueta" type="int">
+            <column name="IDETIQUETA" />
+            <generator class="identity" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="NOMBRE" length="40" not-null="true" />
+        </property>
+        <property name="codigo" type="string">
+            <column name="CODIGO" length="40" not-null="true" />
+        </property>
+        <set name="tblCampanas" table="TBL_CAMPANA" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_ETIQUETA" not-null="true" />
+            </key>
+            <one-to-many class="com.adinfi.seven.business.domain.TblCampana" />
+        </set>
+    </class>
+</hibernate-mapping>

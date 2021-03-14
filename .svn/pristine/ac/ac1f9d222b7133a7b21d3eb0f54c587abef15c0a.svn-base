@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+</h:head>
+<h:body>
+	<h:form id="form">
+		<p:growl id="messages" showDetail="true" />
+		<p:tree value="#{MBTestArbol.raiz}" dynamic="true" cache="false"
+			selectionMode="single" selection="#{MBTestArbol.selectedNode}"
+			var="node" id="tree">
+			<p:ajax event="expand" update=":form:messages"
+				listener="#{MBTestArbol.onNodeExpand}" />
+			<p:ajax event="collapse" update=":form:messages"
+				listener="#{MBTestArbol.onNodeCollapse}" />
+			<p:ajax event="select" update=":form:messages"
+				listener="#{MBTestArbol.onNodeSelect}" />
+			<p:ajax event="unselect" update=":form:messages"
+				listener="#{MBTestArbol.onNodeUnselect}" />
+			<p:treeNode id="treeNode">
+				<h:outputText value="#{node}" id="lblNode" />
+			</p:treeNode>
+		</p:tree>
+	</h:form>
+
+</h:body>
+</html>
+
+

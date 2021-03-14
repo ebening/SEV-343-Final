@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+	<link type="text/css" rel="stylesheet" href="css/FontAndColor.css" />
+	<link type="text/css" rel="stylesheet" href="css/adMaster.buttons.css" />
+</h:head> 
+<h:body>
+	<div id="div_frecuenciaSemanal" class="fuenteYColor">
+  		<br></br>
+		<table>
+			<tr>
+				<td>
+					<h:selectBooleanCheckbox id="cbx_domingo" styleClass="borderTextbox"/>
+					<h:outputLabel value="Domingo" style="padding-right: 10px;"></h:outputLabel>
+				</td>
+				<td>
+					<h:selectBooleanCheckbox id="cbx_lunes" styleClass="borderTextbox"/>	
+					<h:outputLabel value="Lunes"  style="padding-right: 10px; padding-left: 10px;"></h:outputLabel>
+				</td>
+				<td>
+					<h:selectBooleanCheckbox id="cbx_martes" styleClass="borderTextbox" />
+					<h:outputLabel value="Martes" style="padding-right: 10px; padding-left: 10px;"></h:outputLabel>
+				</td>
+				<td>
+					<h:selectBooleanCheckbox id="cbx_miercoles" styleClass="borderTextbox" />
+					<h:outputLabel value="Mi&eacute;rcoles"  style="padding-right: 10px; padding-left: 10px;"></h:outputLabel>
+				</td>
+			</tr>
+			
+			<tr>
+				<td>
+					<h:selectBooleanCheckbox id="cbx_jueves" styleClass="borderTextbox"/>
+					<h:outputLabel value="Jueves"></h:outputLabel>
+				</td>
+				<td>
+					<h:selectBooleanCheckbox id="cbx_viernes" styleClass="borderTextbox"/>
+					<h:outputLabel value="Viernes"></h:outputLabel>
+				</td>
+				<td>
+					<h:selectBooleanCheckbox id="cbx_sabado" styleClass="borderTextbox"/>
+					<h:outputLabel value="S&aacute;bado"></h:outputLabel>
+				</td>
+			</tr>
+			
+		</table>				
+	</div>
+	
+</h:body> 
+</html>

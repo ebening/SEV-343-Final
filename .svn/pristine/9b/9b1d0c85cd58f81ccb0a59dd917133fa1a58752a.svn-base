@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+	<link type="text/css" href="css/DialogosModuloActividades.css" rel="stylesheet" />
+	<link type="text/css" rel="stylesheet" href="css/FontAndColor.css" />
+	<link type="text/css" rel="stylesheet" href="css/adMaster.buttons.css" />
+</h:head> 
+<h:body> 
+	<div id="dialogo_Perioricidad" class="fuenteYColor">
+		<div id="title_div" style="border-bottom: 3px solid Gray">
+			<h:graphicImage value="images/Logo_Header_Blanco.png" height="25" />
+		</div>
+		
+		<div id="div_ManipularFrecuencia">
+		
+			<div id="div_tipoDeFrecuencia">
+				<table id="tbl_tipoDeFrecuencia">
+					<tr>
+						<td style="width: 40%; padding-right: 10px;" align="right">
+							<h:outputLabel value="Frecuencia:"></h:outputLabel>
+						</td>
+
+						<td id="td_selectFrecuencia" style="width: 60%;">
+							<p:selectOneMenu id="select_Frecuencia">
+								<f:selectItem itemValue="Diaria" itemLabel="Diaria" selected="selected"></f:selectItem>
+								<f:selectItem id="semanal" itemValue="Semanal" itemLabel="Semanal" ></f:selectItem>
+								<f:selectItem id="mensual" itemValue="Mensual" itemLabel="Mensual" ></f:selectItem>
+								<f:selectItem id="anual" itemValue="Anual" itemLabel="Anual" ></f:selectItem>
+							</p:selectOneMenu>
+						</td>
+					</tr>
+				</table>
+			</div>
+			
+			<div id="div_CargarFormaDeFrecuencia">			
+					 <!-- <ui:include src="opcionFrecuenciaDiaria.xhtml" />-->
+					<!-- <ui:include src="opcionFrecuenciaSemanal.xhtml" />-->
+					<!--<ui:include src="opcionFrecuenciaMensual.xhtml" />-->
+					<ui:include src="opcionFrecuenciaAnual.xhtml" />
+			</div>
+			
+			<div id="div_botonesGuardarYCancelar" align="center">
+				<table>
+					<tr>
+						<td>
+							<p:commandButton id="btnCancelarPerioricidad" value="Cancelar" styleClass="ui-priority-primary" style="height: 30px;color: white;background: url(images/degradado_btn_2.png);"></p:commandButton>
+						</td>
+						
+						<td style="width: 20px;"></td>
+						<td>
+							<p:commandButton id="btnGuardarPerioricidad" value="Guardar" styleClass="ui-priority-primary" style="height: 30px;color: white;background: url(images/degradado_btn_2.png);"></p:commandButton>
+						</td>
+					</tr>
+					
+				</table>
+			</div>
+			
+		</div><!-- Fin del div_ManipularFrecuencia -->
+	</div>
+</h:body> 
+</html>

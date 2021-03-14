@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head></h:head> 
+<h:body> 
+	<h:form id="forma1234">
+			<h:panelGrid columns="1" style="width: 700px;">
+				<h:column>
+					<table>
+						<tr>
+							<td>
+								<h:outputLabel value="Nombre Campaña:"/>
+							</td>
+							<td>
+								<p:inputText value="#{MBCampanaAnual.nombreCampana}"/> 
+							</td>
+							<td>
+								<h:outputLabel value="Plaza:"/>
+							</td>
+							<td>
+								<p:selectOneMenu value="#{MBCampanaAnual.plaza}">  
+						            <f:selectItem itemLabel="Seleccione Plaza" itemValue="0" />  
+						            <f:selectItem itemLabel="Option 1" itemValue="1" />  
+						            <f:selectItem itemLabel="Option 2" itemValue="2" />   
+						        </p:selectOneMenu>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h:outputLabel value="Período:"/>
+							</td>
+							<td>
+								<p:selectOneMenu value="#{MBCampanaAnual.periodo}">  
+						            <f:selectItem itemLabel="Seleccione Período" itemValue="0" />  
+						            <f:selectItem itemLabel="Option 1" itemValue="1" />  
+						            <f:selectItem itemLabel="Option 2" itemValue="2" />   
+						        </p:selectOneMenu>
+							</td>
+							<td>
+								<h:outputLabel value="Formato:"/>
+							</td>
+							<td>
+								<p:selectOneMenu value="#{MBCampanaAnual.formato}">  
+						            <f:selectItem itemLabel="Seleccione Formato" itemValue="0" />  
+						            <f:selectItem itemLabel="Option 1" itemValue="1" />  
+						            <f:selectItem itemLabel="Option 2" itemValue="2" />   
+						        </p:selectOneMenu>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h:outputLabel value="Programa:"/>
+							</td>
+							<td>
+								<p:selectOneMenu value="#{MBCampanaAnual.programa}">  
+						            <f:selectItem itemLabel="Seleccione Programa" itemValue="0" />  
+						            <f:selectItem itemLabel="Option 1" itemValue="1" />  
+						            <f:selectItem itemLabel="Option 2" itemValue="2" />   
+						        </p:selectOneMenu>
+							</td>
+							<td>
+								<h:outputLabel value="Mercado"/>
+							</td>
+							<td>
+								<p:selectOneMenu value="#{MBCampanaAnual.mercado}">  
+						            <f:selectItem itemLabel="Seleccione Mercado" itemValue="0" />  
+						            <f:selectItem itemLabel="Option 1" itemValue="1" />  
+						            <f:selectItem itemLabel="Option 2" itemValue="2" />   
+						        </p:selectOneMenu>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h:outputLabel value="Categoría:"/>
+							</td>
+							<td>
+								<p:selectOneMenu value="#{MBCampanaAnual.categoria}">  
+						            <f:selectItem itemLabel="Seleccione Categoría" itemValue="0" />  
+						            <f:selectItem itemLabel="Option 1" itemValue="1" />  
+						            <f:selectItem itemLabel="Option 2" itemValue="2" />   
+						        </p:selectOneMenu>
+							</td>
+							<td>
+								<h:outputLabel value="Campo:"/>
+							</td>
+							<td>
+								<p:selectOneMenu value="#{MBCampanaAnual.campo}">  
+						            <f:selectItem itemLabel="Seleccione Campo" itemValue="0" />  
+						            <f:selectItem itemLabel="Option 1" itemValue="1" />  
+						            <f:selectItem itemLabel="Option 2" itemValue="2" />   
+						        </p:selectOneMenu>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h:outputLabel value="Ingreso x Categoría:"/>
+							</td>
+							<td>
+								<p:inputText value="#{MBCampanaAnual.ingresoXCategoria}"/> 
+							</td>
+							<td>
+								<h:outputLabel value="Tienda:"/>
+							</td>
+							<td>
+								<p:selectOneMenu value="#{MBCampanaAnual.tienda}">  
+						            <f:selectItem itemLabel="Seleccione Tienda" itemValue="0" />  
+						            <f:selectItem itemLabel="Option 1" itemValue="1" />  
+						            <f:selectItem itemLabel="Option 2" itemValue="2" />   
+						        </p:selectOneMenu>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h:outputLabel value="División"/>
+							</td>
+							<td>
+								<p:selectOneMenu value="#{MBCampanaAnual.division}">  
+						            <f:selectItem itemLabel="Seleccione División" itemValue="0" />  
+						            <f:selectItem itemLabel="Option 1" itemValue="1" />  
+						            <f:selectItem itemLabel="Option 2" itemValue="2" />   
+						        </p:selectOneMenu>
+							</td>
+							<td>
+								<p:selectOneRadio id="options2" value="#{MBCampanaAnual.sencilloCompartido}">  
+						            <f:selectItem itemLabel="Sencillo" itemValue="1" />  
+						            <f:selectItem itemLabel="Compartido" itemValue="2" />
+						        </p:selectOneRadio>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h:commandButton value="Guardar" style="float:left;" action="#{MBCampanaAnual.imprimir}"/>
+							</td>
+						</tr>
+					</table>
+				</h:column>
+			</h:panelGrid>
+	</h:form>			
+</h:body> 
+</html>

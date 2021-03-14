@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+	<!-- XML declarativo de Dao's -->
+	<import resource="dao.xml" />
+
+	<!-- XML declarativo de Servicios -->
+	<import resource="service.xml" />
+ 
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<!--
+		Archivo properties que tiene los parametros de configuracion del JDBC
+	-->
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="ignoreResourceNotFound" value="true"/>
+		<property name="ignoreUnresolvablePlaceholders" value="true"/>
+		<property name="locations">
+			<list>
+				<value>classpath:/com/adinfi/seven/business/spring/jdbc.properties</value>
+			</list>
+		</property>
+	</bean>
+
+ 
+    <bean id="servletFolletos" class="com.adinfi.servlets.ServletFolletos" >
+		<property name="serviceFolleto">
+			<ref bean="serviceFolleto" />
+		</property>  
+		<property name="serviceTemplates">
+			<ref bean="serviceTemplates" />
+		</property> 		
+	    <property name="serviceDynamicCatalogs">
+			<ref bean="serviceDynamicCatalogs" />
+		</property> 		
+	    <property name="serviceArticles">
+			<ref bean="serviceArticles" />
+		</property> 
+		<property name="serviceArquitectura">
+			<ref bean="serviceArquitectura" />
+		</property>	
+		<property name="servicePrecioFolleto">
+			<ref bean="servicePrecioFolleto" />
+		</property>
+				
+    </bean>
+    <bean id="servletTemplate" class="com.adinfi.servlets.ServletTemplate" >
+    	<property name="serviceArquitectura">
+    		<ref bean="serviceArquitectura" />
+    	</property>
+    </bean>
+ 
+</beans>
+

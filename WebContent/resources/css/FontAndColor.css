@@ -1,0 +1,16 @@
+@CHARSET "ISO-8859-1";
+
+.fuenteYColor{
+	font-size: 14px;
+	font-weight:bold;
+	color:black;
+	/*font-family: ;*/
+}
+
+.borderTextbox{
+	border: 1px solid silver;
+}
+
+.fuenteMenuActividades{
+	font-size: 14px;
+}

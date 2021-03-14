@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	
+</h:head>
+<body>
+<h:form id="mainForm">
+
+	<h1 class="title">#{MBCatTipoZona.catalogNametitle}</h1>
+   	<p:messages id="messages" autoUpdate="true" closable="true" />
+	<h:panelGrid id="panelTipoZona" columns="3">
+
+		 <h:outputLabel for="idTipoZona" value="&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;ID&#160;" 
+		 style="display:block; text-align:right"/> 
+				 <p:inputText id="idTipoZona"  value="#{MBCatTipoZona.catTipoZona.idTipoZona}">				 
+				</p:inputText>
+		 <br />
+		<h:outputLabel for="code" value="DESCRIPCION&#160;" style="display:block; text-align:right"/> 
+				 <p:inputText id="code"  value="#{MBCatTipoZona.catTipoZona.code}">
+				</p:inputText>
+ 		<br />
+			<f:facet name="footer">
+				<h:panelGroup style="display:block; text-align:right">
+					<p:commandButton value="Guardar" action="#{MBCatTipoZona.addCatTipoZona}"
+						update=":mainForm" />
+
+					<p:commandButton value="Cancelar" style="margin-left: 5px;"
+						action="#{MBCatTipoZona.reset}" update=":mainForm" />
+				</h:panelGroup>
+			</f:facet>
+
+		 </h:panelGrid>
+	<br />
+	<br />
+        <p:dataTable id="dataTableGZone" var="item" value="#{MBCatTipoZona.catTipoZonaList}" paginator="true" rows="10"
+	                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+	                 emptyMessage="Vacio" resizableColumns="true" styleClass="ui-datatable-hor-scroll">
+	            <p:column  style="width: 20%">
+	            		
+				<p:commandButton id="edit" action="#{MBCatTipoZona.setCatTipoZonaInfo(item)}" 
+							update=":mainForm" icon="ui-icon-search" />
+													
+				<p:commandButton id="delete" onclick="cd.show()" icon="ui-icon-trash" process="@this"
+	            	action="#{MBCatTipoZona.setCatTipoZonaInfo(item)}"/>
+					
+				<p:confirmDialog message="¿Desea eliminar el registro seleccionado?" 
+                header="Confirmación" severity="alert"
+                showEffect="fade" hideEffect="explode" widgetVar="cd" icon="ui-icon-trash" appendToBody="true">
+                    
+                    <p:commandButton value="Si" styleClass="ui-confirmdialog-yes"
+                     icon="ui-icon-check" update=":mainForm" 
+                     action="#{MBCatTipoZona.removeCatTipoZona}"
+                     process="@this" onclick="cd.hide()" />
+
+					<p:commandButton value="No" styleClass="ui-confirmdialog-no"
+					action="#{MBCatTipoZona.reset}"
+					process="@this"
+					update=":mainForm"
+					onclick="cd.hide()"/>
+
+                </p:confirmDialog>										
+						            		            
+			</p:column>
+	            
+	       <p:column headerText="ID" resizable="true" sortBy="#{item.idTipoZona}"> 
+					<h:outputText value="#{item.idTipoZona}" />
+			</p:column>
+
+			<p:column headerText="DESCRIPCION" resizable="true" sortBy="#{item.code}">
+					<h:outputText value="#{item.code}" />
+			</p:column>
+				
+	    </p:dataTable>
+	    		
+	</h:form>
+</body>
+</html>

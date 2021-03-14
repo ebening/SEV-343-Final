@@ -1,0 +1,215 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<h:outputStylesheet library="css" name="ModuloCampanaStyle.css" />
+</h:head>
+<body>
+	<h:form rendered="#{campanaController.folleto or campanaController.prensa}" id="altafolletofrm" style="font-size: 0.8em">
+		<p:panel header="#{campanaController.folleto? 'Folleto' : 'Prensa'}" styleClass="panel-form"  style="border:none;">
+			<p:panelGrid id="folletoHeader" style="width: 100%; border:none;"
+			 styleClass="form-content" >
+				<p:row>
+					<p:column>
+						<p:outputLabel value="Campaña: " />
+					</p:column>
+					<p:column>
+						<p:outputLabel
+							value="#{campanaController.current.tblCampana.nombre}"
+							disabled="true"/>
+					</p:column>
+					<p:column>
+						<p:outputLabel value="Fecha Inicio: " />
+					</p:column>
+					<p:column>
+						<p:calendar value="#{campanaController.current.tblCampana.fechaInicio}" size="10"
+								disabled="true" pattern="dd/MM/yyyy" readonlyInput="true" locale="es"/>
+					</p:column>
+					<p:column>
+						<p:outputLabel value="Fecha Fin: " />
+					</p:column>
+					<p:column>
+						<p:calendar value="#{campanaController.current.tblCampana.fechaFin}" size="10"
+								disabled="true" pattern="dd/MM/yyyy" readonlyInput="true" locale="es"/>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:outputLabel value="Zona: "/>
+					</p:column>
+					<p:column>
+						<p:selectCheckboxMenu value="#{campanaController.zona}" 
+								filter="true" filterText="Filter" label="Zona:   "
+			            		filterMatchMode="startsWith" style="vertical-align: bottom">  
+							<f:selectItems value="#{campanaController.zonasLst}"
+									var="item" itemLabel="#{item.value}"
+									itemValue="#{item.id}"/>
+						</p:selectCheckboxMenu>
+					</p:column>
+					<p:column>
+						<p:outputLabel value="Sucursal:* "/>
+					</p:column>
+					<p:column>
+						<p:selectCheckboxMenu value="#{campanaController.sucursal}" 
+								filter="true" filterText="Filter" label="Sucursal   "
+			            		filterMatchMode="startsWith" style="vertical-align: bottom">  
+							<f:selectItems value="#{campanaController.sucursalesLst}"
+									var="item" itemLabel="#{item.value}"
+									itemValue="#{item.id}"/>
+						</p:selectCheckboxMenu>
+					</p:column>
+					<p:column>
+						<p:outputLabel value="Sistema de Ventas:* "/>
+					</p:column>
+					<p:column>
+						<p:selectCheckboxMenu value="#{campanaController.sistemaVentasLst}"
+								filter="true" filterText="Filter" label="Sistema de ventas   "
+			            		filterMatchMode="startsWith" style="vertical-align: bottom">  
+							<f:selectItems value="#{campanaController.sistemaVentas}"
+									var="itemVentas" itemLabel="#{itemVentas.value}"
+									itemValue="#{itemVentas.id}"/>
+						</p:selectCheckboxMenu>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:outputLabel value="No. Hojas:* "/>
+					</p:column>
+					<p:column>
+						<p:selectOneMenu disabled="#{campanaController.prensa}"
+								value="#{campanaController.espacioHoja}" style="vertical-align: bottom">
+								<p:ajax event="change"
+									listener="#{campanaController.EspacioHojaEvent}"
+									update="altafolletofrm" />
+								<f:selectItem itemLabel=" - - - " itemValue="0" />
+								<f:selectItems value="#{campanaController.espaciosHojas}" />
+						</p:selectOneMenu>
+					</p:column>
+					<p:column colspan="4"/>
+				</p:row>
+			</p:panelGrid>
+			<p:dialog widgetVar="espacioWV" showEffect="clip" hideEffect="clip" id="espacioDialogId" styleClass="common-dialog"
+				header="Editar Espacio" style="width:880px !important">
+				<p:panelGrid id="espacioWVGrid" cellpadding="5">
+					<f:facet name="header">Editar espacio</f:facet>
+					<p:row>
+						<p:column style="width:20% !important"><p:outputLabel value="Categoría" style="font-weight: bold"/></p:column>
+						<!--p:column><p:outputLabel value="Responsable" style="font-weight: bold"/></p:column-->
+						<p:column style="width:20% !important"><p:outputLabel value="Sub Categoría" style="font-weight: bold"/></p:column>
+						<p:column style="width:25% !important"><p:outputLabel value="Comprador" style="font-weight: bold"/></p:column>
+						<p:column style="width:30% !important"><p:outputLabel value="Diseñador" style="font-weight: bold"/></p:column>
+						<p:column style="width:5% !important"/>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:selectOneMenu value="#{campanaController.hojaFolleto.category}"
+								valueChangeListener="#{campanaController.categoriaEvent}">
+		                        <f:selectItems value="#{campanaController.categorias}"/>
+		                        <p:ajax event="change" update="subCategory, hostedId"/>
+		                    </p:selectOneMenu>
+						</p:column>
+						<!--p:column>
+				            <p:outputLabel value="#{campanaController.current.responsable}"/>
+				        </p:column-->
+				        <p:column>
+				        	<p:selectOneMenu id="subCategory" value="#{campanaController.hojaFolleto.subcategory}"
+				        		valueChangeListener="#{campanaController.subCategoriaEvent}">
+		                        <f:selectItems value="#{campanaController.hojaFolleto.subcategoryLst}"/>
+		                        <p:ajax event="change" update="hostedId"/>
+		                    </p:selectOneMenu>
+				        </p:column>
+				        <p:column>
+				        	<p:selectOneMenu id="hostedId" value="#{campanaController.hojaFolleto.hostedBuyer}">
+		                        <f:selectItems value="#{campanaController.hojaFolleto.compradorLst}"/>
+		                    </p:selectOneMenu>
+				        </p:column>
+				        <p:column>
+				            <p:selectOneMenu id="designer" value="#{campanaController.hojaFolleto.designer}">
+		                        <f:selectItems value="#{campanaController.designerLst}"/>
+		                    </p:selectOneMenu>
+				        </p:column>
+						<p:column>
+				        	<p:commandButton value=" " styleClass="save-button" label=" "
+				        		actionListener="#{campanaController.guardarEspacioHoja}"
+								oncomplete="espacioWV.hide()" update=":altafolletofrm">
+								<p:ajax event="click" update="espacioLst"/>
+							</p:commandButton>
+				        </p:column>
+					</p:row>
+				</p:panelGrid>
+			</p:dialog>
+			
+			<p:dataTable styleClass="grid-content-no-borders-nobody" style="border:none;">
+				<p:column style="width:5% !important"/>
+				<p:column style="width:5% !important"/>
+				<p:column style="width:4.5% !important"/>
+				<p:column headerText="Categoría" style="width:18.9% !important"/>
+				<p:column headerText="Sub Categoría" style="width:18% !important"/>
+				<p:column headerText="Comprador" style="width:19.8% !important"/>
+				<p:column headerText="Diseñador" style="width:19.8% !important"/>
+				<p:column style="width:4.5% !important"/>
+				<p:column style="width:4.5% !important"/>
+			</p:dataTable>
+			
+			
+			<p:dataTable id="folletoLst" value="#{campanaController.createFolleto}" var="folletoLstVar" widgetVar="folletoLstWv"
+				rowIndexVar="folletoLstIndex"  styleClass="grid-content-no-borders" style="font-size: 0.8em;border:none;">
+				<p:column style="width:5% !important">
+		            <p:outputLabel value="H#{folletoLstIndex+1}" style="width:20px !important;font-size: 0.8em"/>
+		        </p:column>
+		        <p:column style="width:5% !important">
+		        	<p:commandButton styleClass="add-button" value="" style="border: 0px;width:30px !important"
+							actionListener="#{campanaController.agregarEspacios}"
+							update="espacioLst">
+						<f:param id="index" name="index" value="#{folletoLstIndex}"/>
+					</p:commandButton>
+		        </p:column>
+		        <p:column style="border:none;">
+		        	<p:dataTable id="espacioLst" value="#{folletoLstVar}" var="espacioLstVar" widgetVar="espacioLstWv"
+						rowIndexVar="espacioLstIndex"  style="font-size: 0.9em;border:none;">
+						<p:column style="width:5% !important">
+				            <p:outputLabel value="E#{espacioLstIndex}" rendered="#{espacioLstIndex>0}" style="font-size: 0.9em"/>
+				        </p:column>
+				        <p:column headerText="Categoría" style="width:21% !important">
+				            <p:outputLabel value="#{espacioLstVar.category.codigo}" rendered="#{espacioLstIndex>0}" style="font-size: 0.9em"/>
+				        </p:column>
+				        <p:column headerText="Sub Categoría" style="width:20% !important">
+				            <p:outputLabel value="#{espacioLstVar.subcategory.code}" rendered="#{espacioLstIndex>0}" style="font-size: 0.9em"/> 
+				        </p:column>
+				        <p:column headerText="Comprador" style="width:22% !important">
+				            <h:outputText value="#{espacioLstVar.hostedBuyer.fullName}" rendered="#{espacioLstIndex>0}" style="font-size: 0.9em"/> 
+				        </p:column>
+				        <p:column headerText="Diseñador" style="width:22% !important">
+				            <p:outputLabel value="#{espacioLstVar.designer.fullName}" rendered="#{espacioLstIndex>0}" style="font-size: 0.9em"/>
+				        </p:column>
+				        <p:column style="width:5% !important">
+				        	<p:commandButton styleClass="delete-button" value="" style="border:0px"
+									actionListener="#{campanaController.eliminarEspacioHoja}" rendered="#{espacioLstIndex>0}"
+									update=":altafolletofrm">
+								<f:param id="indexDel" name="indexDel" value="#{folletoLstIndex}"/>
+								<f:param id="indexEspacioDel" name="indexEspacioDel" value="#{espacioLstIndex}"/>
+							</p:commandButton>
+				        </p:column>
+				        <p:column style="width:5% !important">
+				        	<p:commandButton styleClass="edit-button" rendered="#{espacioLstIndex>0}" style="border:0px"
+									oncomplete="espacioWV.show()" update=":altafolletofrm" value=""
+									actionListener="#{campanaController.asignarEspacioHoja}">
+								<f:param name="indexHoja" value="#{folletoLstIndex}"/>
+								<f:param name="indexEspacio" value="#{espacioLstIndex}"/>
+							</p:commandButton>
+				        </p:column>
+					</p:dataTable>
+				</p:column>
+			</p:dataTable>
+		</p:panel>
+		<div align="right">
+			<p:commandButton value="Grabar" action="#{campanaController.submitFolleto}" update=":pgPrincipalLogin" />
+			<p:commandButton value="Medios" action="#{campanaController.showDetalle()}" update=":pgPrincipalLogin" />
+		</div>
+	</h:form>
+</body>
+</html>

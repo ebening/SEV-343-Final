@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:p="http://primefaces.org/ui"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+
+	<link media="screen" title="main" type="text/css" href="css/style.css" rel="stylesheet"/>
+	<link media="screen" title="main" type="text/css" href="css/estilos.css" rel="stylesheet"/>
+	<link media="screen" title="main" type="text/css" href="css/inicio.css" rel="stylesheet"/>
+
+	<script src="js/Inicio.js" type="text/javascript"/>
+	
+</h:head>
+<h:body>
+	<h:form>
+		<div id="tab1" class="idTabs"  style="display: block; ">
+			<div style="margin:0 auto;">
+				<div id="tablero_control" style="z-index: 1000">
+					<h:outputLink value="getGrafica(1)" styleClass="graficaLinea"></h:outputLink>
+					<h:outputLink value="getGrafica(2)" styleClass="graficaBarra"></h:outputLink>
+					<h:outputLink value="getGrafica(3)" styleClass="graficaPie"></h:outputLink>
+					<h:outputLink value="getGrafica(4)" styleClass="graficaArea"></h:outputLink>
+					<h:outputLink value="getGrafica(5)" styleClass="graficaBarras"></h:outputLink>
+				</div>
+			</div>
+		</div>
+		
+		<div id="barchart" style="width: 54%;height: auto;position: absolute;left: 45%;z-index: 100">
+			<!-- <ui:include src="graficas/seriestransition.html" /> -->
+		</div>
+		
+		<div id="actividades">
+			<div id="encabezado">
+				<h:outputLabel value="Mis Actividades de Hoy" />
+			</div>
+			<div class="tablacomentarios">
+				<div class="autor_comentario" style="vertical-align: middle;">
+					<h:outputLabel value="Junta - Planeaci&oacute;n Anual" />
+					<div style="text-align: right;float: right;padding-top: 5px">
+						<h:outputLink style="float: left ;" styleClass="edicionTarea" />
+						<h:outputLink style="float: right;" styleClass="tareaCompletada" />
+					</div>
+					<br>
+						<h:outputLabel value="10:30 pm - 12:30 pm" />
+					</br>
+					<h:outputLabel value="Sala 45E"/>
+				</div>
+			</div>
+			
+			<div class="tablacomentarios">
+				<div class="autor_comentario" style="vertical-align: middle;">
+					<h:outputLabel value="Junta - Planeaci&oacute;n Anual" />
+					<div style="text-align: right;float: right;padding-top: 5px">
+						<h:outputLink style="float: left ;" styleClass="edicionTarea" />
+						<h:outputLink style="float: right;" styleClass="tareaCompletada" />
+					</div>
+					<br>
+						<h:outputLabel value="10:30 pm - 12:30 pm" />
+					</br>
+					<h:outputLabel value="Sala 45E"/>
+				</div>
+			</div>
+			<div class="tablacomentarios"> 
+				<div class="autor_comentario" style="vertical-align: middle;">
+					<h:outputLabel value="Junta - Planeaci&oacute;n Anual" />
+					<div style="text-align: right;float: right;padding-top: 5px">
+						<h:outputLink style="float: left ;" styleClass="edicionTarea" />
+						<h:outputLink style="float: right;" styleClass="tareaCompletada" />
+					</div><br>
+						<h:outputLabel value="10:30 pm - 12:30 pm" />
+					</br>
+					<h:outputLabel value="Sala 45E"/>
+				</div>
+			</div>
+			<div class="tablacomentarios"> 
+				<div class="autor_comentario" style="vertical-align: middle;">
+					<h:outputLabel value="Junta - Planeaci&oacute;n Anual" />
+					<div style="text-align: right;float: right;padding-top: 5px">
+						<h:outputLink style="float: left ;" styleClass="edicionTarea" />
+						<h:outputLink style="float: right;" styleClass="tareaCompletada" />
+					</div><br>
+						<h:outputLabel value="10:30 pm - 12:30 pm" />
+					</br>
+					<h:outputLabel value="Sala 45E"/>
+				</div>
+			</div>
+			
+			<div id="tab2" class="idTabs" style="display: none; "><h:outputLabel value="Planeaci&oacute;n."/><div id="calendarComponent"></div></div> 
+		  	<div id="tab3" class="idTabs" style="display: none; "><h:outputLabel value="Analis&iacute;s"/></div> 
+		  	<div id="tab4" class="idTabs" style="display: none; "><h:outputLabel value="Arquitectura"/></div>
+		  	<div id="tab5" class="idTabs" style="display: none; "><h:outputLabel value="Ejecuci&oacute;n"/></div>
+		  	<div id="tab6" class="idTabs" style="display: none; "><h:outputLabel value="Tablero de Control"/></div>
+		  	<div id="tab7" class="idTabs" style="display: none; "><h:outputLabel value="Actividades"/></div>
+			
+		</div>
+	</h:form>
+</h:body>
+</html>

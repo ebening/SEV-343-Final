@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+<h:head>
+</h:head>
+<h:body onload="#{ArquitecturaMB.init()}">
+	<h:form id="arqtemplate" enctype="multipart/form-data">
+		<p:ajaxStatus onstart="openLoading()" oncomplete="closeLoading()" />
+		<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+		<p:dataTable styleClass="grid-content" id="temps" var="temp" value="#{ArquitecturaMB.templateDataModel}"   paginator="true" rows="20"
+                 selection="#{ArquitecturaMB.templates}" rowKey="#{temp.templateId}" emptyMessage="" >  
+  
+	        <f:facet name="header">
+	        	<div align="left">
+					<p:commandLink id="alta" 
+						actionListener="#{MBNavigator.setCurrentPage(ArquitecturaMB.preCrearTemplate())}"
+						update=":pgPrincipalLogin" ajax="true">
+						<p:graphicImage value="../../resources/images/actividades/nueva.png"/>
+					</p:commandLink>
+					<p:commandLink id="actualizar" 
+						actionListener="#{MBNavigator.setCurrentPage(ArquitecturaMB.preEditarTemplate())}"
+						update=":pgPrincipalLogin" ajax="true">
+						<p:graphicImage value="../../resources/images/pantalla_inicio/editar_black25.png"/>
+					</p:commandLink>
+					<p:commandLink id="eliminar" onclick="dlgDelTemp.show(); return false"
+						update=":pgPrincipalLogin" ajax="true" >
+						<p:graphicImage value="../../resources/images/actividades/eliminar_black_25.png"/>
+					</p:commandLink>
+				</div>
+	        </f:facet>  
+	  
+	        <p:column selectionMode="multiple" style="width:2%" />  
+	  
+	        <p:column headerText="Id" style="width:10%">  
+	            #{temp.templateId}  
+	        </p:column>  
+	  
+	        <p:column headerText="Nombre de Template" style="width:88%">  
+	            #{temp.templateName}  
+	        </p:column> 
+	  
+	        <f:facet name="footer">
+	        </f:facet>  
+	    </p:dataTable>
+		
+		<p:dialog widgetVar="dlgDelTemp" header="Eliminar Template" styleClass="common-dialog" dynamic="false">
+			<h:panelGrid id="display" columns="1">
+				<f:facet name="header">
+					<p:outputLabel value="¿Desea eliminar los registros seleccionados?" ></p:outputLabel>
+				</f:facet>
+				<f:facet name="footer">
+					<p:commandButton styleClass="common-button" value="Si" actionListener="#{ArquitecturaMB.deleteTempleate}" 
+									 update="temps" oncomplete="dlgDelTemp.hide()"/>
+					<p:commandButton styleClass="common-button" value="No" onclick="dlgDelTemp.hide()" type="button"/>
+				</f:facet>
+			</h:panelGrid>
+		</p:dialog>
+
+	</h:form>
+</h:body>
+</html>

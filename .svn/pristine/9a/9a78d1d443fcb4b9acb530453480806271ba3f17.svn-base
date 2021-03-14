@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+	
+</h:head> 
+<h:body>
+    <div id="divBase_MisActividades">
+        <div id="divHeader_MisActividades">
+                <table id="tableHeader_MisActividades">
+                        <tr>
+                                <td>
+                                        <div>
+                                                <h:outputLink id="a_Agregar_Actividad" onclick="" styleClass="agregarActividad botonHeaderLeft"></h:outputLink>
+                                                <h:outputLink id="a_Editar_Actividad" value="modificarActividad()" styleClass="editarActividad botonHeaderLeft"></h:outputLink>
+                                                <h:outputLink id="a_Eliminar_Actividad" value="eliminarActividad()" styleClass="eliminarActividad botonHeaderLeft"></h:outputLink>
+                                                <h:outputLink id="a_Marcar_Actividad" value="marcarActividad()" styleClass="marcarActividad botonHeaderLeft"></h:outputLink>
+                                        </div>
+                                </td>
+                                <td width="40%"></td>
+                                <td style="text-align:right">
+                                        <div>
+                                                <h:outputLink id="a_Excel_Actividad" value="excelActividades()" styleClass="excelActividad botonHeaderRight"></h:outputLink>
+                                                <h:outputLink id="a_Pdf_Actividad" value="pdfActividades()" styleClass="pdfActividad botonHeaderRight"></h:outputLink>
+                                                <h:outputLink id="a_Imprimir_Actividad" value="imprimirActividades()" styleClass="imprimirActividad botonHeaderRight"></h:outputLink>
+                                        </div>	 
+                                </td>
+                                <td style="text-align:left;">	
+                                        <h:inputText id="txtBuscar_MisActividades" value="" styleClass="fuenteYColor txtBuscar_MisActividades" style="height: 18px; width:180px;padding-top: 6px;"/>			
+                                </td>
+                        </tr>
+                </table>
+        </div>
+        <p:scrollPanel id="divScroll_MisActividades" styleClass="divScroll_MisActividades" scrollHeigth="400px;">
+                <p:dataTable>
+                        <p:column sortBy="" headerText=""></p:column>
+                        <p:column sortBy="Asunto de la Actividad" headerText="Asunto de la Actividad">
+                                <h:outputLabel value="Asunto de la Actividad"></h:outputLabel>
+                        </p:column>
+                        <p:column sortBy="Estado" headerText="Estado">
+                                <h:outputLabel value="Estado"></h:outputLabel>
+                        </p:column>
+                        <p:column sortBy="Vencimiento" headerText="Vencimiento">
+                                <h:outputLabel value="Vencimiento"></h:outputLabel>
+                        </p:column>
+                        <p:column sortBy="% Compl." headerText="% Compl.">
+                                <h:outputLabel value="% Compl."></h:outputLabel>
+                        </p:column>
+                        <p:column sortBy="F. Cumpl." headerText="F. Cumpl.">
+                                <h:outputLabel value="F. Cumpl."></h:outputLabel>
+                        </p:column>
+                        <p:column sortBy="Campana" headerText="Campana">
+                                <h:outputLabel value="Campana"></h:outputLabel>
+                        </p:column>
+                        <p:column sortBy="Responsable" headerText="Responsable">
+                                <h:outputLabel value="Responsable"></h:outputLabel>
+                        </p:column>
+                        <p:column sortBy="" headerText=""></p:column>
+                </p:dataTable>
+        </p:scrollPanel>
+    </div>
+</h:body> 
+</html>

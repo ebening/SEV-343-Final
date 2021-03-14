@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	
+</h:head>
+<body>
+
+<h:form id="mainForm">
+		<h1 class="title">#{MBCatListDet.catalogNametitle}</h1>
+
+		<p:messages id="messages" autoUpdate="true" closable="true" />
+	    <h:panelGrid id="panelZona" columns="3">
+
+		 <h:outputLabel for="idCatItem" value="&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;ID&#160;" 
+		 style="display:block; text-align:right"/> 
+				 <p:inputText id="idCatItem"  value="#{MBCatListDet.catListDet.idItem}" disabled="true">
+				</p:inputText>
+		 <br />	
+        
+        <h:outputLabel for="parentItem" value="&#160;&#160;PARENT ITEM&#160;" 
+        	style="display:block; text-align:right"/>  
+            <p:selectOneMenu id="parentItem"  value="#{MBCatListDet.catListDet.idItem}"
+            style="width:150px;" >
+            	<f:selectItem itemLabel="Seleccionar" itemValue="#{null}" />
+                <f:selectItems value="#{MBCatListDet.catListDets}" var="item" itemLabel="#{item.code}" itemValue="#{item.id}"/>
+        </p:selectOneMenu>
+        
+        <br/>
+		 
+		<h:outputLabel for="code" value="&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;CODIGO&#160;" 
+		style="display:block; text-align:right"/> 
+				 <p:inputText id="code"  value="#{MBCatListDet.catListDet.code}">
+				</p:inputText>
+				
+		<br />
+       
+       	<h:outputLabel for="catCategoria" value="&#160;ID CATEGORIA&#160;" style="display:block; text-align:right"/> 
+            <p:selectOneMenu id="catCategoria"  value="#{MBCatListDet.catCategory.idCategory}"
+            style="width:150px;" >
+                <f:selectItem itemLabel="Seleccionar" itemValue="#{null}" />  
+                <f:selectItems value="#{MBCatListDet.catCategoryList}" var="item" itemLabel="#{item.code}" itemValue="#{item.idCategory}"/>
+        	</p:selectOneMenu>
+
+        <br />	
+	
+		<h:outputLabel for="catSubCategory" value="&#160;&#160;&#160;&#160;ID SUB CATEGORIA&#160;" 
+			style="display:block; text-align:right"/>
+            <p:selectOneMenu id="catSubCategory"  value="#{MBCatListDet.catSubCategory.idSubcategory}"
+            style="width:150px;" >
+                <f:selectItem itemLabel="Seleccionar" itemValue="#{null}" />  
+                <f:selectItems value="#{MBCatListDet.catSubCategoryList}" var="item" itemLabel="#{item.code}" itemValue="#{item.idSubcategory}"/>
+        	</p:selectOneMenu>
+
+		<br />
+				
+		<h:outputLabel for="catProveedor" value="&#160;&#160;&#160;&#160;ID PROVEEDOR&#160;" 
+			style="display:block; text-align:right"/>
+            <p:selectOneMenu id="catProveedor"  value="#{MBCatListDet.catProveedor.proveedorId}"
+            style="width:150px;" >
+                <f:selectItem itemLabel="Seleccionar" itemValue="#{null}" />  
+                <f:selectItems value="#{MBCatListDet.catProveedorList}" var="item" itemLabel="#{item.code}" itemValue="#{item.proveedorId}"/>
+        	</p:selectOneMenu>
+
+		<br />
+			
+        <h:outputLabel for="catDescripcion" value="&#160;&#160;&#160;&#160;ID DESCRIPCION&#160;" 
+        	style="display:block; text-align:right"/>  
+            <p:selectOneMenu id="catDescripcion"  value="#{MBCatListDet.catDescripcion.idDescripcion}"
+            style="width:150px;" >
+                <f:selectItem itemLabel="Seleccionar" itemValue="#{null}" />  
+                <f:selectItems value="#{MBCatListDet.catDescripcionList}" var="item" itemLabel="#{item.code}" itemValue="#{item.idDescripcion}"/>
+        </p:selectOneMenu>
+        
+        <br />
+        
+        <h:outputLabel for="catLista" value="&#160;&#160;&#160;&#160;ID LISTA&#160;" 
+        	style="display:block; text-align:right"/>  
+            <p:selectOneMenu id="catLista"  value="#{MBCatListDet.catLista.idLista}"
+            style="width:150px;" >
+                <f:selectItem itemLabel="Seleccionar" itemValue="#{null}" />  
+                <f:selectItems value="#{MBCatListDet.catListas}" var="item" itemLabel="#{item.code}" itemValue="#{item.idLista}"/>
+        </p:selectOneMenu>
+        
+              
+       
+                
+	 <h:panelGroup style="display:block; text-align:right">
+				<p:commandButton value="Guardar" action="#{MBCatListDet.addCatListDet}" update=":mainForm"/>
+				
+	            <p:commandButton value="Cancelar" style="margin-left: 5px;" action="#{MBCatListDet.reset}" update=":mainForm"/>	
+	</h:panelGroup>
+	      </h:panelGrid>
+	<br />
+	<br />
+	
+	    <p:dataTable id="dataTableZone" var="item" value="#{MBCatListDet.catListDets}" paginator="true" rows="10"
+	                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+	                 emptyMessage="Vacio" resizableColumns="true" styleClass="ui-datatable-hor-scroll">
+	            <p:column  style="">
+	            												
+					<p:commandButton id="edit" action="#{MBCatListDet.setCatListDetInfo(item)}" process="@this"
+                            update=":mainForm" icon="ui-icon-search" />
+					
+					<p:commandButton id="delete" onclick="cd.show()" icon="ui-icon-trash" process="@this"
+	            	action="#{MBCatListDet.setCatListDetInfo(item)}"/>
+					
+					<p:confirmDialog message="¿Desea eliminar el registro seleccionado?" 
+	                header="Confirmación" severity="alert"
+	                showEffect="fade" hideEffect="explode" widgetVar="cd" icon="ui-icon-trash" appendToBody="true">
+	                    
+	                <p:commandButton value="Si" styleClass="ui-confirmdialog-yes"
+	                  icon="ui-icon-check"
+	                  update=":mainForm" 
+	                  action="#{MBCatListDet.removeCatListDet}"
+	                  process="@this" 
+	                  onclick="cd.hide()" />
+	
+					<p:commandButton value="No"  styleClass="ui-confirmdialog-no"
+                    action="#{MBCatListDet.reset}" 
+                    process="@this" 
+                    update=":mainForm"
+                    onclick="cd.hide()"/>
+	                </p:confirmDialog>													
+						            		            
+			</p:column>
+			
+			<p:column headerText="LISTA" resizable="true" sortBy="#{item.id}">
+					<h:outputText value="#{item.id}" />
+			</p:column>	            
+	            
+	       <p:column headerText="SKU PRODUCTO" resizable="true" sortBy="#{item.idItem}">
+					<h:outputText value="#{item.idItem}" />
+			</p:column>
+
+			<p:column headerText="CODIGO" resizable="true" sortBy="#{item.code}">
+					<h:outputText value="#{item.code}" />
+			</p:column>
+			
+			<p:column headerText="ID CATEGORIA" resizable="true" sortBy="#{item.catCategory.id}">
+					<h:outputText value="#{item.catCategory.categoryId}" />
+			</p:column>
+			
+			<p:column headerText="ID SUBCATEGORIA" resizable="true" sortBy="#{item.catSubCategory.subCategoryId}">
+					<h:outputText value="#{item.catSubCategory.subCategoryId}" />
+			</p:column>
+
+			<p:column headerText="ID PROVEEDOR" resizable="true" sortBy="#{item.catProveedor.proveedorId}">
+					<h:outputText value="#{item.catProveedor.proveedorId}" />
+			</p:column>
+			
+			<p:column headerText="ID DESCRIPCION" resizable="true" sortBy="#{item.catDescripcion.idDescripcion}">
+					<h:outputText value="#{item.catDescripcion.idDescripcion}" />
+			</p:column>
+			
+			<p:column headerText="ID LISTA" resizable="true" sortBy="#{item.catLista.idLista}">
+					<h:outputText value="#{item.catLista.idLista}" />
+			</p:column>
+		
+	    </p:dataTable>
+	
+	</h:form>
+
+</body>
+</html>

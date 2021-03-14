@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+<h:head>
+	<h:outputStylesheet library="css" name="ModuloCampanaStyle.css" />
+</h:head>
+<h:body>
+	<p:button value="Open Medio" onclick="w_medio.show();return false;" />
+	<p:dialog header="Agregar Nuevo Medio" modal="true" widgetVar="w_medio">
+		<center>
+			<ui:include src="/pages/AltaMedio.xhtml" />
+		</center>
+	</p:dialog>
+
+	<p:button value="Open folleto"
+		onclick="w_folleto.show(); return false;" />
+	<p:dialog header="Folleto" modal="true" widgetVar="w_folleto"
+		global="true" appendToBody="false">
+		<center>
+			<ui:include src="/pages/AltaFolleto.xhtml" />
+		</center>
+
+	</p:dialog>
+
+
+	<p:button value="Open prensa" onclick="w_prensa.show(); return false;" />
+	<p:dialog header="Folleto" modal="true" widgetVar="w_prensa"
+		global="true" appendToBody="false">
+		<center>
+
+			<ui:include src="/pages/AltaPrensa.xhtml" />
+		</center>
+	</p:dialog>
+	<h:form>
+		<p:selectOneMenu value="#{campanaController.medio}">
+			<f:selectItems value="#{campanaController.medios}" />
+		</p:selectOneMenu>
+
+		<p:selectOneMenu id="tipo" value="#{campanaController.tipo}">
+			<f:selectItems value="#{campanaController.tipos}" />
+		</p:selectOneMenu>
+	</h:form>
+
+
+</h:body>
+</html>

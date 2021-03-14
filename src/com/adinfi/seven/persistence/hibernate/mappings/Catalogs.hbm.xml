@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated 19/08/2013 10:38:15 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.Catalogs" table="CATALOGS">
+        <id name="catId" type="int">
+            <column name="CAT_ID" />
+            <generator class="assigned" />
+        </id>
+        <property name="catName" type="string">
+            <column name="CAT_NAME" length="15" not-null="true" />
+        </property>
+        <property name="descrip" type="string">
+            <column name="DESCRIP" length="40" />
+        </property>
+        <property name="estatus" type="java.lang.Character">
+            <column name="ESTATUS" length="1" />
+        </property>
+        <set name="catViewForCatId" inverse="true">
+            <key>
+                <column name="CAT_ID" not-null="true" />
+            </key>
+            <one-to-many class="com.adinfi.seven.business.domain.CatView" />
+        </set>
+    </class>
+</hibernate-mapping>

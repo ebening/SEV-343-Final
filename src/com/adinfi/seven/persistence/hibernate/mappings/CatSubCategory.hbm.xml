@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"classpath://org/hibernate/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 29, 2014 11:31:30 AM by Hibernate Tools 3.6.0 -->
+<!-- <hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.CatSubCategory" table="CAT_SUBCATEGORY">
+        <id name="subCategoryId" type="int">
+            <column name="ID_SUBCATEGORY" />
+            <generator class="assigned"/>
+        </id>
+        <property name="code" type="string">
+            <column name="CODE" length="100" not-null="true"/>
+        </property>
+        <many-to-one name="catCategory" class="com.adinfi.seven.business.domain.CatCategory" fetch="select">
+            <column name="ID_CATEGORY" not-null="true" />
+        </many-to-one>
+    </class>
+</hibernate-mapping> -->
+
+<hibernate-mapping>
+    <class name="com.adinfi.seven.business.domain.CatSubCategory" table="CAT_SUBCATEGORY">
+        <id name="idSubcategory" type="integer">
+            <column name="ID_SUBCATEGORY" />
+            <generator class="assigned" />
+        </id>
+        
+        <many-to-one name="catCategory" class="com.adinfi.seven.business.domain.CatCategory" fetch="select">
+            <column name="ID_CATEGORY"  not-null="true"/>
+        </many-to-one>
+        
+        <property name="code" type="string">
+            <column name="CODE" length="100" />
+        </property>
+        
+    </class>
+</hibernate-mapping>

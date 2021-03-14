@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+	<link rel="stylesheet" href="css/FontAnd Color.css" type="text/css" />
+</h:head> 
+<h:body> 
+	<div style="min-height: 150px; height: 300px; border: 1px solid Silver;background: white;" id="divPrincipal_MenuLateral">
+	    <div style="padding-left: 5px;padding-bottom: 2px;vertical-align: middle; color: #6b6b6b;font-size: 1em;background: #e6e6e6">
+    		<h:outputLabel value="Mis Actividades" />
+    	</div>
+    		<span style="padding-left: 8px;color: gray; text-decoration: underline;">
+    			<h:outputLabel value="Ver Todas"/>
+    		</span>
+	    	<p:tree value="" var="node" id="tree" style="height: 84%;width: 98%;">  
+		        <p:treeNode id="treeNode">  
+		            <h:outputText value="Regreso a clases" id="lblNode"/>  
+		        </p:treeNode>  
+    		</p:tree>
+    </div>
+	    	<div>
+	        	<div id="id_menu_getCalendario" onclick="getCalendario();">
+	        		<h:graphicImage title="Calendario" value="images/actividades/calendario.png" width="32px"/>
+	        		<h:outputLabel value="Calendario"/>
+	        	</div>
+				<div id="id_menu_dashboard">
+					<h:graphicImage title="DashBoard" value="images/actividades/dashboard.png" width="32px" />
+					<h:outputLabel value="DashBoard" />
+				</div>
+	        	<div id="id_menu_gatActividades" onclick="getActividades();">
+	        		<h:graphicImage title="Mis Actividades" value="images/actividades/mis_actividades.png" width="32px"/>
+	        		<h:outputLabel value="Mis Actividades"/>
+	        	</div>
+	        	<div id="id_menu_openOutlook" onclick="OpenOutlok()" style="cursor: pointer;">
+	        		<h:graphicImage title="correo" value="images/actividades/correo.png" width="32px"/>
+	        		<h:outputLabel value="Correo"/>
+	        	</div>
+	   		</div>
+</h:body> 
+</html>

@@ -1,0 +1,161 @@
+@CHARSET "ISO-8859-1";
+
+/**************************************/
+/* Dialogo Analisis Seleccion Guardar */
+/**************************************/
+
+#AnalisisSeleccionGuardarDivPrincipal{
+	background: White;
+	width: 400px;
+	height: 140px;
+	/*border: 1px solid Silver;*/
+}
+
+#AnalisisSeleccionGuardarDivHeader{
+	background: White;
+	width: 100%;
+	/*height: 25px;*/
+	/*padding-top: 2px;*/
+	padding-bottom: 5px;
+	border-bottom: 2px solid Gray; 
+}
+
+#AnalisisSeleccionGuardarDivContenido{
+	background: White;
+	width: 100%;
+	height: 100px;
+	/*border-bottom: 1px solid Black;*/
+}
+
+.AnalisisSeleccionGuardarImagenHeader{
+	height: 18px;
+}
+
+.AnalisisSeleccionButton{
+	color: white; 
+	height: 22px;
+}
+#txtGuardar_AnalisisGuardar{
+	height: 20px; 
+	width:180px;
+	padding-top: 5px;
+}
+
+
+/************************************************/
+/* Dialogo Analisis Seleccion Agregar Articulos */
+/************************************************/
+
+#AnalisisSeleccionAgregarArticuloDivPrincpial{
+	background: White;
+	width: 400px;
+	height: 140px;
+	/*border: 1px solid Silver;*/
+}
+
+#AnalisisSeleccionAgregarArticuloDivHeader{
+	background: White;
+	width: 100%;
+	height: 22px;
+	/*padding-top: 2px;*/
+	/*padding-bottom: 5px;*/
+	border-bottom: 2px solid Gray; 
+}
+
+.AnalisisSeleccionAgregarArticuloImagenHeader{
+	height: 18px;
+}
+
+#AnalisisSeleccionAgregarArticuloDivContenido{
+	background: White;
+	width: 100%;
+	height: 100px;
+	/*border-bottom: 1px solid Black;*/
+}
+
+#agregarSku_AgregarArticulo{
+	height: 18px; 
+	width:240px; 
+	font-size: 9pt;
+	background-image:
+		url(../images/extras/buscar24.png);
+	background-repeat: no-repeat;
+	/*width:100px;
+	height:24px;*/
+	padding-left : 30px;
+	padding-top:4px;
+	/*border: 0.5px solid silver;*/
+}
+
+#btnAgregar_AgregarArticulo{
+	color: white;
+	height: 22px;
+	font-size: 11px;
+}
+
+
+
+/**********************************************/
+/*	Dialogo AgregarNuevoMedio Modulo Analisis */
+/**********************************************/
+
+#dialog_NuevoMedio{
+	background: White;
+	width: 377px!important;
+	/*border: 1px solid Silver;*/
+}
+
+#divHeaderNuevoMedio{
+	background: White;
+	width: 375px;
+	border-bottom: 3px solid DimGray;
+}
+#divCuerpoNuevoMedio{
+	background: White;
+	width: 375px;
+	padding-top: 20px;
+}
+
+.nuevaMedioimgLogo{
+	width: 80px;
+	height: 18px;
+	padding-bottom: 5px;
+	/*padding-left:10px;
+	padding-top: 2px;*/
+}
+
+#tableContenidoNuevoMedio{
+	/*border: 1px solid Black;*/
+	padding: 5px;
+	/*height: 100px;*/
+	width: 90%;
+	height: 80px;
+}
+
+#divButtonNuevoMedio{
+	background: White;
+	padding-top: 15px;
+	text-align: right;
+	padding-right: 25px;
+	padding-bottom: 8px;
+}
+
+
+#btnEspecificar{
+	color: White;
+	height: 25px;
+	font-size: 8pt;
+}
+
+#DialogAgregarNuevoMedioFolleto{
+	color: White;
+	height: 25px;
+	font-size: 8pt;
+}
+
+#DialogAgregarNuevoMedioMaterialPop{
+	color: White;
+	height: 25px;
+	font-size: 8pt;
+}
+

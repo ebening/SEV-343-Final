@@ -1,0 +1,64 @@
+@CHARSET "ISO-8859-1";
+
+#divPrincipal{
+	width:435px;
+	height:225px;
+	background:Silver;
+}
+
+.btnFinalizar{
+	background-color:#EE3B3B;
+	color:white;
+	cursor:pointer;
+	cursor:hand;
+}
+
+#divButton{
+	text-align:right;
+	background-color:white;
+	padding-bottom:4px;
+	padding-right:8px;
+	width:430px;
+}
+
+#TablePlaneacion{
+	background:White;
+	margin-top:2px;
+	padding-top:10px;
+	width:100%;
+}
+#divHeader{
+	background: white;
+	padding-bottom:4px;
+	padding-left:8px;
+}
+.imgLogo{
+	height:17px;
+	width:70px;
+}
+
+#tableZonas{
+	background:white;
+	border:0px;
+	width:100%;
+	border-right:1px solid silver;
+	
+}
+
+#tableZonas td{
+	padding-top:9px;
+}
+
+#tableTiendas{
+	background:white;
+	width:100%;
+	border-left:1px solid Silver;
+}
+
+#tableTiendas td{
+	padding-top:9px;
+}
+
+#divBase{
+	background:white;
+}

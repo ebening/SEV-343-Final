@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <h:outputStylesheet library="css" name="ModuloCampanaStyle.css" />
+</h:head>
+<h:body>
+	<ui:composition template="template/common/commonLayout.xhtml">
+		<script type="text/javascript" src="../resources/js/localePrimefaces.js"></script>
+		<ui:define name="sections">
+			<h:form id="frmSubMenu">
+				<p:commandLink value="PERIODO PROMOCIONAL" ajax="true" update=":pgPrincipalLogin :frmMenuLogin" style="text-decoration: none;"
+					action="#{campanaControllerSeven.init}" oncomplete="document.getElementById('frmCampana:multiCamp:globalFilter').value = ''; varCamp.filter();">
+					<f:setPropertyActionListener target="#{campanaControllerSeven.section}" value="campanias"/>	
+				</p:commandLink>
+				<p:commandButton id="idSaveCamp" ajax="true" update=":pgPrincipalLogin :frmMenuLogin" 
+							action="#{campanaControllerSeven.succesSaveMessage}" style="visibility: hidden"/>
+			</h:form>
+		</ui:define>
+		<ui:define name="west">
+			<script type="text/javascript" src="../resources/js/menu_jquery.js"></script>
+			<p:layoutUnit position="west" size="250" header="&nbsp;" styleClass="header-panel" resizable="true" closable="false" collapsible="false" id="west" >
+				<h:form id="frmMenuLogin">
+					<p:tree value="#{campanaControllerSeven.raiz}" style="border: none;"
+						dynamic="true" selectionMode="single" cache="false" 
+						selection="#{campanaControllerSeven.selectedNode}" 
+                        var="node"
+                        onNodeClick="nodeSelected(node);"
+						id="tree">
+						
+						<p:ajax event="select"
+							listener="#{campanaControllerSeven.onNodeSelect}" 
+							onstart="muestraLoader();"
+							onsuccess="ocultaLoader();"
+							update=":pgPrincipalLogin :frmCampana" 
+                               oncomplete="filterCampaignGrid();"
+                               />
+						<p:ajax event="expand"
+							listener="#{campanaControllerSeven.onNodeExpand}" />
+						<p:ajax event="collapse" global="true"
+							listener="#{campanaControllerSeven.onNodeCollapse}" />
+						<p:ajax event="unselect" global="true"
+							listener="#{campanaControllerSeven.onNodeUnselect}" />
+						<p:treeNode id="treeNode">
+                           	<b>
+                           		<h:outputText value="#{node}" id="lblNode"  />
+                           	</b>
+						</p:treeNode>	
+					</p:tree>
+                    <h:inputHidden value="#{campanaControllerSeven.selectedCampainOnGrid}" id="selectedNodeHidden"/>
+                    <h:inputHidden value="#{campanaControllerSeven.selectedCampainType}" id="selectedNodeTypeHidden" />
+				</h:form>
+			</p:layoutUnit>
+		</ui:define>
+		<ui:define name="content">
+			<h:panelGroup id="pgPrincipalLogin">
+				<p:messages closable="true" autoUpdate="true"/>
+				<h:panelGroup rendered="#{campanaControllerSeven.consulta}">
+					<ui:include src="/pages/ConsultaCampanasSeven.xhtml"/>
+				</h:panelGroup>
+				<h:panelGroup rendered="#{campanaControllerSeven.alta}">
+					<ui:include src="/pages/CrearCampana1Seven.xhtml" />
+				</h:panelGroup>
+				<h:panelGroup rendered="#{campanaControllerSeven.altaPrograma}">
+					<ui:include src="/pages/EditarProgramas.xhtml" />
+				</h:panelGroup>
+				<h:panelGroup rendered="#{campanaControllerSeven.edicion or campanaControllerSeven.detalle}">
+					<ui:include src="/pages/EditarCampanaSeven.xhtml" />
+				</h:panelGroup>
+			</h:panelGroup>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

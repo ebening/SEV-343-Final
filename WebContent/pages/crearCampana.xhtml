@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+<style type="text/css">
+.companyHeaderGrid tr, .companyHeaderGrid td {
+    border: none;
+}
+.unresizable {
+    resize: none;
+}
+
+.ui-custompanelgrid, .ui-custompanelgrid tr, .ui-custompanelgrid td {
+  background-color: #F0F0F0 !important; 
+ /* background-color: linear-gradient(top, black, white);*/
+
+/* background-image: -moz-linear-gradient(bottom, #788268 46%, #AFC29F 100%); */
+ /* background: -moz-linear-gradient(top, #e2e2e2 0%, #dbdbdb 50%, #d1d1d1 51%, #fefefe 100%); */
+
+    border: none; 
+}
+
+</style>
+</h:head>
+<h:body>
+	<h:form>
+		
+		<p:outputPanel id="grids">
+		<p:panelGrid styleClass="ui-custompanelgrid" id="crearCampana" cellspacing="10" 
+		columnClasses="formLabel, formField" width="80%">
+		
+<!-- 		 <f:facet name="header">  
+        <p:row>  
+            <p:column colspan="7">Nueva Campaña</p:column>  
+        </p:row>   
+    </f:facet>   -->
+    
+    <p:row>  
+        <p:column colspan="2">
+           <h:outputLabel value="Tipo Evento Promocional" /> 
+		</p:column>  
+ 		 <p:column colspan="2">
+            <p:selectOneMenu value="1">  
+	           <f:selectItem itemLabel="Seleccione" itemValue="0" />  
+	           <f:selectItems value="1" />  
+		 </p:selectOneMenu>
+		</p:column>
+    </p:row> 
+    
+     <p:row>  
+        <p:column colspan="2">
+			<h:outputLabel value="Titulo" />
+		</p:column>  
+ 		 <p:column colspan="2">
+            <p:inputText size="50" value="1" />            
+          <p:spacer height="30"/>  
+       
+				<h:outputLabel value="Etiqueta" />
+
+			 <p:spacer height="30"/>  
+			 
+				<p:selectOneMenu value="1">  
+			           <f:selectItem itemLabel="Seleccionar" itemValue="0" />  
+			           <f:selectItems value="1" />  
+		 		</p:selectOneMenu>
+
+		</p:column>
+    </p:row>  
+    
+    <p:row>  
+        <p:column colspan="2">
+          	<h:outputLabel value="Periodo" />
+		</p:column>  
+ 		 <p:column colspan="2">
+       
+		<p:selectOneMenu value="1">  
+			           <f:selectItem itemLabel="Seleccionar" itemValue="0" />  
+			           <f:selectItems value="1" />  
+		 </p:selectOneMenu>
+		</p:column> 
+    </p:row> 
+		
+ 	<p:row>  
+        <p:column colspan="2">
+          	<h:outputLabel value="Responsable" />
+		</p:column>  
+ 		 <p:column colspan="2">
+           <p:selectOneMenu value="1">  
+	            <f:selectItem itemLabel="Seleccionar" itemValue="0" />  
+	            <f:selectItems  itemLabel="1"
+						itemValue="1" value="1" />
+			</p:selectOneMenu>		
+		</p:column>
+    </p:row> 
+    
+    <p:row>  
+        <p:column colspan="2">
+          	<h:outputLabel value="#{msg.crearCadena}" />
+		</p:column>  
+ 		 <p:column >
+           <p:inputTextarea value="2" rows="5" cols="80" 
+           styleClass="unresizable" autoResize="false" maxlength="350"/>
+		</p:column>
+    </p:row>  
+     <p:row> 
+        <p:column colspan="2">
+        <p:spacer width="100" height="170" />
+        </p:column>
+     </p:row>
+     <p:row>  
+        <p:column colspan="2">
+         <p:commandButton id="crear" value="#{msg.crearCadena}" action="#{campanaControllerSeven.info()}" />
+		</p:column>  
+ 		 <p:column >
+          <div align="right">
+		   <p:commandButton onclick="cd.show()" value="#{msg.misAutorizaciones}" update="grid"/>
+	 	</div>
+		</p:column>
+    </p:row>            
+	</p:panelGrid>  	
+    </p:outputPanel> 		
+   	
+	
+		 <p:dialog  header="Selección de Categorias" global="true"  widgetVar="cd"
+			                appendToBody="false" modal="true" width="300" height="230">
+		        														        				 
+				<p:selectManyCheckbox id="grid" value="#{campanaControllerSeven.selectedCategories}" layout="pageDirection" >
+					<f:selectItems value="#{campanaControllerSeven.mCategories}" />
+				</p:selectManyCheckbox>
+				
+				 <p:commandButton  value="#{msg.finalizar}" onclick="cd.hide()"
+	            	action="#{campanaControllerSeven.getSelectedCategorias1}"/>
+	            	
+	      </p:dialog>
+	</h:form>
+</h:body>
+</html>

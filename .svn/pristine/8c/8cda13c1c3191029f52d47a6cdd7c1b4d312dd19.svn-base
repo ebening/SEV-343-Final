@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+<h:head>
+</h:head>
+<h:body onload="#{ABCMarcaLogoMB.init()}">
+	<h:form id="arqLogo" prependId="false" accept="multipart/form-data" enctype="">
+		<p:ajaxStatus onstart="openLoading()" oncomplete="closeLoading()" />
+		<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+		<p:panel header="ABC Marcas y Logos" styleClass="panel-form">
+			<p:panelGrid id="panelLogo" columns="2" styleClass="form-content" style="width: 100%" cellpadding="0" cellspacing="15">
+				<p:panelGrid id="panelInfo" columns="3" styleClass="form-content" cellpadding="0" cellspacing="15">
+						
+						<p:outputLabel for="marca" value="Marca: " />
+						<p:selectOneMenu value="#{ABCMarcaLogoMB.idMarcaLogo}" id="marca" >
+							<f:selectItem itemLabel="Seleccione" itemValue="0" />
+							<f:selectItems value="#{ABCMarcaLogoMB.marcaLogo}" />
+						</p:selectOneMenu>
+						<p:commandButton value="Buscar" styleClass="common-button" actionListener="#{ABCMarcaLogoMB.generarImagenes()}" update="dgimg, marca, preimg" />
+
+						<p:outputLabel for="imagen" value="Imagen: " />
+						<p:inputText id="imagen" value="#{ABCMarcaLogoMB.imagen}" readonly="true" size="30"/>
+						<p:fileUpload fileUploadListener="#{ABCMarcaLogoMB.subirFoto}"  allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+									  showButtons="false" label="Examinar" update="imagen, preimg, messages" />
+
+				</p:panelGrid>
+
+				<c:if test="#{ABCMarcaLogoMB.imagen ne null and ABCMarcaLogoMB.imagen.trim() ne ''}">
+					<p:graphicImage id="preimg" width="150px" value="#{ABCMarcaLogoMB.rutaCarga}#{ABCMarcaLogoMB.imagen}" />
+				</c:if>
+				<c:if test="#{ABCMarcaLogoMB.imagen eq null or ABCMarcaLogoMB.imagen.trim() eq ''}">
+					<h:inputHidden id="preimg" />
+				</c:if>
+				
+				<f:facet name="footer">
+					<p:commandButton value="Guardar" styleClass="common-button" actionListener="#{ABCMarcaLogoMB.save()}" update="dgimg, imagen, preimg"/>
+				</f:facet>
+			</p:panelGrid>
+		</p:panel>
+		<p:panel header="Imagenes de la Marca" styleClass="panel-form" style="margin-bottom:10px;">	
+			<p:dataGrid id="dgimg" var="img" styleClass="form-content" value="#{ABCMarcaLogoMB.marcaLogoDet}" columns="#{ABCMarcaLogoMB.marcaLogoDet.size()}" emptyMessage="Sin imagenes">
+				<p:column>
+					<p:graphicImage width="80px" value="#{ABCMarcaLogoMB.rutaCarga}#{img.pathLogo}" />
+				</p:column>
+			</p:dataGrid>
+		</p:panel>
+	</h:form>
+</h:body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+<h:outputStylesheet library="css" name="ReportesStyle.css" />
+</h:head>
+<h:body >
+	<h:form rendered="#{reporteController.reporteArticulosSinFotoDescripcion}">
+		<h:panelGrid>
+			<h:outputLabel id="titulo"
+					value="Reporte de Artículos Sin Foto/Descripción" />
+			<h:column>
+				<h:panelGrid columns="7" style="">
+					<p:outputLabel value="Tipo Medio :" />
+					<p:selectOneMenu
+						value="#{reporteController.tipo}"  required="true" requiredMessage="#{msg.mensajeFolioRequerido}"  >
+						<f:selectItems value="#{reporteController.tipos}"
+							var="tipo" itemValue="#{tipo.value}" itemLabel="#{tipo.label}" />
+					</p:selectOneMenu>
+					<p:outputLabel value="Folio :"  />
+					<p:inputText value="#{reporteController.folio}" required="true" requiredMessage="#{msg.mensajeFolioRequerido}">
+					</p:inputText>
+				
+					<p:commandLink ajax="false">
+						<p:graphicImage value="../../resources/images/extras/excel25.png" />
+						<p:dataExporter  type="xls" target="articulosSin" fileName="ReporteArticulosSinFotoDescripcion" /> 
+					</p:commandLink>
+					<p:commandLink  ajax="false">
+						<p:graphicImage value="../../resources/images/extras/pdf25.png" />
+						<p:dataExporter type="pdf" target="articulosSin" fileName="ReporteArticulosSinFotoDescripcion" /> 
+					</p:commandLink>
+						<p:commandButton value="Generar Reporte"
+					ajax="true"
+					 action="#{reporteController.generarReporte('Reporte de Artículos sin foto descripcion')}" update=":pgPrincipalLogin"/> 
+					
+					
+				</h:panelGrid>
+			</h:column>
+			<h:panelGroup id="reporte" rendered="#{reporteController.table}">
+				<p:graphicImage value="../../resources/images/Logo_Admaster_35.png" />
+				<p:separator id="separator" />
+				<h:column>
+					<h:panelGrid columns="2">
+						<p:outputLabel value="Folio :" />
+						<p:outputLabel
+							value="#{reporteController.cabecera.folio}"  />
+						<p:outputLabel value="Campaña :"  />
+						<p:outputLabel
+							value="#{reporteController.cabecera.nombreCampania}" />
+						<p:outputLabel value="Vigencia :"  />
+						<p:outputLabel
+							value="#{reporteController.cabecera.vigencia}"  />
+					</h:panelGrid>
+				</h:column>
+				<h:column>
+					<p:dataTable id="articulosSin"
+						value="#{reporteController.listaArticulos}" paginator="true"
+						rows="30"
+						scrollable="true"  var="reporte">
+						<p:columns value="#{reporteController.columns}"
+							var="column" columnIndexVar="colIndex"
+							sortBy="#{reporte[column.property]}">
+							<f:facet name="header">
+								<p:outputLabel value="#{column.header}" />
+							</f:facet>
+							<p:outputLabel value="#{reporte[column.property]}" />
+						</p:columns>
+					</p:dataTable>
+				</h:column>
+			</h:panelGroup>
+		</h:panelGrid>
+
+	</h:form>
+</h:body>
+</html>

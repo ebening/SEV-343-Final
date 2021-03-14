@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+	<h:form id="frmDelegateGrid" style="font-size: 0.8em">
+		<p:panelGrid id="createActivityPanelDetails" cellpadding="5" >
+			<f:facet name="header">Actividad</f:facet>
+			<p:row>
+				<p:column>
+					<p:commandLink 
+						action="#{MBActivity.delegateActivity}"
+						update="dtDelegateGrid" oncomplete="validationCreate(xhr, status, args)">
+							<script type="text/javascript">
+							    function validationCreate(xhr, status, args){
+							    	if(args.fechaInicioDelega){
+										document.getElementById("frmDelegateGrid:fechaInicioDelega").setAttribute("style", "color:#000000;");
+							    	}else{
+							    		document.getElementById("frmDelegateGrid:fechaInicioDelega").setAttribute("style", "color:#FF0000;");
+								    }
+							    	if(args.fechaFinDelega){
+										document.getElementById("frmDelegateGrid:fechaFinDelega").setAttribute("style", "color:#000000;");
+							    	}else{
+							    		document.getElementById("frmDelegateGrid:fechaFinDelega").setAttribute("style", "color:#FF0000;");
+								    }
+								}
+							</script>
+						<h:graphicImage library="images/menu_nueva_actividad" name="guardar.png" width="30" height="30"/>
+					</p:commandLink>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<h:outputLabel value="Delegador:"/>
+				</p:column>
+				<p:column>
+					<h:outputLabel value="Delegar a:"/>
+				</p:column>
+				<p:column>
+					<h:outputLabel value="Fecha Inicio:" id="fechaInicioDelega"/>
+				</p:column>
+				<p:column>
+					<h:outputLabel value="Fecha Fin:" id="fechaFinDelega"/>
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<p:selectOneMenu value="#{MBActivity.delegate.idUsuarioDelega}">
+						<f:selectItems value="#{MBActivity.lstUsuarioDelega}"
+							var="item"
+							itemLabel="#{item.toString()}"
+							itemValue="#{item.userId}"/>
+					</p:selectOneMenu>
+				</p:column>
+				<p:column>
+					<p:selectOneMenu value="#{MBActivity.delegate.idUsuarioDelegado}">
+						<f:selectItems value="#{MBActivity.lstUsuarios}"
+							var="item"
+							itemLabel="#{item.toString()}"
+							itemValue="#{item.userId}"/>
+					</p:selectOneMenu>
+				</p:column>
+				<p:column>
+					<p:calendar value="#{MBActivity.delegate.fechaInicio}" pattern="dd/MM/yyyy"
+						readonlyInput="true" locale="es" showOn="button"/>
+				</p:column>
+				<p:column>
+					<p:calendar value="#{MBActivity.delegate.fechaFin}" pattern="dd/MM/yyyy" 
+						readonlyInput="true" locale="es" showOn="button"/>
+				</p:column>
+			</p:row>
+		</p:panelGrid>
+		<p:commandLink update="dtDelegateGrid"
+			action="#{MBActivity.deleteDelegateActivity}">
+			<p:graphicImage library="images/menu_nueva_actividad" name="eliminar.png" width="40" height="40"/>
+		</p:commandLink>
+		<p:dataTable id="dtDelegateGrid" var="item" rowIndexVar="rowIx" paginator="true" rows="10"  
+                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                emptyMessage="Vacio" resizableColumns="true" styleClass="ui-datatable-hor-scroll"
+                value="#{MBActivity.delegateModel}" selection="#{MBActivity.delegateSelection}" 
+                >
+                <p:column selectionMode="multiple" style="width:2%" />
+                <p:column sortBy="#{item.id}">
+                	<f:facet name="header">
+		    			<h:outputText value="Id" />
+		    		</f:facet>
+		    		<h:outputText value="#{item.id}" />
+                </p:column>
+                <p:column sortBy="#{item.delega.name}">
+                	<f:facet name="header">
+		    			<h:outputText value="Asigna" />
+		    		</f:facet>
+		    		<h:outputText value="#{item.delega.name}" />
+		    		<p:spacer width="10"/>
+					<h:outputText value="#{item.delega.plastName}" />
+                </p:column>
+                <p:column sortBy="#{item.delega.name}">
+                	<f:facet name="header">
+		    			<h:outputText value="Asignado" />
+		    		</f:facet>
+		    		<h:outputText value="#{item.delegado.name}" />
+		    		<p:spacer width="10"/>
+					<h:outputText value="#{item.delegado.plastName}" />
+                </p:column>
+                <p:column sortBy="#{item.fechaCierre}">
+                	<f:facet name="header">
+		    			<h:outputText value="Inicio" />
+		    		</f:facet>
+					<p:calendar value="#{item.fechaInicio}" pattern="dd/MM/yyyy"
+						readonlyInput="true" locale="es" disabled="true"/>
+                </p:column>
+                <p:column sortBy="#{item.fechaCierre}">
+                	<f:facet name="header">
+		    			<h:outputText value="Fin" />
+		    		</f:facet>
+					<p:calendar value="#{item.fechaFin}" pattern="dd/MM/yyyy"
+						readonlyInput="true" locale="es" disabled="true"/>
+                </p:column>
+		</p:dataTable>
+	</h:form>
+</html>

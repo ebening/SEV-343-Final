@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+<h:head>
+</h:head>
+<h:body>
+	<h:form id="arqpersonatemplatenew" enctype="multipart/form-data">
+		<p:ajaxStatus onstart="openLoading()" oncomplete="closeLoading()" />
+		<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+  		<p:panel header="Asociar Persona - Template" styleClass="panel-form">
+			<h:panelGrid id="panelNuevo" columns="2" styleClass="form-content" style="width: 100%">
+				
+				<h:outputLabel for="usuario" value="Persona: " />
+				<p:selectOneMenu value="#{ArquitecturaMB.usuarioId}" id="usuario">
+					<f:selectItem itemLabel="Seleccione" itemValue="0" />
+					<f:selectItems value="#{ArquitecturaMB.cmbUsuarios}" />
+					<p:ajax event="change"
+						listener="#{ArquitecturaMB.cargarCmbTempUser}" update="categoria, template" />
+				</p:selectOneMenu>
+				
+
+				<h:outputLabel for="categoria" value="Categoria: " />
+				<p:selectOneMenu value="#{ArquitecturaMB.categoriaId}" id="categoria">
+					<f:selectItem itemLabel="Seleccione" itemValue="0" />
+					<f:selectItems value="#{ArquitecturaMB.cmbCategorias}" />
+					<p:ajax event="change"
+						listener="#{ArquitecturaMB.cargarCmbTempUser}" update="template" />
+				</p:selectOneMenu>
+				
+				<h:outputLabel for="template" value="Template: " />
+				<p:selectOneMenu value="#{ArquitecturaMB.templateId}" id="template">
+					<f:selectItem itemLabel="Seleccione" itemValue="0" />
+					<f:selectItems value="#{ArquitecturaMB.cmbTemplates}" />
+					<p:ajax event="change" update="template" />
+				</p:selectOneMenu>
+				
+				<f:facet name="footer">
+					<p:commandButton value="Guardar" action="#{MBNavigator.setCurrentPage(ArquitecturaMB.asociarPersonaTemplate())}" 
+									 update=":pgPrincipalLogin" style="margin:0" styleClass="common-button" />
+				</f:facet>
+			</h:panelGrid>
+		</p:panel>
+	</h:form>
+</h:body>
+</html>

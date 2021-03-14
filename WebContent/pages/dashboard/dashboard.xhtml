@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+	<h:body>
+		<ui:composition template="../template/common/commonLayout.xhtml">
+		    <h:outputStylesheet library="css" name="dashboard.css" />
+		    <ui:define name="sections">
+		        <h:form id="frmSubMenu">
+		            <p:commandLink value="Dashboard" style="text-decoration: none;">
+		            </p:commandLink>
+		        </h:form>
+		    </ui:define>
+		
+		    <ui:define name="west">
+		    </ui:define>
+		    <ui:define name="content">
+		        <h:form id="formDashPrincipal" style="font-size: x-small">
+		            <p:messages id="messages" autoUpdate="true" closable="true" />
+		            <h:panelGroup rendered="#{!MBActividad.detalleView}">
+		                <ui:include src="dashboardList.xhtml" />
+		            </h:panelGroup>
+		            <h:panelGroup rendered="#{MBActividad.detalleView}">
+	                    <ui:include src="detalleDashboard.xhtml" />
+	                </h:panelGroup>
+		        </h:form>
+		    </ui:define>
+		</ui:composition>
+	</h:body>
+</html>

@@ -1,0 +1,342 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+<h:head></h:head>
+	<body>
+	<h:form id="frmActivitiesGrid" style="font-size: 0.8em">
+		<p:commandLink update="createActDialog:createActivityPanelDetails"
+			action="#{MBActividad.showActivity}" oncomplete="creatActivityPanel.show()">
+			<p:graphicImage library="images" name="actividades.png" width="25" height="25"/>
+		</p:commandLink>
+		<p:spacer width="10"/>
+		<p:commandLink 
+			action="#{MBActividad.editActivity}" oncomplete="editView(xhr, status, args)">
+			<script type="text/javascript">
+			    function editView(xhr, status, args){
+				    if(args.show){
+				    	editActivity.show();
+					}
+			    }
+			</script>
+			<p:graphicImage library="images/menu_nueva_actividad" name="editar.png" width="25" height="25"/>
+		</p:commandLink>
+		<p:spacer width="10"/>
+		<p:commandLink action="#{MBActividad.delegateActivity}" oncomplete="delegateView(xhr, status, args)">
+			<script type="text/javascript">
+			    function delegateView(xhr, status, args){
+				    if(args.show){
+				    	activityDelegate.show();
+					}
+			    }
+			</script>
+			<p:graphicImage library="images/menu_nueva_actividad" name="perioricidad.png" width="25" height="25"/>
+		</p:commandLink>
+		<p:spacer width="10"/>
+		<p:commandLink onclick="cd.show()">
+	    	<p:graphicImage library="images/menu_nueva_actividad" name="eliminar.png" width="25" height="25"/>
+		</p:commandLink>
+		<p:dialog widgetVar="cd"
+			header="Se eliminarán los resultados anteriores. ¿Desea continuar?"
+			showEffect="clip"
+			modal="true" styleClass="common-dialog" appendToBody="true" dynamic="true" style="font-size: 0.8em"
+			>
+			<p:commandButton value="Si" action="#{MBActividad.deleteActivity}" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"
+				update="dtActivityGrid,dtActivityGridPrint,:frmMenu,:frmActivitiesPanel,:pgActivitiesEast" oncomplete="cd.hide()"/>
+			<p:commandButton value="No" onclick="cd.hide()" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+		</p:dialog>
+		
+	    
+		<p:spacer width="10"/>
+	<!--	<p:commandLink update="dtActivityGrid,dtActivityGridPrint" action="#{MBActivity.completeActivity}">
+			<p:graphicImage library="images/menu_nueva_actividad" name="marcar como completada.png" width="25" height="25"/>
+		</p:commandLink> -->
+		<p:spacer width="10"/>
+		<p:commandLink ajax="false">
+		    <p:dataExporter type="xls" target="dtActivityGridPrint" fileName="actividades" postProcessor="#{MBActividad.postProcessXLS}"/>
+		    <h:graphicImage library="images/extras" name="excel.png" width="25" height="25"/>  
+		</p:commandLink>
+		<p:spacer width="10"/>
+		<p:commandLink ajax="false">
+		    <p:dataExporter type="pdf" target="dtActivityGridPrint" fileName="actividadesPdf"/>
+		    <h:graphicImage library="images/extras" name="pdf.png" width="25" height="25"/>  
+		</p:commandLink>
+		<p:spacer width="10"/>
+		<h:commandLink>
+			<p:printer target="dtActivityGridPrint" />
+			<p:graphicImage library="images/extras" name="imprimir.png" width="25" height="25"/>
+		</h:commandLink>
+		<br/>
+		<p:outputLabel value="Filtrar por fechas:"/>
+		<p:calendar value="#{MBActividad.startDate}" pattern="dd/MM/yyyy"
+			readonlyInput="true" locale="es" showOn="button" size="10"/>
+		<p:outputLabel value="a:"/>
+		<p:calendar value="#{MBActividad.endDate}" pattern="dd/MM/yyyy"
+			readonlyInput="true" locale="es" showOn="button" size="10"/>
+		<p:commandButton id="btnFilter" value="Filtrar" update="dtActivityGrid"
+			action="#{MBActividad.filterDates}" ajax="true"/>
+		<p:dataTable id="dtActivityGrid" var="item" rowIndexVar="rowIx" paginator="true" rows="10"  
+                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                emptyMessage="Vacio" resizableColumns="true" styleClass="grid-content"
+                value="#{MBActividad.actividadsMecanicasTable}" selection="#{MBActividad.actividadMecanicaSelected}"
+                widgetVar="dtActivityGridWV" >
+                <f:facet name="header">
+	                <DIV align="right">
+		                <p:outputPanel style="align:right">
+							<h:inputText id="globalFilter" onkeyup="dtActivityGridWV.filter()" />
+						</p:outputPanel>
+					</DIV>
+				</f:facet>
+                <p:column selectionMode="multile" style="width:5%" />
+                <p:column sortBy="#{item.descripcion}" filterBy="#{item.descripcion}" filterMatchMode="contains">
+                	<f:facet name="header">
+		    			<h:outputText value="Actividad" />
+		    		</f:facet>
+					<h:outputText value="#{item.descripcion}" />
+                </p:column>
+                <p:column sortBy="#{item.catEstatus.nombre}" filterBy="#{item.catEstatus.nombre}" filterMatchMode="contains">
+                	<f:facet name="header">
+		    			<h:outputText value="Estatus" />
+		    		</f:facet>
+					<h:outputText value="#{item.catEstatus.nombre}" />
+                </p:column>
+                <p:column sortBy="#{item.vigenciaFinal}" filterBy="#{item.vigenciaFinal}" filterMatchMode="contains">
+                	<f:facet name="header">
+		    			<h:outputText value="Vencimiento" />
+		    		</f:facet>
+					<p:calendar value="#{item.vigenciaFinal}" pattern="dd/MM/yyyy"
+						readonlyInput="true" locale="es" disabled="true"/>
+                </p:column>
+                <p:column sortBy="#{item.fechaFin}" filterBy="#{item.fechaFin}" filterMatchMode="contains" styleClass="calendarFilter">
+                	<f:facet name="header">
+		    			<h:outputText value="Fecha Cierre" />
+		    		</f:facet>
+					<p:calendar value="#{item.fechaFin}" pattern="dd/MM/yyyy"
+						readonlyInput="true" locale="es" disabled="true"/>
+                </p:column>
+            <!--    <p:column sortBy="#{item.tblCampana.nombre}" filterBy="#{item.tblCampana.nombre}" filterMatchMode="contains">
+                	<f:facet name="header">
+		    			<h:outputText value="Campaña" />
+		    		</f:facet>
+					<h:outputText value="#{item.tblCampana.nombre}" style="color: #{item.codigoColor}"/>
+                </p:column> -->
+                <p:column sortBy="#{item.catUsuariosByIdresponsable.nombre}" filterBy="#{item.catUsuariosByIdresponsable.nombre}" filterMatchMode="contains">
+                	<f:facet name="header">
+		    			<h:outputText value="Responsable" />
+		    		</f:facet>
+		    		<h:outputText value="#{item.catUsuariosByIdresponsable.nombre}" />
+                </p:column>
+                <p:column width="20" exportable="false" sortBy="#{item.semaforo}">
+                	<f:facet name="header"/>
+					<h:graphicImage library="images/extras" name="#{MBActividad.obtenerSemaforoCSS(item)}" width="15" height="15" value="#{MBActividad.obtenerSemaforoCSS(item)}"/>
+                </p:column>
+        </p:dataTable>
+        <div style="visibility:hidden">
+    <!--    <p:dataTable id="dtActivityGridPrint" var="item" rowIndexVar="rowIx"
+                emptyMessage="Vacio" styleClass="grid-content" 
+                value="#{MBActivity.activityModel}" selection="#{MBActivity.activitySelection}"
+                widgetVar="dtActivityGridWVPrint" >
+                <p:column>
+                	<f:facet name="header">
+		    			<h:outputText value="Actividad" />
+		    		</f:facet>
+					<h:outputText value="#{item.actividad}" />
+                </p:column>
+                <p:column>
+                	<f:facet name="header">
+		    			<h:outputText value="Estatus" />
+		    		</f:facet>
+					<h:outputText value="" />
+                </p:column>
+                <p:column>
+                	<f:facet name="header">
+		    			<h:outputText value="Vencimiento" />
+		    		</f:facet>
+					<p:calendar value="#{item.fechaFin}" pattern="dd/MM/yyyy"
+						readonlyInput="true" locale="es" disabled="true"/>
+                </p:column>
+                <p:column>
+                	<f:facet name="header">
+		    			<h:outputText value="Fecha Cierre" />
+		    		</f:facet>
+					<p:calendar value="#{item.fechaCierre}" pattern="dd/MM/yyyy"
+						readonlyInput="true" locale="es" disabled="true"/>
+                </p:column>
+                <p:column>
+                	<f:facet name="header">
+		    			<h:outputText value="Campaña" />
+		    		</f:facet>
+					<h:outputText value="#{item.tblCampana.nombre}" style="color: #{item.codigoColor}"/>
+                </p:column>
+                <p:column>
+                	<f:facet name="header">
+		    			<h:outputText value="Responsable" />
+		    		</f:facet>
+		    		<h:outputText value="#{item.usuarioByIdUsuarioResp.fullName}" />
+                </p:column>
+                <p:column width="20" exportable="false">
+                	<f:facet name="header"/>
+					<h:graphicImage library="images/extras" name="#{item.semaforo}" width="15" height="15" value="#{item.semaforo}"/>
+                </p:column>
+        </p:dataTable>
+        </div> -->
+        <p:dialog widgetVar="activityDelegate" showEffect="clip" hideEffect="clip"
+        	modal="true" styleClass="common-dialog" appendToBody="true" dynamic="true" style="font-size: 0.8em">
+			<p:panelGrid id="activityDelegateDetails" cellpadding="5" style="border:none">
+				<f:facet name="header">Delegar</f:facet>
+				<p:row>
+					<p:column>
+						<p:commandLink 
+						action="#{MBActividad.delegateActivity}"
+						update="dtActivityGrid,dtActivityGridPrint,:frmMenu,:frmActivitiesPanel,:pgActivitiesEast" oncomplete="delegateJS(xhr, status, args)">
+							<script type="text/javascript">
+							    function delegateJS(xhr, status, args){
+							    	activityDelegate.hide();
+								}
+							</script>
+						<h:graphicImage library="images/menu_nueva_actividad" name="guardar.png" width="30" height="30"/>
+						</p:commandLink>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+	        			<p:selectOneMenu value="#{MBActividad.userSelected}">
+							<f:selectItems value="#{MBActividad.usuariosList}"
+								var="item"
+								itemLabel="#{item.nombre}"
+								itemValue="#{item.idusuarios}"/>
+						</p:selectOneMenu>
+					</p:column>
+				</p:row>
+			</p:panelGrid>
+        </p:dialog>
+	<ui:include src="Activities/CreateDialog.xhtml" />	
+	</h:form> 
+	<p:dialog modal="true" styleClass="common-dialog"
+		appendToBody="true" widgetVar="editActivity" dynamic="true" style="font-size: 0.8em" header="Actividad">
+		<h:form id="fmrActivitiesEdit">
+			<p:panelGrid style="border:none">
+				<p:row>
+					<p:column>
+						<p:commandLink 
+							actionListener="#{MBActividad.saveActivity}"
+							update=":frmActivitiesGrid:dtActivityGrid,:frmActivitiesGrid:dtActivityGridPrint,:frmActivitiesPanel"
+							oncomplete="validationEdit(xhr, status, args)">
+							<script type="text/javascript">
+							    function validationEdit(xhr, status, args){
+							    	if(args.rangoValido){
+								    	document.getElementById("fmrActivitiesEdit:fechaRealInicio").setAttribute("style", "color:#000000;");
+                                                                        document.getElementById("fmrActivitiesEdit:fechaRealFin").setAttribute("style", "color:#000000;");
+                                                                        editActivity.hide();
+							    	}else{
+							    		document.getElementById("fmrActivitiesEdit:fechaRealInicio").setAttribute("style", "color:#FF0000;");
+							    		document.getElementById("fmrActivitiesEdit:fechaRealFin").setAttribute("style", "color:#FF0000;");
+								    }
+							    }
+							</script>
+							<h:graphicImage library="images/menu_nueva_actividad" name="guardar.png" width="30" height="30"/>
+						</p:commandLink>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+		        	</p:column>
+		        </p:row>
+				<p:row>
+					<p:column>
+						<p:outputLabel value="Campaña:"/>
+					</p:column>
+					<p:column>
+						<p:outputLabel value=""/>
+					</p:column>
+		            <p:column>
+						<p:outputLabel value="Duracion:"/>
+					</p:column>
+					<p:column>
+						<p:outputLabel value=""/>
+					</p:column>
+		        </p:row>
+		        <p:row>
+		            <p:column>
+						<p:outputLabel value="Nombre de la actividad:"/>
+					</p:column>
+					<p:column>
+						<p:outputLabel value="#{MBActividad.actividadMecanicaSelected.descripcion}"/>
+					</p:column>
+		            <p:column>
+						<h:outputLabel value="Estatus"/>
+					</p:column>
+					<p:column>
+						<p:selectOneMenu value="#{MBActividad.estatusSelected}">
+							<f:selectItems value="#{MBActividad.estatusList}"
+							var="itemEstatus"
+							itemLabel="#{itemEstatus.nombre}"
+							itemValue="#{itemEstatus.idestatus}"/>
+						</p:selectOneMenu>
+					</p:column>
+		        </p:row>
+		        <p:row>
+		            <p:column>
+						<p:outputLabel value="Responsable:"/>
+					</p:column>
+					<p:column>
+						<h:outputText value="#{MBActividad.actividadMecanicaSelected.catUsuariosByIdresponsable.nombre}" />
+						<p:spacer/>
+						<h:outputText value="#{MBActividad.actividadMecanicaSelected.catUsuariosByIdresponsable.plastName}" />
+						<p:spacer/>
+						<h:outputText value="#{MBActividad.actividadMecanicaSelected.catUsuariosByIdresponsable.mlastName}" />
+					</p:column>
+		            
+		            <p:column>
+						<p:outputLabel value="Inicio Vigencia:"/>
+					</p:column>
+					<p:column>
+						<p:calendar value="#{MBActividad.actividadMecanicaSelected.vigenciaInicio}" pattern="dd/MM/yyyy" readonlyInput="true" locale="es"/>
+		            </p:column>
+		            <p:column>
+						<p:outputLabel value="Fin Vigencia:"/>
+					</p:column>
+		            <p:column>
+		            	<p:calendar value="#{MBActividad.actividadMecanicaSelected.vigenciaFinal}" disabled="true" pattern="dd/MM/yyyy" readonlyInput="true" locale="es"/>
+		            </p:column>
+		        </p:row>
+		        <p:row>
+		            <p:column>
+						<p:outputLabel value="Rol:"/>
+					</p:column>
+					<p:column>
+						<p:outputLabel value="#{MBActividad.actividadMecanicaSelected.catUsuariosByIdresponsable.catRole.desc}"/>
+					</p:column>
+		            
+		            <p:column>
+						<p:outputLabel value="Inicio Real" id="fechaRealInicio"/>
+					</p:column>
+					<p:column>
+						<p:calendar value="#{MBActividad.actividadMecanicaSelected.vigenciaInicio}" pattern="dd/MM/yyyy" readonlyInput="true" locale="es" showOn="button"
+						maxdate="#{MBActividad.today}"/>
+		            </p:column>
+		            <p:column>
+						<p:outputLabel value="Fin Real" id="fechaRealFin"/>
+					</p:column>
+		            <p:column>
+		            	<p:calendar value="#{MBActividad.actividadMecanicaSelected.fechaFin}" pattern="dd/MM/yyyy" readonlyInput="true" locale="es" showOn="button"
+		            	maxdate="#{MBActividad.today}"/>
+		            </p:column>
+		        </p:row>
+		        <p:row>
+		        	<p:column>
+		        		<p:outputLabel value="% Completado"/>
+		        	</p:column>
+		        	<p:column>
+		        		<h:inputText id="numberGrid" value="#{MBActividad.actividadMecanicaSelected.avance}"/>
+						<p:slider for="numberGrid" minValue="0" maxValue="100"/>
+		        	</p:column>
+		        </p:row>
+			</p:panelGrid>
+		</h:form>
+	</p:dialog>
+	</body>
+</html>
